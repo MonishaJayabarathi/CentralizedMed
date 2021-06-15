@@ -20,7 +20,7 @@ buildStep:
     - dalfcs_docker_kvm
   artifacts:
     paths:
-    - group5/target
+    - target
   script:
     mvn compile
 
@@ -33,7 +33,7 @@ testStep:
     when: always
     reports:
       junit:
-        - group5/target/surefire-reports/TEST-*.xml
+        - target/surefire-reports/TEST-*.xml
   script:
     mvn verify
 
