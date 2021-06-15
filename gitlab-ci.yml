@@ -1,0 +1,51 @@
+variables:
+  # This is a place for you to define variables you can use
+  # later in the script by referring to the variable like so:
+  #   ${EXAMPLE_VARIABLE}
+  EXAMPLE_VARIABLE: "Example"
+  
+
+image: maven:latest
+
+
+stages:
+  - build
+  - test
+  - deploy
+
+buildStep:
+  image: maven:3-jdk-8
+  stage: build
+  tags:
+    - dalfcs_docker_kvm
+  artifacts:
+    paths:
+    - group5/target
+  script:
+    mvn compile
+
+testStep:
+  image: maven:3-jdk-8
+  stage: test
+  tags:
+    - dalfcs_docker_kvm
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - group5/target/surefire-reports/TEST-*.xml
+  script:
+    mvn verify
+
+deployStep:
+  stage: deploy
+  tags:
+    # I am tagging the ugrad runner, read this document to learn why:
+    # https://helpdesk.cs.dal.ca/gitlab
+    - dalfcs_docker_kvm
+  artifacts:
+    paths:
+      # Change this directory to the path that contains your built executable
+      - group5/target
+      - group5/src/main/conf
+  script:
