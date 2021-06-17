@@ -45,7 +45,7 @@ deployStep:
     paths:
       - target/centrailized_medi_application-1.0-SNAPSHOT.jar
   script:
-    - ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST}
-    - scp -r -o StrictHostKeyChecking=no target/centrailized_medi_application-1.0-SNAPSHOT.jar "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}_${APP_NAME}.jar"
+    - ssh -o StrictHostKeyChecking=no -p ${DEPLOY_SSH_KEY} ${DEPLOY_USER}@${DEPLOY_HOST}
+    #- scp -r -o StrictHostKeyChecking=no -p ${DEPLOY_SSH_KEY} target/centrailized_medi_application-1.0-SNAPSHOT.jar "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}_${APP_NAME}.jar"
   only:
     - cicd_kazi
