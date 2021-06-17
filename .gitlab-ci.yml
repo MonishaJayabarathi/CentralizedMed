@@ -11,7 +11,7 @@ image: maven:latest
 stages:
   - build
   - test
-#  - deploy
+  - deploy
 
 buildStep:
   image: maven:3-jdk-8
@@ -22,7 +22,9 @@ buildStep:
     paths:
     - target
   script:
-    mvn compile
+    mvn clean install
+  only:
+    - cicd_kazi
 
 testStep:
   image: maven:3-jdk-8
@@ -36,16 +38,18 @@ testStep:
         - target/surefire-reports/TEST-*.xml
   script:
     mvn verify
+  only:
+    - cicd_kazi
 
-#deployStep:
-#  stage: deploy
-#  tags:
-#    # I am tagging the ugrad runner, read this document to learn why:
-#    # https://helpdesk.cs.dal.ca/gitlab
-#    - dalfcs_docker_kvm
-#  artifacts:
-#    paths:
-#      # Change this directory to the path that contains your built executable
-#      - group5/target
-#      - group5/src/main/conf
-#  script:
+deployStep:
+  stage: deploy
+  tags:
+    - dalfcs_docker_kvm
+  artifacts:
+    paths:
+      - group5/target
+      - group5/src/main/conf
+  script:
+    - echo "hello"
+  only:
+    - cicd_kazi
