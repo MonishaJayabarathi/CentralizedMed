@@ -1,12 +1,7 @@
 variables:
-  # This is a place for you to define variables you can use
-  # later in the script by referring to the variable like so:
-  #   ${EXAMPLE_VARIABLE}
   EXAMPLE_VARIABLE: "Example"
-  
 
 image: maven:latest
-
 
 stages:
   - build
@@ -22,7 +17,7 @@ buildStep:
     paths:
     - target
   script:
-    mvn clean install
+    mvn compile
   only:
     - cicd_kazi
 
