@@ -1,16 +1,13 @@
 variables:
   APP_NAME: "Medi_App"
 
-default:
-  image: maven:3-jdk-8
-
 stages:
   - build
   - test
   - deploy
 
 buildStep:
-  #image: maven:3-jdk-8
+  image: maven:3-jdk-8
   stage: build
   tags:
     - dalfcs_docker_kvm
@@ -20,7 +17,7 @@ buildStep:
     - develop
 
 testStep:
-  #image: maven:3-jdk-8
+  image: maven:3-jdk-8
   stage: test
   tags:
     - dalfcs_docker_kvm
