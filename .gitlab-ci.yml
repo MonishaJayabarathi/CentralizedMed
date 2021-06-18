@@ -17,8 +17,7 @@ buildStep:
     paths:
     - group5/target
   script:
-    - mvn clean
-    - mvn compile
+    - mvn clean install
   only:
     - cicd_kazi
 
