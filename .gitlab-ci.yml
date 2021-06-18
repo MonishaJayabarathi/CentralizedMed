@@ -52,7 +52,8 @@ deployStep:
     - ls
     - mvn clean
     - mvn compile
-    - cd group5/target/
+    - ls
+    - cd target/
     - ls
   artifacts:
     paths:
