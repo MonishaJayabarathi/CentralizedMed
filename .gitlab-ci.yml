@@ -49,6 +49,8 @@ deployStep:
     - chmod 700 ~/.ssh
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
+    - mvn clean
+    - mvn compile
   artifacts:
     paths:
       - group5/target/centrailized_medi_application-1.0-SNAPSHOT.jar
