@@ -1,5 +1,6 @@
 package com.centrailized_medi_application;
 
+// Main class
 public class TestAction
 {
     public static void main(String[] args)
