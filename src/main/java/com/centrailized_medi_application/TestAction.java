@@ -17,6 +17,8 @@ public class TestAction
         p_login.setPatient_name("Rag1234345"); // com.centrailized_medi_application.Patient id
         p_login.setPatient_pass("qwerty"); // com.centrailized_medi_application.Patient pass
 
+
+
         action.setCommand(p_login);
         action.run();
     }

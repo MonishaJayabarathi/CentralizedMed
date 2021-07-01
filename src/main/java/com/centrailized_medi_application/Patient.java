@@ -18,6 +18,10 @@ public class Patient implements Login
     }
 
 
+    public String getPassword() {
+        return password;
+    }
+
     /* Connect to database and check against the data*/
     @Override
     public void validate()
