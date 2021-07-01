@@ -39,6 +39,38 @@ public class PatientRegistration {
             String address = scanner.nextLine();
             register.setAddress(address);
 
+            //login Details
+            System.out.print(" Enter emailId: ");
+            String emailId = scanner.nextLine();
+            register.setEmailId(emailId);
+
+            System.out.print(" Enter password: ");
+            String password = scanner.nextLine();
+
+            System.out.print(" Enter confirm password: ");
+            String confirmPassword = scanner.nextLine();
+            if (password.equals(confirmPassword)) {
+                register.setPassword(password);
+            }
+            else{
+                System.out.println("Password dont match");
+            }
+
+            System.out.println("Now please enter your answer for security questions");
+            System.out.println("Enter name of your first school");
+            String firstAnswer = scanner.nextLine();
+            register.setFirstAnswer(firstAnswer);
+
+            System.out.println("Enter your Hobby");
+            String secondAnswer = scanner.nextLine();
+            register.setSecondAnswer(secondAnswer);
+
+            System.out.println("Enter name of your first bike");
+            String thirdAnswer = scanner.nextLine();
+            register.setThirdAnswer(thirdAnswer);
+
+
+
             System.out.println(register.toString());
         }
     }
@@ -53,37 +85,90 @@ class Register {
     private String emailId;
     private String address;
     private long contactNo;
+    private  String firstAnswer;
+    private  String secondAnswer;
+    private  String thirdAnswer;
 
+    public String getFirstName() {
+        return firstName; }
 
-    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName; }
 
-    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getLastName() {
+        return lastName; }
 
-    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName; }
 
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getGender() {
+        return firstName; }
 
-    public String getGender() { return firstName; }
+    public void setGender(String gender) {
+        this.gender = gender; }
 
-    public void setGender(String gender) { this.gender = gender; }
+    public void setDob(String Dob) {
+        this.dateOfBirth = Dob; }
 
-    public void setDob(String Dob) { this.dateOfBirth = Dob; }
+    public String getDob(String Dob) {
+        return dateOfBirth; }
 
-    public String getDob(String Dob) { return dateOfBirth; }
+    public long getContactNo() {
+        return contactNo; }
 
-    public long getContactNo() { return contactNo; }
+    public void setContactNo(long contactNo) {
+        this.contactNo = contactNo; }
 
-    public void setContactNo(long contactNo) { this.contactNo = contactNo; }
+    public String getAddress(String address) {
+        return address; }
 
-    public String getAddress(String address) { return address; }
+    public String setAddress(String address) {
+        return this.address = address; }
 
-    public String setAddress(String address) { return this.address = address; }
+    public String getEmailId() {
+        return emailId; }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId; }
+
+    public String getPassword() {
+        return password; }
+
+    public void setPassword(String password) {
+        this.password = password; }
+
+    public String getFirstAnswer(String firstAnswer)
+    {
+        return firstAnswer;
+    }
+
+    public void setFirstAnswer(String firstAnswer){
+        this.firstAnswer = firstAnswer;
+    }
+    public String getSecondAnswer(String secondAnswer)
+    {
+        return secondAnswer;
+    }
+
+    public void setSecondAnswer(String secondAnswer){
+        this.secondAnswer = secondAnswer;
+    }
+    public String getThirdAnswer(String thirdAnswer)
+    {
+        return thirdAnswer;
+    }
+
+    public void setThirdAnswer(String thirdAnswer){
+        this.thirdAnswer = thirdAnswer;
+    }
+
 
 
     @Override
     public String toString() {
         return "Register [firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", dateOfBirth=" +
-                dateOfBirth + ",contactNo" + contactNo +"]";
+                dateOfBirth + ",contactNo" + contactNo +",address="+address+",password"+password+",firstanswer"
+                +firstAnswer+"second answer"+secondAnswer+"third answer"+thirdAnswer+"]";
     }
 
 }
