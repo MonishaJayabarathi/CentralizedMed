@@ -27,8 +27,7 @@ class PatientPrescriptionTest {
             actualMedicationList.append(singleMedicationDetails.toString());
         }
 
-        assertEquals(expectedMedicationList, actualMedicationList.toString(),
-                "PatientPrescription did not process the correct prescription for patient with one medication");
+        assertEquals(expectedMedicationList, actualMedicationList.toString());
     }
 
     /* PatientPrescription retrieves the correct prescription from the database for current patient with
@@ -52,8 +51,7 @@ class PatientPrescriptionTest {
             actualMedicationList.append(singleMedicationDetails.toString());
         }
 
-        assertEquals(expectedMedicationList, actualMedicationList.toString(),
-                "PatientPrescription did not process the correct prescription for patient with many medications");
+        assertEquals(expectedMedicationList, actualMedicationList.toString());
     }
 
     /* formatPrescription() structures the DB results into suitable format for user with one medication */
@@ -81,8 +79,7 @@ class PatientPrescriptionTest {
         PatientPrescription patientPrescription = new PatientPrescription(1);
         String actualPrescriptionFormat = patientPrescription.formatPrescription();
 
-        assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat,
-                "formatPrescription() did not structure the prescription for patient with one medication");
+        assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat);
     }
 
     /* formatPrescription() structures the DB results into suitable format for user with many medications */
@@ -132,8 +129,7 @@ class PatientPrescriptionTest {
         PatientPrescription patientPrescription = new PatientPrescription(2);
         String actualPrescriptionFormat = patientPrescription.formatPrescription();
 
-        assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat,
-                "formatPrescription() did not structure the prescription for patient with many medications");
+        assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat);
     }
 
 

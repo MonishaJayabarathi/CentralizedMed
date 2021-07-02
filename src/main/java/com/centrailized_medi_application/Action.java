@@ -6,9 +6,9 @@ import java.sql.SQLException;
 public class Action
 {
     LoginCommand command;
-    public Action()
-    {
 
+    public  void mainMenu() throws SQLException, IOException, ClassNotFoundException {
+        TestAction testAction =  new TestAction();
     }
     public void setCommand(LoginCommand command) {
         this.command = command;

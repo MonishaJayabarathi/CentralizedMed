@@ -22,7 +22,6 @@ public class PatientLogin implements LoginCommand
     }
 
     public String getPatient_name() {
-
         return patient_name;
     }
 

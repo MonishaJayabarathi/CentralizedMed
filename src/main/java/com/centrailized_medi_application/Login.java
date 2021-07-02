@@ -7,7 +7,7 @@ public interface Login
 {
     public void fetch(String u_name, String Psswd);
     public void validate() throws SQLException, IOException, ClassNotFoundException;
-    public void authenticate();
+    public void authenticate() throws SQLException, IOException, ClassNotFoundException;
 
 
 }
