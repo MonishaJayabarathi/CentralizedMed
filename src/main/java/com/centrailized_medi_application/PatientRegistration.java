@@ -1,20 +1,19 @@
 package com.centrailized_medi_application;
+import java.sql.*;
 import java.util.*;
-
-import static com.sun.tools.javac.util.StringUtils.toUpperCase;
 
 //Class for patient registration
 
 public class PatientRegistration {
     static Register register = new Register();
 
-    public static void main(String[] args) {
+    public void beginRegistration(){
         try (Scanner scanner = new Scanner(System.in))
         {
-            System.out.print("Hello there Welcome to the Registration Centralized Medi Application ");
+            System.out.print("Hello there Welcome to the Registration for patient in Centralized Medi Application ");
             System.out.println();
             System.out.println();
-            System.out.println("Please enter the below details in order to get registered success as a patient");
+            System.out.println("Please enter the below details in order to get registered as a patient successfully");
 
             //User Details
             System.out.print(" Enter firstName: ");
@@ -34,7 +33,7 @@ public class PatientRegistration {
             register.setDob(dateOfBirth);
 
             System.out.print(" Enter contactNo: ");
-            long contactNo = scanner.nextLong();
+            String contactNo = scanner.nextLine();
             register.setContactNo(contactNo);
 
             System.out.print(" Enter address: ");
@@ -93,27 +92,66 @@ public class PatientRegistration {
             register.setDonorCardNo(donorCardNo);
 
             System.out.println("Enter your family members identity code:");
-            long familyMemberCode = scanner.nextInt();
+            String familyMemberCode = scanner.nextLine();
             register.setFamilyMemberCode(familyMemberCode);
 
             System.out.println("If would you like to be a volunteer please enter yes otherwise no");
             String volunteer = scanner.nextLine();
-            String temp = toUpperCase(volunteer);
-            if (temp.equals("YES")){
-            register.setVolunteer(true);
-            }
-            else if(volunteer.equals("NO")){
-            register.setVolunteer(false);
-            }
-            else{
-                System.out.println("please enter either YES OR NO");
-            }
-
+            register.setVolunteer(volunteer);
 
             System.out.println(register.toString());
+            System.out.println("Please check the details and if you are sure then press 1");
+            int submit = scanner.nextInt();
+            if(submit == 1) {
+                System.out.println("Inserting values in the database");
+                    String driver = "com.mysql.cj.jdbc.Driver";
+                    String url = "jdbc:mysql://localhost:3306/trytest";
+                    String uname = "root";
+                    String pass = "";
+                    Class.forName(driver);
+                    Connection c = (Connection) DriverManager.getConnection(url, uname, pass);
+                    PreparedStatement test = c.prepareStatement("INSERT INTO `userinfo`(firstname,lastname," +
+                            "dateofbirth,gender,password,emailId,address,contactNo,firstAnswer,secondAnswer,thirdAnswer," +
+                            "bloodGroup,allergy,chronicDisease,insuranceNo,donorCardNo,familyMemberCode,volunteer)" +
+                            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+                    test.setString(1, firstName);
+                    test.setString(2, lastName);
+                    test.setString(3, dateOfBirth);
+                    test.setString(4, gender);
+                    test.setString(5, password);
+                    test.setString(6, emailId);
+                    test.setString(7, address);
+                    test.setString(8, contactNo);
+                    test.setString(9, firstAnswer);
+                    test.setString(10, secondAnswer);
+                    test.setString(11, thirdAnswer);
+                    test.setString(12, bloodGroup);
+                    test.setString(13, allergy);
+                    test.setString(14, chronicDisease);
+                    test.setString(15, insuranceNo);
+                    test.setString(16, donorCardNo);
+                    test.setString(17, familyMemberCode);
+                    test.setString(18, volunteer);
+                    test.executeUpdate();
+
+            }
+            else
+            {
+                System.out.println("You have decided not to submit your details so now you have to fill the form again");
+                beginRegistration();
+
+            }
+        } catch (SQLException | ClassNotFoundException throwables) {
+            System.out.println("Error in connection with database ");
+            throwables.printStackTrace();
+
         }
+
     }
+
 }
+
 
 class Register {
     private String firstName;
@@ -123,7 +161,7 @@ class Register {
     private String password;
     private String emailId;
     private String address;
-    private long contactNo;
+    private String contactNo;
     private String firstAnswer;
     private String secondAnswer;
     private String thirdAnswer;
@@ -132,73 +170,50 @@ class Register {
     private String chronicDisease;
     private String insuranceNo;
     private String donorCardNo;
-    private long familyMemberCode;
-    private boolean volunteer;
+    private String familyMemberCode;
+    private String volunteer;
 
-            public String getFirstName() {
-                return firstName; }
+            public String getFirstName() { return firstName; }
 
-            public void setFirstName(String firstName) {
-                this.firstName = firstName; }
+            public void setFirstName(String firstName) { this.firstName = firstName; }
 
-            public String getLastName() {
-                return lastName; }
+            public String getLastName() { return lastName; }
 
-            public void setLastName(String lastName) {
-                this.lastName = lastName; }
+            public void setLastName(String lastName) { this.lastName = lastName; }
 
-            public String getGender() {
-                return firstName; }
+            public String getGender() { return firstName; }
 
-            public void setGender(String gender) {
-                this.gender = gender; }
+            public void setGender(String gender) { this.gender = gender; }
 
-            public void setDob(String Dob) {
-                this.dateOfBirth = Dob; }
+            public void setDob(String Dob) { this.dateOfBirth = Dob; }
 
-            public String getDob() {
-                return dateOfBirth; }
+            public String getDob() { return dateOfBirth; }
 
-            public long getContactNo() {
-                return contactNo; }
+            public String getContactNo() { return contactNo; }
 
-            public void setContactNo(long contactNo) {
-                this.contactNo = contactNo; }
+            public void setContactNo(String contactNo) { this.contactNo = contactNo; }
 
-            public String getAddress() {
-                return address; }
+            public String getAddress() { return address; }
 
-            public String setAddress(String address) {
-                return this.address = address; }
+            public String setAddress(String address) { return this.address = address; }
 
-            public String getEmailId() {
-                return emailId; }
+            public String getEmailId() { return emailId; }
 
-            public void setEmailId(String emailId) {
-                this.emailId = emailId; }
+            public void setEmailId(String emailId) { this.emailId = emailId; }
 
-            public String getPassword() {
-                return password; }
+            public String getPassword() { return password; }
 
-            public void setPassword(String password) {
-                this.password = password; }
+            public void setPassword(String password) { this.password = password; }
 
-            public String getFirstAnswer()
-            {
-                return firstAnswer;
-            }
+            public String getFirstAnswer() { return firstAnswer; }
 
-            public void setFirstAnswer(String firstAnswer){
-                this.firstAnswer = firstAnswer;
-            }
-            public String getSecondAnswer()
-            {
-                return secondAnswer;
-            }
+            public void setFirstAnswer(String firstAnswer){ this.firstAnswer = firstAnswer; }
+
+            public String getSecondAnswer() { return secondAnswer; }
 
             public void setSecondAnswer(String secondAnswer){
-                this.secondAnswer = this.secondAnswer;
-            }
+                this.secondAnswer = this.secondAnswer; }
+
             public String getThirdAnswer()
             {
                 return thirdAnswer;
@@ -249,29 +264,29 @@ class Register {
                 this.donorCardNo = donorCardNo;
             }
 
-            public long getFamilyMemberCode(){
+            public String getFamilyMemberCode(){
                 return familyMemberCode;
             }
-            public void setFamilyMemberCode(long familyMemberCode){
+            public void setFamilyMemberCode(String familyMemberCode){
                 this.familyMemberCode = familyMemberCode;
             }
 
-            public boolean getVolunteer()
+            public String getVolunteer()
             {
                 return volunteer;
             }
 
-            public void setVolunteer(boolean volunteer){
+            public void setVolunteer(String volunteer){
                 this.volunteer = volunteer;
             }
 
     @Override
     public String toString() {
         return "Register [firstName:" + firstName + ", lastName:" + lastName + ", gender:" + gender + ", dateOfBirth:" +
-                dateOfBirth + ",contactNo:" + contactNo +", address:" +address+", password:" +password+", firstAnswer:"
-                +firstAnswer+",secondAnswer"+secondAnswer+", thirdAnswer"+thirdAnswer+", bloodGroup"+bloodGroup+
+                dateOfBirth + ", contactNo:" + contactNo +", address:" +address+", password:" +password+", firstAnswer:"
+                +firstAnswer+", secondAnswer:"+secondAnswer+", thirdAnswer:"+thirdAnswer+", bloodGroup:"+bloodGroup+
                 ", allergies:"+allergy+", chronicDisease:"+chronicDisease+", insuranceNo:"+insuranceNo+
-                ", donarCardNo:"+donorCardNo+", familyMemberCode"+familyMemberCode+", volunteer"+volunteer+"]";
+                ", donarCardNo:"+donorCardNo+", familyMemberCode:"+familyMemberCode+", volunteer:"+volunteer+"]";
 
     }
 
