@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 public class PatientRegistrationTest {
 
-    //Creating test cases for the registration patient class for various set and get methods
+    //Creating test cases for the registration patient class for various set and get functions
     @Test
     void RegistrationTest()
     {
