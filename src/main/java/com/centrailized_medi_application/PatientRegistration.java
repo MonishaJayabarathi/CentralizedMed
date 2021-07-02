@@ -5,6 +5,8 @@ import java.util.*;
 //Class for patient registration
 
 public class PatientRegistration {
+    // Mentioned all the variables names which will be used for
+    //Storing values
     private String firstName;
     private String lastName;
     private String dateOfBirth;
@@ -24,8 +26,10 @@ public class PatientRegistration {
     private String familyMemberCode;
     private String volunteer;
 
-//    static Register register = new Register();
 
+    //Creating Get and Set methods for all the entities required for registration
+
+    //Get and set methods for basic user details
     public String getFirstName() { return firstName; }
 
     public void setFirstName(String firstName) { this.firstName = firstName; }
@@ -51,6 +55,8 @@ public class PatientRegistration {
     public String setAddress(String address) { return this.address = address; }
 
     public String getEmailId() { return emailId; }
+
+    //Get and Set methods for login credentials of patients along with security questions
 
     public void setEmailId(String emailId) { this.emailId = emailId; }
 
@@ -82,6 +88,8 @@ public class PatientRegistration {
     public void setThirdAnswer(String thirdAnswer){
         this.thirdAnswer = thirdAnswer;
     }
+
+    //Get and Set method for users personal medical information
 
     public String getBloodGroup() {
         return bloodGroup;
@@ -142,6 +150,8 @@ public class PatientRegistration {
         this.volunteer = volunteer;
     }
 
+    //Method for providing interface to interact with the user in order to get values
+
     public void beginRegistration(){
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Hello there Welcome to the Registration for patient in Centralized Medi Application ");
@@ -190,6 +200,7 @@ public class PatientRegistration {
                 System.out.println("Password dont match");
             }
 
+            // Taking input for security questions
             System.out.println("Now please enter your answer for security questions");
             System.out.println("Enter name of your first school");
             String firstAnswer = scanner.nextLine();
@@ -203,7 +214,7 @@ public class PatientRegistration {
             String thirdAnswer = scanner.nextLine();
             setThirdAnswer(thirdAnswer);
 
-            //Additonal Personal Details
+            //Additonal Personal medical Details
             System.out.print("Enter your Blood Group: ");
             String bloodGroup = scanner.nextLine();
             setBloodGroup(bloodGroup);
@@ -231,38 +242,54 @@ public class PatientRegistration {
             System.out.println("If would you like to be a volunteer please enter yes otherwise no");
             String volunteer = scanner.nextLine();
             setVolunteer(volunteer);
+
+
             System.out.println("Please check the details and if you are sure then press 1");
+
+            // Showing user its entered values in order to confirm it
+
             System.out.println("[firstName:" + firstName + ", lastName:" + lastName + ", gender:" + gender + ", dateOfBirth:" +
                     dateOfBirth + ", contactNo:" + contactNo +", address:" +address+", password:" +password+", firstAnswer:"
                     +firstAnswer+", secondAnswer:"+secondAnswer+", thirdAnswer:"+thirdAnswer+", bloodGroup:"+bloodGroup+
                     ", allergies:"+allergy+", chronicDisease:"+chronicDisease+", insuranceNo:"+insuranceNo+
                     ", donarCardNo:"+donorCardNo+", familyMemberCode:"+familyMemberCode+", volunteer:"+volunteer+"]");
+
+            //taking user input for choice to insert value in the database
             int submit = scanner.nextInt();
+
+            // Inserting values in the database if user finalize the information entered
             if(submit == 1){
                 update();
             }
             else
             {
                 System.out.println("You have decided not to submit your details so now you have to fill the form again");
+                //Asking user to enter details again if they wish to change any information
                 beginRegistration();
 
             }
-        } catch (SQLException throwables) {
+        }
+        //catch in order to handle any exceptions related to sql occurs
+        catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-
+// update method to insert values in the database after user's choice is entered
     public void update() throws ClassNotFoundException, SQLException {
             System.out.println("Inserting values in the database");
+                   //Setting up the connection with the database
                     String driver = "com.mysql.cj.jdbc.Driver";
                     String url = "jdbc:mysql://localhost:3306/trytest";
                     String uname = "root";
                     String pass = "";
                     Class.forName(driver);
                     Connection c = (Connection) DriverManager.getConnection(url, uname, pass);
+                    //prepare statment to insert values in the database
                     PreparedStatement test = c.prepareStatement("INSERT INTO `userinfo`(firstname,lastname,dateofbirth,gender,password,emailId,address,contactNo,firstAnswer,secondAnswer,thirdAnswer,bloodGroup,allergy,chronicDisease,insuranceNo,donorCardNo,familyMemberCode,volunteer)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+                    //inserting values one by one for each entities
 
                     test.setString(1, firstName);
                     test.setString(2, lastName);
@@ -282,6 +309,8 @@ public class PatientRegistration {
                     test.setString(16, donorCardNo);
                     test.setString(17, familyMemberCode);
                     test.setString(18, volunteer);
+
+                    //executing update
                     test.executeUpdate();
             }
 

@@ -20,12 +20,13 @@ public class TestAction
         p_login.setPatient_pass("qwerty"); // com.centrailized_medi_application.Patient pass
 
         Scanner sc = new Scanner(System.in);
+        //If user choses 1 in order to register as patient in the portal
         if(sc.nextInt()==1)
         {
+            //Object of PatientRegistration created
             PatientRegistration patient = new PatientRegistration();
+            //method named beginRegistration called inorder to perform registration process
             patient.beginRegistration();
-//            patient.toString();
-
 
         }
 
