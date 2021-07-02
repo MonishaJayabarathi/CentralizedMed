@@ -24,6 +24,7 @@ public class TestAction
         {
             PatientRegistration patient = new PatientRegistration();
             patient.beginRegistration();
+//            patient.toString();
 
 
         }
