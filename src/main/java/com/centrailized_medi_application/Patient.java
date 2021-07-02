@@ -7,7 +7,7 @@ import java.sql.SQLException;
 /* Implementation for com.centrailized_medi_application.Patient */
 public class Patient implements Login
 {
-    private String user_name; // Stores com.centrailized_medi_application.Patient name
+    private String user_name; // Stores Patient name
     private String password; // Stores patient passwd
     private boolean valid_id = false; // Sets true when patient is registered
     private boolean valid_psswd = false; // Sets true when patient is registered
@@ -48,7 +48,6 @@ public class Patient implements Login
 
         if(this.valid_id && this.valid_psswd) // Exist and valid credentials
         {
-
 
             System.out.println("Welcome "+this.user_name); // name to be replaced with the actual name stored in db
         }
