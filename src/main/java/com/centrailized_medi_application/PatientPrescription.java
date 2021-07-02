@@ -84,6 +84,7 @@ public class PatientPrescription {
         nightMedications.append("*******************************************\n" +
                 "Time of day: Night\n");
 
+        // counters to keep track of number of medications for each time of day
         int morningCounter = 0;
         int eveningCounter = 0;
         int nightCounter = 0;
@@ -112,6 +113,7 @@ public class PatientPrescription {
             }
         }
 
+        // check if any time of day has zero medications and format the prescription accordingly
         if (morningCounter == 0){ morningMedications.append("No Medications\n");}
         if (eveningCounter == 0){ eveningMedications.append("No Medications\n");}
         if (nightCounter == 0){ nightMedications.append("No Medications\n");}
