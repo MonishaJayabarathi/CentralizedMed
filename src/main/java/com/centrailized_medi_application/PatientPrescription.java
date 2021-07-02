@@ -37,9 +37,11 @@ public class PatientPrescription {
             Connection connection = DriverManager.getConnection(hostName, userName, password);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
-                    "SELECT BrandName, GenericName, Route, Strength, Amount, Frequency, TimeOfDay " +
-                            "FROM Patients, MedicationGeneral, MedicationSpecific\n" +
-                            "WHERE Patients.PatientID = 1;");
+                    "SELECT BrandName, GenericName, Route, Strength, Amount, Frequency, TimeOfDay FROM Patients, MedicationGeneral, MedicationSpecific, PatientMedication\n" +
+                            "WHERE Patients.PatientID = "+ Integer.toString(patientID) +" AND\n" +
+                            "\tMedicationSpecific.MedicationGeneralID = MedicationGeneral.MedicationGeneralID AND\n" +
+                            "    Patients.PatientID = PatientMedication.PatientID AND\n" +
+                            "    MedicationSpecific.MedicationSpecificID = PatientMedication.MedicationSpecificID;");
 
             // add the retrieved medication list to class arraylist of medications
             while (resultSet.next()) {
