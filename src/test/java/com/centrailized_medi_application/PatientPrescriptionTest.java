@@ -29,4 +29,27 @@ class PatientPrescriptionTest {
 
         assertEquals(expectedMedicationList, actualMedicationList.toString());
     }
+
+    /* formatPrescription() structures the DB results into suitable format for user */
+    @Test
+    void formatPrescription(){
+        String expectedPrescriptionFormat =
+                "PRESCRIPTIONS\n" +
+                "*******************************************\n" +
+                "Time of day: Morning\n" +
+                "   Medication 1\n" +
+                "   Brand Name : Amodis\n" +
+                "   Generic Name : Metronidazole BP\n" +
+                "   Strength : 400 mg" +
+                "   Amount : 1 Tab\n" +
+                "   Route : By Mouth\n" +
+                "   Frequency : Twice a day";
+
+        PatientPrescription patientPrescription = new PatientPrescription(1);
+        String actualPrescriptionFormat = patientPrescription.formatPrescription();
+
+        assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat);
+    }
+
+
 }

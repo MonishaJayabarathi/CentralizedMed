@@ -56,8 +56,6 @@ public class PatientPrescription {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     /* return patient medication list which is retrieved from database */
@@ -66,9 +64,12 @@ public class PatientPrescription {
     }
 
 
-    /* print prescription details to patient
-     * format medication */
-    public String getPrescriptionFromDB(ResultSet resultSet){
+    /* format prescription details for viewing in interface
+     */
+    public String formatPrescription(){
+        //StringBuilder formattedPrescription = new StringBuilder();
+
+
         return "";
     }
 
