@@ -1,5 +1,8 @@
 package com.centrailized_medi_application;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class Action
 {
     LoginCommand command;
@@ -10,8 +13,7 @@ public class Action
     public void setCommand(LoginCommand command) {
         this.command = command;
     }
-    public void run()
-    {
+    public void run() throws SQLException, IOException, ClassNotFoundException {
         command.execute();
     }
 

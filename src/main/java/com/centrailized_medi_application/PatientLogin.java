@@ -1,5 +1,8 @@
 package com.centrailized_medi_application;/* com.centrailized_medi_application.Patient com.centrailized_medi_application.Login Implementation which implements from com.centrailized_medi_application.LoginCommand Interface*/
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class PatientLogin implements LoginCommand
 {
     Login patient_login;
@@ -29,8 +32,7 @@ public class PatientLogin implements LoginCommand
     }
 
     @Override
-    public void execute()
-    {
+    public void execute() throws SQLException, IOException, ClassNotFoundException {
         patient_login.fetch(this.patient_name,this.patient_pass);
         patient_login.validate();
         patient_login.authenticate();

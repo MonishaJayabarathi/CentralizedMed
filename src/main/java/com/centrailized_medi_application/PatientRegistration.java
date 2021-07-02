@@ -38,7 +38,7 @@ public class PatientRegistration {
 
     public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public String getGender() { return firstName; }
+    public String getGender() { return this.gender; }
 
     public void setGender(String gender) { this.gender = gender; }
 
