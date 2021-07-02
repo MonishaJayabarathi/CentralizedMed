@@ -1,0 +1,19 @@
+image:
+  name:
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage:build
+  script:
+    -mvn compile
+
+test:
+  stage:test
+  script:
+    -mvn clean test
+
+deploy:
