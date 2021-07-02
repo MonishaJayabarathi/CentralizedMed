@@ -37,13 +37,20 @@ class PatientPrescriptionTest {
                 "PRESCRIPTIONS\n" +
                 "*******************************************\n" +
                 "Time of day: Morning\n" +
-                "   Medication 1\n" +
+                "   MEDICATION\n" +
                 "   Brand Name : Amodis\n" +
                 "   Generic Name : Metronidazole BP\n" +
-                "   Strength : 400 mg" +
-                "   Amount : 1 Tab\n" +
                 "   Route : By Mouth\n" +
-                "   Frequency : Twice a day";
+                "   Strength : 400 mg\n" +
+                "   Amount : 1 Tablet\n" +
+                "   Frequency : Twice a day\n" +
+                "\n" +
+                "*******************************************\n" +
+                "Time of day: Evening\n" +
+                "No Medications\n" +
+                "*******************************************\n" +
+                "Time of day: Night\n" +
+                "No Medications\n";
 
         PatientPrescription patientPrescription = new PatientPrescription(1);
         String actualPrescriptionFormat = patientPrescription.formatPrescription();
