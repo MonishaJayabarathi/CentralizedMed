@@ -10,8 +10,13 @@ public class PatientLogin implements LoginCommand
     private String patient_name;
     private String patient_pass;
     private Scanner sc = new Scanner(System.in);
+
     public PatientLogin(Login p_login)
     {
+        System.out.println("Enter your username:");
+        this.patient_name = (sc.next());
+        System.out.println("Enter your password:");
+        this.patient_pass = (sc.next());
         patient_login = p_login;
     }
 
@@ -34,30 +39,42 @@ public class PatientLogin implements LoginCommand
     }
 
     @Override
-    public void execute() throws SQLException, IOException, ClassNotFoundException {
-        System.out.println("Enter your username:");
-        this.patient_name = (sc.next());
-        System.out.println("Enter your password:");
-        this.patient_pass = (sc.next());
-        this.confirmation();
-
+    public void execute() throws SQLException, IOException, ClassNotFoundException
+    {
         patient_login.fetch(this.patient_name,this.patient_pass);
         patient_login.validate();
         patient_login.authenticate();
-
     }
 
-
-    public void confirmation () throws SQLException, IOException, ClassNotFoundException {
-        System.out.println("Please enter 1 to submit");
+    @Override
+    public void confirmation() throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("Please enter 1 to submit or any other option to revert");
+        Scanner sc = new Scanner(System.in);
         if (sc.nextInt() == 1)
-            this.execute();
-        else {
-            System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
-            if (sc.next() == "y")
-                System.out.println("move to main menu");
-            else
-                this.confirmation();
+        {
+           this.execute();
         }
+        else
+        {
+            System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
+            sc = new Scanner(System.in);
+            if (sc.nextLine().equals("y"))
+            {
+                System.out.println("move to main menu");
+                MainMenu init = new MainMenu();
+                init.display();
+
+            }
+            else
+            {
+                System.out.println("Logging in....");
+                this.execute();
+            }
+
+        }
+
+
     }
+
+
 }

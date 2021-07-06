@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class TestAction
+public class MainMenu
 {
-    public static void main(String[] args) throws SQLException, IOException, ClassNotFoundException {
+    public void display() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("\n*****Centralized Medi-Application*****\n");
         System.out.println("-----------Main Menu-------------");
         System.out.println(" 1.Register as a Patient\n 2.Login as a Patient\n 3.Register as a Doctor\n 4.Login as a Doctor");
@@ -31,6 +31,7 @@ public class TestAction
             // Setting com.centrailized_medi_application.Patient id and pass manually for now
             action.setCommand(p_login);
             action.run();
+
         }
         else if(option == 3) {
             DoctorRegistration doc = new DoctorRegistration();
@@ -39,6 +40,5 @@ public class TestAction
             DoctorLogin doc = new DoctorLogin();
             doc.run();
         }
-
     }
 }

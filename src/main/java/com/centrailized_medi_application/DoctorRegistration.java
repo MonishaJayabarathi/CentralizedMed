@@ -10,7 +10,7 @@ public class DoctorRegistration implements LoginCommand, Registration{
   private  String speciality;
   private  int registrationNumber;
   private Scanner sc = new Scanner(System.in);
-  Action ac = new Action();
+
 
 
   public String getClinicAddress() {
@@ -71,7 +71,7 @@ public class DoctorRegistration implements LoginCommand, Registration{
   public void nextAction() throws SQLException, IOException, ClassNotFoundException {
     // On successful update navigate to main menu
     System.out.println("You have been successfully Registered. Please login to access your dashboard.\n");
-    ac.mainMenu();
+    //ac.mainMenu();
   }
 
   @Override
