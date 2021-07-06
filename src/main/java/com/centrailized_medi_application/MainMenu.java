@@ -45,10 +45,10 @@ public class MainMenu
         System.out.println("Enter your password:");
         String patient_pass = (sc.next());
 
-        Action action = new Action(); // Initialize com.centrailized_medi_application.Action
+        Action action = new Action(); // Initialize Action
         Patient p1 = new Patient();  // Initialize patient
         PatientLogin p_login = new PatientLogin(p1);  // Passing the object to the patient login
-        // Setting com.centrailized_medi_application.Patient id and pass manually for now
+
         p_login.setPatient_name(patient_name);
         p_login.setPatient_pass(patient_pass);
         action.setCommand(p_login);
@@ -69,4 +69,6 @@ public class MainMenu
         DoctorLogin doc = new DoctorLogin();
         doc.run();
     }
+
+
 }

@@ -9,16 +9,26 @@ public class PatientLogin implements LoginCommand
     Login patient_login;
     private String patient_name;
     private String patient_pass;
-
+    MainMenu init = new MainMenu();
 
     public PatientLogin(Login p_login)
     {
         patient_login = p_login;
     }
 
-    public void setPatient_name(String patient_name)
-    {
-        this.patient_name = patient_name;
+    public void setPatient_name(String patient_name) throws SQLException, IOException, ClassNotFoundException {
+
+        if(patient_name.matches("^[a-zA-Z]*$"))
+        {
+            this.patient_name = patient_name;
+        }
+        else
+        {
+            System.out.println("Name cannot contain aplha-numeric character or numericals");
+            System.out.println("Re-enter you details");
+            init.display_patient_login();
+        }
+
     }
 
     public void setPatient_pass(String patient_pass) {
@@ -58,7 +68,6 @@ public class PatientLogin implements LoginCommand
             if (sc.nextLine().equals("y"))
             {
                 System.out.println("move to main menu");
-                MainMenu init = new MainMenu();
                 init.display();
 
             }
