@@ -67,7 +67,7 @@ public class DB_Connection {
             p2.setString(1, this.u_name);
             p2.setString(2, this.u_pass);
             ResultSet login_pass  = p2.executeQuery();
-            while (login_name.next()) {
+            while (login_pass.next()) {
 
                 pass = login_pass.getString("pass");
                 if (pass.equals(this.u_pass)) {
