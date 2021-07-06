@@ -15,27 +15,30 @@ public class TestAction
 
         //Receive input and instantiate corresponding class
         Scanner sc = new Scanner(System.in);
-        if(sc.nextInt() == 1)
+        int option = sc.nextInt();
+        if(option == 1)
         {
             //Object of PatientRegistration created
             PatientRegistration patient = new PatientRegistration();
             //method named beginRegistration called inorder to perform registration process
             patient.beginRegistration();
-        } else if(sc.nextInt() == 3) {
+        }
+        else if(option == 2)
+        {
+            Action action = new Action(); // Initialize com.centrailized_medi_application.Action
+            Patient p1 = new Patient();  // Initialize patient
+            PatientLogin p_login = new PatientLogin(p1);  // Passing the object to the patient login
+            // Setting com.centrailized_medi_application.Patient id and pass manually for now
+            action.setCommand(p_login);
+            action.run();
+        }
+        else if(option == 3) {
             DoctorRegistration doc = new DoctorRegistration();
             doc.run();
-        } else if(sc.nextInt() == 4) {
+        } else if(option == 4) {
             DoctorLogin doc = new DoctorLogin();
             doc.run();
         }
-        Action action = new Action(); // Initialize com.centrailized_medi_application.Action
-        Patient p1 = new Patient();  // Initialize patient
-        PatientLogin p_login = new PatientLogin(p1);  // Passing the object to the patient login
 
-        // Setting com.centrailized_medi_application.Patient id and pass manually for now
-        p_login.setPatient_name("Rag1234345"); // com.centrailized_medi_application.Patient id
-        p_login.setPatient_pass("qwerty"); // com.centrailized_medi_application.Patient pass
-        action.setCommand(p_login);
-        action.run();
     }
 }
