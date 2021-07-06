@@ -25,7 +25,7 @@ public class Patient implements Login
     public boolean get_auth_status(){return this.authenticate_phase;}
 
     MainMenu init = new MainMenu();
-
+    PatientDashboard pd = new PatientDashboard();
     /* Fetching patient credentials*/
     @Override
     public void fetch(String u_name, String psswd)
@@ -52,6 +52,7 @@ public class Patient implements Login
         if(this.valid_id && this.valid_psswd) // Exist and valid credentials
         {
             System.out.println("Welcome "+this.user_name); // name to be replaced with the actual name stored in db
+            pd.display();
         }
         else if(this.valid_id && !this.valid_psswd)
         {

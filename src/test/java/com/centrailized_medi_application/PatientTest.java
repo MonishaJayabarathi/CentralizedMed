@@ -32,12 +32,13 @@ class PatientTest {
         Patient patient = new Patient();
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
         patient.validate();
-        assertAll("Valdiate Function",
+        assertAll("Validate Function",
                 () -> assertTrue(patient.get_id_status()),
                 () -> assertTrue(patient.get_pass_status()));
     }
 
     // Correct Id and pass
+    @Disabled("authenticate->Calls user input after it succeeds,hence ignored")
     @Test
     void authenticate() throws SQLException, IOException, ClassNotFoundException {
         PatientLogin p_login = new PatientLogin(new Patient());
@@ -66,7 +67,7 @@ class PatientTest {
     }
 
     // Incorrect password and id
-    @Disabled("authenticate_pass_incorrect->Calls user input after it succeeds,hence ignored")
+    @Disabled("authenticate_pass_invalid->Calls user input after it succeeds,hence ignored")
     @Test
     void authenticate_pass_invalid() throws SQLException, IOException, ClassNotFoundException {
         PatientLogin p_login = new PatientLogin(new Patient());

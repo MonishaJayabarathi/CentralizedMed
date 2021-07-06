@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class MainMenu
+public class MainMenu implements Menu
 {
     private boolean flag = false;
 
+    @Override
     public void display() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("\n*****Centralized Medi-Application*****\n");
         System.out.println("-----------Main Menu-------------");

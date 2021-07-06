@@ -59,7 +59,7 @@ public class PatientLogin implements LoginCommand
         Scanner sc = new Scanner(System.in);
         if (sc.nextInt() == 1)
         {
-           this.execute();
+            this.execute();
         }
         else
         {
