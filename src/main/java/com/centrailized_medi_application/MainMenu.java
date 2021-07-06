@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class MainMenu
 {
+    private boolean flag = false;
+
     public void display() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("\n*****Centralized Medi-Application*****\n");
         System.out.println("-----------Main Menu-------------");
@@ -13,32 +15,58 @@ public class MainMenu
         System.out.println("----------------------------------");
         System.out.println(" Enter from above options to proceed:");
 
-        //Receive input and instantiate corresponding class
-        Scanner sc = new Scanner(System.in);
-        int option = sc.nextInt();
-        if(option == 1)
-        {
-            //Object of PatientRegistration created
-            PatientRegistration patient = new PatientRegistration();
-            //method named beginRegistration called inorder to perform registration process
-            patient.beginRegistration();
-        }
-        else if(option == 2)
-        {
-            Action action = new Action(); // Initialize com.centrailized_medi_application.Action
-            Patient p1 = new Patient();  // Initialize patient
-            PatientLogin p_login = new PatientLogin(p1);  // Passing the object to the patient login
-            // Setting com.centrailized_medi_application.Patient id and pass manually for now
-            action.setCommand(p_login);
-            action.run();
+        while(flag!=true) {
+            Scanner sc = new Scanner(System.in);
+            int option = sc.nextInt();
+            if (option == 1) {
+                this.display_patient_registration();
+                flag = true;
+            } else if (option == 2) {
+                this.display_patient_login();
+                flag = true;
+            } else if (option == 3) {
+                this.display_doctor_registration();
+                flag = true;
+            } else if (option == 4) {
+                this.display_doctor_login();
+                flag = true;
+            } else {
+                System.out.println("Enter the correct options to proceed");
 
+            }
         }
-        else if(option == 3) {
-            DoctorRegistration doc = new DoctorRegistration();
-            doc.run();
-        } else if(option == 4) {
-            DoctorLogin doc = new DoctorLogin();
-            doc.run();
-        }
+    }
+
+    public void display_patient_login() throws SQLException, IOException, ClassNotFoundException
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your username:");
+        String patient_name = (sc.next());
+        System.out.println("Enter your password:");
+        String patient_pass = (sc.next());
+
+        Action action = new Action(); // Initialize com.centrailized_medi_application.Action
+        Patient p1 = new Patient();  // Initialize patient
+        PatientLogin p_login = new PatientLogin(p1);  // Passing the object to the patient login
+        // Setting com.centrailized_medi_application.Patient id and pass manually for now
+        p_login.setPatient_name(patient_name);
+        p_login.setPatient_pass(patient_pass);
+        action.setCommand(p_login);
+        action.run();
+
+    }
+    public void display_patient_registration()
+    {
+        PatientRegistration patient = new PatientRegistration();
+        patient.beginRegistration();
+    }
+    public void display_doctor_registration()
+    {
+        DoctorRegistration doc = new DoctorRegistration();
+        doc.run();
+    }
+    public void display_doctor_login() throws SQLException, IOException, ClassNotFoundException {
+        DoctorLogin doc = new DoctorLogin();
+        doc.run();
     }
 }
