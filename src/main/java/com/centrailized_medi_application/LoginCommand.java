@@ -7,4 +7,5 @@ import java.sql.SQLException;
 public interface LoginCommand
 {
     public void execute() throws SQLException, IOException, ClassNotFoundException;
+    public void confirmation() throws SQLException, IOException, ClassNotFoundException;
 }

@@ -43,7 +43,7 @@ public class DoctorLogin implements Login, LoginCommand
       if (sc.next() == "y")
         System.out.println("move to main menu");
       else
-        this.confirmation();
+        this.execute();
     }
   }
   /* Fetching patient credentials*/
