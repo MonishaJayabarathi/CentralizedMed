@@ -30,9 +30,6 @@ public class DB_Connection {
     this.u_name=u_name;
     this.u_pass=u_pass;
     connection = DriverManager.getConnection(url, username, password);
-
-
-
     }
     public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
