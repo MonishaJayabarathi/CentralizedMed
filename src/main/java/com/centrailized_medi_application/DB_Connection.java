@@ -25,16 +25,16 @@ public class DB_Connection {
     private String pass;
     private boolean[] cred_validity=new boolean[2];
 
-    public DB_Connection(String configFile,String u_name,String u_pass) {
+    public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
     this.configFile=configFile;
     this.u_name=u_name;
     this.u_pass=u_pass;
+    connection = DriverManager.getConnection(url, username, password);
+
 
 
     }
-
-    public boolean[] getDetails() throws ClassNotFoundException, IOException, SQLException {
-
+    public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         f1 = new FileInputStream(configFile);
@@ -46,8 +46,21 @@ public class DB_Connection {
         url = pr.getProperty("database");
         username = pr.getProperty("user");
         password = pr.getProperty("password");
-
         connection = DriverManager.getConnection(url, username, password);
+
+    }
+    public Connection createConnection()
+    {
+
+        return connection;
+    }
+
+
+    public boolean[] getDetails() throws ClassNotFoundException, IOException, SQLException {
+
+
+
+
 
         PreparedStatement p1 = connection.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=?");
         p1.setString(1, u_name);
