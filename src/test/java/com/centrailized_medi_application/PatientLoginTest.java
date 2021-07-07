@@ -15,7 +15,8 @@ class PatientLoginTest {
     /* To verify the set func for login Patient (username)*/
     @Test
     void setPatient_name() throws SQLException, IOException, ClassNotFoundException {
-        PatientLogin p_login = new PatientLogin(new Patient());  // Passing the object to the patient login
+        Patient p1 = new Patient(new MainMenu(),new PatientDashboard());
+        PatientLogin p_login = new PatientLogin(p1,new MainMenu());  // Passing the object to the patient login
         p_login.setPatient_name("Aditya");
         assertEquals("Aditya",p_login.getPatient_name(),"Error: Incorrect Name");
     }
@@ -24,7 +25,8 @@ class PatientLoginTest {
     @Disabled("setPatient_name_only_char->Calls user input after it succeeds,hence ignored")
     @Test
     void setPatient_name_only_char() throws SQLException, IOException, ClassNotFoundException {
-        PatientLogin p_login = new PatientLogin(new Patient());  // Passing the object to the patient login
+        Patient p1 = new Patient(new MainMenu(),new PatientDashboard());
+        PatientLogin p_login = new PatientLogin(p1, new MainMenu());  // Passing the object to the patient login
         p_login.setPatient_name("Aditya1234");
         assertNull(p_login.getPatient_name());
     }
@@ -33,7 +35,8 @@ class PatientLoginTest {
     @Test
     void setPatient_pass()
     {
-        PatientLogin p_login = new PatientLogin(new Patient());  // Passing the object to the patient login
+        Patient p1 = new Patient(new MainMenu(),new PatientDashboard());
+        PatientLogin p_login = new PatientLogin(p1, new MainMenu());  // Passing the object to the patient login
         p_login.setPatient_pass("Aditya");
         assertEquals("Aditya",p_login.getPatient_pass(),"Error: Incorrect Password");
     }
@@ -41,10 +44,11 @@ class PatientLoginTest {
     @Test
     void execute() throws SQLException, IOException, ClassNotFoundException {
 
-        PatientLogin p_login = new PatientLogin(new Patient());  // Passing the object to the patient login
+        Patient patient = new Patient(new MainMenu(),new PatientDashboard());
+        PatientLogin p_login = new PatientLogin(patient, new MainMenu());  // Passing the object to the patient login
         p_login.setPatient_name("Aditya");
         p_login.setPatient_pass("a1234");
-        Patient patient = new Patient();
+
 
         //Fetch
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());

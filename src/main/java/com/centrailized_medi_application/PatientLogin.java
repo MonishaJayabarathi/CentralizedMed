@@ -7,27 +7,30 @@ import java.util.Scanner;
 public class PatientLogin implements LoginCommand
 {
     Login patient_login;
+    MainMenu init;
     private String patient_name;
     private String patient_pass;
-    MainMenu init = new MainMenu();
 
-    public PatientLogin(Login p_login)
+
+    public PatientLogin(Login p_login, MainMenu init)
     {
-        patient_login = p_login;
+        this.patient_login = p_login;
+        this.init = init;
     }
 
-    public void setPatient_name(String patient_name) throws SQLException, IOException, ClassNotFoundException {
-
-        if(patient_name.matches("^[a-zA-Z]*$"))
-        {
-            this.patient_name = patient_name;
-        }
-        else
-        {
-            System.out.println("Name cannot contain aplha-numeric character or numericals");
-            System.out.println("Re-enter you details");
-            init.display_patient_login();
-        }
+    public void setPatient_name(String patient_name) {
+        // Commented because user id will be email address
+//        if(patient_name.matches("^[a-zA-Z]*$"))
+//        {
+//            this.patient_name = patient_name;
+//        }
+//        else
+//        {
+//            System.out.println("Name cannot contain aplha-numeric character or numericals");
+//            System.out.println("Re-enter you details");
+//            init.display_patient_login();
+//        }
+        this.patient_name = patient_name;
 
     }
 
@@ -67,8 +70,8 @@ public class PatientLogin implements LoginCommand
             sc = new Scanner(System.in);
             if (sc.nextLine().equals("y"))
             {
-                System.out.println("move to main menu");
-                init.display();
+                System.out.println("Navigating to main menu...");
+                this.init.display();
 
             }
             else

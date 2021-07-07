@@ -7,15 +7,21 @@ import java.util.Scanner;
 public class PatientDashboard implements Menu
 {
     private boolean flag = false;
+    PatientPrescription p_prespcription = null;
+    private int patient_id;
 
+    void PatientDashboard(int id)
+    {
+        patient_id = id;
+    }
     @Override
-    public void display() throws SQLException, IOException, ClassNotFoundException
+    public void display()
     {
         System.out.println("-----------Dashboard-------------");
         System.out.println("1.About");
         System.out.println("2.Consultations");
         System.out.println("3.Prescriptions");
-        System.out.println("4.Suggestations");
+        System.out.println("4.Suggestions");
         System.out.println("----------------------------------");
         System.out.println(" Enter from above options to proceed:");
 
@@ -29,7 +35,7 @@ public class PatientDashboard implements Menu
 
                 flag = true;
             } else if (option == 3) {
-
+                display_prescription();
                 flag = true;
             } else if (option == 4) {
 
@@ -39,6 +45,12 @@ public class PatientDashboard implements Menu
 
             }
         }
-
     }
+
+    public void display_prescription()
+    {
+        PatientPrescription pp = new PatientPrescription(patient_id);
+        System.out.println(pp.formatPrescription());
+    }
+
 }
