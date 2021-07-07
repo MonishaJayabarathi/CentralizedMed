@@ -1,17 +1,14 @@
 package com.centrailized_medi_application;
+import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
 //Class for patient registration
 
 public class PatientRegistration {
-    private static BasicDetails doctorBasicDetails;
+    private static BasicDetails patientBasicDetails;
     // Mentioned all the variables names which will be used for
     //Storing values
-    private String dateOfBirth;
-    private String gender;
-    private String address;
-    private String contactNo;
     private String firstAnswer;
     private String secondAnswer;
     private String thirdAnswer;
@@ -25,24 +22,6 @@ public class PatientRegistration {
 
 
     //Creating Get and Set methods for all the entities required for registration
-
-    //Get and set methods for basic user details
-
-    public String getGender() { return gender; }
-
-    public void setGender(String gender) { this.gender = gender; }
-
-    public void setDob(String Dob) { this.dateOfBirth = Dob; }
-
-    public String getDob() { return dateOfBirth; }
-
-    public String getContactNo() { return contactNo; }
-
-    public void setContactNo(String contactNo) { this.contactNo = contactNo; }
-
-    public String getAddress() { return address; }
-
-    public String setAddress(String address) { return this.address = address; }
 
     public String getFirstAnswer() {
         return firstAnswer;
@@ -134,7 +113,7 @@ public class PatientRegistration {
     public void beginRegistration(){
 
         try (Scanner scanner = new Scanner(System.in)) {
-            doctorBasicDetails = new BasicDetails();
+            patientBasicDetails = new BasicDetails();
             System.out.print("Hello there Welcome to the Registration for patient in Centralized Medi Application ");
             System.out.println();
             System.out.println();
@@ -142,30 +121,30 @@ public class PatientRegistration {
 
             //User Details
             System.out.print(" Enter firstName: ");
-            doctorBasicDetails.setFirstName(scanner.nextLine());
+            patientBasicDetails.setFirstName(scanner.nextLine());
 
             System.out.print(" Enter lastName: ");
-            doctorBasicDetails.setLastName(scanner.nextLine());
+            patientBasicDetails.setLastName(scanner.nextLine());
 
             System.out.print(" Enter gender: ");
             String gender = scanner.nextLine();
-            setGender(gender);
+            patientBasicDetails.setGender(gender);
 
             System.out.print(" Enter date of birth: ");
             String dateOfBirth = scanner.nextLine();
-            setDob(dateOfBirth);
+            patientBasicDetails.setDob(dateOfBirth);
 
             System.out.print(" Enter contactNo: ");
             String contactNo = scanner.nextLine();
-            setContactNo(contactNo);
+            patientBasicDetails.setContactNo(contactNo);
 
             System.out.print(" Enter address: ");
             String address = scanner.nextLine();
-            setAddress(address);
+            patientBasicDetails.setAddress(address);
 
             //login Details
             System.out.print(" Enter emailId: ");
-            doctorBasicDetails.setEmailId(scanner.nextLine());
+            patientBasicDetails.setEmailId(scanner.nextLine());
 
             System.out.print(" Enter password: ");
             String password = scanner.nextLine();
@@ -173,7 +152,7 @@ public class PatientRegistration {
             System.out.print(" Enter confirm password: ");
             String confirmPassword = scanner.nextLine();
             if (confirmPassword.equals(password)) {
-                doctorBasicDetails.setPassword(confirmPassword);
+                patientBasicDetails.setPassword(confirmPassword);
             } else {
                 System.out.println("Password dont match");
 
@@ -181,36 +160,36 @@ public class PatientRegistration {
 
             // Taking input for security questions
             System.out.println("Now please enter your answer for security questions");
-            System.out.println(" Enter name of your first school: ");
+            System.out.println(" Enter name of your first school:");
             String firstAnswer = scanner.nextLine();
             setFirstAnswer(firstAnswer);
 
-            System.out.println(" Enter your Hobby: ");
+            System.out.println(" Enter your Hobby:");
             String secondAnswer = scanner.nextLine();
             setSecondAnswer(secondAnswer);
 
-            System.out.println(" Enter name of your first bike: ");
+            System.out.println(" Enter name of your first bike:");
             String thirdAnswer = scanner.nextLine();
             setThirdAnswer(thirdAnswer);
 
             //Additonal Personal medical Details
-            System.out.print(" Enter your Blood Group: ");
+            System.out.print(" Enter your Blood Group:");
             String bloodGroup = scanner.nextLine();
             setBloodGroup(bloodGroup);
 
-            System.out.print(" Enter information for Allergies(if there are otherwise enter Null): ");
+            System.out.print(" Enter information for Allergies(if there are otherwise enter Null):");
             String allergy = scanner.nextLine();
             setAllergy(allergy);
 
-            System.out.println(" Enter Chronic disease if any(otherwise enter null): ");
+            System.out.println(" Enter Chronic disease if any(otherwise enter null):");
             String chronicDisease = scanner.nextLine();
             setChronicDisease(chronicDisease);
 
-            System.out.println(" Enter your insurance number: ");
+            System.out.println(" Enter your insurance number:");
             String insuranceNo = scanner.nextLine();
             setInsuranceNo(insuranceNo);
 
-            System.out.println(" Enter your donar card number (if you have): ");
+            System.out.println(" Enter your donar card number (if you have):");
             String donorCardNo = scanner.nextLine();
             setDonorCardNo(donorCardNo);
 
@@ -227,10 +206,10 @@ public class PatientRegistration {
 
             // Showing user its entered values in order to confirm it
 
-            System.out.println("[firstName:" + doctorBasicDetails.getFirstName() + ", lastName:" +
-                    doctorBasicDetails.getLastName() + ", gender:" + gender + ", dateOfBirth:" +
-                    dateOfBirth + ", contactNo:" + contactNo +", address:" +address+", password:"
-                    +doctorBasicDetails.getPassword()+" ,emailId:"+doctorBasicDetails.getEmailId()+ ", " +
+            System.out.println("[firstName:" + patientBasicDetails.getFirstName() + ", lastName:" +
+                    patientBasicDetails.getLastName() + ", gender:" + patientBasicDetails.getGender() + ", dateOfBirth:" +
+                    patientBasicDetails.getDob()+ ", contactNo:" + patientBasicDetails.getContactNo() +", address:" +patientBasicDetails.getAddress()+", password:"
+                    +patientBasicDetails.getPassword()+" ,emailId:"+patientBasicDetails.getEmailId()+ ", " +
                     "firstAnswer:" +firstAnswer+", secondAnswer:"+secondAnswer+", thirdAnswer:"+
                     thirdAnswer+", bloodGroup:"+bloodGroup+", allergies:"+allergy+", chronicDisease:"+
                     chronicDisease+", insuranceNo:"+insuranceNo+ ", donarCardNo:"+donorCardNo+
@@ -256,10 +235,12 @@ public class PatientRegistration {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 // update method to insert values in the database after user's choice is entered
-    public void update() throws ClassNotFoundException, SQLException {
+    public void update() throws ClassNotFoundException, SQLException, IOException {
             System.out.println("Inserting values in the database");
                    //Setting up the connection with the database
                     String driver = "com.mysql.cj.jdbc.Driver";
@@ -276,14 +257,14 @@ public class PatientRegistration {
 
                     //inserting values one by one for each entities
 
-                    test.setString(1, doctorBasicDetails.getFirstName());
-                    test.setString(2, doctorBasicDetails.getLastName());
-                    test.setString(3, dateOfBirth);
-                    test.setString(4, gender);
-                    test.setString(5, doctorBasicDetails.getPassword());
-                    test.setString(6, doctorBasicDetails.getEmailId());
-                    test.setString(7, address);
-                    test.setString(8, contactNo);
+                    test.setString(1, patientBasicDetails.getFirstName());
+                    test.setString(2, patientBasicDetails.getLastName());
+                    test.setString(3, patientBasicDetails.getDob());
+                    test.setString(4, patientBasicDetails.getGender());
+                    test.setString(5, patientBasicDetails.getPassword());
+                    test.setString(6, patientBasicDetails.getEmailId());
+                    test.setString(7, patientBasicDetails.getAddress());
+                    test.setString(8, patientBasicDetails.getContactNo());
                     test.setString(9, firstAnswer);
                     test.setString(10, secondAnswer);
                     test.setString(11, thirdAnswer);
@@ -297,8 +278,14 @@ public class PatientRegistration {
 
                     //executing update
                     test.executeUpdate();
+                    System.out.println(patientBasicDetails.getFirstName()+"  has successfully Registered");
+                    System.out.println("Now you would be able to login main menu");
+                    MainMenu init = new MainMenu();
+                    init.display();
             }
+
 }
+
 
 
 
