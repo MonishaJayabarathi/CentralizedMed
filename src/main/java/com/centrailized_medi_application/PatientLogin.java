@@ -18,9 +18,18 @@ public class PatientLogin implements LoginCommand
         this.init = init;
     }
 
-    public void setPatient_name(String patient_name) {
+    public void setPatient_name(String patient_name) throws SQLException, IOException, ClassNotFoundException {
 
-        this.patient_name = patient_name;
+        if(patient_name.matches("^[a-zA-Z@.com]*$"))
+        {
+            this.patient_name = patient_name;
+        }
+        else
+        {
+            System.out.println("Expecting Email id");
+            System.out.println("Re-enter you details");
+            init.display_patient_login();
+        }
 
     }
 
