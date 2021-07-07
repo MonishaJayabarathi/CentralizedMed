@@ -10,11 +10,11 @@ public class PatientRegistrationTest {
     {
         PatientRegistration testcheck = new PatientRegistration();
 
-        testcheck.setFirstName("john");
-        assertEquals("john",testcheck.getFirstName());
-
-        testcheck.setLastName("Smith");
-        assertEquals("Smith",testcheck.getLastName());
+//        testcheck.setFirstName("john");
+//        assertEquals("john",testcheck.getFirstName());
+//
+//        testcheck.setLastName("Smith");
+//        assertEquals("Smith",testcheck.getLastName());
 
         testcheck.setDob("14Jan1999");
         assertEquals("14Jan1999",testcheck.getDob());
@@ -22,11 +22,11 @@ public class PatientRegistrationTest {
         testcheck.setGender("male");
         assertEquals("male",testcheck.getGender());
 
-        testcheck.setPassword("qwe123");
-        assertEquals("qwe123",testcheck.getPassword());
-
-        testcheck.setEmailId("john@gmail.com");
-        assertEquals("john@gmail.com",testcheck.getEmailId());
+//        testcheck.setPassword("qwe123");
+//        assertEquals("qwe123",testcheck.getPassword());
+//
+//        testcheck.setEmailId("john@gmail.com");
+//        assertEquals("john@gmail.com",testcheck.getEmailId());
 
         testcheck.setAddress("gandhinagar gujarat");
         assertEquals("gandhinagar gujarat",testcheck.getAddress());
