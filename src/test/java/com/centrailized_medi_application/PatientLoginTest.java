@@ -17,7 +17,7 @@ class PatientLoginTest {
     void setPatient_name() throws SQLException, IOException, ClassNotFoundException {
         Patient p1 = new Patient(new MainMenu(),new PatientDashboard());
         PatientLogin p_login = new PatientLogin(p1,new MainMenu());  // Passing the object to the patient login
-        p_login.setPatient_name("Aditya");
+        p_login.setPatient_name("Aditya@gmail.com");
         assertEquals("Aditya",p_login.getPatient_name(),"Error: Incorrect Name");
     }
 

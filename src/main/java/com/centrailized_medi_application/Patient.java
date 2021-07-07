@@ -14,6 +14,7 @@ public class Patient implements Login
     private boolean[] creds=new boolean[2];
 
     MainMenu init;
+    //Menu init;
     PatientDashboard pd;
     public Patient(MainMenu main_menu, PatientDashboard patient_menu)
     {

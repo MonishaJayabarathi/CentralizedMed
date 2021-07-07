@@ -25,12 +25,11 @@ public class DB_Connection {
     private String pass;
     private boolean[] cred_validity=new boolean[2];
 
-    public DB_Connection(String configFile,String u_name,String u_pass) {
+    public DB_Connection(String configFile,String u_name,String u_pass)
+    {
     this.configFile=configFile;
     this.u_name=u_name;
     this.u_pass=u_pass;
-
-
     }
 
     public boolean[] getDetails() throws ClassNotFoundException, IOException, SQLException {

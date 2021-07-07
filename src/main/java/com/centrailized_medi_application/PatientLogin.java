@@ -19,17 +19,7 @@ public class PatientLogin implements LoginCommand
     }
 
     public void setPatient_name(String patient_name) {
-        // Commented because user id will be email address
-//        if(patient_name.matches("^[a-zA-Z]*$"))
-//        {
-//            this.patient_name = patient_name;
-//        }
-//        else
-//        {
-//            System.out.println("Name cannot contain aplha-numeric character or numericals");
-//            System.out.println("Re-enter you details");
-//            init.display_patient_login();
-//        }
+
         this.patient_name = patient_name;
 
     }

@@ -1,13 +1,11 @@
 package com.centrailized_medi_application;
 
-import java.io.IOException;
-import java.sql.SQLException;
+
 import java.util.Scanner;
 
 public class PatientDashboard implements Menu
 {
     private boolean flag = false;
-    PatientPrescription p_prespcription = null;
     private int patient_id;
 
     void PatientDashboard(int id)
@@ -29,20 +27,16 @@ public class PatientDashboard implements Menu
             Scanner sc = new Scanner(System.in);
             int option = sc.nextInt();
             if (option == 1) {
-
                 flag = true;
             } else if (option == 2) {
-
                 flag = true;
             } else if (option == 3) {
                 display_prescription();
                 flag = true;
             } else if (option == 4) {
-
                 flag = true;
             } else {
                 System.out.println("Enter the correct options to proceed");
-
             }
         }
     }
