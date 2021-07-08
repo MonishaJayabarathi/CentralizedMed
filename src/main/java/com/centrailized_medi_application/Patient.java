@@ -28,7 +28,7 @@ public class Patient implements Login
     /* Connect to database and check against the data*/
     @Override
     public void validate() throws SQLException, IOException, ClassNotFoundException {
-        String environment="D:\\Aditya\\jaipr_desktop\\Sem1\\CSCI-5308-Advanced_Software_Development\\Project\\patient_dashboard\\group5\\src\\main\\java\\com\\centrailized_medi_application\\config_test.properties";
+        String environment="src/main/resources/config_test.properties";
         DB_Connection connect= new DB_Connection(environment,this.user_name,this.password);
         creds=connect.getDetails();
         this.valid_id = creds[0];
