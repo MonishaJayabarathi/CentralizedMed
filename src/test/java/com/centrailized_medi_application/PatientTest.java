@@ -13,8 +13,8 @@ class PatientTest {
     // Fetch test case
     @Test
     void fetch() throws SQLException, IOException, ClassNotFoundException {
-        Patient patient = new Patient(new MainMenu(),new PatientDashboard());
-        PatientLogin p_login = new PatientLogin(patient, new MainMenu());
+        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
         p_login.setPatient_name("Aditya");
         p_login.setPatient_pass("a1234");
 
@@ -28,8 +28,8 @@ class PatientTest {
     @Test
     void validate() throws SQLException, IOException, ClassNotFoundException {
 
-        Patient patient = new Patient(new MainMenu(),new PatientDashboard());
-        PatientLogin p_login = new PatientLogin(patient, new MainMenu());
+        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
         p_login.setPatient_name("Aditya");
         p_login.setPatient_pass("a1234");
 
@@ -44,8 +44,8 @@ class PatientTest {
     @Disabled("authenticate->Calls user input after it succeeds,hence ignored")
     @Test
     void authenticate() throws SQLException, IOException, ClassNotFoundException {
-        Patient patient = new Patient(new MainMenu(),new PatientDashboard());
-        PatientLogin p_login = new PatientLogin(patient, new MainMenu());
+        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        PatientLogin p_login = new PatientLogin(patient,new WelcomePage());
         p_login.setPatient_name("Aditya");
         p_login.setPatient_pass("a1234");
 
@@ -61,8 +61,8 @@ class PatientTest {
     @Test
     void authenticate_pass_incorrect_pass() throws SQLException, IOException, ClassNotFoundException {
 
-        Patient patient = new Patient(new MainMenu(),new PatientDashboard());
-        PatientLogin p_login = new PatientLogin(patient, new MainMenu());
+        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
         p_login.setPatient_name("Aditya");
         p_login.setPatient_pass("a12");
 
@@ -77,8 +77,8 @@ class PatientTest {
     @Test
     void authenticate_pass_invalid() throws SQLException, IOException, ClassNotFoundException {
 
-        Patient patient = new Patient(new MainMenu(),new PatientDashboard());
-        PatientLogin p_login = new PatientLogin(patient, new MainMenu());
+        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
         p_login.setPatient_name("test");
         p_login.setPatient_pass("a12");
 

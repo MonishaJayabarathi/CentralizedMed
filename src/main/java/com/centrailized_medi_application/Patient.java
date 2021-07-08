@@ -24,12 +24,12 @@ public class Patient implements Login
     public boolean get_pass_status(){return this.valid_psswd;}
     public boolean get_auth_status(){return this.authenticate_phase;}
 
-    MainMenu init;
-    //Menu init;
+    //MainMenu init;
+    MainDashboard init;
     PatientDashboard pd;
-    public Patient(MainMenu main_menu, PatientDashboard patient_menu)
+    public Patient(MainDashboard init, PatientDashboard patient_menu)
     {
-        this.init = main_menu;
+        this.init = init;
         this.pd = patient_menu;
     }
 
