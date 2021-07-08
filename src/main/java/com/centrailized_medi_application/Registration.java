@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public interface Registration
 {
-  public void update();
+  public void update() throws IOException, ClassNotFoundException, SQLException;
   public void authenticate() throws SQLException, IOException, ClassNotFoundException;
 
 }

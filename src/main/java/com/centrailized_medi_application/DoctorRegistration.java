@@ -1,5 +1,7 @@
 package com.centrailized_medi_application;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -44,7 +46,7 @@ public class DoctorRegistration implements LoginCommand, Registration{
       System.out.println("Enter your Registration Number");
       setRegistrationNumber(sc.nextInt());
       System.out.println("Enter your E-mail(userId):");
-      doctorBasicDetails.setLastName(sc.next());
+      doctorBasicDetails.setEmailId(sc.next());
       System.out.println("Enter your password");
       doctorBasicDetails.setPassword(sc.next());
       System.out.println("Enter your confirm password");
@@ -75,8 +77,23 @@ public class DoctorRegistration implements LoginCommand, Registration{
   }
 
   @Override
-  public void update() {
+  public void update() throws IOException, ClassNotFoundException, SQLException {
     // Update details to doctor table
+    DB_Connection db=new DB_Connection("src/main/resources/config_test.properties");
+    Connection connection=db.createConnection();
+
+    PreparedStatement insert_statement=connection.prepareStatement("insert into doctor_info(first_name,last_name,clinic_address,speciality,registration_number,email,password) values(?,?,?,?,?,?,?);");
+    insert_statement.setString(1,doctorBasicDetails.getFirstName());
+    insert_statement.setString(2,doctorBasicDetails.getLastName());
+    insert_statement.setString(3,clinicAddress);
+    insert_statement.setString(4,speciality);
+    insert_statement.setInt(5,registrationNumber);
+    insert_statement.setString(6,doctorBasicDetails.getEmailId());
+    insert_statement.setString(7,doctorBasicDetails.getPassword());
+
+    boolean result=insert_statement.execute();
+
+
   }
 
   @Override
