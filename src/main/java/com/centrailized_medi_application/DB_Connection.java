@@ -8,7 +8,7 @@ import java.util.Properties;
 
 
 
-public class DB_Connection {
+public class DB_Connection implements DbConnection {
 
     private String url;
     private String username;
@@ -50,14 +50,15 @@ public class DB_Connection {
         connection = DriverManager.getConnection(url, username, password);
 
     }
+    @Override
     public Connection createConnection()
     {
 
         return connection;
     }
 
-
-    public boolean[] getDetails() throws ClassNotFoundException, IOException, SQLException {
+    @Override
+    public boolean[] getDetails() throws SQLException {
 
 
 
