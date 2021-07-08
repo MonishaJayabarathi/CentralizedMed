@@ -281,9 +281,9 @@ public class PatientRegistration {
             System.out.println("Inserting values in the database");
                    //Setting up the connection with the database
                     String driver = "com.mysql.cj.jdbc.Driver";
-                    String url = "jdbc:mysql://localhost:3306/trytest";
-                    String uname = "root";
-                    String pass = "";
+                    String url = "jdbc:mysql://db-5308.cs.dal.ca:3306/CSCI5308_5_TEST";
+                    String uname = "CSCI5308_5_TEST_USER";
+                    String pass = "VPF8Gd7WfeR";
                     Class.forName(driver);
                     Connection c = (Connection) DriverManager.getConnection(url, uname, pass);
                     //prepare statment to insert values in the database
