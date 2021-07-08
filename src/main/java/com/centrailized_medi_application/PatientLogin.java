@@ -7,16 +7,18 @@ import java.util.Scanner;
 public class PatientLogin implements LoginCommand
 {
     Login patient_login;
-    MainMenu init;
+    //MainMenu init;
+    MainDashboard init;
     private String patient_name;
     private String patient_pass;
 
 
-    public PatientLogin(Login p_login, MainMenu init)
+    public PatientLogin(Login p_login, MainDashboard init)
     {
         this.patient_login = p_login;
         this.init = init;
     }
+
 
     public void setPatient_name(String patient_name) throws SQLException, IOException, ClassNotFoundException {
 

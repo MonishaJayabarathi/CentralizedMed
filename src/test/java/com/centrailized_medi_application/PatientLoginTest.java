@@ -15,8 +15,8 @@ class PatientLoginTest {
     /* To verify the set func for login Patient (username)*/
     @Test
     void setPatient_name() throws SQLException, IOException, ClassNotFoundException {
-        Patient p1 = new Patient(new MainMenu(),new PatientDashboard());
-        PatientLogin p_login = new PatientLogin(p1,new MainMenu());  // Passing the object to the patient login
+        Patient p1 = new Patient(new WelcomePage(), new PatientPage());
+        PatientLogin p_login = new PatientLogin(p1,new WelcomePage());  // Passing the object to the patient login
         p_login.setPatient_name("Aditya@gmail.com");
         assertEquals("Aditya@gmail.com",p_login.getPatient_name(),"Error: Incorrect Name");
     }
@@ -25,8 +25,8 @@ class PatientLoginTest {
     @Disabled("setPatient_name_only_char->Calls user input after it succeeds,hence ignored")
     @Test
     void setPatient_name_only_char() throws SQLException, IOException, ClassNotFoundException {
-        Patient p1 = new Patient(new MainMenu(),new PatientDashboard());
-        PatientLogin p_login = new PatientLogin(p1, new MainMenu());  // Passing the object to the patient login
+        Patient p1 = new Patient(new WelcomePage(), new PatientPage());
+        PatientLogin p_login = new PatientLogin(p1, new WelcomePage());  // Passing the object to the patient login
         p_login.setPatient_name("Aditya1234");
         assertNull(p_login.getPatient_name());
     }
@@ -35,8 +35,8 @@ class PatientLoginTest {
     @Test
     void setPatient_pass()
     {
-        Patient p1 = new Patient(new MainMenu(),new PatientDashboard());
-        PatientLogin p_login = new PatientLogin(p1, new MainMenu());  // Passing the object to the patient login
+        Patient p1 = new Patient(new WelcomePage(), new PatientPage());
+        PatientLogin p_login = new PatientLogin(p1, new WelcomePage());  // Passing the object to the patient login
         p_login.setPatient_pass("Aditya");
         assertEquals("Aditya",p_login.getPatient_pass(),"Error: Incorrect Password");
     }
@@ -44,8 +44,8 @@ class PatientLoginTest {
     @Test
     void execute() throws SQLException, IOException, ClassNotFoundException {
 
-        Patient patient = new Patient(new MainMenu(),new PatientDashboard());
-        PatientLogin p_login = new PatientLogin(patient, new MainMenu());  // Passing the object to the patient login
+        Patient patient = new Patient(new WelcomePage(), new PatientPage());
+        PatientLogin p_login = new PatientLogin(patient,new WelcomePage());  // Passing the object to the patient login
         p_login.setPatient_name("Aditya");
         p_login.setPatient_pass("a1234");
 
