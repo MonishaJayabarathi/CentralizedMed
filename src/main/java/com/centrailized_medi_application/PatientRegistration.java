@@ -19,6 +19,7 @@ public class PatientRegistration {
     private String donorCardNo;
     private String familyMemberCode;
     private String volunteer;
+    private String em;
 
 
     //Creating Get and Set methods for all the entities required for registration
@@ -119,8 +120,22 @@ public class PatientRegistration {
             System.out.println();
             System.out.println("Please enter the below details in order to get registered as a patient successfully");
 
-            //User Details
-            System.out.print(" Enter firstName: ");
+//            boolean checker = false;
+//            do {
+//
+//            }while(checker) {
+//                //User Details
+//                System.out.print(" Enter firstName: ");
+//                patientBasicDetails.setFirstName(scanner.nextLine());
+//                if(!) {
+//                    checker = true;
+//                }
+//                else {
+//                    checker = false;
+//                }
+//            }
+
+            System.out.print(" Enter FirstName: ");
             patientBasicDetails.setFirstName(scanner.nextLine());
 
             System.out.print(" Enter lastName: ");
@@ -152,13 +167,17 @@ public class PatientRegistration {
             System.out.print(" Enter confirm password: ");
             String confirmPassword = scanner.nextLine();
             if (confirmPassword.equals(password)) {
-                patientBasicDetails.setPassword(confirmPassword);
-            } else {
+
+                    patientBasicDetails.setPassword(confirmPassword);
+
+            }
+            else {
                 System.out.println("Password dont match");
 
             }
 
             // Taking input for security questions
+
             System.out.println("Now please enter your answer for security questions");
             System.out.println(" Enter name of your first school:");
             String firstAnswer = scanner.nextLine();
@@ -240,15 +259,20 @@ public class PatientRegistration {
         }
     }
 // update method to insert values in the database after user's choice is entered
-    public void update() throws ClassNotFoundException, SQLException, IOException {
+
+    public void update() throws ClassNotFoundException, SQLException, IOException
+    {
             System.out.println("Inserting values in the database");
                    //Setting up the connection with the database
-                    String driver = "com.mysql.cj.jdbc.Driver";
-                    String url = "jdbc:mysql://localhost:3306/trytest";
-                    String uname = "root";
-                    String pass = "";
-                    Class.forName(driver);
-                    Connection c = DriverManager.getConnection(url, uname, pass);
+//                    String driver = "com.mysql.cj.jdbc.Driver";
+//                    String url = "jdbc:mysql://localhost:3306/trytest";
+//                    String uname = "root";
+//                    String pass = "";
+//                    Class.forName(driver);
+
+//                    Connection c = DriverManager.getConnection(url, uname, pass);
+                    DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+                    Connection c = one.createConnection();
                     //prepare statment to insert values in the database
                     PreparedStatement test = c.prepareStatement("INSERT INTO `userinfo`(firstname,lastname," +
                             "dateofbirth,gender,password,emailId,address,contactNo,firstAnswer,secondAnswer,thirdAnswer," +
@@ -282,7 +306,41 @@ public class PatientRegistration {
                     System.out.println("Now you would be able to login main menu");
                     MainMenu init = new MainMenu();
                     init.display();
-            }
+    }
+
+    public void get(String Email) throws SQLException, ClassNotFoundException, IOException {
+//                String driver = "com.mysql.cj.jdbc.Driver";
+//                String url = "jdbc:mysql://localhost:3306/trytest";
+//                String uname = "root";
+//                String pass = "";
+//                Class.forName(driver);
+                DbConnection two = new DB_Connection("src/main/resources/config_test.properties");
+                Connection c = two.createConnection();
+                this.em = Email;
+                System.out.println("Fetching value for the user whose EmailId:"+em);
+                String sqlStmt = "SELECT * FROM userinfo where emailId =?";
+                PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
+                prepStmt.toString();
+                prepStmt.setString(1,em);
+                ResultSet rs = prepStmt.executeQuery();
+                while(rs.next()){
+                    //Display values
+                    System.out.println("Firstname: " + rs.getString("firstname"));
+                    System.out.println("Lastname: " + rs.getString("lastname"));
+                    System.out.println("Date of birth: " + rs.getString("dateofbirth"));
+                    System.out.println("Gender: " + rs.getString("gender"));
+                    System.out.println("EmailId: " + rs.getString("emailId"));
+                    System.out.println("Address: " + rs.getString("address"));
+                    System.out.println("BloodGroup: " + rs.getString("bloodGroup"));
+                    System.out.println("Allergy: " + rs.getString("allergy"));
+                    System.out.println("ChronicDisease: " + rs.getString("chronicDisease"));
+                    System.out.println("InsuranceNo: " + rs.getString("insuranceNo"));
+                    System.out.println("DonorCardNo: " + rs.getString("insuranceNo"));
+                    System.out.println("FamilyMemberCode: " + rs.getString("familyMemberCode"));
+                    System.out.println("Volunteer: " + rs.getString("volunteer"));
+                }
+
+    }
 
 }
 
