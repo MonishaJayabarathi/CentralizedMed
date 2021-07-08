@@ -26,6 +26,10 @@ public class DB_Connection {
     private boolean[] cred_validity=new boolean[2];
 
     public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    f1 = new FileInputStream(configFile);
+    pr = new Properties();
+    pr.load(f1);
     this.configFile=configFile;
     this.u_name=u_name;
     this.u_pass=u_pass;
