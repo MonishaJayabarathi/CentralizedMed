@@ -13,6 +13,17 @@ public class Patient implements Login
     private boolean authenticate_phase = false;
     private boolean[] creds=new boolean[2];
 
+
+    public String getPassword() {
+        return this.password;
+    }
+    public String getUsername() {
+        return this.user_name;
+    }
+    public boolean get_id_status(){return this.valid_id;}
+    public boolean get_pass_status(){return this.valid_psswd;}
+    public boolean get_auth_status(){return this.authenticate_phase;}
+
     MainMenu init;
     //Menu init;
     PatientDashboard pd;
@@ -21,19 +32,6 @@ public class Patient implements Login
         this.init = main_menu;
         this.pd = patient_menu;
     }
-
-    public String getPassword() {
-        return this.password;
-    }
-    public String getUsername() {
-        return this.user_name;
-    }
-
-    public boolean get_id_status(){return this.valid_id;}
-    public boolean get_pass_status(){return this.valid_psswd;}
-    public boolean get_auth_status(){return this.authenticate_phase;}
-
-
 
     /* Fetching patient credentials*/
     @Override
@@ -65,6 +63,7 @@ public class Patient implements Login
         }
         else if(this.valid_id && !this.valid_psswd)
         {
+            //call authentication mechanism
             System.out.println("Check your credentials!");
             this.init.display_patient_login();
         }

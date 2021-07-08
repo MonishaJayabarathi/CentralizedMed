@@ -36,13 +36,10 @@ public class PatientLogin implements LoginCommand
     public void setPatient_pass(String patient_pass) {
         this.patient_pass = patient_pass;
     }
-
     public String getPatient_name()
     {
         return patient_name;
     }
-
-
     public String getPatient_pass() {
         return patient_pass;
     }
@@ -78,11 +75,6 @@ public class PatientLogin implements LoginCommand
                 System.out.println("Logging in....");
                 this.execute();
             }
-
         }
-
-
     }
-
-
 }
