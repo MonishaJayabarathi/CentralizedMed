@@ -26,24 +26,24 @@ public class DB_Connection implements DbConnection {
     private boolean[] cred_validity=new boolean[2];
 
     public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    f1 = new FileInputStream(configFile);
-    pr = new Properties();
-    pr.load(f1);
-    this.configFile=configFile;
-    this.u_name=u_name;
-    this.u_pass=u_pass;
-    connection = DriverManager.getConnection(url, username, password);
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        f1 = new FileInputStream(configFile);
+        pr = new Properties();
+        pr.load(f1);
+        url = pr.getProperty("database");
+        username = pr.getProperty("user");
+        password = pr.getProperty("password");
+        this.configFile = configFile;
+        this.u_name = u_name;
+        this.u_pass = u_pass;
+        connection = DriverManager.getConnection(url, username, password);
     }
     public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-
         f1 = new FileInputStream(configFile);
-
 
         pr = new Properties();
         pr.load(f1);
-
         url = pr.getProperty("database");
         username = pr.getProperty("user");
         password = pr.getProperty("password");
