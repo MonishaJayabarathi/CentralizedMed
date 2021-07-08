@@ -1,20 +1,19 @@
 package com.centrailized_medi_application;
 
-
 import java.util.Scanner;
 
-public class PatientDashboard implements Menu
-{
-    private boolean flag = false;
-    private int patient_id;
+public abstract class PatientDashboard extends Dashboard{
+    public abstract void About();
 
-    void PatientDashboard(int id)
-    {
-        patient_id = id;
-    }
+    public abstract void Consultations();
+
+    public abstract void Prescriptions();
+
+    public abstract void Suggestions();
+    protected boolean flag = false;
+    protected Scanner sc = new Scanner(System.in);
     @Override
-    public void display()
-    {
+    public void display() {
         System.out.println("-----------Dashboard-------------");
         System.out.println("1.About");
         System.out.println("2.Consultations");
@@ -23,7 +22,7 @@ public class PatientDashboard implements Menu
         System.out.println("----------------------------------");
         System.out.println(" Enter from above options to proceed:");
 
-        while(flag!=true) {
+        while (flag != true) {
             Scanner sc = new Scanner(System.in);
             int option = sc.nextInt();
             if (option == 1) {
@@ -31,7 +30,7 @@ public class PatientDashboard implements Menu
             } else if (option == 2) {
                 flag = true;
             } else if (option == 3) {
-                display_prescription();
+                this.Prescriptions();
                 flag = true;
             } else if (option == 4) {
                 flag = true;
@@ -40,11 +39,4 @@ public class PatientDashboard implements Menu
             }
         }
     }
-
-    public void display_prescription()
-    {
-        PatientPrescription pp = new PatientPrescription(patient_id);
-        System.out.println(pp.formatPrescription());
-    }
-
 }
