@@ -46,8 +46,8 @@ class PatientLoginTest {
 
         Patient patient = new Patient(new WelcomePage(), new PatientPage());
         PatientLogin p_login = new PatientLogin(patient,new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_name("Aditya");
-        p_login.setPatient_pass("a1234");
+        p_login.setPatient_name("Kazi@gmail.com");
+        p_login.setPatient_pass("k1234");
 
 
         //Fetch
@@ -55,20 +55,9 @@ class PatientLoginTest {
         // Validate
         patient.validate();
 
-        //authenticate
-        //Commenting out as it will expect user iput after it succeeds
-        //patient.authenticate();
-
-//        assertAll("Checking Execute Function",
-//                () -> assertEquals("Aditya", patient.getUsername()),
-//                () -> assertEquals("a1234", patient.getPassword()),
-//                () -> assertTrue(patient.get_id_status()),
-//                () -> assertTrue(patient.get_pass_status()),
-//                () -> assertTrue(patient.get_auth_status()));
-
         assertAll("Checking Execute Function",
-                () -> assertEquals("Aditya", patient.getUsername()),
-                () -> assertEquals("a1234", patient.getPassword()),
+                () -> assertEquals("Kazi@gmail.com", patient.getUsername()),
+                () -> assertEquals("k1234", patient.getPassword()),
                 () -> assertTrue(patient.get_id_status()),
                 () -> assertTrue(patient.get_pass_status()));
 

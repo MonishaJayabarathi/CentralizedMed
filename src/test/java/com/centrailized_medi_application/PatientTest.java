@@ -15,13 +15,13 @@ class PatientTest {
     void fetch() throws SQLException, IOException, ClassNotFoundException {
         Patient patient = new Patient(new WelcomePage(),new PatientPage());
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name("Aditya");
-        p_login.setPatient_pass("a1234");
+        p_login.setPatient_name("Kazi@gmail.com");
+        p_login.setPatient_pass("k1234");
 
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
         assertAll("Fetch Function",
-                () -> assertEquals("Aditya", patient.getUsername()),
-                () -> assertEquals("a1234", patient.getPassword()));
+                () -> assertEquals("Kazi@gmail.com", patient.getUsername()),
+                () -> assertEquals("k1234", patient.getPassword()));
     }
 
     // Validation test case
@@ -30,8 +30,8 @@ class PatientTest {
 
         Patient patient = new Patient(new WelcomePage(),new PatientPage());
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name("Aditya");
-        p_login.setPatient_pass("a1234");
+        p_login.setPatient_name("Kazi@gmail.com");
+        p_login.setPatient_pass("k1234");
 
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
         patient.validate();
@@ -46,8 +46,8 @@ class PatientTest {
     void authenticate() throws SQLException, IOException, ClassNotFoundException {
         Patient patient = new Patient(new WelcomePage(),new PatientPage());
         PatientLogin p_login = new PatientLogin(patient,new WelcomePage());
-        p_login.setPatient_name("Aditya");
-        p_login.setPatient_pass("a1234");
+        p_login.setPatient_name("Kazi@gmail.com");
+        p_login.setPatient_pass("k1234");
 
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
         patient.validate();

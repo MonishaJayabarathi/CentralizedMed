@@ -22,7 +22,7 @@ public class PatientLogin implements LoginCommand
 
     public void setPatient_name(String patient_name) throws SQLException, IOException, ClassNotFoundException {
 
-        if(patient_name.matches("^[a-zA-Z@.com]*$"))
+        if(patient_name.contains("@") && patient_name.contains(".com"))
         {
             this.patient_name = patient_name;
         }
