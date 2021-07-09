@@ -34,23 +34,16 @@ class LoginAuthorisationTest {
         ResultSet s1 = answer.executeQuery();
         s1.next();
         LoginAuthorisation key = new LoginAuthorisation();
-        assertEquals(s1.getString("firstAnswer"), key.getSecurityQuestion(), "Incorrect Security Answer");
+        assertEquals(s1.getString("firstAnswer"), key.getSecurityQuestion(user_name), "Incorrect Security Answer");
 
     }
 
     @Test
     void verifySecurityInvalid() throws SQLException, IOException, ClassNotFoundException {
         boolean[] creds = new boolean[2];
-        String environment = "src/main/resources/config_test.properties";
-        DB_Connection db = new DB_Connection(environment);
-        Connection connect = db.createConnection();
         String user_name = "Ridam@gmail.com";
-        PreparedStatement answer = connect.prepareStatement("select * from userinfo where emailId=?");
-        answer.setString(1, user_name);
-        ResultSet s1 = answer.executeQuery();
-        s1.next();
         LoginAuthorisation key = new LoginAuthorisation();
-        assertEquals(s1.getString("firstAnswer"), key.getSecurityQuestion(), "Incorrect Security Answer");
+        assertEquals("User Does not Exist", key.getSecurityQuestion(user_name));
 
     }
 }
