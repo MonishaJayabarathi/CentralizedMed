@@ -47,11 +47,15 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         else
         {
             Scanner sc=new Scanner(System.in);
-            String newPassword=sc.next();
+            String newPassword="passchanged!!!";
             PreparedStatement updatePass=connection.prepareStatement("Update userinfo set password=? where emailid=?");
             updatePass.setString(1,newPassword);
             updatePass.setString(2,user_name);
-            updatePass.executeQuery();
+            updatePass.execute();
+            updatePass=connection.prepareStatement("Update login_details set pass=? where user_name=?");
+            updatePass.setString(1,newPassword);
+            updatePass.setString(2,user_name);
+            updatePass.execute();
             connection.close();
             return "Password reset was successful !";
         }
