@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class SecurityQuestions implements Details {
   private  String answer1;
   private  String answer2;
+  private  String answer3;
 
   protected Scanner sc = new Scanner(System.in);
 
@@ -20,6 +21,13 @@ public class SecurityQuestions implements Details {
   public void setAnswer2(String ans2) {
     this.answer2 = ans2;
   }
+  public String getAnswer3() {
+    return "";
+  }
+  public void setAnswer3(String ans3) {
+
+  }
+
 
   @Override
   public void getDetails() {

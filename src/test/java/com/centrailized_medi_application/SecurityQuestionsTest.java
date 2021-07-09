@@ -35,4 +35,18 @@ class SecurityQuestionsTest {
     sq.setAnswer2("answer22");
     assertEquals("answer22", sq.getAnswer2(), "answer2 setter fails");
   }
+
+  @Test
+  @DisplayName("To get answer3")
+  void getAnswer3() {
+    sq.setAnswer3("answer31");
+    assertEquals("answer31", sq.getAnswer3(), "answer3 getter fails");
+  }
+
+  @Test
+  @DisplayName("To set answer3")
+  void setAnswer3() {
+    sq.setAnswer3("answer32");
+    assertEquals("answer32", sq.getAnswer3(), "answer3 setter fails");
+  }
 }
