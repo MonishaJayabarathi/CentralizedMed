@@ -2,6 +2,11 @@ package com.centrailized_medi_application;
 
 import java.util.Scanner;
 
+/*
+ * @author Monisha J
+ * @description: This program gets the answers for security question from the person trying to register or
+ * trying to reset password. The class has getter and setter of the required variables holding security answers.
+ */
 public class SecurityQuestions implements Details {
   private  String answer1;
   private  String answer2;
@@ -28,6 +33,7 @@ public class SecurityQuestions implements Details {
     this.answer3 = ans3;
   }
 
+  //this method displays questions and records its answers
   @Override
   public void getDetails() {
     System.out.println("Your first school:");
