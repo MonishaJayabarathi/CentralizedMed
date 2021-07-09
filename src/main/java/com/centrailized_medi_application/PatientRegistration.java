@@ -304,7 +304,7 @@ public class PatientRegistration {
                     test.executeUpdate();
                     System.out.println(patientBasicDetails.getFirstName()+"  has successfully Registered");
                     System.out.println("Now you would be able to login main menu");
-                    MainMenu init = new MainMenu();
+                    WelcomePage init = new WelcomePage();
                     init.display();
     }
 

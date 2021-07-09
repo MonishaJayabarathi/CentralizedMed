@@ -7,30 +7,41 @@ import java.util.Scanner;
 public class PatientLogin implements LoginCommand
 {
     Login patient_login;
+    //MainMenu init;
+    MainDashboard init;
     private String patient_name;
     private String patient_pass;
 
 
-    public PatientLogin(Login p_login)
+    public PatientLogin(Login p_login, MainDashboard init)
     {
-        patient_login = p_login;
+        this.patient_login = p_login;
+        this.init = init;
     }
 
-    public void setPatient_name(String patient_name)
-    {
-        this.patient_name = patient_name;
+
+    public void setPatient_name(String patient_name) throws SQLException, IOException, ClassNotFoundException {
+
+        if(patient_name.contains("@") && patient_name.contains(".com"))
+        {
+            this.patient_name = patient_name;
+        }
+        else
+        {
+            System.out.println("Expecting Email id");
+            System.out.println("Re-enter you details");
+            init.display_patient_login();
+        }
+
     }
 
     public void setPatient_pass(String patient_pass) {
         this.patient_pass = patient_pass;
     }
-
     public String getPatient_name()
     {
         return patient_name;
     }
-
-
     public String getPatient_pass() {
         return patient_pass;
     }
@@ -49,7 +60,7 @@ public class PatientLogin implements LoginCommand
         Scanner sc = new Scanner(System.in);
         if (sc.nextInt() == 1)
         {
-           this.execute();
+            this.execute();
         }
         else
         {
@@ -57,9 +68,8 @@ public class PatientLogin implements LoginCommand
             sc = new Scanner(System.in);
             if (sc.nextLine().equals("y"))
             {
-                System.out.println("move to main menu");
-                MainMenu init = new MainMenu();
-                init.display();
+                System.out.println("Navigating to main menu...");
+                this.init.display();
 
             }
             else
@@ -67,11 +77,6 @@ public class PatientLogin implements LoginCommand
                 System.out.println("Logging in....");
                 this.execute();
             }
-
         }
-
-
     }
-
-
 }
