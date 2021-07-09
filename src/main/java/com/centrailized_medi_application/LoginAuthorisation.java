@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class LoginAuthorisation implements ILoginAuthorisation {
     @Override
@@ -26,11 +27,35 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     }
 
     @Override
-    public String resetPassword(String user_name,boolean securityQuesCleared,Integer retries)
-    {
+    public String resetPassword(String user_name,boolean securityQuesCleared,Integer retries) throws SQLException, IOException, ClassNotFoundException {
+        if(securityQuesCleared==false)
+        {
+            return "Please answer the security question first !";
+        }
+        String configFile="src/main/resources/config_test.properties";
+        DB_Connection db=new DB_Connection(configFile);
+        Connection connection=db.createConnection();
+        PreparedStatement checkUser = connection.prepareStatement("select * from userinfo where emailId=?");
+        checkUser.setString(1, user_name);
+        ResultSet s2 = checkUser.executeQuery();
+        if(s2.next()==false)
+        {
+            connection.close();
+            return "User is not registered !";
 
+        }
+        else
+        {
+            Scanner sc=new Scanner(System.in);
+            String newPassword=sc.next();
+            PreparedStatement updatePass=connection.prepareStatement("Update userinfo set password=? where emailid=?");
+            updatePass.setString(1,newPassword);
+            updatePass.setString(2,user_name);
+            updatePass.executeQuery();
+            connection.close();
+            return "Password reset was successful !";
+        }
 
-        return null;
     }
 
 

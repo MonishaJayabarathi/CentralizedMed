@@ -12,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LoginAuthorisationTest {
     @Test
-    public void resetValidUser()
-    {
+    public void resetValidUser() throws SQLException, IOException, ClassNotFoundException {
         Integer retry = 3;
         boolean clearedSecurityQues = true;
         String user_name = "Neelay@gmail.com";
@@ -22,8 +21,7 @@ class LoginAuthorisationTest {
 
     }
     @Test
-    public void resetInavlidUser()
-    {
+    public void resetInavlidUser() throws SQLException, IOException, ClassNotFoundException {
         Integer retry = 3;
         boolean clearedSecurityQues = true;
         String user_name = "greg.house@gmail.com";
@@ -33,8 +31,7 @@ class LoginAuthorisationTest {
     }
 
     @Test
-    public void resetCouldNotClearSecQues()
-    {
+    public void resetCouldNotClearSecQues() throws SQLException, IOException, ClassNotFoundException {
         Integer retry = 3;
         boolean clearedSecurityQues = false;
         String user_name = "greg.house@gmail.com";
