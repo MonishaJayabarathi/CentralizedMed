@@ -22,12 +22,11 @@ public class SecurityQuestions implements Details {
     this.answer2 = ans2;
   }
   public String getAnswer3() {
-    return "";
+    return answer3;
   }
   public void setAnswer3(String ans3) {
-
+    this.answer3 = ans3;
   }
-
 
   @Override
   public void getDetails() {
@@ -35,5 +34,7 @@ public class SecurityQuestions implements Details {
     setAnswer1(sc.next());
     System.out.println("Your hobby:");
     setAnswer2(sc.next());
+    System.out.println("Your first bike:");
+    setAnswer3(sc.next());
   }
 }
