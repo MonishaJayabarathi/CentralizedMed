@@ -32,6 +32,18 @@ class LoginAuthorisationTest {
 
     }
 
+    @Test
+    public void resetCouldNotClearSecQues()
+    {
+        Integer retry = 3;
+        boolean clearedSecurityQues = false;
+        String user_name = "greg.house@gmail.com";
+        LoginAuthorisation lg = new LoginAuthorisation();
+        assertEquals("Please answer the security question first !", lg.resetPassword( user_name,clearedSecurityQues,retry));
+
+
+    }
+
 
 
 
