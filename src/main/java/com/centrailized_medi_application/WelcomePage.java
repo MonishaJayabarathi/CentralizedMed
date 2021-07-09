@@ -2,6 +2,7 @@ package com.centrailized_medi_application;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class WelcomePage extends MainDashboard
 {
@@ -22,11 +23,28 @@ public class WelcomePage extends MainDashboard
 
     }
     @Override
-    public void display_patient_registration()
-    {
+    public void display_patient_registration() throws SQLException, IOException, ClassNotFoundException {
         PatientRegistration patient = new PatientRegistration();
-        patient.beginRegistration();
+        System.out.println("Would you like to register then press 1 or would you like to know information about patient press 2");
+        Scanner one = new Scanner(System.in);
+        int temp = one.nextInt();
+        if (temp == 1) {
+
+            patient.beginRegistration();
+        }
+        else if(temp==2)
+        {
+            System.out.println("Please enter email id of patient");
+            String Email = one.next();
+            System.out.println("enere email:"+Email);
+            patient.get(Email);
+        }
+        else
+        {
+            System.out.println("Enter correct option either 1 or 2");
+        }
     }
+
     @Override
     public void display_doctor_registration()
     {
