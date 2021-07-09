@@ -8,14 +8,15 @@ public class SecurityQuestions implements Details {
   protected Scanner sc = new Scanner(System.in);
 
   public String getAnswer1() {
-    return "";
+    return answer1;
   }
   public void setAnswer1(String ans1) {
-
+    this.answer1 = ans1;
   }
 
   @Override
   public void getDetails() {
-
+    System.out.println("Your first school:");
+    setAnswer1(sc.next());
   }
 }
