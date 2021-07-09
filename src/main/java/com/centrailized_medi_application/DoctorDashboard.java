@@ -37,6 +37,7 @@ public abstract class DoctorDashboard extends Dashboard {
       Scanner sc = new Scanner(System.in);
       int option = sc.nextInt();
       if (option == 1) {
+        this.display_about_doctor();  // navigates to display About Doctor Tab.
         flag = true;
       } else if (option == 2) {
         flag = true;

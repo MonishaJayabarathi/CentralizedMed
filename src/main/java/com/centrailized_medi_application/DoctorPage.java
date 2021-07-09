@@ -16,7 +16,9 @@ public class DoctorPage extends DoctorDashboard{
   // navigates to About Tab
   @Override
   public void display_about_doctor() throws SQLException, IOException, ClassNotFoundException {
-
+    AboutDoctor abtDr = new AboutDoctor(1); //testing commit
+    AboutDoctorPage abtDrPage = new AboutDoctorPage(abtDr);
+    abtDrPage.display();
   }
 
   // navigates to Add Patients Tab
