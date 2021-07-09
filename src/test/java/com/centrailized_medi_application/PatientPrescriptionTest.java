@@ -13,7 +13,7 @@ class PatientPrescriptionTest {
     /* PatientPrescription retrieves the correct prescription from the database for current patient with one medication*/
     @Test
     void PatientPrescription_oneMedication(){
-        String expectedMedicationList = "Amodis, Metronidazole BP, By Mouth, 400, 1, Twice a day, Morning, ";
+        String expectedMedicationList = "Amodis, Metronidazole BP, Oral, 400, 1, Twice a day, Morning, ";
 
         PatientPrescription patientPrescription = new PatientPrescription(1);
         ArrayList<ArrayList<String>> medicationList = patientPrescription.getPrescriptionList();
@@ -35,10 +35,10 @@ class PatientPrescriptionTest {
      * a total of four medications prescribed for all three times of the day */
     @Test
     void PatientPrescription_manyMedications(){
-        String expectedMedicationList = "Amodis, Metronidazole BP, By Mouth, 400, 1, Twice a day, Morning, " +
-                "Flonase, Fluticasone, By Mouth, 200, 1, Once a day, Morning, " +
-                "Fosamax, Alendronate, By Mouth, 400, 1, Twice a day, Evening, " +
-                "Glucophage, Melformin, By Mouth, 100, 1, Once a day, Night, ";
+        String expectedMedicationList = "Amodis, Metronidazole BP, Oral, 400, 1, Twice a day, Morning, " +
+                "Flonase, Fluticasone, Oral, 200, 1, Once a day, Morning, " +
+                "Fosamax, Alendronate, Oral, 400, 1, Twice a day, Evening, " +
+                "Glucophage, Melformin, Oral, 100, 1, Once a day, Night, ";
 
         PatientPrescription patientPrescription = new PatientPrescription(2);
         ArrayList<ArrayList<String>> medicationList = patientPrescription.getPrescriptionList();
@@ -66,7 +66,7 @@ class PatientPrescriptionTest {
                 "   MEDICATION\n" +
                 "   Brand Name : Amodis\n" +
                 "   Generic Name : Metronidazole BP\n" +
-                "   Route : By Mouth\n" +
+                "   Route : Oral\n" +
                 "   Strength : 400 mg\n" +
                 "   Amount : 1 Tablet\n" +
                 "   Frequency : Twice a day\n" +
@@ -95,7 +95,7 @@ class PatientPrescriptionTest {
                         "   MEDICATION\n" +
                         "   Brand Name : Amodis\n" +
                         "   Generic Name : Metronidazole BP\n" +
-                        "   Route : By Mouth\n" +
+                        "   Route : Oral\n" +
                         "   Strength : 400 mg\n" +
                         "   Amount : 1 Tablet\n" +
                         "   Frequency : Twice a day\n" +
@@ -103,7 +103,7 @@ class PatientPrescriptionTest {
                         "   MEDICATION\n" +
                         "   Brand Name : Flonase\n" +
                         "   Generic Name : Fluticasone\n" +
-                        "   Route : By Mouth\n" +
+                        "   Route : Oral\n" +
                         "   Strength : 200 mg\n" +
                         "   Amount : 1 Tablet\n" +
                         "   Frequency : Once a day\n" +
@@ -113,7 +113,7 @@ class PatientPrescriptionTest {
                         "   MEDICATION\n" +
                         "   Brand Name : Fosamax\n" +
                         "   Generic Name : Alendronate\n" +
-                        "   Route : By Mouth\n" +
+                        "   Route : Oral\n" +
                         "   Strength : 400 mg\n" +
                         "   Amount : 1 Tablet\n" +
                         "   Frequency : Twice a day\n" +
@@ -123,7 +123,7 @@ class PatientPrescriptionTest {
                         "   MEDICATION\n" +
                         "   Brand Name : Glucophage\n" +
                         "   Generic Name : Melformin\n" +
-                        "   Route : By Mouth\n" +
+                        "   Route : Oral\n" +
                         "   Strength : 100 mg\n" +
                         "   Amount : 1 Tablet\n" +
                         "   Frequency : Once a day\n" +
