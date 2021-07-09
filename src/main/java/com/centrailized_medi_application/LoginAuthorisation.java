@@ -7,7 +7,10 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     }
 
     @Override
-    public void resetPassword() {
-
+    public String resetPassword()
+    {
+        return null;
     }
+
+
 }
