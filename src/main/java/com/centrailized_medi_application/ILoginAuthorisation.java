@@ -7,7 +7,7 @@ public interface ILoginAuthorisation {
 
     static int retry=0;
     String user_id = null;
-    public String getSecurityQuestion() throws SQLException, IOException, ClassNotFoundException;//will be used to get the security questions for the user trying to login
+    public String getSecurityQuestion(String Username) throws SQLException, IOException, ClassNotFoundException;//will be used to get the security questions for the user trying to login
     public String resetPassword();//This function will provide the user the ability to reset password
 
 }
