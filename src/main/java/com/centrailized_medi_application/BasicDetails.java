@@ -65,16 +65,16 @@ public class BasicDetails implements Details {
     this.address = address;
   }
   public int getLatitude() {
-    return 0;
+    return latitude;
   }
   public void setLatitude(int lat) {
-
+    this.latitude = lat;
   }
   public int getLongitude() {
-    return 0;
+    return longitude;
   }
   public void setLongitude(int lon) {
-
+    this.longitude = lon;
   }
   public String getPassword() {
     return password;
