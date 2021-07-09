@@ -26,8 +26,10 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     }
 
     @Override
-    public String resetPassword()
+    public String resetPassword(String user_name,boolean securityQuesCleared,Integer retries)
     {
+
+
         return null;
     }
 

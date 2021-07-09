@@ -12,14 +12,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LoginAuthorisationTest {
     @Test
-    public void reset() {
+    public void resetValidUser()
+    {
         Integer retry = 3;
         boolean clearedSecurityQues = true;
         String user_name = "Neelay@gmail.com";
         LoginAuthorisation lg = new LoginAuthorisation();
-        assertEquals("Password reset was successful !", lg.resetPassword());
+        assertEquals("Password reset was successful !", lg.resetPassword(user_name, clearedSecurityQues, retry));
 
     }
+    @Test
+    public void resetInavlidUser()
+    {
+        Integer retry = 3;
+        boolean clearedSecurityQues = true;
+        String user_name = "greg.house@gmail.com";
+        LoginAuthorisation lg = new LoginAuthorisation();
+        assertEquals("User is not registered !", lg.resetPassword( user_name,clearedSecurityQues,retry));
+
+    }
+
+
 
 
     @Test
