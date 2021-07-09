@@ -5,22 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DoctorRegistrationTest {
-  private DoctorRegistration docReg = new DoctorRegistration();;
-
-  @Test
-  @DisplayName("To get clinic address")
-  void getClinicAddress() {
-    docReg.setClinicAddress("address");
-    assertEquals("address", docReg.getClinicAddress(), "clinic address getter fails");
-  }
-
-  @Test
-  @DisplayName("To set clinic address")
-  void setClinicAddress() {
-    docReg.setClinicAddress("address");
-    assertEquals("address", docReg.getClinicAddress(), "clinic address setter fails");
-  }
+class DoctorDetailsTest {
+  private DoctorDetails docReg = new DoctorDetails();
 
   @Test
   @DisplayName("To get doctor speciality")
