@@ -15,15 +15,17 @@ public class SecurityQuestions implements Details {
     this.answer1 = ans1;
   }
   public String getAnswer2() {
-    return "";
+    return answer2;
   }
   public void setAnswer2(String ans2) {
-
+    this.answer2 = ans2;
   }
 
   @Override
   public void getDetails() {
     System.out.println("Your first school:");
     setAnswer1(sc.next());
+    System.out.println("Your hobby:");
+    setAnswer2(sc.next());
   }
 }
