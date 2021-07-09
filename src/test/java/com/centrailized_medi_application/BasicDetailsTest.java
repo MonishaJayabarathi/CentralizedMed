@@ -78,6 +78,34 @@ class BasicDetailsTest {
   }
 
   @Test
+  @DisplayName("To get latitude")
+  void getLatitude() {
+    bd.setLatitude(11);
+    assertEquals(11, bd.getLatitude(), "latitude getter fails");
+  }
+
+  @Test
+  @DisplayName("To set latitude")
+  void setLatitude() {
+    bd.setLatitude(12);
+    assertEquals(12, bd.getLatitude(), "latitude setter fails");
+  }
+
+  @Test
+  @DisplayName("To get longitude")
+  void getLongitude() {
+    bd.setLongitude(10);
+    assertEquals(10, bd.getLongitude(), "longitude getter fails");
+  }
+
+  @Test
+  @DisplayName("To set longitude")
+  void setLongitude() {
+    bd.setLongitude(21);
+    assertEquals(21, bd.getLongitude(), "longitude setter fails");
+  }
+
+  @Test
   @DisplayName("To get contact")
   void getContactNo() {
     bd.setContactNo("9966223344");

@@ -15,6 +15,8 @@ public class BasicDetails implements Details {
   private String dateOfBirth;
   private String gender;
   private String address;
+  private int latitude;
+  private  int longitude;
   private String contactNo;
   private String password;
   private String confirmPassword;
@@ -61,6 +63,18 @@ public class BasicDetails implements Details {
   }
   public void setAddress(String address) {
     this.address = address;
+  }
+  public int getLatitude() {
+    return 0;
+  }
+  public void setLatitude(int lat) {
+
+  }
+  public int getLongitude() {
+    return 0;
+  }
+  public void setLongitude(int lon) {
+
   }
   public String getPassword() {
     return password;
