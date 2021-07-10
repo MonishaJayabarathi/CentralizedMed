@@ -11,14 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PatientLoginTest {
 
-
+    String environment = "src/main/resources/config_test.properties";
     /* To verify the set func for login Patient (username)*/
     @Test
     void setPatient_name() throws SQLException, IOException, ClassNotFoundException {
-        Patient p1 = new Patient(new WelcomePage(), new PatientPage());
+        String user_name = "Aditya@hotmail.com";
+        String password= "a1234";
+        Patient p1 = new Patient(new WelcomePage(), new PatientPage(), new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(p1,new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_name("Aditya@gmail.com");
-        assertEquals("Aditya@gmail.com",p_login.getPatient_name(),"Error: Incorrect Name");
+        p_login.setPatient_name(user_name);
+        assertEquals(user_name,p_login.getPatient_name(),"Error: Incorrect Name");
     }
 
     /*Check against empty string for username*/
