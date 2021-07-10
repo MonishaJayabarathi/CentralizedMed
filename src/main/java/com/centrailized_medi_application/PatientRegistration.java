@@ -7,7 +7,6 @@ import java.util.*;
 
 public class PatientRegistration {
     private static BasicDetails patientBasicDetails;
-    private static Validation patientValidation;
     // Mentioned all the variables names which will be used for
     //Storing values
     private String firstAnswer;
