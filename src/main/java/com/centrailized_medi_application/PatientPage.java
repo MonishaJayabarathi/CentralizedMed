@@ -25,4 +25,9 @@ public class PatientPage extends PatientDashboard
     public void Suggestions() {
 
     }
+
+    @Override
+    public void Logout(){
+
+    }
 }

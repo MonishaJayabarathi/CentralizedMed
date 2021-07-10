@@ -8,10 +8,11 @@ public abstract class PatientDashboard extends Dashboard{
     public abstract void Consultations();
 
     public abstract void Prescriptions();
-    
 
     public abstract void Suggestions();
-    //placeholder for logout feature.
+
+    public abstract void Logout();
+
     protected boolean flag = false;
     protected Scanner sc = new Scanner(System.in);
     @Override
@@ -21,6 +22,7 @@ public abstract class PatientDashboard extends Dashboard{
         System.out.println("2.Consultations");
         System.out.println("3.Prescriptions");
         System.out.println("4.Suggestions");
+        System.out.println("5.Logout");
         System.out.println("----------------------------------");
         System.out.println(" Enter from above options to proceed:");
 
@@ -36,7 +38,10 @@ public abstract class PatientDashboard extends Dashboard{
                 flag = true;
             } else if (option == 4) {
                 flag = true;
-            } else {
+            }else if(option==5) {
+                flag=true;
+            }
+            else {
                 System.out.println("Enter the correct options to proceed");
             }
         }
