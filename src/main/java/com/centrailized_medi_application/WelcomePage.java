@@ -46,7 +46,16 @@ public class WelcomePage extends MainDashboard
     }
 
     @Override
-    public void display_doctor_registration() {
+    public void display_doctor_registration() throws SQLException, IOException, ClassNotFoundException {
+        BasicDetails basicDetails = new BasicDetails();
+        DoctorDetails doctorDetails = new DoctorDetails();
+        SecurityQuestions securityQuestions = new SecurityQuestions();
+        Action action = new Action(); // Initialize Action
+        NewDoctor doc = new NewDoctor(basicDetails, doctorDetails, securityQuestions, this );
+        DoctorRegistration docReg = new DoctorRegistration(doc, this);
+        docReg.start();
+        action.setCommand(docReg);
+        action.run();
     }
 
     @Override
