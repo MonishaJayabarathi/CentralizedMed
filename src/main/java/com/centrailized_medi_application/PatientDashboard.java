@@ -1,5 +1,7 @@
 package com.centrailized_medi_application;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public abstract class PatientDashboard extends Dashboard{
@@ -11,13 +13,13 @@ public abstract class PatientDashboard extends Dashboard{
 
     public abstract void Suggestions();
 
-    public abstract String Logout();
+    public abstract void Logout() throws SQLException, IOException, ClassNotFoundException;
 
     protected boolean flag = false;
     protected boolean logout=false;
     protected Scanner sc = new Scanner(System.in);
     @Override
-    public void display() {
+    public void display() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("-----------Dashboard-------------");
         System.out.println("1.About");
         System.out.println("2.Consultations");
@@ -40,6 +42,7 @@ public abstract class PatientDashboard extends Dashboard{
             } else if (option == 4) {
                 flag = true;
             }else if(option==5) {
+                this.Logout();
                 logout=true;
                 flag=true;
             }
