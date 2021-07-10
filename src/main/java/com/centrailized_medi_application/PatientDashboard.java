@@ -8,8 +8,10 @@ public abstract class PatientDashboard extends Dashboard{
     public abstract void Consultations();
 
     public abstract void Prescriptions();
+    
 
     public abstract void Suggestions();
+    //placeholder for logout feature.
     protected boolean flag = false;
     protected Scanner sc = new Scanner(System.in);
     @Override
