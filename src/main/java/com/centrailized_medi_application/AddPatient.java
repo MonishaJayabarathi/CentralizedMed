@@ -1,30 +1,30 @@
 package com.centrailized_medi_application;
 
-import java.io.IOException;
+
 import java.sql.SQLException;
 
-public class AddPatient implements  Login{
+public class AddPatient {
 
   private boolean patient_exist = false;
+  private String p_name = null;
+  private boolean[] creds = new boolean[2];
+  DbConnection db_access;
 
-  @Override
-  public void fetch(String u_name, String Psswd) {
-
+  public AddPatient(DbConnection connection) {
+    db_access = connection;
   }
 
-  @Override
-  public void validate() throws SQLException, IOException, ClassNotFoundException {
+  // Verifies weather person exists in system
+  public boolean verify_patient(String patient_name) throws SQLException {
+    p_name = patient_name;
+    creds = db_access.getDetails();
 
+    //Checking only against username ( index 0 is for username )
+    if (creds[0] != false) {
+      return !patient_exist;
+    } else {
+      return patient_exist;
+    }
   }
 
-  @Override
-  public void authenticate() throws SQLException, IOException, ClassNotFoundException {
-
-  }
-
-
-  public boolean verify_patient(String patient_name)
-  {
-    return patient_exist;
-  }
 }
