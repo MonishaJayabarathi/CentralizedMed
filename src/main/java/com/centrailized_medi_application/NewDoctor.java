@@ -6,6 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/*
+ * @author Monisha J
+ * @description : This program performs the actual registration of Doctor.
+ * @params : Details grouped as BasicDetails, DoctorDetails, SecurityQuestions.
+ *  MainDashboard, which are used to handle changes after a login failure or success respectively.
+ */
 public class NewDoctor implements Details, Registration {
 
   protected boolean hasRegisteredSuccessfully = false;

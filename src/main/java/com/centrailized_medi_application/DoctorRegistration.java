@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+/*
+ * @author Monisha J
+ * @description : This program initiates registration of Doctor.
+ * @params : MainDashboard which are used to handle changes after a confirmation.
+ * New Doctor instance used to perform functionalty.
+ */
 public class DoctorRegistration implements LoginCommand {
 
   Registration doctor;
