@@ -27,7 +27,8 @@ public class PatientPage extends PatientDashboard
     }
 
     @Override
-    public void Logout(){
-
+    public String Logout(){
+        //placeholder
+    return null;
     }
 }

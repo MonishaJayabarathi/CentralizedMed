@@ -11,9 +11,10 @@ public abstract class PatientDashboard extends Dashboard{
 
     public abstract void Suggestions();
 
-    public abstract void Logout();
+    public abstract String Logout();
 
     protected boolean flag = false;
+    protected boolean logout=false;
     protected Scanner sc = new Scanner(System.in);
     @Override
     public void display() {
@@ -39,6 +40,7 @@ public abstract class PatientDashboard extends Dashboard{
             } else if (option == 4) {
                 flag = true;
             }else if(option==5) {
+                logout=true;
                 flag=true;
             }
             else {
