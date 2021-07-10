@@ -46,15 +46,22 @@ public class WelcomePage extends MainDashboard
     }
 
     @Override
-    public void display_doctor_registration()
-    {
-        DoctorRegistration doc = new DoctorRegistration();
-        doc.run();
+    public void display_doctor_registration() {
     }
+
     @Override
     public void display_doctor_login() throws SQLException, IOException, ClassNotFoundException {
-        DoctorLogin doc = new DoctorLogin();
-        doc.run();
+        System.out.println("Enter your username:");
+        String doctor_name = (sc.next());
+        System.out.println("Enter your password:");
+        String doctor_password = (sc.next());
+        Action action = new Action(); // Initialize Action
+        Doctor dr = new Doctor(this,new DoctorPage());  // Initialize doctor
+        DoctorLogin doctorLogin = new DoctorLogin(dr, this);  // Passing the object to the doctor login
+        doctorLogin.setDoctorName(doctor_name);
+        doctorLogin.setDoctorPassword(doctor_password);
+        action.setCommand(doctorLogin);
+        action.run();
     }
 
 }

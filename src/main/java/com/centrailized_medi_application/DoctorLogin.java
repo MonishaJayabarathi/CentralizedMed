@@ -1,94 +1,87 @@
-package com.centrailized_medi_application;
+package com.centrailized_medi_application;/* com.centrailized_medi_application.Patient com.centrailized_medi_application.Login Implementation which implements from com.centrailized_medi_application.LoginCommand Interface*/
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class DoctorLogin implements Login, LoginCommand
+/*
+ * @author Monisha J
+ * @description : This program gets confirmation and initiates authentication of Doctor while logging in.
+ * @params : MainDashboard and Login are passed, which are used to handle confirmation and execution.
+ */
+public class DoctorLogin implements LoginCommand
 {
-  private String doctor_user_name; // Stores com.centrailized_medi_application.Doctor name
-  private String doctor_password; // Stores doctor passwd
-  private boolean valid_id = false; // Sets true when doctor is registered
-  private boolean valid_psswd = false; // Sets true when doctor is registered
-  private boolean[] creds=new boolean[2];
-  private Scanner sc = new Scanner(System.in);
+  Login doctorLogin;
+  MainDashboard init;
 
-  public String getDoctorUsername() {
-    return doctor_user_name;
-  }
-  public void setDoctorUsername(String username) {
-    this.doctor_user_name = username;
-  }
-  public String getDoctorPassword() {
-    return doctor_password;
-  }
-  public void setDoctorPassword(String password) {
-    this.doctor_password = password;
-  }
+  private String doctorName;
+  private String doctorPassword;
 
-  public void run() throws SQLException, IOException, ClassNotFoundException {
-    System.out.println("Enter your username:");
-    setDoctorUsername(sc.next());
-    System.out.println("Enter your password:");
-    setDoctorPassword(sc.next());
-    this.confirmation();
-  }
-
-  public void confirmation () throws SQLException, IOException, ClassNotFoundException {
-    System.out.println("Please enter 1 to submit");
-    if (sc.nextInt() == 1)
-      this.execute();
-    else {
-      System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
-      if (sc.next() == "y")
-        System.out.println("move to main menu");
-      else
-        this.execute();
-    }
-  }
-  /* Fetching patient credentials*/
-  @Override
-  public void fetch(String u_name, String psswd)
+  public DoctorLogin(Login dLogin, MainDashboard init)
   {
-    this.doctor_user_name = u_name;
-    this.doctor_password = psswd;
+    this.doctorLogin = dLogin;
+    this.init = init;
   }
 
-  /* Connect to database and check against the data*/
-  @Override
-  public void validate() throws SQLException, IOException, ClassNotFoundException
-  {
-    String environment="/Users/Admin/Documents/group5/src/main/java/com/centrailized_medi_application/config_test.properties";
-    DB_Connection connect= new DB_Connection(environment,this.doctor_user_name,this.doctor_password);
-    creds=connect.getDetails();
+  public void setDoctorName(String doctor_name) throws SQLException, IOException, ClassNotFoundException {
 
-    //Assuming the patient exists in the database
-    this.valid_id = creds[0];
-    this.valid_psswd = creds[1];
-  }
-
-  /* Defining the placeholder for com.centrailized_medi_application.Patient authentication*/
-  @Override
-  public void authenticate()  {
-
-    if(this.valid_id && this.valid_psswd) // Exist and valid credentials
+    if(doctor_name.matches("^[a-zA-Z@.com]*$"))
     {
-      System.out.println("Welcome Doctor Dashboard"); // name to be replaced with the actual name stored in db
-    }
-    else if(this.valid_id && !this.valid_psswd)
-    {
-      System.out.println("Check your credentials!");
+      this.doctorName = doctor_name;
     }
     else
     {
-      System.out.println("Please register to the system!");
+      System.out.println("Expecting Email id");
+      System.out.println("Re-enter you details");
+      init.display_doctor_login();
     }
 
   }
 
+  public void setDoctorPassword(String doctor_password) {
+    this.doctorPassword = doctor_password;
+  }
+  public String getDoctorName()
+  {
+    return this.doctorName;
+  }
+  public String getDoctorPassword() {
+    return this.doctorPassword;
+  }
+
+  //initiates authentication
   @Override
-  public void execute() throws SQLException, IOException, ClassNotFoundException {
-    this.validate();
-    this.authenticate();
+  public void execute() throws SQLException, IOException, ClassNotFoundException
+  {
+    doctorLogin.fetch(this.doctorName,this.doctorPassword);
+    doctorLogin.validate();
+    doctorLogin.authenticate();
+  }
+
+  //gets user confirmation before we proceed to next step
+  @Override
+  public void confirmation() throws SQLException, IOException, ClassNotFoundException {
+    System.out.println("Please enter 1 to submit or any other option to revert");
+    Scanner sc = new Scanner(System.in);
+    if (sc.nextInt() == 1)
+    {
+      this.execute();
+    }
+    else
+    {
+      System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
+      sc = new Scanner(System.in);
+      if (sc.nextLine().equals("y"))
+      {
+        System.out.println("Navigating to main menu...");
+        this.init.display();
+
+      }
+      else
+      {
+        System.out.println("Logging in....");
+        this.execute();
+      }
+    }
   }
 }
