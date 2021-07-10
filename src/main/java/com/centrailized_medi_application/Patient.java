@@ -36,10 +36,11 @@ public class Patient implements Login {
     //MainMenu init;
     MainDashboard init;
     PatientDashboard pd;
-
-    public Patient(MainDashboard init, PatientDashboard patient_menu) {
+    DbConnection connect;
+    public Patient(MainDashboard init, PatientDashboard patient_menu, DbConnection connection) {
         this.init = init;
         this.pd = patient_menu;
+        this.connect = connection;
     }
 
     /* Fetching patient credentials*/
@@ -52,8 +53,6 @@ public class Patient implements Login {
     /* Connect to database and check against the data*/
     @Override
     public void validate() throws SQLException, IOException, ClassNotFoundException {
-        String environment = "src/main/resources/config_test.properties";
-        DB_Connection connect = new DB_Connection(environment, this.user_name, this.password);
         creds = connect.getDetails();
         this.valid_id = creds[0];
         this.valid_psswd = creds[1];
