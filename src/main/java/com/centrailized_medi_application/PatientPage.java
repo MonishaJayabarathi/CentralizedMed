@@ -1,5 +1,8 @@
 package com.centrailized_medi_application;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class PatientPage extends PatientDashboard
 {
     private int patient_id;
@@ -26,9 +29,12 @@ public class PatientPage extends PatientDashboard
 
     }
 
+
     @Override
-    public String Logout(){
-        //placeholder
-    return null;
+    public void Logout() throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("User has been successfuly logged out !");
+        WelcomePage back_to_menu=new WelcomePage();
+        back_to_menu.display();
+//        return "User has been successfuly logged out !";
     }
 }
