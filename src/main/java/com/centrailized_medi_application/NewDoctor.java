@@ -52,7 +52,6 @@ public class NewDoctor implements Details, Registration {
     ResultSet rs2 = st.executeQuery();
     rs2.next();
     int curr_id = rs2.getInt("idlogin_details");
-    System.out.println(curr_id);
 
     PreparedStatement insert_statement=connection.prepareStatement("insert into " +
         "doctor_info(id,first_name,last_name,clinic_address,speciality,registration_number,email,password) " +
