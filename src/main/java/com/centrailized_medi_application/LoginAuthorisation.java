@@ -47,7 +47,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         else
         {
             Scanner sc=new Scanner(System.in);
-            String newPassword="passchanged!!!";
+            String newPassword=sc.next();
             PreparedStatement updatePass=connection.prepareStatement("Update userinfo set password=? where emailid=?");
             updatePass.setString(1,newPassword);
             updatePass.setString(2,user_name);
