@@ -6,7 +6,7 @@ import java.util.*;
 //Class for patient registration
 
 public class PatientRegistration implements LoginCommand {
-    Registration patient;
+    NewPatient patient;
     MainDashboard init;
 
     public PatientRegistration(NewPatient p, MainDashboard init) {
