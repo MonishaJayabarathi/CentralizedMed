@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class DoctorRegistration implements LoginCommand {
 
-  Registration doctor;
+  NewDoctor doctor;
   MainDashboard init;
 
   public DoctorRegistration(NewDoctor doc, MainDashboard init)

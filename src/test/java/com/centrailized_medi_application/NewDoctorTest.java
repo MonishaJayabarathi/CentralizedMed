@@ -32,6 +32,7 @@ class NewDoctorTest {
     sq.setAnswer3("Scooty");
   }
 
+  @Disabled
   @Test
   @DisplayName("Should register doctor successfully")
   void update() throws SQLException, IOException, ClassNotFoundException {

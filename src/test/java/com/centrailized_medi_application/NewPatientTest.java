@@ -8,15 +8,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
-public class PatientRegistrationTest {
+
+public class NewPatientTest {
     BasicDetails tempbasic = new BasicDetails();
     PatientDetails tempdetails = new PatientDetails();
     SecurityQuestions tempsecurity = new SecurityQuestions();
 
-    @Test
-    void RegistrationTest()
-    {
 
+    //mocks the doctor data that is to be inserted
+    void NewPatientTestOne() {
         tempbasic.setFirstName("one");
         tempbasic.setLastName("two");
         tempbasic.setDob("06/07/1999");
@@ -28,13 +28,13 @@ public class PatientRegistrationTest {
         tempdetails.setBloodGroup("o+ve");
         tempdetails.setAllergy("pollengrains");
         tempdetails.setChronicDisease("tonsilitis");
-        tempdetails.setInsuranceNo("OI9900909");
-        tempdetails.setDonorCardNo("SDFS00322");
-        tempdetails.setFamilyMemberCode("FSDFE0000");
+        tempdetails.setInsuranceNo("IN00221133");
+        tempdetails.setDonorCardNo("NG06071999");
+        tempdetails.setFamilyMemberCode("GG002218831");
         tempdetails.setVolunteer("yes");
 
-        tempbasic.setLatitude(100);
-        tempbasic.setLongitude(200);
+        tempbasic.setLatitude(80);
+        tempbasic.setLongitude(90);
 
         tempsecurity.setAnswer1("SG");
         tempsecurity.setAnswer2("SWIM");
@@ -42,13 +42,12 @@ public class PatientRegistrationTest {
     }
     @Disabled
     @Test
-    @DisplayName("To execute doctor registration")
-    void execute() throws SQLException, IOException, ClassNotFoundException {
-        RegistrationTest();
+    @DisplayName("Patient Register successfully")
+    void update() throws SQLException, IOException, ClassNotFoundException {
+        NewPatientTestOne();
         NewPatient newone = new NewPatient(tempbasic,tempdetails,tempsecurity, new WelcomePage());
-        PatientRegistration patienttest = new PatientRegistration(newone,new WelcomePage());
-        assertEquals(true,newone.getRegistrationStatus(), "Already registered patient execution " +
-                "should return false");
+        assertEquals(true,newone.getRegistrationStatus(), "unregistered Patient would return false");
+
     }
 }
 
