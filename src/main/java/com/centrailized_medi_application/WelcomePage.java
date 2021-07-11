@@ -25,28 +25,18 @@ public class WelcomePage extends MainDashboard
     @Override
     public void display_patient_registration() throws SQLException, IOException, ClassNotFoundException {
         try {
-            PatientRegistration patient = new PatientRegistration();
-            AboutPatient patientinfo = new AboutPatient();
-            System.out.println("Would you like to register then press 1 or would you like to know information about patient press 2");
-            Scanner one = new Scanner(System.in);
-            int temp = one.nextInt();
-            if (temp == 1) {
+            BasicDetails basicDetails = new BasicDetails();
+            PatientDetails patientDetails = new PatientDetails();
+            SecurityQuestions securityQuestions = new SecurityQuestions();
+            Action action = new Action(); // Initialize Action
+            NewPatient p = new NewPatient(basicDetails, patientDetails, securityQuestions, this );
+            PatientRegistration patientReg = new PatientRegistration(p,this);
+            patientReg.start();
+            action.setCommand(patientReg);
+            action.run();
 
-                patient.beginRegistration();
-            } else if (temp == 2) {
-                try {
-                    System.out.println("Please enter email id of patient");
-                    String Email = one.next();
-                    System.out.println("Entered email:" + Email);
-                    patientinfo.get(Email);
-                } catch (Exception e) {
-                    System.out.println("Exception Encountered Please enter correct value");
-                }
-
-            } else {
-                System.out.println("Enter correct option either 1 or 2");
-            }
-        }catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Input Exception Encountered moving to main menu");
             WelcomePage init = new WelcomePage();
@@ -56,6 +46,7 @@ public class WelcomePage extends MainDashboard
 
     @Override
     public void display_doctor_registration() throws SQLException, IOException, ClassNotFoundException {
+
         BasicDetails basicDetails = new BasicDetails();
         DoctorDetails doctorDetails = new DoctorDetails();
         SecurityQuestions securityQuestions = new SecurityQuestions();
@@ -65,8 +56,8 @@ public class WelcomePage extends MainDashboard
         docReg.start();
         action.setCommand(docReg);
         action.run();
-    }
 
+    }
     @Override
     public void display_doctor_login() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("Enter your username:");
@@ -80,6 +71,7 @@ public class WelcomePage extends MainDashboard
         doctorLogin.setDoctorPassword(doctor_password);
         action.setCommand(doctorLogin);
         action.run();
+
     }
 
 }
