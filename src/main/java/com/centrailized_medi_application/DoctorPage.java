@@ -25,6 +25,7 @@ public class DoctorPage extends DoctorDashboard{
   @Override
   public void display_add_patients() {
 
+
   }
 
   // navigates to Patients Tab
