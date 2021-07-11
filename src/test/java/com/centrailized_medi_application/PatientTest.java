@@ -11,28 +11,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class PatientTest {
 
     // Fetch test case
+    String environment = "src/main/resources/config_test.properties";
     @Test
     void fetch() throws SQLException, IOException, ClassNotFoundException {
-        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        String user_name = "Aditya@hotmail.com";
+        String password= "a1234";
+        Patient patient = new Patient(new WelcomePage(),new PatientPage(), new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name("Kazi@gmail.com");
-        p_login.setPatient_pass("k1234");
-
+        p_login.setPatient_name(user_name);
+        p_login.setPatient_pass(password);
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
         assertAll("Fetch Function",
-                () -> assertEquals("Kazi@gmail.com", patient.getUsername()),
-                () -> assertEquals("k1234", patient.getPassword()));
+                () -> assertEquals(user_name, patient.getUsername()),
+                () -> assertEquals(password, patient.getPassword()));
     }
 
     // Validation test case
     @Test
     void validate() throws SQLException, IOException, ClassNotFoundException {
-
-        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        String user_name = "Aditya@hotmail.com";
+        String password= "a1234";
+        Patient patient = new Patient(new WelcomePage(),new PatientPage(),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name("Kazi@gmail.com");
-        p_login.setPatient_pass("k1234");
-
+        p_login.setPatient_name(user_name);
+        p_login.setPatient_pass(password);
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
         patient.validate();
         assertAll("Validate Function",
@@ -44,11 +46,12 @@ class PatientTest {
     @Disabled("authenticate->Calls user input after it succeeds,hence ignored")
     @Test
     void authenticate() throws SQLException, IOException, ClassNotFoundException {
-        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        String user_name = "Aditya@hotmail.com";
+        String password= "a1234";
+        Patient patient = new Patient(new WelcomePage(),new PatientPage(),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient,new WelcomePage());
-        p_login.setPatient_name("Kazi@gmail.com");
-        p_login.setPatient_pass("k1234");
-
+        p_login.setPatient_name(user_name);
+        p_login.setPatient_pass(password);
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
         patient.validate();
         patient.authenticate();
@@ -60,12 +63,12 @@ class PatientTest {
     @Disabled("authenticate_pass_incorrect_pass->Calls user input after it succeeds,hence ignored")
     @Test
     void authenticate_pass_incorrect_pass() throws SQLException, IOException, ClassNotFoundException {
-
-        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        String user_name = "Aditya";
+        String password= "a12";
+        Patient patient = new Patient(new WelcomePage(),new PatientPage(),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name("Aditya");
-        p_login.setPatient_pass("a12");
-
+        p_login.setPatient_name(user_name);
+        p_login.setPatient_pass(password);
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
         patient.validate();
         patient.authenticate();
@@ -76,12 +79,12 @@ class PatientTest {
     @Disabled("authenticate_pass_invalid->Calls user input after it succeeds,hence ignored")
     @Test
     void authenticate_pass_invalid() throws SQLException, IOException, ClassNotFoundException {
-
-        Patient patient = new Patient(new WelcomePage(),new PatientPage());
+        String user_name = "test";
+        String password= "a12";
+        Patient patient = new Patient(new WelcomePage(),new PatientPage(),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name("test");
-        p_login.setPatient_pass("a12");
-
+        p_login.setPatient_name(user_name);
+        p_login.setPatient_pass(password);
         patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
         patient.validate();
         patient.authenticate();
