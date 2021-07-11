@@ -78,6 +78,7 @@ public class NewDoctor implements Details, Registration {
     this.hasRegisteredSuccessfully = true;
   }
 
+
   @Override
   public void action() throws SQLException, IOException, ClassNotFoundException {
     // check if the details were updated successfully
