@@ -37,10 +37,10 @@ public class AddPatient {
   public String link_patient() throws SQLException {
     AddPatient new_entry = new AddPatient(db_access, docter_user_name);
     Connection connection = db_access.createConnection();
-    DateTimeFormatter consultation_date = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    DateTimeFormatter consultation_date = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     LocalDateTime current_time = LocalDateTime.now();
     if (new_entry.verify_patient(p_name)) {
-      PreparedStatement prep_statement = connection.prepareStatement("INSERT INTO `consultations`(doctor_username,patient_username,consultation_date) VALUES (?, ?, ?)");
+      PreparedStatement prep_statement = connection.prepareStatement("INSERT INTO `consultations`(doctor_username,patient_username,consultation_date_and_time) VALUES (?, ?, ?)");
       prep_statement.setString(1, docter_user_name);
       prep_statement.setString(2, p_name);
       prep_statement.setString(3, (consultation_date.format(current_time)));
