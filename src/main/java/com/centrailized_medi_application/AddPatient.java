@@ -27,4 +27,8 @@ public class AddPatient {
     }
   }
 
+  public String link_patient(String user_name)
+  {
+    return null;
+  }
 }
