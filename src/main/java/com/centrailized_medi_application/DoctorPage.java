@@ -3,7 +3,7 @@ package com.centrailized_medi_application;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/*
+/**
  * @author Monisha J
  * @description: This program extends DoctorDashboard.
  * Holds abstract methods to define actual routing classes of tabs.
@@ -11,12 +11,16 @@ import java.sql.SQLException;
  */
 public class DoctorPage extends DoctorDashboard{
 
-  private int doctor_id; //gives id of logged in doctor
+  protected String doctorUsername; //gives id of logged in doctor
+
+  DoctorPage(String username) {
+    this.doctorUsername = username;
+  }
 
   // navigates to About Tab
   @Override
   public void display_about_doctor() throws SQLException, IOException, ClassNotFoundException {
-    AboutDoctor abtDr = new AboutDoctor(1); //testing commit
+    AboutDoctor abtDr = new AboutDoctor(this.doctorUsername, this); //testing commit
     AboutDoctorPage abtDrPage = new AboutDoctorPage(abtDr);
     abtDrPage.display();
   }

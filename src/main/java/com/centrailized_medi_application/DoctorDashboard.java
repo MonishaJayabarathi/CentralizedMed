@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-/*
+/**
  * @author Monisha J
  * @description: This program receives input for navigation
  * inside a Doctor Dashboard and routes the pages accordingly

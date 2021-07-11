@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-/*
+/**
  * @author Monisha J
  * @description : This program gets confirmation and initiates authentication of Doctor while logging in.
  * @params : MainDashboard and Login are passed, which are used to handle confirmation and execution.
@@ -65,6 +65,7 @@ public class DoctorLogin implements LoginCommand
     Scanner sc = new Scanner(System.in);
     if (sc.nextInt() == 1)
     {
+      System.out.println("Logging in....");
       this.execute();
     }
     else
