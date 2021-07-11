@@ -11,43 +11,49 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PatientLoginTest {
 
-
+    String environment = "src/main/resources/config_test.properties";
     /* To verify the set func for login Patient (username)*/
     @Test
     void setPatient_name() throws SQLException, IOException, ClassNotFoundException {
-        Patient p1 = new Patient(new WelcomePage(), new PatientPage());
+        String user_name = "Aditya@hotmail.com";
+        String password= "a1234";
+        Patient p1 = new Patient(new WelcomePage(), new PatientPage(), new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(p1,new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_name("Aditya@gmail.com");
-        assertEquals("Aditya@gmail.com",p_login.getPatient_name(),"Error: Incorrect Name");
+        p_login.setPatient_name(user_name);
+        assertEquals(user_name,p_login.getPatient_name(),"Error: Incorrect Name");
     }
 
     /*Check against empty string for username*/
     @Disabled("setPatient_name_only_char->Calls user input after it succeeds,hence ignored")
     @Test
     void setPatient_name_only_char() throws SQLException, IOException, ClassNotFoundException {
-        Patient p1 = new Patient(new WelcomePage(), new PatientPage());
+        String user_name = "Aditya1234";
+        String password= "a1234";
+        Patient p1 = new Patient(new WelcomePage(), new PatientPage(), new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(p1, new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_name("Aditya1234");
+        p_login.setPatient_name(user_name);
         assertNull(p_login.getPatient_name());
     }
 
     /* To verify the set func for login Patient (password)*/
     @Test
-    void setPatient_pass()
-    {
-        Patient p1 = new Patient(new WelcomePage(), new PatientPage());
+    void setPatient_pass() throws SQLException, IOException, ClassNotFoundException {
+        String user_name = "Aditya";
+        String password= "a1234";
+        Patient p1 = new Patient(new WelcomePage(), new PatientPage(), new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(p1, new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_pass("Aditya");
-        assertEquals("Aditya",p_login.getPatient_pass(),"Error: Incorrect Password");
+        p_login.setPatient_pass(user_name);
+        assertEquals(user_name,p_login.getPatient_pass(),"Error: Incorrect Password");
     }
 
     @Test
     void execute() throws SQLException, IOException, ClassNotFoundException {
-
-        Patient patient = new Patient(new WelcomePage(), new PatientPage());
+        String user_name = "Aditya@hotmail.com";
+        String password= "a1234";
+        Patient patient = new Patient(new WelcomePage(), new PatientPage(),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient,new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_name("Kazi@gmail.com");
-        p_login.setPatient_pass("k1234");
+        p_login.setPatient_name(user_name);
+        p_login.setPatient_pass(password);
 
 
         //Fetch
@@ -56,8 +62,8 @@ class PatientLoginTest {
         patient.validate();
 
         assertAll("Checking Execute Function",
-                () -> assertEquals("Kazi@gmail.com", patient.getUsername()),
-                () -> assertEquals("k1234", patient.getPassword()),
+                () -> assertEquals(user_name, patient.getUsername()),
+                () -> assertEquals(password, patient.getPassword()),
                 () -> assertTrue(patient.get_id_status()),
                 () -> assertTrue(patient.get_pass_status()));
 

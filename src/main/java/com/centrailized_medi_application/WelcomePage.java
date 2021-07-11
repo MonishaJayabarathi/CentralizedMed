@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class WelcomePage extends MainDashboard
 {
+    String environment = "src/main/resources/config_test.properties";
     @Override
     public void display_patient_login() throws ClassNotFoundException, SQLException, IOException {
 
@@ -14,7 +15,7 @@ public class WelcomePage extends MainDashboard
         System.out.println("Enter your password:");
         String patient_pass = (sc.next());
         Action action = new Action(); // Initialize Action
-        Patient p1 = new Patient(this,new PatientPage());  // Initialize patient
+        Patient p1 = new Patient(this,new PatientPage(), new DB_Connection(environment,patient_name,patient_pass));  // Initialize patient
         PatientLogin p_login = new PatientLogin(p1, this);  // Passing the object to the patient login
         p_login.setPatient_name(patient_name);
         p_login.setPatient_pass(patient_pass);
@@ -24,31 +25,40 @@ public class WelcomePage extends MainDashboard
     }
     @Override
     public void display_patient_registration() throws SQLException, IOException, ClassNotFoundException {
-        PatientRegistration patient = new PatientRegistration();
-        System.out.println("Would you like to register then press 1 or would you like to know information about patient press 2");
-        Scanner one = new Scanner(System.in);
-        int temp = one.nextInt();
-        if (temp == 1) {
+        try {
+            BasicDetails basicDetails = new BasicDetails();
+            PatientDetails patientDetails = new PatientDetails();
+            SecurityQuestions securityQuestions = new SecurityQuestions();
+            Action action = new Action(); // Initialize Action
+            NewPatient p = new NewPatient(basicDetails, patientDetails, securityQuestions, this );
+            PatientRegistration patientReg = new PatientRegistration(p,this);
+            patientReg.start();
+            action.setCommand(patientReg);
+            action.run();
 
-            patient.beginRegistration();
         }
-        else if(temp==2)
+        catch (Exception e)
         {
-            System.out.println("Please enter email id of patient");
-            String Email = one.next();
-            System.out.println("enere email:"+Email);
-            patient.get(Email);
-        }
-        else
-        {
-            System.out.println("Enter correct option either 1 or 2");
+            System.out.println("Input Exception Encountered moving to main menu");
+            WelcomePage init = new WelcomePage();
+            init.display();
         }
     }
 
     @Override
-    public void display_doctor_registration() {
-    }
+    public void display_doctor_registration() throws SQLException, IOException, ClassNotFoundException {
 
+        BasicDetails basicDetails = new BasicDetails();
+        DoctorDetails doctorDetails = new DoctorDetails();
+        SecurityQuestions securityQuestions = new SecurityQuestions();
+        Action action = new Action(); // Initialize Action
+        NewDoctor doc = new NewDoctor(basicDetails, doctorDetails, securityQuestions, this );
+        DoctorRegistration docReg = new DoctorRegistration(doc, this);
+        docReg.start();
+        action.setCommand(docReg);
+        action.run();
+
+    }
     @Override
     public void display_doctor_login() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("Enter your username:");
@@ -62,6 +72,7 @@ public class WelcomePage extends MainDashboard
         doctorLogin.setDoctorPassword(doctor_password);
         action.setCommand(doctorLogin);
         action.run();
+
     }
 
 }
