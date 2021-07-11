@@ -3,7 +3,7 @@ package com.centrailized_medi_application;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/*
+/**
  * @author Monisha J
  * @description : This program performs the actual authentication of Doctor Login.
  * @params : MainDashboard and DoctorDashboard are passed, which are used to handle
