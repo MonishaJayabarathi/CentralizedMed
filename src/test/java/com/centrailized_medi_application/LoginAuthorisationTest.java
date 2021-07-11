@@ -1,5 +1,6 @@
 package com.centrailized_medi_application;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoginAuthorisationTest {
+    @Disabled("Test disabled as the method requires custom input from user")
     @Test
     public void resetValidUser() throws SQLException, IOException, ClassNotFoundException {
         Integer retry = 3;
