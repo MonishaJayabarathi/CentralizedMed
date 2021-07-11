@@ -15,7 +15,7 @@ public class AboutPatient {
             this.tempemail = Email;
 
             System.out.println("Fetching value for the user whose EmailId:" + tempemail);
-            String sqlStmt = "SELECT * FROM userinfo where emailId =?";
+            String sqlStmt = "SELECT * FROM patientinfo where emailId =?";
 
             PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
             prepStmt.toString();

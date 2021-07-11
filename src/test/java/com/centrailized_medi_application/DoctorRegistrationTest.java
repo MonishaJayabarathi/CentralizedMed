@@ -1,5 +1,6 @@
 package com.centrailized_medi_application;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +34,7 @@ class DoctorRegistrationTest {
     sq.setAnswer3("Scooty");
   }
 
+  @Disabled
   @Test
   @DisplayName("To execute doctor registration")
   void execute() throws SQLException, IOException, ClassNotFoundException {
