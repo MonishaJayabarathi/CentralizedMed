@@ -14,15 +14,16 @@ class DoctorLoginTest {
   @Test
   @DisplayName("To get doctor username")
   void getDoctorUsername() throws SQLException, IOException, ClassNotFoundException {
-    docLogin.setDoctorName("docUsername");
-    assertEquals("docUsername", docLogin.getDoctorName(), "doctor username getter fails");
+    docLogin.setDoctorName("docUsername@gmail.com");
+    assertEquals("docUsername@gmail.com", docLogin.getDoctorName(), "doctor username getter fails");
   }
+
 
   @Test
   @DisplayName("To set doctor username")
   void setDoctorUsername() throws SQLException, IOException, ClassNotFoundException {
-    docLogin.setDoctorName("docUsername");
-    assertEquals("docUsername", docLogin.getDoctorName(), "doctor username setter fails");
+    docLogin.setDoctorName("docUsername@gmail.com");
+    assertEquals("docUsername@gmail.com", docLogin.getDoctorName(), "doctor username setter fails");
   }
 
   @Test
