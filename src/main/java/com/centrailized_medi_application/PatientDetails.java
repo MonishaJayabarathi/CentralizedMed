@@ -43,31 +43,31 @@ public class PatientDetails implements Details{
     @Override
     public void getDetails() {
         try {
-            System.out.print(" Enter your Blood Group:");
+            System.out.println("Enter your Blood Group:");
             String bloodGroup = scanner.nextLine();
             setBloodGroup(bloodGroup);
 
-            System.out.print(" Enter information for Allergies(if there are otherwise enter Null):");
+            System.out.println("Enter information for Allergies(if there are otherwise enter Null):");
             String allergy = scanner.nextLine();
             setAllergy(allergy);
 
-            System.out.println(" Enter Chronic disease if any(otherwise enter null):");
+            System.out.println("Enter Chronic disease if any(otherwise enter null):");
             String chronicDisease = scanner.nextLine();
             setChronicDisease(chronicDisease);
 
-            System.out.println(" Enter your insurance number:");
+            System.out.println("Enter your insurance number:");
             String insuranceNo = scanner.nextLine();
             setInsuranceNo(insuranceNo);
 
-            System.out.println(" Enter your donar card number (if you have):");
+            System.out.println("Enter your donar card number (if you have):");
             String donorCardNo = scanner.nextLine();
             setDonorCardNo(donorCardNo);
 
-            System.out.println(" Enter your family members identity code: ");
+            System.out.println("Enter your family members identity code:");
             String familyMemberCode = scanner.nextLine();
             setFamilyMemberCode(familyMemberCode);
 
-            System.out.println("If would you like to be a volunteer please enter yes otherwise no");
+            System.out.println("If would you like to be a volunteer please enter yes otherwise no:");
             String volunteer = scanner.nextLine();
             setVolunteer(volunteer);
 
