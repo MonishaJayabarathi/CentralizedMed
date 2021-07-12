@@ -37,10 +37,10 @@ public class SecurityQuestions implements Details {
   @Override
   public void getDetails() {
     System.out.println("Your first school:");
-    setAnswer1(sc.next());
+    setAnswer1(sc.nextLine());
     System.out.println("Your hobby:");
-    setAnswer2(sc.next());
+    setAnswer2(sc.nextLine());
     System.out.println("Your first bike:");
-    setAnswer3(sc.next());
+    setAnswer3(sc.nextLine());
   }
 }
