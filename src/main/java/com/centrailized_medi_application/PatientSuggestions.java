@@ -1,11 +1,12 @@
 package com.centrailized_medi_application;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class PatientSuggestions {
     private String userName;
-    private float latitude;
-    private float longitude;
+    public float latitude;
+    public float longitude;
     private String suggestedDoctors;
     private String specialization;
 
@@ -23,10 +24,6 @@ public class PatientSuggestions {
 
     }
 
-    /* get latitude and longitude of the patient */
-    public void getLatLon(){
-
-    }
 
     /* ask patient input for specialization */
     public void setSpecialization() {
