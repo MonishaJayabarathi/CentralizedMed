@@ -25,7 +25,7 @@ public class DoctorLogin implements LoginCommand
 
   public void setDoctorName(String doctor_name) throws SQLException, IOException, ClassNotFoundException {
 
-    if(doctor_name.matches("^[a-zA-Z@.com]*$"))
+    if(doctor_name.contains("@") && doctor_name.contains(".com"))
     {
       this.doctorName = doctor_name;
     }
