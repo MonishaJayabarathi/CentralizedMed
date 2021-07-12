@@ -92,22 +92,22 @@ public class BasicDetails implements Details {
   @Override
   public void getDetails () {
     System.out.println("Enter your First Name:");
-    this.setFirstName(sc.next());
+    this.setFirstName(sc.nextLine());
     System.out.println("Enter your Last Name:");
-    this.setLastName(sc.next());
-    System.out.print("Enter gender: ");
-    this.setGender(sc.next());
-    System.out.print("Enter date of birth: ");
-    this.setDob(sc.next());
-    System.out.print("Enter contactNo: ");
-    this.setContactNo(sc.next());
-    System.out.print("Enter address: ");
-    this.setAddress(sc.next());
+    this.setLastName(sc.nextLine());
+    System.out.println("Enter gender: ");
+    this.setGender(sc.nextLine());
+    System.out.println("Enter date of birth: ");
+    this.setDob(sc.nextLine());
+    System.out.println("Enter contactNo: ");
+    this.setContactNo(sc.nextLine());
+    System.out.println("Enter address: ");
+    this.setAddress(sc.nextLine());
     System.out.println("Enter your E-mail(userId): ");
-    this.setEmailId(sc.next());
+    this.setEmailId(sc.nextLine());
     System.out.println("Enter your password: ");
-    this.setPassword(sc.next());
+    this.setPassword(sc.nextLine());
     System.out.println("Enter your confirm password: ");
-    this.setConfirmPassword(sc.next());
+    this.setConfirmPassword(sc.nextLine());
   }
 }
