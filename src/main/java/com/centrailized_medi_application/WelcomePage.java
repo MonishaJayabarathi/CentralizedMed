@@ -15,7 +15,7 @@ public class WelcomePage extends MainDashboard
         System.out.println("Enter your password:");
         String patient_pass = (sc.next());
         Action action = new Action(); // Initialize Action
-        Patient p1 = new Patient(this,new PatientPage(), new DB_Connection(environment,patient_name,patient_pass));  // Initialize patient
+        Patient p1 = new Patient(this,new PatientPage(patient_name), new DB_Connection(environment,patient_name,patient_pass));  // Initialize patient
         PatientLogin p_login = new PatientLogin(p1, this);  // Passing the object to the patient login
         p_login.setPatient_name(patient_name);
         p_login.setPatient_pass(patient_pass);
@@ -39,7 +39,7 @@ public class WelcomePage extends MainDashboard
         }
         catch (Exception e)
         {
-            System.out.println("Input Exception Encountered moving to main menu");
+            System.out.println("Input Exception Encountered moving to main menu "+e);
             WelcomePage init = new WelcomePage();
             init.display();
         }
