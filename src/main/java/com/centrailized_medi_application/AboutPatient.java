@@ -9,7 +9,7 @@ public class AboutPatient {
 
     public void get(String Email) throws SQLException, ClassNotFoundException, IOException {
         //Connecting with the Database
-        try (Scanner sc = new Scanner(System.in)) {
+
             DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
             Connection c = one.createConnection();
             this.tempemail = Email;
@@ -44,6 +44,7 @@ public class AboutPatient {
             }
 
             System.out.println("When you want to move to DashBoard press 1");
+            Scanner sc = new Scanner(System.in);
             int tempchoice = sc.nextInt();
             System.out.println("choice of user"+tempchoice);
             if (tempchoice == 1) {
@@ -51,10 +52,6 @@ public class AboutPatient {
                 WelcomePage init = new WelcomePage();
                 init.display();
             }
-        }catch (Exception e)
-        {
-            System.out.println("Input Exception Encounteted please enter correct information as expected");
-            //Here Enter the path to connect with patient Dashboard
         }
-    }
+
 }

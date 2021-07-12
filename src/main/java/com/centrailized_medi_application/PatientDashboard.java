@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public abstract class PatientDashboard extends Dashboard{
-    public abstract void About();
+    public abstract void About() throws SQLException, IOException, ClassNotFoundException;
 
     public abstract void Consultations();
 
@@ -28,13 +28,7 @@ public abstract class PatientDashboard extends Dashboard{
             Scanner sc = new Scanner(System.in);
             int option = sc.nextInt();
             if (option == 1) {
-
-                AboutPatient patientinfo = new AboutPatient();
-                System.out.println("Please enter email id of patient");
-                String Email = sc.next();
-                System.out.println("Entered email:"+Email);
-                patientinfo.get(Email);
-
+                this.About();
                 flag = true;
             } else if (option == 2) {
                 flag = true;

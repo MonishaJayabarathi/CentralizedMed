@@ -15,9 +15,9 @@ public abstract class DoctorDashboard extends Dashboard {
   //abstract methods that define tab navigations
   public abstract void display_about_doctor() throws SQLException, IOException, ClassNotFoundException;
 
-  public abstract void display_add_patients();
+  public abstract void display_add_patients() throws SQLException, IOException, ClassNotFoundException;
 
-  public abstract void display_patients();
+  public abstract void display_patients() throws SQLException, IOException, ClassNotFoundException;
 
   protected boolean flag = false; //
 
@@ -40,6 +40,7 @@ public abstract class DoctorDashboard extends Dashboard {
         this.display_about_doctor();  // navigates to display About Doctor Tab.
         flag = true;
       } else if (option == 2) {
+        this.display_add_patients();
         flag = true;
       } else if (option == 3) {
         flag = true;

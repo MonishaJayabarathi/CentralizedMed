@@ -43,7 +43,7 @@ class AddPatientTest {
     AddPatient new_entry = new AddPatient(db_access,doc_name);
     if(new_entry.verify_patient(patient_name))
     {
-      assertEquals("Added Successfully!", new_entry.link_patient(),"Could not add patient");
+      assertTrue(new_entry.link_patient(patient_name),"Could not add patient");
     }
 
   }
