@@ -1,6 +1,12 @@
 package com.centrailized_medi_application;
 import java.util.Scanner;
 
+/**
+ * @author Monisha J
+ * @description: This program receives input of doctor specific details.
+ * The fields used for a doctor alone. It holds getter and setter of the fields.
+ * It implements Details, to override the getDetails method, that receives command line input
+ */
 public class DoctorDetails implements Details{
 
   private  String speciality;

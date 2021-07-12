@@ -66,7 +66,7 @@ public class WelcomePage extends MainDashboard
         System.out.println("Enter your password:");
         String doctor_password = (sc.next());
         Action action = new Action(); // Initialize Action
-        Doctor dr = new Doctor(this,new DoctorPage());  // Initialize doctor
+        Doctor dr = new Doctor(this,new DoctorPage(doctor_name));  // Initialize doctor
         DoctorLogin doctorLogin = new DoctorLogin(dr, this);  // Passing the object to the doctor login
         doctorLogin.setDoctorName(doctor_name);
         doctorLogin.setDoctorPassword(doctor_password);

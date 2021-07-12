@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/*
+/**
  * @author Monisha J
  * @description : This program performs the actual registration of Doctor.
  * @params : Details grouped as BasicDetails, DoctorDetails, SecurityQuestions.
@@ -54,16 +54,25 @@ public class NewDoctor implements Details, Registration {
     int curr_id = rs2.getInt("idlogin_details");
 
     PreparedStatement insert_statement=connection.prepareStatement("insert into " +
-        "doctor_info(id,first_name,last_name,clinic_address,speciality,registration_number,email,password) " +
-        "values(?,?,?,?,?,?,?,?);");
+        "doctor_info(id,firstname,lastname,gender,dateOfBirth,address,latitude,longitude,contactNo,speciality,registrationNumber," +
+        "emailId,password,security_answer_1,security_answer_2,security_answer_1) " +
+        "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
     insert_statement.setInt(1,curr_id);
     insert_statement.setString(2,this.basicDetails.getFirstName());
     insert_statement.setString(3,this.basicDetails.getLastName());
-    insert_statement.setString(4,this.basicDetails.getAddress());
-    insert_statement.setString(5,this.doctorDetails.getSpeciality());
-    insert_statement.setInt(6,this.doctorDetails.getRegistrationNumber());
-    insert_statement.setString(7,this.basicDetails.getEmailId());
-    insert_statement.setString(8,this.basicDetails.getPassword());
+    insert_statement.setString(4,this.basicDetails.getGender());
+    insert_statement.setString(5,this.basicDetails.getDob());
+    insert_statement.setString(6,this.basicDetails.getAddress());
+    insert_statement.setInt(7,this.basicDetails.getLatitude());
+    insert_statement.setInt(8,this.basicDetails.getLongitude());
+    insert_statement.setString(9,this.basicDetails.getContactNo());
+    insert_statement.setString(10,this.doctorDetails.getSpeciality());
+    insert_statement.setInt(11,this.doctorDetails.getRegistrationNumber());
+    insert_statement.setString(12,this.basicDetails.getEmailId());
+    insert_statement.setString(13,this.basicDetails.getPassword());
+    insert_statement.setString(14,this.securityQuestions.getAnswer1());
+    insert_statement.setString(15,this.securityQuestions.getAnswer2());
+    insert_statement.setString(16,this.securityQuestions.getAnswer3());
 
     insert_statement.execute();
     this.hasRegisteredSuccessfully = true;
