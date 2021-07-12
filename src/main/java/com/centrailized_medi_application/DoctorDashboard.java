@@ -17,7 +17,7 @@ public abstract class DoctorDashboard extends Dashboard {
 
   public abstract void display_add_patients();
 
-  public abstract void display_patients();
+  public abstract void display_patients() throws SQLException, IOException, ClassNotFoundException;
 
   protected boolean flag = false; //
 
