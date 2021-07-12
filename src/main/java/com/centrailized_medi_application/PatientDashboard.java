@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public abstract class PatientDashboard extends Dashboard{
-    public abstract void About();
+    public abstract void About() throws SQLException, IOException, ClassNotFoundException;
 
     public abstract void Consultations();
 
@@ -19,7 +19,7 @@ public abstract class PatientDashboard extends Dashboard{
     protected boolean logout=false;
     protected Scanner sc = new Scanner(System.in);
     @Override
-    public void display() throws SQLException, IOException, ClassNotFoundException {
+    public void display()throws SQLException, IOException, ClassNotFoundException{
         System.out.println("-----------Dashboard-------------");
         System.out.println("1.About");
         System.out.println("2.Consultations");
@@ -33,6 +33,7 @@ public abstract class PatientDashboard extends Dashboard{
             Scanner sc = new Scanner(System.in);
             int option = sc.nextInt();
             if (option == 1) {
+                this.About();
                 flag = true;
             } else if (option == 2) {
                 flag = true;

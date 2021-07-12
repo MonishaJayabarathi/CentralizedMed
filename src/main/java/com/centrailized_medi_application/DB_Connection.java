@@ -60,10 +60,6 @@ public class DB_Connection implements DbConnection {
     @Override
     public boolean[] getDetails() throws SQLException {
 
-
-
-
-
         PreparedStatement p1 = connection.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=?");
         p1.setString(1, u_name);
         ResultSet login_name = p1.executeQuery();

@@ -9,9 +9,9 @@ public abstract class MainDashboard extends Dashboard {
 
     public abstract void display_doctor_login() throws SQLException, IOException, ClassNotFoundException;
 
-    public abstract void display_doctor_registration();
+    public abstract void display_doctor_registration() throws SQLException, IOException, ClassNotFoundException;
 
-    public abstract void display_patient_registration();
+    public abstract void display_patient_registration() throws SQLException, IOException, ClassNotFoundException;
     protected boolean flag = false;
     protected Scanner sc = new Scanner(System.in);
     public void display() throws SQLException, IOException, ClassNotFoundException {

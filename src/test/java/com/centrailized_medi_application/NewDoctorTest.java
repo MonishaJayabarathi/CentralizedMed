@@ -1,15 +1,13 @@
 package com.centrailized_medi_application;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DoctorRegistrationTest {
+class NewDoctorTest {
   BasicDetails bc = new BasicDetails();
   SecurityQuestions sq = new SecurityQuestions();
   DoctorDetails dd = new DoctorDetails();
@@ -23,7 +21,7 @@ class DoctorRegistrationTest {
     bc.setAddress("Street1 city1");
     bc.setLatitude(80);
     bc.setLongitude(90);
-    bc.setEmailId("monishaa@test.com");
+    bc.setEmailId("monisha@123.com");
     bc.setPassword("password");
 
     dd.setSpeciality("neurologist");
@@ -36,14 +34,12 @@ class DoctorRegistrationTest {
 
   @Disabled
   @Test
-  @DisplayName("To execute doctor registration")
-  void execute() throws SQLException, IOException, ClassNotFoundException {
-    mockData();
+  @DisplayName("Should register doctor successfully")
+  void update() throws SQLException, IOException, ClassNotFoundException {
+    mockData(); //setup doctor details
     NewDoctor dr = new NewDoctor(bc,dd,sq, new WelcomePage());
-    DoctorRegistration docReg = new DoctorRegistration(dr,new WelcomePage());
-
-    //Fetch and Validate
+    assertFalse(dr.getRegistrationStatus(), "unregistered doctor should be false");
     dr.update();
-    assertTrue(dr.getRegistrationStatus(), "registered doctor execution should have it true");
+    assertTrue(dr.getRegistrationStatus(), "registered user should have it true");
   }
 }
