@@ -20,6 +20,7 @@ public class BasicDetails implements Details {
   private String contactNo;
   private String password;
   private String confirmPassword;
+  private Validation validate = new Validation();
   protected Scanner sc = new Scanner(System.in);
 
   public String getFirstName() {
@@ -89,25 +90,78 @@ public class BasicDetails implements Details {
     this.confirmPassword = password;
   }
 
+  public int getRandomNumber(int min, int max) {
+    return (int) ((Math.random() * (max - min)) + min);
+  }
   @Override
   public void getDetails () {
+    String temp;
     System.out.println("Enter your First Name:");
     this.setFirstName(sc.nextLine());
     System.out.println("Enter your Last Name:");
     this.setLastName(sc.nextLine());
     System.out.println("Enter gender: ");
-    this.setGender(sc.nextLine());
+    temp = sc.nextLine();
+    while (!validate.validateGender(temp))
+    {
+      System.out.println("Re-Enter gender: ");
+      temp = sc.nextLine();
+    }
+    this.setGender(temp);
+
+
     System.out.println("Enter date of birth: ");
-    this.setDob(sc.nextLine());
+    temp = sc.nextLine();
+    while (!validate.validateDob(temp))
+    {
+      System.out.println("Re-Enter date of birth: ");
+      temp = sc.nextLine();
+    }
+    this.setDob(temp);
+
     System.out.println("Enter contactNo: ");
-    this.setContactNo(sc.nextLine());
+    temp = sc.nextLine();
+    while (!validate.validateContactNo(temp))
+    {
+      System.out.println("Re-Enter contactNo: ");
+      temp = sc.nextLine();
+    }
+    this.setContactNo(temp);
+
     System.out.println("Enter address: ");
     this.setAddress(sc.nextLine());
     System.out.println("Enter your E-mail(userId): ");
-    this.setEmailId(sc.nextLine());
-    System.out.println("Enter your password: ");
-    this.setPassword(sc.nextLine());
-    System.out.println("Enter your confirm password: ");
-    this.setConfirmPassword(sc.nextLine());
+    temp = sc.nextLine();
+    while (!validate.validateEmail(temp))
+    {
+      System.out.println("Re-Enter E-mail: ");
+      temp = sc.nextLine();
+    }
+    this.setEmailId(temp);
+
+    String confPass="";
+    while(!temp.equals(confPass))
+    {
+      System.out.println("Enter your password: ");
+      temp = sc.nextLine();
+      while (!validate.validatePassword(temp))
+      {
+        System.out.println("Re-Enter password: ");
+        temp = sc.nextLine();
+      }
+
+      System.out.println("Enter your confirm password: ");
+      confPass = sc.nextLine();
+      while (!validate.validatePassword(confPass))
+      {
+        System.out.println("Re-Enter confirm password: ");
+        confPass = sc.nextLine();
+      }
+    }
+    this.setPassword(confPass);
+
+//    this.setConfirmPassword(sc.nextLine());
+    this.setLatitude(getRandomNumber(0,200));
+    this.setLongitude(getRandomNumber(0,200));
   }
 }
