@@ -3,11 +3,12 @@ package com.centrailized_medi_application;
 import java.util.Scanner;
 
 /**
- * @author Monisha J
+ * @author Monisha J, Neelay
  * @description: This program gets the answers for security question from the person trying to register or
  * trying to reset password. The class has getter and setter of the required variables holding security answers.
  */
 public class SecurityQuestions implements Details {
+  Validation validate = new Validation();
   private  String answer1;
   private  String answer2;
   private  String answer3;
@@ -36,11 +37,32 @@ public class SecurityQuestions implements Details {
   //this method displays questions and records its answers
   @Override
   public void getDetails() {
+    String temp;
     System.out.println("Your first school:");
-    setAnswer1(sc.nextLine());
+    temp  = sc.nextLine();
+    while (!validate.validateAlphanumeric(temp))
+    {
+      System.out.println("Please enter your first school: ");
+      temp  = sc.nextLine();
+    }
+    setAnswer1(temp);
+
     System.out.println("Your hobby:");
-    setAnswer2(sc.nextLine());
+    temp  = sc.nextLine();
+    while (!validate.validateAlphanumeric(temp))
+    {
+      System.out.println("Please enter Your hobby: ");
+      temp  = sc.nextLine();
+    }
+    setAnswer2(temp);
+
     System.out.println("Your first bike:");
-    setAnswer3(sc.nextLine());
+    temp  = sc.nextLine();
+    while (!validate.validateAlphanumeric(temp))
+    {
+      System.out.println("Please enter your first bike:");
+      temp  = sc.nextLine();
+    }
+    setAnswer3(temp);
   }
 }
