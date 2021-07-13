@@ -52,7 +52,7 @@ public class Validation {
         // Return if the name
         // matched the ReGex
 
-        System.out.println(name+"output:  "+m.matches());
+//        System.out.println(name+"output:  "+m.matches());
         if (m.matches() == true)
         {
             return true;
@@ -81,7 +81,7 @@ public class Validation {
 
         // Return true if the dob matched the ReGex
 
-        System.out.println(dob+"output:  "+m.matches());
+//        System.out.println(dob+"output:  "+m.matches());
         if (m.matches() == true)
         {
             return true;
@@ -106,7 +106,7 @@ public class Validation {
         Matcher m = p.matcher(contactno);
 
         // Return true if the contactno matched the ReGex
-        System.out.println(contactno+"output:  "+m.matches());
+//        System.out.println(contactno+"output:  "+m.matches());
         if (m.matches() == true)
         {
             return true;
@@ -188,7 +188,7 @@ public class Validation {
         Matcher m = p.matcher(data);
 
         // Return true if the Alphanurmic matched the ReGex
-        System.out.println(data+"output: "+m.matches());
+//        System.out.println(data+"output: "+m.matches());
         if (m.matches() == true)
         {
             return true;
@@ -221,7 +221,7 @@ public class Validation {
         Matcher m = p.matcher(password);
 
         // Return true if the Password matched the ReGex
-        System.out.println(password+"output: "+m.matches());
+//        System.out.println(password+"output: "+m.matches());
         if (m.matches() == true)
         {
             return true;
