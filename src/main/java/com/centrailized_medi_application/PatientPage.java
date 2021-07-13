@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class PatientPage extends PatientDashboard
 {
-    private String user_name;
+    protected String user_name;
 
     public PatientPage(String user_name) {
         this.user_name = user_name;
@@ -13,8 +13,9 @@ public class PatientPage extends PatientDashboard
 
     @Override
     public void About() throws SQLException, IOException, ClassNotFoundException {
-        AboutPatient personal_details = new AboutPatient();
-        personal_details.get(user_name);
+        AboutPatient aboutPatient = new AboutPatient(this.user_name, this); //testing commit
+        AboutPatientPage aboutPatientpage = new AboutPatientPage(aboutPatient);
+        aboutPatientpage.display();
     }
 
     @Override
@@ -25,7 +26,7 @@ public class PatientPage extends PatientDashboard
 
     @Override
     public void Prescriptions() throws SQLException, IOException, ClassNotFoundException {
-        
+
         PatientPrescription pp = new PatientPrescription(2); // For now
         System.out.println(pp.formatPrescription());
         PatientPage pd = new PatientPage(user_name);

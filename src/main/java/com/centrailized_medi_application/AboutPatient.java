@@ -9,13 +9,13 @@ public class AboutPatient implements About{
     PatientDashboard init;
     private  Connection c;
     //This variable stores Patient username
-    private String patientUsername;
+    private String user_name;
 
     // This stores results fetched from Database
     private ResultSet currentPatientDetails;
 
     AboutPatient(String patient_id, PatientDashboard pd) {
-        this.patientUsername = patient_id;
+        this.user_name = patient_id;
         this.init = pd;
 
     }
@@ -31,7 +31,7 @@ public class AboutPatient implements About{
 
         PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
         prepStmt.toString();
-        prepStmt.setString(1, this.patientUsername);
+        prepStmt.setString(1, this.user_name);
         this.currentPatientDetails = prepStmt.executeQuery();
 
     }
@@ -67,7 +67,7 @@ public class AboutPatient implements About{
         if (option == 1) {
             c.close();
             System.out.println("Returning to your Dashboard...");
-            WelcomePage init = new WelcomePage();
+            PatientPage init = new PatientPage(user_name);
             this.init.display();
         } else {
             System.out.println("Please provide a valid entry");
