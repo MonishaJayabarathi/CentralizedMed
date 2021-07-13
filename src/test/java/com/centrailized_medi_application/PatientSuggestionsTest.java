@@ -75,4 +75,12 @@ class PatientSuggestionsTest {
         assertEquals(expectedDoctorsList, actualDoctorsList);
 
     }
+
+    @Test
+    void rateDocter()
+    {
+        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
+        assertTrue(patientSuggestions.rateDoctor(),"Incorrect result");
+
+    }
 }

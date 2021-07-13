@@ -113,4 +113,9 @@ public class PatientSuggestions {
         return suggestedDoctors.toString();
     }
 
+    public boolean rateDoctor() {
+
+     return true;
+    }
+
 }
