@@ -9,9 +9,9 @@ public abstract class PatientDashboard extends Dashboard{
 
     public abstract void Consultations() throws SQLException, IOException, ClassNotFoundException;
 
-    public abstract void Prescriptions();
+    public abstract void Prescriptions() throws SQLException, IOException, ClassNotFoundException;
 
-    public abstract void Suggestions();
+    public abstract void Suggestions() throws SQLException, IOException, ClassNotFoundException;
 
     public abstract void Logout() throws SQLException, IOException, ClassNotFoundException;
 

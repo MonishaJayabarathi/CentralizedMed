@@ -1,5 +1,6 @@
 package com.centrailized_medi_application;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -71,11 +72,11 @@ class PatientSuggestionsTest {
         patientSuggestions.setLatLon();
         patientSuggestions.setSpecialization("Gynaecology");
         String actualDoctorsList = patientSuggestions.getSuggestedDoctors();
-
         assertEquals(expectedDoctorsList, actualDoctorsList);
 
     }
 
+    @Disabled("Asks for user input")
     @Test
     void rateDocter() throws SQLException, IOException, ClassNotFoundException {
         PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);

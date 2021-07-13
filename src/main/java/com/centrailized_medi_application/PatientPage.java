@@ -24,17 +24,23 @@ public class PatientPage extends PatientDashboard
     }
 
     @Override
-    public void Prescriptions()
-    {
+    public void Prescriptions() throws SQLException, IOException, ClassNotFoundException {
         
         PatientPrescription pp = new PatientPrescription(2); // For now
         System.out.println(pp.formatPrescription());
+        PatientPage pd = new PatientPage(user_name);
+        pd.display();
 
     }
 
     @Override
-    public void Suggestions() {
-
+    public void Suggestions() throws SQLException, IOException, ClassNotFoundException {
+        PatientSuggestions patientSuggestions = new PatientSuggestions(user_name);
+        patientSuggestions.setLatLon();
+        patientSuggestions.retrieveDoctorSuggestions();
+        patientSuggestions.getSuggestedDoctors();
+        PatientPage pd = new PatientPage(user_name);
+        pd.display();
     }
 
 
