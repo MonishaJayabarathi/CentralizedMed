@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -70,13 +71,14 @@ public class PatientSuggestions {
                 "WHERE distance < 10\n" +
                 "ORDER BY rating DESC;");
 
+        NumberFormat formatter = new DecimalFormat("#0.0");
         while (resultSet.next()) {
             ArrayList<String> resultRow = new ArrayList<String>();
             resultRow.add(resultSet.getString("firstname"));
             resultRow.add(resultSet.getString("lastname"));
             resultRow.add(resultSet.getString("speciality"));
             resultRow.add(resultSet.getString("address"));
-            resultRow.add(String.valueOf(resultSet.getDouble("distance")));
+            resultRow.add(String.valueOf((formatter.format(resultSet.getDouble("distance")) )) );
             resultRow.add(String.valueOf(resultSet.getDouble("rating")));
             resultRow.add(resultSet.getString("contactNo"));
             doctorsList.add(resultRow);
