@@ -18,8 +18,9 @@ public class PatientPage extends PatientDashboard
     }
 
     @Override
-    public void Consultations() {
-
+    public void Consultations() throws SQLException, IOException, ClassNotFoundException {
+        PatientSuggestions patientSuggestions = new PatientSuggestions(user_name);
+        patientSuggestions.rateDoctor();
     }
 
     @Override

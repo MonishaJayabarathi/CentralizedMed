@@ -77,8 +77,7 @@ class PatientSuggestionsTest {
     }
 
     @Test
-    void rateDocter()
-    {
+    void rateDocter() throws SQLException, IOException, ClassNotFoundException {
         PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
         assertTrue(patientSuggestions.rateDoctor(),"Incorrect result");
 

@@ -3,10 +3,7 @@ package com.centrailized_medi_application;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -113,9 +110,47 @@ public class PatientSuggestions {
         return suggestedDoctors.toString();
     }
 
-    public boolean rateDoctor() {
+    public boolean rateDoctor() throws SQLException, IOException, ClassNotFoundException {
+        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+        Connection connection = one.createConnection();
 
-     return true;
+        PreparedStatement prep_statement = connection.prepareStatement("SELECT * FROM `consultations` WHERE patient_username = ?");
+        prep_statement.setString(1, this.userName);
+        ResultSet doc_list = prep_statement.executeQuery();
+        //prep_statement.close();
+        Scanner sc = new Scanner(System.in);
+        while (doc_list.next()){
+            System.out.println(doc_list.getString("doctor_username") + doc_list.getString("consultation_date_and_time"));
+            System.out.println("Enter rating:");
+            int rating = sc.nextInt();
+            int current_value = 0;
+
+            //Fetch existing values
+            String email_doc =doc_list.getString("doctor_username");
+            PreparedStatement current_val = connection.prepareStatement("SELECT * FROM `doctor_info` WHERE emailId=? and rating=?");
+            current_val.setString(1, email_doc);
+            current_val.setInt(2, rating);
+            ResultSet get_current_value = current_val.executeQuery();
+            int updt_rating = 0;
+            if(get_current_value.next()) {
+                current_value = get_current_value.getInt("rating");
+                updt_rating = (current_value + rating) / 2;
+            }
+           else
+            {
+                updt_rating = rating;
+            }
+
+            //Update with the patient values
+            PreparedStatement pstatement = connection.prepareStatement("Update doctor_info set rating=? where emailId=?");
+            pstatement.setInt(1, updt_rating);
+            email_doc =doc_list.getString("doctor_username");
+            pstatement.setString(2, email_doc);
+            boolean doc_rate = pstatement.execute();
+
+        }
+
+        return true;
     }
 
 }
