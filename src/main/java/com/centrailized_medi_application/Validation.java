@@ -94,7 +94,7 @@ public class Validation {
     public boolean validateContactNo(String contactno){
         //Contact No Contraints:
         //Can be of length 10 or 11
-        String ContactRegEx="^\\d{10,11}$";
+        String ContactRegEx="^\\d{10}$";
         // Compile the ReGex
         Pattern p = Pattern.compile(ContactRegEx);
 
@@ -176,7 +176,7 @@ public class Validation {
     {
         //Constraints are that String can only contain alphabets and number along
         // and also comma is allows
-        String AlphanumericRegEx="^[a-zA-Z0-9,]+$";
+        String AlphanumericRegEx="^[a-zA-Z0-9,\\s]+$";
 
 
         // Compile the ReGex
