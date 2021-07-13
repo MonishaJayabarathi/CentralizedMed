@@ -13,6 +13,7 @@ class PatientLoginTest {
 
     String environment = "src/main/resources/config_test.properties";
     /* To verify the set func for login Patient (username)*/
+
     @Test
     void setPatient_name() throws SQLException, IOException, ClassNotFoundException {
         String user_name = "Aditya@hotmail.com";
@@ -36,6 +37,7 @@ class PatientLoginTest {
     }
 
     /* To verify the set func for login Patient (password)*/
+
     @Test
     void setPatient_pass() throws SQLException, IOException, ClassNotFoundException {
         String user_name = "Aditya";

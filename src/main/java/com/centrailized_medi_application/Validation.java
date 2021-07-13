@@ -52,7 +52,7 @@ public class Validation {
         // Return if the name
         // matched the ReGex
 
-        System.out.println(name+"output:  "+m.matches());
+
         if (m.matches() == true)
         {
             return true;
@@ -81,7 +81,7 @@ public class Validation {
 
         // Return true if the dob matched the ReGex
 
-        System.out.println(dob+"output:  "+m.matches());
+
         if (m.matches() == true)
         {
             return true;
@@ -94,7 +94,7 @@ public class Validation {
     public boolean validateContactNo(String contactno){
         //Contact No Contraints:
         //Can be of length 10 or 11
-        String ContactRegEx="^\\d{10,11}$";
+        String ContactRegEx="^\\d{10}$";
         // Compile the ReGex
         Pattern p = Pattern.compile(ContactRegEx);
 
@@ -106,7 +106,7 @@ public class Validation {
         Matcher m = p.matcher(contactno);
 
         // Return true if the contactno matched the ReGex
-        System.out.println(contactno+"output:  "+m.matches());
+
         if (m.matches() == true)
         {
             return true;
@@ -176,7 +176,9 @@ public class Validation {
     {
         //Constraints are that String can only contain alphabets and number along
         // and also comma is allows
-        String AlphanumericRegEx="^[a-zA-Z0-9,]+$";
+        String AlphanumericRegEx="^[a-zA-Z0-9,\\s]+$";
+
+
         // Compile the ReGex
         Pattern p = Pattern.compile(AlphanumericRegEx);
 
@@ -188,7 +190,7 @@ public class Validation {
         Matcher m = p.matcher(data);
 
         // Return true if the Alphanurmic matched the ReGex
-        System.out.println(data+"output: "+m.matches());
+;
         if (m.matches() == true)
         {
             return true;
@@ -221,7 +223,7 @@ public class Validation {
         Matcher m = p.matcher(password);
 
         // Return true if the Password matched the ReGex
-        System.out.println(password+"output: "+m.matches());
+
         if (m.matches() == true)
         {
             return true;

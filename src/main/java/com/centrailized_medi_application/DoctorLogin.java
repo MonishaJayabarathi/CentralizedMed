@@ -2,6 +2,7 @@ package com.centrailized_medi_application;/* com.centrailized_medi_application.P
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -72,7 +73,7 @@ public class DoctorLogin implements LoginCommand
     {
       System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
       sc = new Scanner(System.in);
-      if (sc.nextLine().equals("y"))
+      if (sc.nextLine().toLowerCase().equals("y"))
       {
         System.out.println("Navigating to main menu...");
         this.init.display();

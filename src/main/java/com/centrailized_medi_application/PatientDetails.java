@@ -10,6 +10,7 @@ public class PatientDetails implements Details{
     private String donorCardNo;
     private String familyMemberCode;
     private String volunteer;
+    final private Validation validate = new Validation();
     protected Scanner scanner = new Scanner(System.in);
 
     public String getBloodGroup() { return bloodGroup; }
@@ -43,33 +44,69 @@ public class PatientDetails implements Details{
     @Override
     public void getDetails() {
         try {
-            System.out.print(" Enter your Blood Group:");
-            String bloodGroup = scanner.nextLine();
-            setBloodGroup(bloodGroup);
+            String temp ;
+            System.out.println("Enter your Blood Group:");
+            temp = scanner.nextLine();
+            while (!validate.validateBloodGroup(temp))
+            {
+                System.out.println("Re-Enter Blood Group: ");
+                temp = scanner.nextLine();
+            }
+            setBloodGroup(temp);
 
-            System.out.print(" Enter information for Allergies(if there are otherwise enter Null):");
-            String allergy = scanner.nextLine();
-            setAllergy(allergy);
+            System.out.println("Enter information for Allergies(if there are otherwise enter Null):");
+            temp = scanner.nextLine();
+            while (!validate.validateAlphanumeric(temp))
+            {
+                System.out.println("Re-Enter information for Allergies(if there are otherwise enter Null): ");
+                temp = scanner.nextLine();
+            }
+            setAllergy(temp);
 
-            System.out.println(" Enter Chronic disease if any(otherwise enter null):");
-            String chronicDisease = scanner.nextLine();
-            setChronicDisease(chronicDisease);
+            System.out.println("Enter Chronic disease if any(otherwise enter null):");
+            temp = scanner.nextLine();
+            while (!validate.validateAlphanumeric(temp))
+            {
+                System.out.println("Re-Enter Chronic disease if any(otherwise enter null): ");
+                temp = scanner.nextLine();
+            }
+            setChronicDisease(temp);
 
-            System.out.println(" Enter your insurance number:");
-            String insuranceNo = scanner.nextLine();
-            setInsuranceNo(insuranceNo);
+            System.out.println("Enter your insurance number:");
+            temp = scanner.nextLine();
+            while (!validate.validateAlphanumeric(temp))
+            {
+                System.out.println("Re-Enter your insurance number:");
+                temp = scanner.nextLine();
+            }
+            setInsuranceNo(temp);
 
-            System.out.println(" Enter your donar card number (if you have):");
-            String donorCardNo = scanner.nextLine();
-            setDonorCardNo(donorCardNo);
+            System.out.println("Enter your donar card number: ");
+            temp = scanner.nextLine();
+            while (!validate.validateAlphanumeric(temp))
+            {
+                System.out.println("Re-Enter your donar card number: ");
+                temp = scanner.nextLine();
+            }
+            setDonorCardNo(temp);
 
-            System.out.println(" Enter your family members identity code: ");
-            String familyMemberCode = scanner.nextLine();
-            setFamilyMemberCode(familyMemberCode);
+            System.out.println("Enter your family member identity code:");
+            temp  = scanner.nextLine();
+            while (!validate.validateAlphanumeric(temp))
+            {
+                System.out.println("Re-Enter your family member identity code: ");
+                temp  = scanner.nextLine();
+            }
+            setFamilyMemberCode(temp);
 
-            System.out.println("If would you like to be a volunteer please enter yes otherwise no");
-            String volunteer = scanner.nextLine();
-            setVolunteer(volunteer);
+            System.out.println("If would you like to be a volunteer please enter yes otherwise no:");
+            temp  = scanner.nextLine();
+            while (!validate.validateVolunteer(temp))
+            {
+                System.out.println("Re-Enter Correct Choice: ");
+                temp  = scanner.nextLine();
+            }
+            setVolunteer(temp);
 
         } catch (Exception e) {
             System.out.println("Patient Details Encountered Error " + e);

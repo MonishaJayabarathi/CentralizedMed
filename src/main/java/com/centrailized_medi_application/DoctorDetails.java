@@ -29,10 +29,23 @@ public class DoctorDetails implements Details{
   @Override
   public void getDetails() {
     try {
+
       System.out.println("Enter your Speciality:");
-      setSpeciality(sc.next());
+      String temp = sc.nextLine();
+      while (temp.isEmpty()){
+        System.out.println("Please enter your Speciality");
+        temp = sc.nextLine();
+      }
+      setSpeciality(temp);
+
       System.out.println("Enter your Registration Number");
-      setRegistrationNumber(sc.nextInt());
+      int no = sc.nextInt();
+      while (String.valueOf(no).length() == 0) {
+        System.out.println("Please enter your Registration number");
+        no = sc.nextInt();
+      }
+      setRegistrationNumber(no);
+
     } catch (Exception e) {
       System.out.println("doctorDetails Error " + e);
     }

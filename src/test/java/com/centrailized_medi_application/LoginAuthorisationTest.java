@@ -52,13 +52,13 @@ class LoginAuthorisationTest {
         String environment = "src/main/resources/config_test.properties";
         DB_Connection db = new DB_Connection(environment);
         Connection connect = db.createConnection();
-        String user_name = "Neelay@gmail.com";
-        PreparedStatement answer = connect.prepareStatement("select * from userinfo where emailId=?");
+        String user_name = "maxone@gmail.com";
+        PreparedStatement answer = connect.prepareStatement("select * from patient_info where emailId=?");
         answer.setString(1, user_name);
         ResultSet s1 = answer.executeQuery();
         s1.next();
         LoginAuthorisation key = new LoginAuthorisation();
-        assertEquals(s1.getString("firstAnswer"), key.getSecurityQuestion(user_name), "Incorrect Security Answer");
+        assertEquals(s1.getString("security_answer_1"), key.getSecurityQuestion(user_name), "Incorrect Security Answer");
 
     }
 

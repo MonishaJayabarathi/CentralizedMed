@@ -3,7 +3,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Scanner;
 
-//This class return all the member details whose patient email id passed
+//This class return all the family member details whose patient email id passed
+//Author:Neelay Goswami
 public class FamilyInfo {
   private ResultSet currentPatientDetails;
   private ResultSet familyDetails;
@@ -46,9 +47,8 @@ public class FamilyInfo {
 
   public void displayCurrentPatient() throws SQLException, IOException, ClassNotFoundException {
     if (this.currentPatientDetails.next()) {
-      System.out.println("**************************** About You **************************");
+      System.out.println("**************************** Patient Family Information **************************");
       familyCode = this.currentPatientDetails.getString("familyMemberCode");
-      System.out.println("FamilyMemberCode: " + this.currentPatientDetails.getString("familyMemberCode"));
       System.out.println("Firstname: " + this.currentPatientDetails.getString("firstname"));
       System.out.println("Lastname: " + this.currentPatientDetails.getString("lastname"));
       System.out.println("Date of birth: " + this.currentPatientDetails.getString("dateofbirth"));

@@ -46,10 +46,10 @@ public class NewPatient implements Details, Registration {
         rs2.next();
         int curr_id = rs2.getInt("idlogin_details");
 
-        PreparedStatement test=connection.prepareStatement("INSERT INTO patientinfo(id,firstname,lastname," +
-                "dateofbirth,gender,password,emailId,address,contactNo,bloodGroup," +
-                "allergy,chronicDisease,insuranceNo,donorCardNo,familyMemberCode,volunteer,security_answer_1,security_answer_2,security_answer_3) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)");
+        PreparedStatement test=connection.prepareStatement("INSERT INTO patient_info(id,firstname,lastname," +
+                "dateOfbirth,gender,password,emailId,address,contactNo,bloodGroup," +
+                "allergy,chronicDisease,insuranceNo,donorCardNo,familyMemberCode,volunteer,security_answer_1,security_answer_2,security_answer_3,latitude,longitude) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         test.setInt(1,curr_id);
         test.setString(2,this.basicDetails.getFirstName());
@@ -70,9 +70,11 @@ public class NewPatient implements Details, Registration {
         test.setString(17,this.securityQuestions.getAnswer1());
         test.setString(18,this.securityQuestions.getAnswer2());
         test.setString(19,this.securityQuestions.getAnswer3());
-
+        test.setInt(20,this.basicDetails.getLatitude());
+        test.setInt(21,this.basicDetails.getLongitude());
         test.execute();
         this.hasRegisteredSuccessfully = true;
+        st.close();
         connection.close();
     }
 

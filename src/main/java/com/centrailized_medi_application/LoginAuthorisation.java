@@ -13,12 +13,12 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         String environment = "src/main/resources/config_test.properties";
         DB_Connection db = new DB_Connection(environment);
         Connection connect = db.createConnection();
-        PreparedStatement answer = connect.prepareStatement("select * from userinfo where emailId=?");
+        PreparedStatement answer = connect.prepareStatement("select * from patient_info where emailId=?");
         answer.setString(1, user_name);
         ResultSet s1 = answer.executeQuery();
         if(s1.next())
         {
-            return (s1.getString("firstAnswer"));
+            return (s1.getString("security_answer_1"));
         }
         else
         {
@@ -35,7 +35,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         String configFile="src/main/resources/config_test.properties";
         DB_Connection db=new DB_Connection(configFile);
         Connection connection=db.createConnection();
-        PreparedStatement checkUser = connection.prepareStatement("select * from userinfo where emailId=?");
+        PreparedStatement checkUser = connection.prepareStatement("select * from patient_info where emailId=?");
         checkUser.setString(1, user_name);
         ResultSet s2 = checkUser.executeQuery();
         if(s2.next()==false)
@@ -48,7 +48,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         {
             Scanner sc=new Scanner(System.in);
             String newPassword=sc.next();
-            PreparedStatement updatePass=connection.prepareStatement("Update userinfo set password=? where emailid=?");
+            PreparedStatement updatePass=connection.prepareStatement("Update patient_info set password=? where emailid=?");
             updatePass.setString(1,newPassword);
             updatePass.setString(2,user_name);
             updatePass.execute();

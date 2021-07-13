@@ -4,54 +4,74 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Scanner;
 
-public class AboutPatient {
-    static private String tempemail;
+public class AboutPatient implements About{
+    //Static private String tempemail;
+    PatientDashboard init;
+    private  Connection c;
+    //This variable stores Patient username
+    private String user_name;
 
-    public void get(String Email) throws SQLException, ClassNotFoundException, IOException {
-        //Connecting with the Database
+    // This stores results fetched from Database
+    private ResultSet currentPatientDetails;
 
-            DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
-            Connection c = one.createConnection();
-            this.tempemail = Email;
+    AboutPatient(String patient_id, PatientDashboard pd) {
+        this.user_name = patient_id;
+        this.init = pd;
 
-            System.out.println("Fetching value for the user whose EmailId:" + tempemail);
-            String sqlStmt = "SELECT * FROM patientinfo where emailId =?";
+    }
 
-            PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
-            prepStmt.toString();
-            prepStmt.setString(1, tempemail);
-            ResultSet rs = prepStmt.executeQuery();
-            while (rs.next()) {
-                //Display values
-                System.out.println("**************************************************************");
-                System.out.println();
-                System.out.println("Requested Patient Info:");
-                System.out.println("Firstname: " + rs.getString("firstname"));
-                System.out.println("Lastname: " + rs.getString("lastname"));
-                System.out.println("Date of birth: " + rs.getString("dateofbirth"));
-                System.out.println("Gender: " + rs.getString("gender"));
-                System.out.println("EmailId: " + rs.getString("emailId"));
-                System.out.println("Address: " + rs.getString("address"));
-                System.out.println("BloodGroup: " + rs.getString("bloodGroup"));
-                System.out.println("Allergy: " + rs.getString("allergy"));
-                System.out.println("ChronicDisease: " + rs.getString("chronicDisease"));
-                System.out.println("InsuranceNo: " + rs.getString("insuranceNo"));
-                System.out.println("DonorCardNo: " + rs.getString("insuranceNo"));
-                System.out.println("FamilyMemberCode: " + rs.getString("familyMemberCode"));
-                System.out.println("Volunteer: " + rs.getString("volunteer"));
-                System.out.println();
-                System.out.println("**************************************************************");
-            }
-            c.close();
-            System.out.println("When you want to move to DashBoard press 1");
-            Scanner sc = new Scanner(System.in);
-            int tempchoice = sc.nextInt();
-            System.out.println("choice of user"+tempchoice);
-            if (tempchoice == 1) {
-                System.out.println("Moving to Main Menu");
-                PatientPage init = new PatientPage(tempemail);
-                init.display();
-            }
+    //Fetch Patient Information from Database
+    @Override
+    public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("Loading About...\n");
+        DbConnection test = new DB_Connection("src/main/resources/config_test.properties");
+        c = test.createConnection();
+
+        String sqlStmt = "SELECT * FROM patient_info where emailId =?";
+
+        PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
+        prepStmt.toString();
+        prepStmt.setString(1, this.user_name);
+        this.currentPatientDetails = prepStmt.executeQuery();
+
+    }
+    //Display Patient Details
+    @Override
+    public void displayDetails() throws SQLException {
+        while (this.currentPatientDetails.next()) {
+            System.out.println("**************************** About You **************************");
+            System.out.println("Requested Patient Info:");
+            System.out.println("Firstname: " + this.currentPatientDetails.getString("firstname"));
+            System.out.println("Lastname: " + this.currentPatientDetails.getString("lastname"));
+            System.out.println("Date of birth: " + this.currentPatientDetails.getString("dateofbirth"));
+            System.out.println("Gender: " + this.currentPatientDetails.getString("gender"));
+            System.out.println("EmailId: " + this.currentPatientDetails.getString("emailId"));
+            System.out.println("Address: " + this.currentPatientDetails.getString("address"));
+            System.out.println("BloodGroup: " + this.currentPatientDetails.getString("bloodGroup"));
+            System.out.println("Allergy: " + this.currentPatientDetails.getString("allergy"));
+            System.out.println("ChronicDisease: " + this.currentPatientDetails.getString("chronicDisease"));
+            System.out.println("InsuranceNo: " + this.currentPatientDetails.getString("insuranceNo"));
+            System.out.println("DonorCardNo: " + this.currentPatientDetails.getString("insuranceNo"));
+            System.out.println("FamilyMemberCode: " + this.currentPatientDetails.getString("familyMemberCode"));
+            System.out.println("Volunteer: " + this.currentPatientDetails.getString("volunteer"));
+            System.out.println("*****************************************************************");
         }
+    }
 
+    //Navigation to patients dashboard
+    @Override
+    public void back  () throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("Press 1 to move to your Dashboard");
+        Scanner sc = new Scanner(System.in);
+        int option = sc.nextInt();
+        if (option == 1) {
+            c.close();
+            System.out.println("Returning to your Dashboard...");
+            PatientPage init = new PatientPage(user_name);
+            this.init.display();
+        } else {
+            System.out.println("Please provide a valid entry");
+            this.back();
+        }
+    }
 }

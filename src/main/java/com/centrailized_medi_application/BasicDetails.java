@@ -20,6 +20,7 @@ public class BasicDetails implements Details {
   private String contactNo;
   private String password;
   private String confirmPassword;
+  private Validation validate = new Validation();
   protected Scanner sc = new Scanner(System.in);
 
   public String getFirstName() {
@@ -89,25 +90,99 @@ public class BasicDetails implements Details {
     this.confirmPassword = password;
   }
 
+  public int getRandomNumber(int min, int max) {
+    return (int) ((Math.random() * (max - min)) + min);
+  }
   @Override
   public void getDetails () {
-    System.out.println("Enter your First Name:");
-    this.setFirstName(sc.nextLine());
-    System.out.println("Enter your Last Name:");
-    this.setLastName(sc.nextLine());
-    System.out.print("Enter gender: ");
-    this.setGender(sc.nextLine());
-    System.out.print("Enter date of birth: ");
-    this.setDob(sc.nextLine());
-    System.out.print("Enter contactNo: ");
-    this.setContactNo(sc.nextLine());
-    System.out.print("Enter address: ");
-    this.setAddress(sc.nextLine());
+    String temp;
+    System.out.println("Enter your First Name: ");
+    temp = sc.nextLine();
+    while (!validate.validateName(temp))
+    {
+      System.out.println("Re-Enter First Name in correct format: ");
+      temp = sc.nextLine();
+    }
+    this.setFirstName(temp);
+
+    System.out.println("Enter your Last Name: ");
+    temp = sc.nextLine();
+    while (!validate.validateName(temp))
+    {
+      System.out.println("Re-Enter Last Name in correct format: ");
+      temp = sc.nextLine();
+    }
+    this.setLastName(temp);
+
+    System.out.println("Enter gender: ");
+    temp = sc.nextLine();
+    while (!validate.validateGender(temp))
+    {
+      System.out.println("Incorrect entry re-Enter gender: ");
+      temp = sc.nextLine();
+    }
+    this.setGender(temp);
+
+
+    System.out.println("Enter date of birth: ");
+    temp = sc.nextLine();
+    while (!validate.validateDob(temp))
+    {
+      System.out.println("Incorrect entry re-Enter date of birth: ");
+      temp = sc.nextLine();
+    }
+    this.setDob(temp);
+
+    System.out.println("Enter contactNo: ");
+    temp = sc.nextLine();
+    while (!validate.validateContactNo(temp))
+    {
+      System.out.println("Incorrect entry re-Enter 10 digit contactNo: ");
+      temp = sc.nextLine();
+    }
+    this.setContactNo(temp);
+
+    System.out.println("Enter address: ");
+    temp = sc.nextLine();
+    while (!validate.validateAlphanumeric(temp))
+    {
+      System.out.println("Re-Enter address: ");
+      temp = sc.nextLine();
+    }
+    this.setAddress(temp);
+
     System.out.println("Enter your E-mail(userId): ");
-    this.setEmailId(sc.nextLine());
-    System.out.println("Enter your password: ");
-    this.setPassword(sc.nextLine());
-    System.out.println("Enter your confirm password: ");
-    this.setConfirmPassword(sc.nextLine());
+    temp = sc.nextLine();
+    while (!validate.validateEmail(temp))
+    {
+      System.out.println("Re-Enter E-mail: ");
+      temp = sc.nextLine();
+    }
+    this.setEmailId(temp);
+
+    String confPass="";
+    while(!temp.equals(confPass))
+    {
+      System.out.println("Enter your password: ");
+      temp = sc.nextLine();
+      while (!validate.validatePassword(temp))
+      {
+        System.out.println("Re-Enter password: ");
+        temp = sc.nextLine();
+      }
+
+      System.out.println("Enter your confirm password: ");
+      confPass = sc.nextLine();
+      while (!validate.validatePassword(confPass))
+      {
+        System.out.println("Re-Enter confirm password: ");
+        confPass = sc.nextLine();
+      }
+    }
+    this.setPassword(confPass);
+
+    //Getting information for latitude and longitude randomly from function
+    this.setLatitude(getRandomNumber(0,200));
+    this.setLongitude(getRandomNumber(0,200));
   }
 }

@@ -39,7 +39,7 @@ public class WelcomePage extends MainDashboard
         }
         catch (Exception e)
         {
-            System.out.println("Input Exception Encountered moving to main menu");
+            System.out.println("Input Exception Encountered moving to main menu "+e);
             WelcomePage init = new WelcomePage();
             init.display();
         }
