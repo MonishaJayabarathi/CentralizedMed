@@ -46,6 +46,7 @@ public class DoctorPage extends DoctorDashboard{
 
   }
 
+
   @Override
   public void display_donors() throws SQLException, IOException, ClassNotFoundException {
     DB_Connection db=new DB_Connection(environment);
@@ -59,6 +60,15 @@ public class DoctorPage extends DoctorDashboard{
     }
     DoctorDashboard redirect_home=new DoctorPage(this.doctorUsername);
     redirect_home.display();
+  }
+
+  @Override
+  public void display_patiient_family_history() throws SQLException, IOException, ClassNotFoundException {
+    FamilyInfo fi = new FamilyInfo();
+    fi.getFamilyInfo();
+    DoctorDashboard redirect_home=new DoctorPage(this.doctorUsername);
+    redirect_home.display();
+
   }
 
   @Override

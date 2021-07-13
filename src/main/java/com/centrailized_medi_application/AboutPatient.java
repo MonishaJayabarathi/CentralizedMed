@@ -49,7 +49,7 @@ public class AboutPatient {
             System.out.println("choice of user"+tempchoice);
             if (tempchoice == 1) {
                 System.out.println("Moving to Main Menu");
-                WelcomePage init = new WelcomePage();
+                PatientPage init = new PatientPage(tempemail);
                 init.display();
             }
         }

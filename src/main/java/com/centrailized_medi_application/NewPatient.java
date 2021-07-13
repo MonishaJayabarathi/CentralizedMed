@@ -48,8 +48,8 @@ public class NewPatient implements Details, Registration {
 
         PreparedStatement test=connection.prepareStatement("INSERT INTO patientinfo(id,firstname,lastname," +
                 "dateofbirth,gender,password,emailId,address,contactNo,bloodGroup," +
-                "allergy,chronicDisease,insuranceNo,donorCardNo,familyMemberCode,volunteer) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                "allergy,chronicDisease,insuranceNo,donorCardNo,familyMemberCode,volunteer,security_answer_1,security_answer_2,security_answer_3) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)");
 
         test.setInt(1,curr_id);
         test.setString(2,this.basicDetails.getFirstName());
@@ -67,6 +67,9 @@ public class NewPatient implements Details, Registration {
         test.setString(14,this.patientDetails.getDonorCardNo());
         test.setString(15,this.patientDetails.getFamilyMemberCode());
         test.setString(16,this.patientDetails.getVolunteer());
+        test.setString(17,this.securityQuestions.getAnswer1());
+        test.setString(18,this.securityQuestions.getAnswer2());
+        test.setString(19,this.securityQuestions.getAnswer3());
 
         test.execute();
         this.hasRegisteredSuccessfully = true;
