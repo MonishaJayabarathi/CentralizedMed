@@ -7,7 +7,7 @@ import java.util.Scanner;
 public abstract class PatientDashboard extends Dashboard{
     public abstract void About() throws SQLException, IOException, ClassNotFoundException;
 
-    public abstract void Consultations();
+    public abstract void Consultations() throws SQLException, IOException, ClassNotFoundException;
 
     public abstract void Prescriptions();
 
@@ -36,6 +36,7 @@ public abstract class PatientDashboard extends Dashboard{
                 this.About();
                 flag = true;
             } else if (option == 2) {
+                this.Consultations();
                 flag = true;
             } else if (option == 3) {
                 this.Prescriptions();
