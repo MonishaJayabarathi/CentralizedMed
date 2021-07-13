@@ -120,16 +120,16 @@ public class PatientSuggestions {
         //prep_statement.close();
         Scanner sc = new Scanner(System.in);
         while (doc_list.next()){
-            System.out.println(doc_list.getString("doctor_username") + doc_list.getString("consultation_date_and_time"));
+            System.out.println(doc_list.getString("doctor_username") + " " + doc_list.getString("consultation_date_and_time"));
             System.out.println("Enter rating:");
             int rating = sc.nextInt();
             int current_value = 0;
 
             //Fetch existing values
             String email_doc =doc_list.getString("doctor_username");
-            PreparedStatement current_val = connection.prepareStatement("SELECT * FROM `doctor_info` WHERE emailId=? and rating=?");
+            PreparedStatement current_val = connection.prepareStatement("SELECT * FROM `doctor_info` WHERE emailId=?");
             current_val.setString(1, email_doc);
-            current_val.setInt(2, rating);
+            //current_val.setInt(2, rating);
             ResultSet get_current_value = current_val.executeQuery();
             int updt_rating = 0;
             if(get_current_value.next()) {
@@ -147,9 +147,10 @@ public class PatientSuggestions {
             email_doc =doc_list.getString("doctor_username");
             pstatement.setString(2, email_doc);
             boolean doc_rate = pstatement.execute();
-
         }
 
+        PatientPage pd = new PatientPage(this.userName);
+        pd.display();
         return true;
     }
 
