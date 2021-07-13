@@ -1,5 +1,6 @@
 package com.centrailized_medi_application;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -9,15 +10,17 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PatientSuggestionsTest {
-    public static final String patientUserName = "patient1";
+    public static final String patientUserName = "patient1@gmail.com";
 
     @Test
+    @DisplayName("To get patient's user name")
     void constructor(){
         PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
-        assertEquals("patient1", patientSuggestions.userName);
+        assertEquals("patient1@gmail.com", patientSuggestions.userName);
     }
 
     @Test
+    @DisplayName("To get patient's latitude and longitude")
     void setLatLon() throws SQLException, IOException, ClassNotFoundException {
         PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
         patientSuggestions.setLatLon();
@@ -40,7 +43,8 @@ class PatientSuggestionsTest {
     }*/
 
     @Test
-    void getSuggestedDoctors() {
+    @DisplayName("Check if suggested doctors list is correct")
+    void getSuggestedDoctors() throws SQLException, IOException, ClassNotFoundException {
         String expectedDoctorsList =
                 "SUGGESTED DOCTORS\n" +
                 "*******************************************\n" +
@@ -48,24 +52,24 @@ class PatientSuggestionsTest {
                 "Last Name: Koker\n" +
                 "Specialization: Gynaecology\n" +
                 "Clinic Address: Delhi\n" +
-                "Distance: 4 km\n" +
-                "Average Rating: Twice a day\n" +
+                "Distance: 2.2 km\n" +
+                "Average Rating: 5.0\n" +
                 "Contact Number: 009988776655\n" +
-                "No Medications\n" +
                 "\n" +
                 "*******************************************\n" +
                 "First Name: James\n" +
                 "Last Name: Blunt\n" +
-                "Specialization: Physician\n" +
+                "Specialization: Gynaecology\n" +
                 "Clinic Address: Delhi\n" +
-                "Distance: 4 km\n" +
-                "Average Rating: Twice a day\n" +
-                "Contact Number: 009988776655\n" +
-                "No Medications\n" +
+                "Distance: 3.3 km\n" +
+                "Average Rating: 4.0\n" +
+                "Contact Number: 009988776656\n" +
                 "\n";
 
 
         PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
+        patientSuggestions.setLatLon();
+        patientSuggestions.setSpecialization("Gynaecology");
         String actualDoctorsList = patientSuggestions.getSuggestedDoctors();
 
         assertEquals(expectedDoctorsList, actualDoctorsList);
