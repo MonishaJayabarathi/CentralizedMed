@@ -18,7 +18,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         ResultSet s1 = answer.executeQuery();
         if(s1.next())
         {
-            return (s1.getString("firstAnswer"));
+            return (s1.getString("security_answer_1"));
         }
         else
         {
