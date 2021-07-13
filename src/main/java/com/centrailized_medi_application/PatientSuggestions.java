@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PatientSuggestions {
-    private String userName;
+    public String userName;
     public double latitude;
     public double longitude;
     private String suggestedDoctors;
@@ -47,8 +47,8 @@ public class PatientSuggestions {
 
     /* ask patient input for specialization */
     public void setSpecialization() {
-        //Scanner inputSpecialization = new Scanner(System.in);
-        //this.specialization = inputSpecialization.nextLine();
+        Scanner inputSpecialization = new Scanner(System.in);
+        this.specialization = inputSpecialization.nextLine();
     }
 
     /* for current patient retrieve top rated specialized doctors within 10km
@@ -59,10 +59,15 @@ public class PatientSuggestions {
      */
     public void retrieveDoctorSuggestions(){
 
+
+
     }
 
     /* getter function for list of suggested doctors */
     public String getSuggestedDoctors(){
+        this.retrieveDoctorSuggestions();
+
+
         return suggestedDoctors;
     }
 
