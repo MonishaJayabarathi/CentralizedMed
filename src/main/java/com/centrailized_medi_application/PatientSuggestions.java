@@ -32,8 +32,8 @@ public class PatientSuggestions {
         Connection connection = one.createConnection();
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM CSCI5308_5_TEST.patient_info\n"+
-                "WHERE patient_info.emailID = '"+ this.userName + "';");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM CSCI5308_5_TEST.patientinfo\n"+
+                "WHERE patientinfo.emailID = '"+ this.userName + "';");
 
         while (resultSet.next()) {
             this.latitude = resultSet.getDouble("latitude");
