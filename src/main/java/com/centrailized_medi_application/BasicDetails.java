@@ -118,7 +118,7 @@ public class BasicDetails implements Details {
     temp = sc.nextLine();
     while (!validate.validateGender(temp))
     {
-      System.out.println("Re-Enter gender: ");
+      System.out.println("Incorrect entry re-Enter gender: ");
       temp = sc.nextLine();
     }
     this.setGender(temp);
@@ -128,7 +128,7 @@ public class BasicDetails implements Details {
     temp = sc.nextLine();
     while (!validate.validateDob(temp))
     {
-      System.out.println("Re-Enter date of birth: ");
+      System.out.println("Incorrect entry re-Enter date of birth: ");
       temp = sc.nextLine();
     }
     this.setDob(temp);
@@ -137,13 +137,20 @@ public class BasicDetails implements Details {
     temp = sc.nextLine();
     while (!validate.validateContactNo(temp))
     {
-      System.out.println("Re-Enter contactNo: ");
+      System.out.println("Incorrect entry re-Enter 10 digit contactNo: ");
       temp = sc.nextLine();
     }
     this.setContactNo(temp);
 
     System.out.println("Enter address: ");
-    this.setAddress(sc.nextLine());
+    temp = sc.nextLine();
+    while (!validate.validateAlphanumeric(temp))
+    {
+      System.out.println("Re-Enter address: ");
+      temp = sc.nextLine();
+    }
+    this.setAddress(temp);
+
     System.out.println("Enter your E-mail(userId): ");
     temp = sc.nextLine();
     while (!validate.validateEmail(temp))
@@ -174,7 +181,7 @@ public class BasicDetails implements Details {
     }
     this.setPassword(confPass);
 
-//    this.setConfirmPassword(sc.nextLine());
+    //Getting information for latitude and longitude randomly from function
     this.setLatitude(getRandomNumber(0,200));
     this.setLongitude(getRandomNumber(0,200));
   }
