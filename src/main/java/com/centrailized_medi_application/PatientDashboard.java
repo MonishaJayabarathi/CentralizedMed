@@ -42,6 +42,7 @@ public abstract class PatientDashboard extends Dashboard{
                 this.Prescriptions();
                 flag = true;
             } else if (option == 4) {
+                this.Suggestions();
                 flag = true;
             }else if(option==5) {
                 this.Logout();

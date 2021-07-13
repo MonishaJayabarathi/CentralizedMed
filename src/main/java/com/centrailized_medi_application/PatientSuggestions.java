@@ -44,10 +44,11 @@ public class PatientSuggestions {
 
 
     /* ask patient input for specialization */
-    public void setSpecialization(String speciality) {
-        //Scanner inputSpecialization = new Scanner(System.in);
-        //this.specialization = inputSpecialization.nextLine();
-        this.specialization = speciality;
+    public void setSpecialization() {
+        Scanner inputSpecialization = new Scanner(System.in);
+        System.out.println("Enter the doctor's speciality:");
+        this.specialization = inputSpecialization.nextLine();
+        //this.specialization = speciality;
     }
 
     /* for current patient retrieve top rated specialized doctors within 10km
@@ -62,7 +63,7 @@ public class PatientSuggestions {
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("WITH D_table AS\n" +
-                "\t(SELECT firstname,lastname,speciality,address, SQRT(POWER(ABS(latitude-" + this.latitude +")*110.574,2)+POWER(ABS(111.320*COS(latitude*0.0174532925)-111.320*COS(" + this.latitude +"*0.0174532925)),2)) as distance,rating,contactNo from doctor_info\n" +
+                "\t(SELECT firstname,lastname,speciality,address, SQRT(POWER(ABS(latitude-" + this.latitude +")*110.574,2)+POWER(ABS(111.320*COS(latitude*0.0174532925)-111.320*COS(" + this.latitude +"*0.0174532925)),2)) as distance,rating,contactNo from CSCI5308_5_TEST.doctor_info\n" +
                 "\tWHERE speciality = '" + this.specialization + "') \n" +
                 "SELECT * FROM D_table\n" +
                 "WHERE distance < 10\n" +

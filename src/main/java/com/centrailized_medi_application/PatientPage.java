@@ -37,8 +37,9 @@ public class PatientPage extends PatientDashboard
     public void Suggestions() throws SQLException, IOException, ClassNotFoundException {
         PatientSuggestions patientSuggestions = new PatientSuggestions(user_name);
         patientSuggestions.setLatLon();
-        patientSuggestions.retrieveDoctorSuggestions();
-        patientSuggestions.getSuggestedDoctors();
+        patientSuggestions.setSpecialization();
+        String doc_list = patientSuggestions.getSuggestedDoctors();
+        System.out.println(doc_list);
         PatientPage pd = new PatientPage(user_name);
         pd.display();
     }
