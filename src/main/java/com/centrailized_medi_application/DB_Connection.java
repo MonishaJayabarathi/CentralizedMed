@@ -73,6 +73,27 @@ public class DB_Connection implements DbConnection {
             {
                 res_id = true;
             }
+            PreparedStatement check_for_doc=connection.prepareStatement("select * from doctor_info where emailid=?");
+            check_for_doc.setString(1,u_name);
+            ResultSet res_check_for_doc=check_for_doc.executeQuery();
+            if(res_check_for_doc.next()==true)
+            {
+                res_id=true;
+                if(res_check_for_doc.getString("password").equals(u_pass))
+                {
+                    res_pass=true;
+                }
+                else
+                {
+                    res_pass=false;
+                }
+                cred_validity[0]=res_id;
+                cred_validity[1]=res_pass;
+                return cred_validity;
+            }
+
+
+
 
             PreparedStatement p2 = connection.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=? and pass=?");
             p2.setString(1, this.u_name);

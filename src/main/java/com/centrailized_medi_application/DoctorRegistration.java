@@ -15,8 +15,7 @@ public class DoctorRegistration implements LoginCommand {
   NewDoctor doctor;
   MainDashboard init;
 
-  public DoctorRegistration(NewDoctor doc, MainDashboard init)
-  {
+  public DoctorRegistration(NewDoctor doc, MainDashboard init) {
     this.doctor = doc;
     this.init = init;
   }
@@ -36,24 +35,20 @@ public class DoctorRegistration implements LoginCommand {
   public void confirmation() throws SQLException, IOException, ClassNotFoundException {
     System.out.println("Please enter 1 to register or any other option to revert");
     Scanner sc = new Scanner(System.in);
-    if (sc.nextInt() == 1)
-    {
+    if (sc.nextInt() == 1) {
       this.execute();
-    }
-    else
-    {
+    } else {
       System.out.println("Are you sure you want to cancel registration, please enter y/n to confirm");
       sc = new Scanner(System.in);
-      if (sc.nextLine().equals("y"))
-      {
+      if (sc.nextLine().equals("y")) {
         System.out.println("Navigating to main menu...");
         this.init.display();
-      }
-      else
-      {
+      } else {
         System.out.println("Registration in progress....");
         this.execute();
       }
     }
   }
 }
+
+

@@ -39,6 +39,7 @@ public class AboutDoctor implements About {
     prepStmt.toString();
     prepStmt.setString(1, this.doctorUsername);
     this.currentDoctorDetails = prepStmt.executeQuery();
+    //c.close();//close the connection
   }
 
   //display user details

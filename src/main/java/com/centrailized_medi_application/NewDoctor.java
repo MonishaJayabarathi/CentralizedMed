@@ -55,7 +55,7 @@ public class NewDoctor implements Details, Registration {
 
     PreparedStatement insert_statement=connection.prepareStatement("insert into " +
         "doctor_info(id,firstname,lastname,gender,dateOfBirth,address,latitude,longitude,contactNo,speciality,registrationNumber," +
-        "emailId,password,security_answer_1,security_answer_2,security_answer_1) " +
+        "emailId,password,security_answer_1,security_answer_2,security_answer_3) " +
         "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
     insert_statement.setInt(1,curr_id);
     insert_statement.setString(2,this.basicDetails.getFirstName());
@@ -76,6 +76,7 @@ public class NewDoctor implements Details, Registration {
 
     insert_statement.execute();
     this.hasRegisteredSuccessfully = true;
+    connection.close();
   }
 
 
