@@ -76,6 +76,7 @@ public class NewDoctor implements Details, Registration {
 
     insert_statement.execute();
     this.hasRegisteredSuccessfully = true;
+    connection.close();
   }
 
 

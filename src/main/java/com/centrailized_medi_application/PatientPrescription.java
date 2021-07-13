@@ -54,7 +54,9 @@ public class PatientPrescription {
                 resultRow.add(resultSet.getString("Frequency"));
                 resultRow.add(resultSet.getString("TimeOfDay"));
                 this.medicationList.add(resultRow);
+
             }
+            connection.close();
 
         } catch (SQLException | IOException e) {
             e.printStackTrace();
