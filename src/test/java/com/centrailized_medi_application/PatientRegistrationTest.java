@@ -17,28 +17,28 @@ public class PatientRegistrationTest {
     void RegistrationTest()
     {
 
-        tempbasic.setFirstName("one");
-        tempbasic.setLastName("two");
-        tempbasic.setDob("06/07/1999");
+        tempbasic.setFirstName("Superman");
+        tempbasic.setLastName("human");
+        tempbasic.setDob("01/01/2002");
         tempbasic.setGender("Male");
-        tempbasic.setPassword("test@ONE23");
-        tempbasic.setEmailId("two@gmail.com");
-        tempbasic.setAddress("Sector-29 Gandhinagar");
-        tempbasic.setContactNo("4234234232");
-        tempdetails.setBloodGroup("o+ve");
-        tempdetails.setAllergy("pollengrains");
-        tempdetails.setChronicDisease("tonsilitis");
-        tempdetails.setInsuranceNo("OI9900909");
-        tempdetails.setDonorCardNo("SDFS00322");
-        tempdetails.setFamilyMemberCode("FSDFE0000");
+        tempbasic.setPassword("Super@123");
+        tempbasic.setEmailId("superman@gmail.com");
+        tempbasic.setAddress("Newyork");
+        tempbasic.setContactNo("3382111120");
+        tempdetails.setBloodGroup("O-VE");
+        tempdetails.setAllergy("Cryptonite");
+        tempdetails.setChronicDisease("NULL");
+        tempdetails.setInsuranceNo("INSURE2002");
+        tempdetails.setDonorCardNo("SDFS00324");
+        tempdetails.setFamilyMemberCode("2000");
         tempdetails.setVolunteer("yes");
 
-        tempbasic.setLatitude(100);
-        tempbasic.setLongitude(200);
+        tempbasic.setLatitude(tempbasic.getRandomNumber(0,200));
+        tempbasic.setLongitude(tempbasic.getRandomNumber(0,200));
 
-        tempsecurity.setAnswer1("SG");
-        tempsecurity.setAnswer2("SWIM");
-        tempsecurity.setAnswer3("Honda");
+        tempsecurity.setAnswer1("NEWYORK HIGHSCHOOL");
+        tempsecurity.setAnswer2("FLYING");
+        tempsecurity.setAnswer3("NONEED");
     }
     @Disabled
     @Test
@@ -47,6 +47,7 @@ public class PatientRegistrationTest {
         RegistrationTest();
         NewPatient newone = new NewPatient(tempbasic,tempdetails,tempsecurity, new WelcomePage());
         PatientRegistration patienttest = new PatientRegistration(newone,new WelcomePage());
+        patienttest.execute();
         assertEquals(true,newone.getRegistrationStatus(), "Already registered patient execution " +
                 "should return false");
     }
