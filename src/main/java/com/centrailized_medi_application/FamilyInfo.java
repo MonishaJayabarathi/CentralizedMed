@@ -64,7 +64,7 @@ public class FamilyInfo {
             System.out.println("**************************** About You **************************");
             familyCode = this.currentPatientDetails.getString("familyMemberCode");
             System.out.println("FamilyMemberCode: " + this.currentPatientDetails.getString("familyMemberCode"));
-            System.out.println("Firstname: " + this.currentPatientDetails.getString("lastname"));
+            System.out.println("Firstname: " + this.currentPatientDetails.getString("firstname"));
             System.out.println("Lastname: " + this.currentPatientDetails.getString("lastname"));
             System.out.println("Date of birth: " + this.currentPatientDetails.getString("dateofbirth"));
             System.out.println("Gender: " + this.currentPatientDetails.getString("gender"));
