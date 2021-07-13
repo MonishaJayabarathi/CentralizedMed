@@ -96,10 +96,24 @@ public class BasicDetails implements Details {
   @Override
   public void getDetails () {
     String temp;
-    System.out.println("Enter your First Name:");
-    this.setFirstName(sc.nextLine());
-    System.out.println("Enter your Last Name:");
-    this.setLastName(sc.nextLine());
+    System.out.println("Enter your First Name: ");
+    temp = sc.nextLine();
+    while (!validate.validateName(temp))
+    {
+      System.out.println("Re-Enter First Name in correct format: ");
+      temp = sc.nextLine();
+    }
+    this.setFirstName(temp);
+
+    System.out.println("Enter your Last Name: ");
+    temp = sc.nextLine();
+    while (!validate.validateName(temp))
+    {
+      System.out.println("Re-Enter Last Name in correct format: ");
+      temp = sc.nextLine();
+    }
+    this.setLastName(temp);
+
     System.out.println("Enter gender: ");
     temp = sc.nextLine();
     while (!validate.validateGender(temp))
