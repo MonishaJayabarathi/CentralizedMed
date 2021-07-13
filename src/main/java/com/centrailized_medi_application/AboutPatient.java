@@ -42,7 +42,7 @@ public class AboutPatient {
                 System.out.println();
                 System.out.println("**************************************************************");
             }
-
+            c.close();
             System.out.println("When you want to move to DashBoard press 1");
             Scanner sc = new Scanner(System.in);
             int tempchoice = sc.nextInt();

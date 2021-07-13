@@ -70,6 +70,7 @@ public class NewPatient implements Details, Registration {
 
         test.execute();
         this.hasRegisteredSuccessfully = true;
+        connection.close();
     }
 
     @Override

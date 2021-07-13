@@ -35,4 +35,13 @@ public class PatientPage extends PatientDashboard
     public void Suggestions() {
 
     }
+
+
+    @Override
+    public void Logout() throws SQLException, IOException, ClassNotFoundException {
+        System.out.println("User has been successfuly logged out !");
+        WelcomePage back_to_menu=new WelcomePage();
+        back_to_menu.display();
+//        return "User has been successfuly logged out !";
+    }
 }

@@ -33,7 +33,6 @@ public class Patient implements Login {
         return this.authenticate_phase;
     }
 
-    //MainMenu init;
     MainDashboard init;
     PatientDashboard pd;
     DbConnection connect;
