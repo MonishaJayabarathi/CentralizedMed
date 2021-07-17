@@ -20,7 +20,7 @@ public class AboutPatient implements About{
 
     }
 
-    //Fetch Patient Information from Database
+    //Fetch Patient Information from the Database
     @Override
     public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("Loading About...\n");
