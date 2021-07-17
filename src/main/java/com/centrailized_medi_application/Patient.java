@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /* Implementation for com.centrailized_medi_application.Patient */
-public class Patient implements Login {
+public class Patient extends LoginAuthorisation implements Login {
     private String user_name; // Stores Patient name
     private String password; // Stores patient passwd
     private boolean valid_id = false; // Sets true when patient is registered
     private boolean valid_psswd = false; // Sets true when patient is registered
     private boolean authenticate_phase = false;
     private boolean[] creds = new boolean[2];
+    static int localRetry=0;
 
 
     public String getPassword() {
@@ -69,7 +70,13 @@ public class Patient implements Login {
         } else if (this.valid_id && !this.valid_psswd) {
             //call authentication mechanism
             System.out.println("Check your credentials!");
-            this.init.display_patient_login();
+            localRetry++;
+            set_Retry(localRetry);
+            if(localRetry!=3) {
+                this.init.display_patient_login();
+            }else if(localRetry==3){
+                getSecurityQuestion(user_name);
+            }
         } else {
             System.out.println("Please register to the system!");
             System.out.println("Navigating to main menu...");
