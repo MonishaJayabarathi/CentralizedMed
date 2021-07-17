@@ -17,7 +17,7 @@ public abstract class MainDashboard extends Dashboard {
     public void display() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("\n*****Centralized Medi-Application*****\n");
         System.out.println("-----------Main Menu-------------");
-        System.out.println(" 1.Register as a Patient\n 2.Login as a Patient\n 3.Register as a Doctor\n 4.Login as a Doctor");
+        System.out.println(" 1.Register as a Patient\n 2.Login as a Patient\n 3.Register as a Doctor\n 4.Login as a Doctor\n 5.Exit");
         System.out.println("----------------------------------");
         System.out.println(" Enter from above options to proceed:");
 
@@ -35,7 +35,10 @@ public abstract class MainDashboard extends Dashboard {
             } else if (option == 4) {
                 this.display_doctor_login();
                 flag = true;
-            } else {
+            } else if(option==5){
+                System.exit(0);
+            }
+            else {
                 System.out.println("Enter the correct options to proceed");
             }
         }

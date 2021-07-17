@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class LoginAuthorisation implements ILoginAuthorisation {
+    int retry=0;
+
     @Override
     public String getSecurityQuestion(String user_name) throws SQLException, IOException, ClassNotFoundException {
         String environment = "src/main/resources/config_test.properties";
@@ -16,8 +18,15 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         PreparedStatement answer = connect.prepareStatement("select * from patient_info where emailId=?");
         answer.setString(1, user_name);
         ResultSet s1 = answer.executeQuery();
+        System.out.println("Please enter Your first school:");
+        Scanner sc=new Scanner(System.in);
+        String inputAnswer=sc.nextLine();
         if(s1.next())
         {
+            String answerFromDB=s1.getString("security_answer_1");
+            if(answerFromDB.equals(inputAnswer)){
+                resetPassword(user_name,true,retry);
+            }
             return (s1.getString("security_answer_1"));
         }
         else
@@ -47,6 +56,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         else
         {
             Scanner sc=new Scanner(System.in);
+            System.out.println("Enter the new password");
             String newPassword=sc.next();
             PreparedStatement updatePass=connection.prepareStatement("Update patient_info set password=? where emailid=?");
             updatePass.setString(1,newPassword);
@@ -60,6 +70,13 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             return "Password reset was successful !";
         }
 
+    }
+
+    public void set_Retry(Integer localRetry) {
+
+         this.retry=localRetry;
+
+       System.out.println("Incorrect tries: "+retry);
     }
 
 

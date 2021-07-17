@@ -45,7 +45,7 @@ class LoginAuthorisationTest {
 
 
 
-
+    @Disabled("Asks for user input")
     @Test
     void verifySecurityAnswer() throws SQLException, IOException, ClassNotFoundException {
         boolean[] creds = new boolean[2];
@@ -61,7 +61,7 @@ class LoginAuthorisationTest {
         assertEquals(s1.getString("security_answer_1"), key.getSecurityQuestion(user_name), "Incorrect Security Answer");
 
     }
-
+    @Disabled("Asks for user input")
     @Test
     void verifySecurityInvalid() throws SQLException, IOException, ClassNotFoundException {
         boolean[] creds = new boolean[2];
