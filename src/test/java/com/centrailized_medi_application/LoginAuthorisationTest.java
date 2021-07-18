@@ -86,4 +86,13 @@ class LoginAuthorisationTest {
         assertEquals(s1.getString("security_answer_1"), key.getSecurityQuestion(user_name), "Incorrect Security Answer");
 
     }
+
+    @Test
+    void verifyDoctorInvalid() throws SQLException, IOException, ClassNotFoundException {
+        boolean[] creds = new boolean[2];
+        String user_name = "Ridam@gmail.com";
+        LoginAuthorisation key = new LoginAuthorisation();
+        assertEquals("User Does not Exist", key.getSecurityQuestion(user_name));
+
+    }
 }
