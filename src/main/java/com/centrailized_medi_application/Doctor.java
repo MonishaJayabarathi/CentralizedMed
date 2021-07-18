@@ -16,6 +16,7 @@ public class Doctor implements Login {
   private boolean isValidPassword = false;
   private boolean isUserValidated = false;
   private boolean[] creds = new boolean[2];
+  static int localRetry=0;
 
 
   public String getUsername() {
