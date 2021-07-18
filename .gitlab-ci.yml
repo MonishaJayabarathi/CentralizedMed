@@ -7,7 +7,7 @@ stages:
   - deploy
 
 buildStep:
-  image: maven:3-jdk-8
+  image: maven:3.6-adoptopenjdk-14
   stage: build
   tags:
     - dalfcs_docker_kvm
