@@ -68,14 +68,12 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         PreparedStatement checkUser = connection.prepareStatement("select * from patient_info where emailId=?");
         checkUser.setString(1, user_name);
         ResultSet s2 = checkUser.executeQuery();
-        if(s2.next()==false)
+        PreparedStatement checkUser_from_Doctor = connection.prepareStatement("select * from doctor_info where emailId=?");
+        checkUser_from_Doctor.setString(1, user_name);
+        ResultSet s3 = checkUser_from_Doctor.executeQuery();
+        if(s2.next())
         {
-            connection.close();
-            return "User is not registered !";
 
-        }
-        else
-        {
             Scanner sc=new Scanner(System.in);
             System.out.println("Enter the new password");
             String newPassword=sc.next();
@@ -87,10 +85,33 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             updatePass.setString(1,newPassword);
             updatePass.setString(2,user_name);
             updatePass.execute();
-            connection.close();
+
             return "Password reset was successful !";
         }
+        else if(s3.next())
+        {
+            System.out.println("Doctor found");
+            Scanner sc=new Scanner(System.in);
+            System.out.println("Enter the new password");
+            String newPassword=sc.next();
+            PreparedStatement updatePass=connection.prepareStatement("Update doctor_info set password=? where emailid=?");
+            updatePass.setString(1,newPassword);
+            updatePass.setString(2,user_name);
+            updatePass.execute();
+            updatePass=connection.prepareStatement("Update login_details set pass=? where user_name=?");
+            updatePass.setString(1,newPassword);
+            updatePass.setString(2,user_name);
+            updatePass.execute();
+        }
+        else
+        {
 
+            connection.close();
+            return "User is not registered !";
+
+        }
+        connection.close();
+        return null;
     }
 
     public void set_Retry(Integer localRetry) {
