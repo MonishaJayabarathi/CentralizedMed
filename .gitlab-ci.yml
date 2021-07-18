@@ -15,6 +15,7 @@ buildStep:
     - mvn clean compile
   only:
     - develop
+    - release
 
 testStep:
   image: maven:3-jdk-8
@@ -30,6 +31,7 @@ testStep:
     mvn verify
   only:
     - develop
+    - release
 
 deployStep:
   stage: deploy
