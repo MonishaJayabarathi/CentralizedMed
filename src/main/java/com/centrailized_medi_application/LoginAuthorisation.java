@@ -18,11 +18,12 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         PreparedStatement answer = connect.prepareStatement("select * from patient_info where emailId=?");
         answer.setString(1, user_name);
         ResultSet s1 = answer.executeQuery();
-        System.out.println("Please enter Your first school:");
-        Scanner sc=new Scanner(System.in);
-        String inputAnswer=sc.nextLine();
+
         if(s1.next())
         {
+            System.out.println("Please enter Your first school:");
+            Scanner sc=new Scanner(System.in);
+            String inputAnswer=sc.nextLine();
             String answerFromDB=s1.getString("security_answer_1");
             if(answerFromDB.equals(inputAnswer)){
                 resetPassword(user_name,true,retry);

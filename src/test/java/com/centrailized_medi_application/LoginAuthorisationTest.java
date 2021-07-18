@@ -74,6 +74,7 @@ class LoginAuthorisationTest {
     /*
      *Author: Ridampreet Singh
      */
+    @Disabled("Disabled as it asks for user input")
     @Test
     void verifySecurityAnswer_for_Doctor() throws SQLException, IOException, ClassNotFoundException {
         boolean[] creds = new boolean[2];
@@ -93,7 +94,7 @@ class LoginAuthorisationTest {
     /*
      *Author: Ridampreet Singh
      */
-
+    @Disabled("Disabled as it asks for user input")
     @Test
     void verifyDoctorInvalid() throws SQLException, IOException, ClassNotFoundException {
         boolean[] creds = new boolean[2];
