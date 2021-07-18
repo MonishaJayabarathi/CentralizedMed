@@ -35,9 +35,19 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             return (s1.getString("security_answer_1"));
         }
         else if(s2.next()){
+            System.out.println("Please enter Your first school:");
+            Scanner sc2=new Scanner(System.in);
+            String inputAnswer=sc2.nextLine();
+            String answerFromDB=s2.getString("security_answer_1");
 
-            System.out.println("Doctor found !!");
-            return null;
+            if(answerFromDB.equals(inputAnswer)){
+                resetPassword(user_name,true,retry);
+            }
+            return (s2.getString("security_answer_1"));
+//            System.out.println("Doctor found !!");
+
+
+
 
         }
         else
