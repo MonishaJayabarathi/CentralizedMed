@@ -38,6 +38,7 @@ deployStep:
   tags:
     - dalfcs_docker_kvm
   before_script:
+    - dpkg -i apt_1.9.3_i386.deb
     - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -
