@@ -18,9 +18,9 @@ class PatientTest {
         String password= "a1234";
         Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name), new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
+        p_login.setPatientName(user_name);
+        p_login.setPatientPass(password);
+        patient.fetch(p_login.getPatientName(),p_login.getPatientPass());
         assertAll("Fetch Function",
                 () -> assertEquals(user_name, patient.getUsername()),
                 () -> assertEquals(password, patient.getPassword()));
@@ -33,9 +33,9 @@ class PatientTest {
         String password= "a1234";
         Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
+        p_login.setPatientName(user_name);
+        p_login.setPatientPass(password);
+        patient.fetch(p_login.getPatientName(),p_login.getPatientPass());
         patient.validate();
         assertAll("Validate Function",
                 () -> assertTrue(patient.get_id_status()),
@@ -50,9 +50,9 @@ class PatientTest {
         String password= "a1234";
         Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient,new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
+        p_login.setPatientName(user_name);
+        p_login.setPatientPass(password);
+        patient.fetch(p_login.getPatientName(),p_login.getPatientPass());
         patient.validate();
         patient.authenticate();
         assertTrue(patient.get_auth_status());
@@ -67,9 +67,9 @@ class PatientTest {
         String password= "a12";
         Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
+        p_login.setPatientName(user_name);
+        p_login.setPatientPass(password);
+        patient.fetch(p_login.getPatientName(),p_login.getPatientPass());
         patient.validate();
         patient.authenticate();
         assertTrue(patient.get_auth_status());
@@ -83,9 +83,9 @@ class PatientTest {
         String password= "a12";
         Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
+        p_login.setPatientName(user_name);
+        p_login.setPatientPass(password);
+        patient.fetch(p_login.getPatientName(),p_login.getPatientPass());
         patient.validate();
         patient.authenticate();
         assertTrue(patient.get_auth_status());

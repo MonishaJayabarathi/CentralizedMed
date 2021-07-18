@@ -12,6 +12,10 @@ public class PatientLogin implements LoginCommand
     private String patient_name;
     private String patient_pass;
 
+  private Login patientLogin;      // Login Patient interface
+  private MainDashboard mainPage;  // Main Dashboard interface
+  private String patientName;      // Stores patient name
+  private String patientPass;      // Stores patient pass
 
     public PatientLogin(Login p_login, MainDashboard init)
     {
@@ -22,18 +26,15 @@ public class PatientLogin implements LoginCommand
 
     public void setPatient_name(String patient_name) throws SQLException, IOException, ClassNotFoundException {
 
-        if(patient_name.contains("@") && patient_name.contains(".com"))
-        {
-            this.patient_name = patient_name;
-        }
-        else
-        {
-            System.out.println("Expecting Email id");
-            System.out.println("Re-enter you details");
-            init.display_patient_login();
-        }
-
+    if (patientUsername.contains("@") && patientUsername.contains(".com")) {
+      patientName = patientUsername;
+    } else {
+      System.out.println("Expecting Email id");
+      System.out.println("Re-enter you details");
+      mainPage.display_patient_login();
     }
+
+  }
 
     public void setPatient_pass(String patient_pass) {
         this.patient_pass = patient_pass;
@@ -71,12 +72,10 @@ public class PatientLogin implements LoginCommand
                 System.out.println("Navigating to main menu...");
                 this.init.display();
 
-            }
-            else
-            {
-                System.out.println("Logging in....");
-                this.execute();
-            }
-        }
+      } else {
+        System.out.println("Logging in....");
+        this.execute();
+      }
     }
+  }
 }

@@ -20,8 +20,8 @@ class PatientLoginTest {
         String password= "a1234";
         Patient p1 = new Patient(new WelcomePage(), new PatientPage(user_name), new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(p1,new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_name(user_name);
-        assertEquals(user_name,p_login.getPatient_name(),"Error: Incorrect Name");
+        p_login.setPatientName(user_name);
+        assertEquals(user_name,p_login.getPatientName(),"Error: Incorrect Name");
     }
 
     /*Check against empty string for username*/
@@ -32,8 +32,8 @@ class PatientLoginTest {
         String password= "a1234";
         Patient p1 = new Patient(new WelcomePage(), new PatientPage(user_name), new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(p1, new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_name(user_name);
-        assertNull(p_login.getPatient_name());
+        p_login.setPatientName(user_name);
+        assertNull(p_login.getPatientName());
     }
 
     /* To verify the set func for login Patient (password)*/
@@ -44,8 +44,8 @@ class PatientLoginTest {
         String password= "a1234";
         Patient p1 = new Patient(new WelcomePage(), new PatientPage(user_name), new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(p1, new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_pass(user_name);
-        assertEquals(user_name,p_login.getPatient_pass(),"Error: Incorrect Password");
+        p_login.setPatientPass(user_name);
+        assertEquals(user_name,p_login.getPatientPass(),"Error: Incorrect Password");
     }
 
     @Test
@@ -54,12 +54,12 @@ class PatientLoginTest {
         String password= "a1234";
         Patient patient = new Patient(new WelcomePage(), new PatientPage(user_name),new DB_Connection(environment,user_name,password));
         PatientLogin p_login = new PatientLogin(patient,new WelcomePage());  // Passing the object to the patient login
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
+        p_login.setPatientName(user_name);
+        p_login.setPatientPass(password);
 
 
         //Fetch
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
+        patient.fetch(p_login.getPatientName(),p_login.getPatientPass());
         // Validate
         patient.validate();
 
