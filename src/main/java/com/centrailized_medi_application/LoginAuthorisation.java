@@ -90,7 +90,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         }
         else if(s3.next())
         {
-            System.out.println("Doctor found");
+
             Scanner sc=new Scanner(System.in);
             System.out.println("Enter the new password");
             String newPassword=sc.next();
