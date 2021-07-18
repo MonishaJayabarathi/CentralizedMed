@@ -72,6 +72,7 @@ public class Doctor implements Login {
       this.dd.display();
     } else if (this.isValidUsername && !this.isValidPassword) {
       System.out.println("Check your credentials!");
+      localRetry++;
       this.init.display_doctor_login();
     } else {
       System.out.println("Please register to the system!");
