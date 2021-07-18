@@ -71,6 +71,9 @@ class LoginAuthorisationTest {
 
     }
 
+    /*
+     *Author: Ridampreet Singh
+     */
     @Test
     void verifySecurityAnswer_for_Doctor() throws SQLException, IOException, ClassNotFoundException {
         boolean[] creds = new boolean[2];
@@ -86,6 +89,10 @@ class LoginAuthorisationTest {
         assertEquals(s1.getString("security_answer_1"), key.getSecurityQuestion(user_name), "Incorrect Security Answer");
 
     }
+
+    /*
+     *Author: Ridampreet Singh
+     */
 
     @Test
     void verifyDoctorInvalid() throws SQLException, IOException, ClassNotFoundException {
