@@ -1,30 +1,45 @@
-package com.centrailized_medi_application;/* com.centrailized_medi_application.Patient com.centrailized_medi_application.Login Implementation which implements from com.centrailized_medi_application.LoginCommand Interface*/
+package com.centrailized_medi_application;
+
+/*Importing modules*/
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class PatientLogin implements LoginCommand
-{
-    Login patient_login;
-    //MainMenu init;
-    MainDashboard init;
-    private String patient_name;
-    private String patient_pass;
+/**
+ * @author Aditya Jain
+ * @description: This class in responsible to handle Patient login
+ * PatientLogin implements from LoginCommand (Part of Command Design Pattern)
+ * The confirmation() handles the control based on User's input. It may trigger execute()
+ * or trigger dashboard event based on the logic.The execute() encapsulates events like fetching details,
+ * validation details and finally authenticating it.
+ */
+public class PatientLogin implements LoginCommand {
 
   private Login patientLogin;      // Login Patient interface
   private MainDashboard mainPage;  // Main Dashboard interface
   private String patientName;      // Stores patient name
   private String patientPass;      // Stores patient pass
 
-    public PatientLogin(Login p_login, MainDashboard init)
-    {
-        this.patient_login = p_login;
-        this.init = init;
-    }
+  /**
+   * Constructor with Login and MainDashboard as input parameters
+   *
+   * @Param loginInterface Patient Dashboard Interface
+   * @Param mainInterface Main Dashboard Interface
+   */
+  public PatientLogin(Login loginInterface, MainDashboard mainInterface) {
+    patientLogin = loginInterface;
+    mainPage = mainInterface;
+  }
 
-
-    public void setPatient_name(String patient_name) throws SQLException, IOException, ClassNotFoundException {
+  /**
+   * This method sets the Patient Username (emaild).
+   * If the username is valid, it sets the name else it will ask to re-enter the details
+   *
+   * @return void
+   * @Param String patientUsername This is the only input parameter
+   */
+  public void setPatientName(String patientUsername) throws SQLException, IOException, ClassNotFoundException {
 
     if (patientUsername.contains("@") && patientUsername.contains(".com")) {
       patientName = patientUsername;
@@ -36,41 +51,68 @@ public class PatientLogin implements LoginCommand
 
   }
 
-    public void setPatient_pass(String patient_pass) {
-        this.patient_pass = patient_pass;
-    }
-    public String getPatient_name()
-    {
-        return patient_name;
-    }
-    public String getPatient_pass() {
-        return patient_pass;
-    }
+  /**
+   * This method sets the Patient Password.
+   *
+   * @return void
+   * @Param String patientPasswd This is the only input parameter
+   */
+  public void setPatientPass(String patientPasswd) {
+    patientPass = patientPasswd;
+  }
 
-    @Override
-    public void execute() throws SQLException, IOException, ClassNotFoundException
-    {
-        patient_login.fetch(this.patient_name,this.patient_pass);
-        patient_login.validate();
-        patient_login.authenticate();
-    }
+  /**
+   * This method returns the Patient Name (emailId).
+   *
+   * @return String patientName Name of the Patient
+   * @Param None
+   */
+  public String getPatientName() {
+    return patientName;
+  }
 
-    @Override
-    public void confirmation() throws SQLException, IOException, ClassNotFoundException {
-        System.out.println("Please enter 1 to submit or any other option to revert");
-        Scanner sc = new Scanner(System.in);
-        if (sc.nextInt() == 1)
-        {
-            this.execute();
-        }
-        else
-        {
-            System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
-            sc = new Scanner(System.in);
-            if (sc.nextLine().equals("y"))
-            {
-                System.out.println("Navigating to main menu...");
-                this.init.display();
+  /**
+   * This method returns the Patient Name (emailId).
+   *
+   * @return String patientPass Password of the Patient
+   * @Param None
+   */
+  public String getPatientPass() {
+    return patientPass;
+  }
+
+  /**
+   * This method triggers the functionality like fetch(), validate() and authenticate().
+   *
+   * @return None
+   * @Param None
+   */
+  @Override
+  public void execute() throws SQLException, IOException, ClassNotFoundException {
+    patientLogin.fetch(this.patientName, this.patientPass);
+    patientLogin.validate();
+    patientLogin.authenticate();
+  }
+
+  /**
+   * This method directs the patient to his/her dashboard if credentials are correct
+   * based on their confirmation else they are directed to the main welcome page
+   *
+   * @return None
+   * @Param None
+   */
+  @Override
+  public void confirmation() throws SQLException, IOException, ClassNotFoundException {
+    System.out.println("Please enter 1 to submit or any other option to revert");
+    Scanner sc = new Scanner(System.in);
+    if (sc.nextInt() == 1) {
+      this.execute();
+    } else {
+      System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
+      sc = new Scanner(System.in);
+      if (sc.nextLine().equals("y")) {
+        System.out.println("Navigating to main menu...");
+        this.mainPage.display();
 
       } else {
         System.out.println("Logging in....");
