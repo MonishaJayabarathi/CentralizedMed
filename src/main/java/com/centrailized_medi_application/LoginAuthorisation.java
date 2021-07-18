@@ -15,9 +15,13 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         String environment = "src/main/resources/config_test.properties";
         DB_Connection db = new DB_Connection(environment);
         Connection connect = db.createConnection();
-        PreparedStatement answer = connect.prepareStatement("select * from patient_info where emailId=?");
-        answer.setString(1, user_name);
-        ResultSet s1 = answer.executeQuery();
+        PreparedStatement check_if_patient = connect.prepareStatement("select * from patient_info where emailId=?");
+        check_if_patient.setString(1, user_name);
+        ResultSet s1 = check_if_patient.executeQuery();
+
+        PreparedStatement check_if_Doctor = connect.prepareStatement("select * from doctor_info where emailId=?");
+        check_if_Doctor.setString(1, user_name);
+        ResultSet s2 = check_if_Doctor.executeQuery();
 
         if(s1.next())
         {
@@ -29,6 +33,12 @@ public class LoginAuthorisation implements ILoginAuthorisation {
                 resetPassword(user_name,true,retry);
             }
             return (s1.getString("security_answer_1"));
+        }
+        else if(s2.next()){
+
+            System.out.println("Doctor found !!");
+            return null;
+
         }
         else
         {

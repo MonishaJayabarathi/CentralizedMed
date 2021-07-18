@@ -73,7 +73,13 @@ public class Doctor extends LoginAuthorisation implements Login {
     } else if (this.isValidUsername && !this.isValidPassword) {
       System.out.println("Check your credentials!");
       localRetry++;
-      this.init.display_doctor_login();
+      set_Retry(localRetry);
+      if(localRetry!=3) {
+        this.init.display_patient_login();
+      }else if(localRetry==3){
+        getSecurityQuestion(userName);
+      }
+
     } else {
       System.out.println("Please register to the system!");
       System.out.println("Navigating to main menu...");
