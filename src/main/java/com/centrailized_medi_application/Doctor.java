@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * @params : MainDashboard and DoctorDashboard are passed, which are used to handle
  * changes after a login failure or success respectively.
  */
-public class Doctor implements Login {
+public class Doctor extends LoginAuthorisation implements Login {
   private String userName;
   private String password;
   private boolean isValidUsername = false;
