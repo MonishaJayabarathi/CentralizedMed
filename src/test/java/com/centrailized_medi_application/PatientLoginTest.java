@@ -67,8 +67,8 @@ class PatientLoginTest {
     assertAll("Checking Execute Function",
         () -> assertEquals(userName, patient.getUsername()),
         () -> assertEquals(password, patient.getPassword()),
-        () -> assertTrue(patient.get_id_status()),
-        () -> assertTrue(patient.get_pass_status()));
+        () -> assertTrue(patient.getUsernameStatus()),
+        () -> assertTrue(patient.getPassStatus()));
 
   }
 }

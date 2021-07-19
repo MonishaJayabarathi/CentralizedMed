@@ -39,8 +39,8 @@ class PatientTest {
     patient.fetch(p_login.getPatientName(), p_login.getPatientPass());
     patient.validate();
     assertAll("Validate Function",
-        () -> assertTrue(patient.get_id_status()),
-        () -> assertTrue(patient.get_pass_status()));
+        () -> assertTrue(patient.getUsernameStatus()),
+        () -> assertTrue(patient.getPassStatus()));
   }
 
   // Correct Id and pass
@@ -56,7 +56,7 @@ class PatientTest {
     patient.fetch(p_login.getPatientName(), p_login.getPatientPass());
     patient.validate();
     patient.authenticate();
-    assertTrue(patient.get_auth_status());
+    assertTrue(patient.getAuthStatus());
   }
 
 
@@ -73,7 +73,7 @@ class PatientTest {
     patient.fetch(p_login.getPatientName(), p_login.getPatientPass());
     patient.validate();
     patient.authenticate();
-    assertTrue(patient.get_auth_status());
+    assertTrue(patient.getAuthStatus());
   }
 
   // Incorrect password and id
@@ -89,6 +89,6 @@ class PatientTest {
     patient.fetch(p_login.getPatientName(), p_login.getPatientPass());
     patient.validate();
     patient.authenticate();
-    assertTrue(patient.get_auth_status());
+    assertTrue(patient.getAuthStatus());
   }
 }

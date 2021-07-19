@@ -24,8 +24,8 @@ public class PatientLogin extends LoginCommand {
   /**
    * Constructor with Login and MainDashboard as input parameters
    *
-   * @Param loginInterface Patient Dashboard Interface
-   * @Param mainInterface Main Dashboard Interface
+   * @Param loginInterface as Login Interface
+   * @Param mainInterface as MainDashboard Interface
    */
   public PatientLogin(Login loginInterface, MainDashboard mainInterface) {
     patientLogin = loginInterface;
@@ -37,7 +37,7 @@ public class PatientLogin extends LoginCommand {
    * If the username is valid, it sets the name else it will ask to re-enter the details
    *
    * @return void
-   * @Param String patientUsername This is the only input parameter
+   * @Param String patientUsername - This is the only input parameter
    */
   public void setPatientName(String patientUsername) throws SQLException, IOException, ClassNotFoundException {
 
