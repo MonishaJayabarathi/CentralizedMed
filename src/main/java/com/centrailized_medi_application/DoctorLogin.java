@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @description : This program gets confirmation and initiates authentication of Doctor while logging in.
  * @params : MainDashboard and Login are passed, which are used to handle confirmation and execution.
  */
-public class DoctorLogin implements LoginCommand
+public class DoctorLogin extends LoginCommand
 {
   Login doctorLogin;
   MainDashboard init;
