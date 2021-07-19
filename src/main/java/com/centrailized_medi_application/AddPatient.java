@@ -24,7 +24,7 @@ public class AddPatient {
   }
 
   // Verifies weather person exists in system
-  public boolean verify_patient(String patient_name) throws SQLException {
+  public boolean verify_patient(String patient_name) throws SQLException, IOException, ClassNotFoundException {
     p_name = patient_name;
     creds = db_access.getDetails();
 
