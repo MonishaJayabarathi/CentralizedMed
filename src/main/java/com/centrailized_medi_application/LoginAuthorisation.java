@@ -13,8 +13,8 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     @Override
     public String getSecurityQuestion(String user_name) throws SQLException, IOException, ClassNotFoundException {
         String environment = "src/main/resources/config_test.properties";
-        DB_Connection db = new DB_Connection(environment);
-        Connection connect = db.createConnection();
+//        DB_Connection db = new DB_Connection(environment);
+        Connection connect = DB_Connection.getDB_Connection_Instance(environment);
         PreparedStatement check_if_patient = connect.prepareStatement("select * from patient_info where emailId=?");
         check_if_patient.setString(1, user_name);
         ResultSet s1 = check_if_patient.executeQuery();
@@ -63,8 +63,8 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             return "Please answer the security question first !";
         }
         String configFile="src/main/resources/config_test.properties";
-        DB_Connection db=new DB_Connection(configFile);
-        Connection connection=db.createConnection();
+//        DB_Connection db=new DB_Connection(configFile);
+        Connection connection=DB_Connection.getDB_Connection_Instance(configFile);
         PreparedStatement checkUser = connection.prepareStatement("select * from patient_info where emailId=?");
         checkUser.setString(1, user_name);
         ResultSet s2 = checkUser.executeQuery();
