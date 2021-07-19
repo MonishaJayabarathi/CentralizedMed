@@ -24,8 +24,9 @@ public class AboutPatient implements About{
     @Override
     public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("Loading About...\n");
-        DbConnection test = new DB_Connection("src/main/resources/config_test.properties");
-        c = test.createConnection();
+        String configFile="src/main/resources/config_test.properties";
+//        DbConnection test = new DB_Connection("src/main/resources/config_test.properties");
+        c = DB_Connection.getDB_Connection_Instance(configFile);
 
         String sqlStmt = "SELECT * FROM patient_info where emailId =?";
 
