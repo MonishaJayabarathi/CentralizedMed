@@ -24,7 +24,28 @@ public class DB_Connection implements DbConnection {
     private String name;
     private String pass;
     private boolean[] cred_validity=new boolean[2];
+    private static Connection newConnection=null;
+    private ResultSet login_name;
 
+    private DB_Connection(String configFile) throws SQLException, ClassNotFoundException, IOException {
+        this.configFile=configFile;
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        f1 = new FileInputStream(configFile);
+        pr = new Properties();
+        pr.load(f1);
+        url = pr.getProperty("database");
+        username = pr.getProperty("user");
+        password = pr.getProperty("password");
+        newConnection=DriverManager.getConnection(url, username, password);
+    }
+    public static Connection getDB_Connection_Instance(String configFile) throws SQLException, IOException, ClassNotFoundException {
+        if(newConnection==null)
+        {
+            new DB_Connection(configFile);
+            return newConnection;
+        }
+        return newConnection;
+    }
     public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         f1 = new FileInputStream(configFile);
@@ -38,18 +59,18 @@ public class DB_Connection implements DbConnection {
         this.u_pass = u_pass;
         connection = DriverManager.getConnection(url, username, password);
     }
-    public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        f1 = new FileInputStream(configFile);
-
-        pr = new Properties();
-        pr.load(f1);
-        url = pr.getProperty("database");
-        username = pr.getProperty("user");
-        password = pr.getProperty("password");
-        connection = DriverManager.getConnection(url, username, password);
-
-    }
+//    public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
+//        Class.forName("com.mysql.cj.jdbc.Driver");
+//        f1 = new FileInputStream(configFile);
+//
+//        pr = new Properties();
+//        pr.load(f1);
+//        url = pr.getProperty("database");
+//        username = pr.getProperty("user");
+//        password = pr.getProperty("password");
+//        connection = DriverManager.getConnection(url, username, password);
+//
+//    }
     @Override
     public Connection createConnection()
     {
