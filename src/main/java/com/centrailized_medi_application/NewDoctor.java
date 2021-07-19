@@ -40,8 +40,9 @@ public class NewDoctor implements Details, Registration {
   @Override
   public void update() throws IOException, ClassNotFoundException, SQLException {
     // Update details to doctor table
-    DB_Connection db=new DB_Connection("src/main/resources/config_test.properties");
-    Connection connection=db.createConnection();
+    String configFile="src/main/resources/config_test.properties";
+//    DB_Connection db=new DB_Connection("src/main/resources/config_test.properties");
+    Connection connection=DB_Connection.getDB_Connection_Instance(configFile);
 
     PreparedStatement st =connection.prepareStatement("Insert into login_details(user_name,pass) values(?,?)");
     st.setString(1,this.basicDetails.getEmailId());

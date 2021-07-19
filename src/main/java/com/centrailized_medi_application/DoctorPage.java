@@ -49,8 +49,8 @@ public class DoctorPage extends DoctorDashboard{
 
   @Override
   public void display_donors() throws SQLException, IOException, ClassNotFoundException {
-    DB_Connection db=new DB_Connection(environment);
-    Connection connect=db.createConnection();
+//    DB_Connection db=new DB_Connection(environment);
+    Connection connect=DB_Connection.getDB_Connection_Instance(environment);
     PreparedStatement get_donors=connect.prepareStatement("Select * from patient_info where volunteer=? ");
     get_donors.setString(1,"yes");
     ResultSet exec_get_donors=get_donors.executeQuery();

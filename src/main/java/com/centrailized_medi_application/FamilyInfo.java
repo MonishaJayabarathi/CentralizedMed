@@ -24,8 +24,9 @@ public class FamilyInfo {
     {
       patientEmail = email[0];
     }
-    DbConnection test = new DB_Connection("src/main/resources/config_test.properties");
-    c = test.createConnection();
+    String configFile="src/main/resources/config_test.properties";
+//    DbConnection test = new DB_Connection("src/main/resources/config_test.properties");
+    c = DB_Connection.getDB_Connection_Instance(configFile);
 
     String sqlStmt = "SELECT * FROM patient_info where emailId =\""+patientEmail+"\"";
 
