@@ -46,12 +46,11 @@ deployStep:
     - chmod 700 ~/.ssh
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - mvn clean
-    - mvn package
+    - mvn clean compile assembly:single
   artifacts:
     paths:
-      - target/centrailized_medi_application-1.0-SNAPSHOT.jar
+      - target/centrailized_medi_application-1.0-SNAPSHOT-jar-with-dependencies.jar
   script:
-    - scp -r -o StrictHostKeyChecking=no target/centrailized_medi_application-1.0-SNAPSHOT.jar "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}_${APP_NAME}.jar"
+    - scp -r -o StrictHostKeyChecking=no target/centrailized_medi_application-1.0-SNAPSHOT-jar-with-dependencies.jar "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}/${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}_${APP_NAME}.jar"
   only:
     - release
