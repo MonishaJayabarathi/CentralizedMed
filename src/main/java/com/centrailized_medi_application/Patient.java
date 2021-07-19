@@ -4,14 +4,18 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /* Implementation for com.centrailized_medi_application.Patient */
-public class Patient extends LoginAuthorisation implements Login {
+public class Patient extends Login {
     private String user_name; // Stores Patient name
     private String password; // Stores patient passwd
-    private boolean valid_id = false; // Sets true when patient is registered
-    private boolean valid_psswd = false; // Sets true when patient is registered
-    private boolean authenticate_phase = false;
+    private boolean validId = false; // Sets true when patient is registered
+    private boolean validPsswd = false; // Sets true when patient is registered
+    private boolean authenticatePhase = false;
     private boolean[] creds = new boolean[2];
-    static int localRetry=0;
+    private MainDashboard init;
+    private PatientDashboard pd;
+    private DbConnection connect;
+    private ILoginAuthorisation la;
+    private static int localRetry=0;
 
 
     public String getPassword() {
@@ -23,24 +27,23 @@ public class Patient extends LoginAuthorisation implements Login {
     }
 
     public boolean get_id_status() {
-        return this.valid_id;
+        return this.validId;
     }
 
     public boolean get_pass_status() {
-        return this.valid_psswd;
+        return this.validPsswd;
     }
 
     public boolean get_auth_status() {
-        return this.authenticate_phase;
+        return this.authenticatePhase;
     }
 
-    MainDashboard init;
-    PatientDashboard pd;
-    DbConnection connect;
-    public Patient(MainDashboard init, PatientDashboard patient_menu, DbConnection connection) {
+
+    public Patient(MainDashboard init, PatientDashboard patient_menu, DbConnection connection, ILoginAuthorisation loginauth) {
         this.init = init;
         this.pd = patient_menu;
         this.connect = connection;
+        this.la = loginauth;
     }
 
     /* Fetching patient credentials*/
@@ -54,28 +57,28 @@ public class Patient extends LoginAuthorisation implements Login {
     @Override
     public void validate() throws SQLException, IOException, ClassNotFoundException {
         creds = connect.getDetails();
-        this.valid_id = creds[0];
-        this.valid_psswd = creds[1];
+        this.validId = creds[0];
+        this.validPsswd = creds[1];
     }
 
     /* Defining the placeholder for com.centrailized_medi_application.Patient authentication*/
     @Override
     public void authenticate() throws SQLException, IOException, ClassNotFoundException {
 
-        authenticate_phase = true;
-        if (this.valid_id && this.valid_psswd) // Exist and valid credentials
+        authenticatePhase = true;
+        if (this.validId && this.validPsswd) // Exist and valid credentials
         {
             System.out.println("Welcome " + this.user_name); // name to be replaced with the actual name stored in db
             this.pd.display();
-        } else if (this.valid_id && !this.valid_psswd) {
+        } else if (this.validId && !this.validPsswd) {
             //call authentication mechanism
             System.out.println("Check your credentials!");
             localRetry++;
-            set_Retry(localRetry);
+            this.la.set_Retry(localRetry);
             if(localRetry!=3) {
                 this.init.display_patient_login();
             }else if(localRetry==3){
-                getSecurityQuestion(user_name);
+                this.la.getSecurityQuestion(user_name);
             }
         } else {
             System.out.println("Please register to the system!");

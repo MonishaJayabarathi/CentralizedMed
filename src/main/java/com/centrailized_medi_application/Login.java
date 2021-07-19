@@ -3,11 +3,11 @@ package com.centrailized_medi_application;/* com.centrailized_medi_application.L
 import java.io.IOException;
 import java.sql.SQLException;
 
-public interface Login
+public abstract class Login
 {
-    public void fetch(String u_name, String Psswd);
-    public void validate() throws SQLException, IOException, ClassNotFoundException;
-    public void authenticate() throws SQLException, IOException, ClassNotFoundException;
+    protected abstract void fetch(String u_name, String Psswd);
+    protected abstract void validate() throws SQLException, IOException, ClassNotFoundException;
+    protected abstract void authenticate() throws SQLException, IOException, ClassNotFoundException;
 
 
 }

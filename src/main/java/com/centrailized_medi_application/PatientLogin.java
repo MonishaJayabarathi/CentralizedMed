@@ -14,7 +14,7 @@ import java.util.Scanner;
  * or trigger dashboard event based on the logic.The execute() encapsulates events like fetching details,
  * validation details and finally authenticating it.
  */
-public class PatientLogin implements LoginCommand {
+public class PatientLogin extends LoginCommand {
 
   private Login patientLogin;      // Login Patient interface
   private MainDashboard mainPage;  // Main Dashboard interface
@@ -88,7 +88,7 @@ public class PatientLogin implements LoginCommand {
    * @Param None
    */
   @Override
-  public void execute() throws SQLException, IOException, ClassNotFoundException {
+  protected void execute() throws SQLException, IOException, ClassNotFoundException {
     patientLogin.fetch(this.patientName, this.patientPass);
     patientLogin.validate();
     patientLogin.authenticate();
