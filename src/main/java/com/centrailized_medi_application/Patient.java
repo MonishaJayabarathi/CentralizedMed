@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * @author Aditya Jain
+ * @author Aditya Jain & RidamPreet Jaggi
  * @description: This class implements the methods from abstract class Login.
  * fetch() - It sets username and password of a Patient
  * validate() - It checks the stored username and password against the database
