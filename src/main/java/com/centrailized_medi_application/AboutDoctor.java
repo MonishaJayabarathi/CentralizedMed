@@ -30,6 +30,14 @@ public class AboutDoctor implements About {
   @Override
   public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
     System.out.println("Loading About...\n");
+    DB_Layer layer=new DB_Layer();
+   this.currentDoctorDetails=layer.getDcotorDetails(doctorUsername);//call to the DB layer.
+
+    //c.close();//close the connection
+  }
+
+  private void extracted(String doctorUsername) throws ClassNotFoundException, IOException, SQLException {
+
     DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
     Connection c = one.createConnection();
 
@@ -37,9 +45,8 @@ public class AboutDoctor implements About {
 
     PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
     prepStmt.toString();
-    prepStmt.setString(1, this.doctorUsername);
+    prepStmt.setString(1, doctorUsername);
     this.currentDoctorDetails = prepStmt.executeQuery();
-    //c.close();//close the connection
   }
 
   //display user details
