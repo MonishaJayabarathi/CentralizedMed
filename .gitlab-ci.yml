@@ -7,7 +7,7 @@ stages:
   - deploy
 
 buildStep:
-  image: maven:3-jdk-8
+  image: maven:3.6-adoptopenjdk-14
   stage: build
   tags:
     - dalfcs_docker_kvm
@@ -15,9 +15,10 @@ buildStep:
     - mvn clean compile
   only:
     - develop
+    - release
 
 testStep:
-  image: maven:3-jdk-8
+  image: maven:3.6-adoptopenjdk-14
   stage: test
   tags:
     - dalfcs_docker_kvm
@@ -30,13 +31,15 @@ testStep:
     mvn verify
   only:
     - develop
+    - release
 
 deployStep:
+  image: maven:3.6-adoptopenjdk-14
   stage: deploy
   tags:
     - dalfcs_docker_kvm
   before_script:
-    - 'command -v ssh-agent >/dev/null || ( yum update -y && yum install openssh-client -y )'
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh

@@ -40,7 +40,6 @@ class PatientSuggestionsTest {
 
     /*@Test
     void retrieveDoctorSuggestions() {
-
     }*/
 
     @Test

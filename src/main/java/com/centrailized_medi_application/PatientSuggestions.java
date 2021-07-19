@@ -42,7 +42,6 @@ public class PatientSuggestions {
 
     }
 
-
     /* ask patient input for specialization */
     public void setSpecialization(String speciality) {
         //Scanner inputSpecialization = new Scanner(System.in);

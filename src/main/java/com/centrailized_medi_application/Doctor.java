@@ -16,6 +16,7 @@ public class Doctor extends Login {
   private boolean isValidPassword = false;
   private boolean isUserValidated = false;
   private boolean[] creds = new boolean[2];
+  static int localRetry=0;
 
 
   public String getUsername() {
@@ -71,7 +72,14 @@ public class Doctor extends Login {
       this.dd.display();
     } else if (this.isValidUsername && !this.isValidPassword) {
       System.out.println("Check your credentials!");
-      this.init.display_doctor_login();
+      localRetry++;
+      //set_Retry(localRetry);
+      if(localRetry!=3) {
+        this.init.display_patient_login();
+      }else if(localRetry==3){
+        //getSecurityQuestion(userName);
+      }
+
     } else {
       System.out.println("Please register to the system!");
       System.out.println("Navigating to main menu...");
