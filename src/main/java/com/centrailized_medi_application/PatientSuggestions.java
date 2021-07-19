@@ -28,8 +28,9 @@ public class PatientSuggestions {
      * use patient username to retrieve latitude longitude
      */
     public void setLatLon() throws SQLException, IOException, ClassNotFoundException {
-        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
-        Connection connection = one.createConnection();
+        String configFile="src/main/resources/config_test.properties";
+//        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+        Connection connection = DB_Connection.getDB_Connection_Instance(configFile);
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM CSCI5308_5_TEST.patient_info\n"+
@@ -57,8 +58,8 @@ public class PatientSuggestions {
      * order doctors by their ratings
      */
     public void retrieveDoctorSuggestions() throws SQLException, IOException, ClassNotFoundException {
-        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
-        Connection connection = one.createConnection();
+//        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+        Connection connection = DB_Connection.getDB_Connection_Instance("src/main/resources/config_test.properties");
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("WITH D_table AS\n" +
@@ -111,8 +112,8 @@ public class PatientSuggestions {
     }
 
     public boolean rateDoctor() throws SQLException, IOException, ClassNotFoundException {
-        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
-        Connection connection = one.createConnection();
+//        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+        Connection connection = DB_Connection.getDB_Connection_Instance("src/main/resources/config_test.properties");
 
         PreparedStatement prep_statement = connection.prepareStatement("SELECT * FROM `consultations` WHERE patient_username = ?");
         prep_statement.setString(1, this.userName);

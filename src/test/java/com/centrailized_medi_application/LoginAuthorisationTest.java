@@ -50,8 +50,8 @@ class LoginAuthorisationTest {
     void verifySecurityAnswer() throws SQLException, IOException, ClassNotFoundException {
         boolean[] creds = new boolean[2];
         String environment = "src/main/resources/config_test.properties";
-        DB_Connection db = new DB_Connection(environment);
-        Connection connect = db.createConnection();
+//        DB_Connection db = new DB_Connection(environment);
+        Connection connect = DB_Connection.getDB_Connection_Instance(environment);
         String user_name = "maxone@gmail.com";
         PreparedStatement answer = connect.prepareStatement("select * from patient_info where emailId=?");
         answer.setString(1, user_name);
@@ -79,8 +79,8 @@ class LoginAuthorisationTest {
     void verifySecurityAnswer_for_Doctor() throws SQLException, IOException, ClassNotFoundException {
         boolean[] creds = new boolean[2];
         String environment = "src/main/resources/config_test.properties";
-        DB_Connection db = new DB_Connection(environment);
-        Connection connect = db.createConnection();
+//        DB_Connection db = new DB_Connection(environment);
+        Connection connect = DB_Connection.getDB_Connection_Instance(environment);
         String user_name = "doctor2@gmail.com";
         PreparedStatement answer = connect.prepareStatement("select * from doctor_info where emailId=?");
         answer.setString(1, user_name);
