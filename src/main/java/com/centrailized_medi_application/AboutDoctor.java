@@ -35,20 +35,6 @@ public class AboutDoctor implements About {
 
     //c.close();//close the connection
   }
-
-  private void extracted(String doctorUsername) throws ClassNotFoundException, IOException, SQLException {
-
-    DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
-    Connection c = one.createConnection();
-
-    String sqlStmt = "SELECT * FROM doctor_info where emailId =?";
-
-    PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
-    prepStmt.toString();
-    prepStmt.setString(1, doctorUsername);
-    this.currentDoctorDetails = prepStmt.executeQuery();
-  }
-
   //display user details
   @Override
   public void displayDetails() throws SQLException {

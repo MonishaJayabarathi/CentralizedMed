@@ -20,7 +20,7 @@ public class DB_Layer {
     prepStmt.toString();
     prepStmt.setString(1, doctorUsername);
     currentDoctorDetails = prepStmt.executeQuery();
-    c.close();
+
     return currentDoctorDetails;
   }
 
