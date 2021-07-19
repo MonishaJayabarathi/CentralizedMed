@@ -114,6 +114,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         return null;
     }
 
+    @Override
     public void set_Retry(Integer localRetry) {
 
          this.retry=localRetry;

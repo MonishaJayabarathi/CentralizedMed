@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @params : MainDashboard which are used to handle changes after a confirmation.
  * New Doctor instance used to perform functionalty.
  */
-public class DoctorRegistration implements LoginCommand {
+public class DoctorRegistration extends LoginCommand {
 
   NewDoctor doctor;
   MainDashboard init;

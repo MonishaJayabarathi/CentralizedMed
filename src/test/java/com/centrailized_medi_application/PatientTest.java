@@ -10,84 +10,85 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PatientTest {
 
-    // Fetch test case
-    String environment = "src/main/resources/config_test.properties";
-    @Test
-    void fetch() throws SQLException, IOException, ClassNotFoundException {
-        String user_name = "Aditya@hotmail.com";
-        String password= "a1234";
-        Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name), new DB_Connection(environment,user_name,password));
-        PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
-        assertAll("Fetch Function",
-                () -> assertEquals(user_name, patient.getUsername()),
-                () -> assertEquals(password, patient.getPassword()));
-    }
+  // Fetch test case
+  String environment = "src/main/resources/config_test.properties";
 
-    // Validation test case
-    @Test
-    void validate() throws SQLException, IOException, ClassNotFoundException {
-        String user_name = "Aditya@hotmail.com";
-        String password= "a1234";
-        Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name),new DB_Connection(environment,user_name,password));
-        PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
-        patient.validate();
-        assertAll("Validate Function",
-                () -> assertTrue(patient.get_id_status()),
-                () -> assertTrue(patient.get_pass_status()));
-    }
+  @Test
+  void fetch() throws SQLException, IOException, ClassNotFoundException {
+    String userName = "Aditya@hotmail.com";
+    String password = "a1234";
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
+    PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
+    p_login.setPatientName(userName);
+    p_login.setPatientPass(password);
+    patient.fetch(p_login.getPatientName(), p_login.getPatientPass());
+    assertAll("Fetch Function",
+        () -> assertEquals(userName, patient.getUsername()),
+        () -> assertEquals(password, patient.getPassword()));
+  }
 
-    // Correct Id and pass
-    @Disabled("authenticate->Calls user input after it succeeds,hence ignored")
-    @Test
-    void authenticate() throws SQLException, IOException, ClassNotFoundException {
-        String user_name = "Aditya@hotmail.com";
-        String password= "a1234";
-        Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name),new DB_Connection(environment,user_name,password));
-        PatientLogin p_login = new PatientLogin(patient,new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
-        patient.validate();
-        patient.authenticate();
-        assertTrue(patient.get_auth_status());
-    }
+  // Validation test case
+  @Test
+  void validate() throws SQLException, IOException, ClassNotFoundException {
+    String userName = "Aditya@hotmail.com";
+    String password = "a1234";
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
+    PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
+    p_login.setPatientName(userName);
+    p_login.setPatientPass(password);
+    patient.fetch(p_login.getPatientName(), p_login.getPatientPass());
+    patient.validate();
+    assertAll("Validate Function",
+        () -> assertTrue(patient.getUsernameStatus()),
+        () -> assertTrue(patient.getPassStatus()));
+  }
+
+  // Correct Id and pass
+  @Disabled("authenticate->Calls user input after it succeeds,hence ignored")
+  @Test
+  void authenticate() throws SQLException, IOException, ClassNotFoundException {
+    String userName = "Aditya@hotmail.com";
+    String password = "a1234";
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
+    PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
+    p_login.setPatientName(userName);
+    p_login.setPatientPass(password);
+    patient.fetch(p_login.getPatientName(), p_login.getPatientPass());
+    patient.validate();
+    patient.authenticate();
+    assertTrue(patient.getAuthStatus());
+  }
 
 
-    // Incorrect Password but correct id
-    @Disabled("authenticate_pass_incorrect_pass->Calls user input after it succeeds,hence ignored")
-    @Test
-    void authenticate_pass_incorrect_pass() throws SQLException, IOException, ClassNotFoundException {
-        String user_name = "Aditya";
-        String password= "a12";
-        Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name),new DB_Connection(environment,user_name,password));
-        PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
-        patient.validate();
-        patient.authenticate();
-        assertTrue(patient.get_auth_status());
-    }
+  // Incorrect Password but correct id
+  @Disabled("authenticate_pass_incorrect_pass->Calls user input after it succeeds,hence ignored")
+  @Test
+  void authenticate_pass_incorrect_pass() throws SQLException, IOException, ClassNotFoundException {
+    String userName = "Aditya";
+    String password = "a12";
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
+    PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
+    p_login.setPatientName(userName);
+    p_login.setPatientPass(password);
+    patient.fetch(p_login.getPatientName(), p_login.getPatientPass());
+    patient.validate();
+    patient.authenticate();
+    assertTrue(patient.getAuthStatus());
+  }
 
-    // Incorrect password and id
-    @Disabled("authenticate_pass_invalid->Calls user input after it succeeds,hence ignored")
-    @Test
-    void authenticate_pass_invalid() throws SQLException, IOException, ClassNotFoundException {
-        String user_name = "test";
-        String password= "a12";
-        Patient patient = new Patient(new WelcomePage(),new PatientPage(user_name),new DB_Connection(environment,user_name,password));
-        PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
-        p_login.setPatient_name(user_name);
-        p_login.setPatient_pass(password);
-        patient.fetch(p_login.getPatient_name(),p_login.getPatient_pass());
-        patient.validate();
-        patient.authenticate();
-        assertTrue(patient.get_auth_status());
-    }
+  // Incorrect password and id
+  @Disabled("authenticate_pass_invalid->Calls user input after it succeeds,hence ignored")
+  @Test
+  void authenticate_pass_invalid() throws SQLException, IOException, ClassNotFoundException {
+    String user_name = "test";
+    String password = "a12";
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(user_name), new DB_Connection(environment, user_name, password), new LoginAuthorisation());
+    PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
+    p_login.setPatientName(user_name);
+    p_login.setPatientPass(password);
+    patient.fetch(p_login.getPatientName(), p_login.getPatientPass());
+    patient.validate();
+    patient.authenticate();
+    assertTrue(patient.getAuthStatus());
+  }
 }

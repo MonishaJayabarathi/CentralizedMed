@@ -5,7 +5,7 @@ import java.util.*;
 
 //Class for patient registration
 
-public class PatientRegistration implements LoginCommand {
+public class PatientRegistration extends LoginCommand {
     NewPatient patient;
     MainDashboard init;
 
