@@ -104,4 +104,13 @@ Connection connection=db.createConnection();
     return cred_validity;
   }
 
+  public ResultSet fetchDonors() throws SQLException, IOException, ClassNotFoundException {
+    DB_Connection db=new DB_Connection(environment);
+    Connection connect=db.createConnection();
+    PreparedStatement get_donors=connect.prepareStatement("Select * from patient_info where volunteer=? ");
+    get_donors.setString(1,"yes");
+    ResultSet exec_get_donors=get_donors.executeQuery();
+    return exec_get_donors;
+  }
+
 }
