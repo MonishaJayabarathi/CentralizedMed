@@ -19,7 +19,7 @@ class PatientLoginTest {
   void setPatient_name() throws SQLException, IOException, ClassNotFoundException {
     String userName = "Aditya@hotmail.com";
     String password = "a1234";
-    Patient p1 = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password));
+    Patient p1 = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(p1, new WelcomePage());  // Passing the object to the patient login
     p_login.setPatientName(userName);
     assertEquals(userName, p_login.getPatientName(), "Error: Incorrect Name");
@@ -31,7 +31,7 @@ class PatientLoginTest {
   void setPatient_name_only_char() throws SQLException, IOException, ClassNotFoundException {
     String userName = "Aditya1234";
     String password = "a1234";
-    Patient p1 = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password));
+    Patient p1 = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(p1, new WelcomePage());  // Passing the object to the patient login
     p_login.setPatientName(userName);
     assertNull(p_login.getPatientName());
@@ -43,7 +43,7 @@ class PatientLoginTest {
   void setPatient_pass() throws SQLException, IOException, ClassNotFoundException {
     String userName = "Aditya";
     String password = "a1234";
-    Patient p1 = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password));
+    Patient p1 = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(p1, new WelcomePage());  // Passing the object to the patient login
     p_login.setPatientPass(userName);
     assertEquals(userName, p_login.getPatientPass(), "Error: Incorrect Password");
@@ -53,7 +53,7 @@ class PatientLoginTest {
   void execute() throws SQLException, IOException, ClassNotFoundException {
     String userName = "Aditya@hotmail.com";
     String password = "a1234";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password));
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());  // Passing the object to the patient login
     p_login.setPatientName(userName);
     p_login.setPatientPass(password);

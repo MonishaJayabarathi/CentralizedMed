@@ -17,7 +17,7 @@ class PatientTest {
   void fetch() throws SQLException, IOException, ClassNotFoundException {
     String userName = "Aditya@hotmail.com";
     String password = "a1234";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password));
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(userName);
     p_login.setPatientPass(password);
@@ -32,7 +32,7 @@ class PatientTest {
   void validate() throws SQLException, IOException, ClassNotFoundException {
     String userName = "Aditya@hotmail.com";
     String password = "a1234";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password));
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(userName);
     p_login.setPatientPass(password);
@@ -49,7 +49,7 @@ class PatientTest {
   void authenticate() throws SQLException, IOException, ClassNotFoundException {
     String userName = "Aditya@hotmail.com";
     String password = "a1234";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password));
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(userName);
     p_login.setPatientPass(password);
@@ -66,7 +66,7 @@ class PatientTest {
   void authenticate_pass_incorrect_pass() throws SQLException, IOException, ClassNotFoundException {
     String userName = "Aditya";
     String password = "a12";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password));
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(userName);
     p_login.setPatientPass(password);
@@ -82,7 +82,7 @@ class PatientTest {
   void authenticate_pass_invalid() throws SQLException, IOException, ClassNotFoundException {
     String user_name = "test";
     String password = "a12";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(user_name), new DB_Connection(environment, user_name, password));
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(user_name), new DB_Connection(environment, user_name, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(user_name);
     p_login.setPatientPass(password);
