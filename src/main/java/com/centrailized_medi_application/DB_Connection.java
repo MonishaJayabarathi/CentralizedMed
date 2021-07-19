@@ -46,7 +46,15 @@ public class DB_Connection implements DbConnection {
         }
         return newConnection;
     }
-    public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
+    public static Connection getDB_Connection_Instance(String configFile,String u_name,String u_pass) throws SQLException, IOException, ClassNotFoundException {
+        if(newConnection==null)
+        {
+            new DB_Connection(configFile, u_name, u_pass);
+            return newConnection;
+        }
+        return newConnection;
+    }
+    private DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         f1 = new FileInputStream(configFile);
         pr = new Properties();
@@ -57,7 +65,7 @@ public class DB_Connection implements DbConnection {
         this.configFile = configFile;
         this.u_name = u_name;
         this.u_pass = u_pass;
-        connection = DriverManager.getConnection(url, username, password);
+        newConnection = DriverManager.getConnection(url, username, password);
     }
 //    public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
 //        Class.forName("com.mysql.cj.jdbc.Driver");
