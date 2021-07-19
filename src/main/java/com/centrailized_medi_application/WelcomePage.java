@@ -2,7 +2,6 @@ package com.centrailized_medi_application;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 public class WelcomePage extends MainDashboard
 {
@@ -17,8 +16,8 @@ public class WelcomePage extends MainDashboard
         Action action = new Action(); // Initialize Action
         Patient p1 = new Patient(this,new PatientPage(patient_name), new DB_Connection(environment,patient_name,patient_pass));  // Initialize patient
         PatientLogin p_login = new PatientLogin(p1, this);  // Passing the object to the patient login
-        p_login.setPatient_name(patient_name);
-        p_login.setPatient_pass(patient_pass);
+        p_login.setPatientName(patient_name);
+        p_login.setPatientPass(patient_pass);
         action.setCommand(p_login);
         action.run();
 

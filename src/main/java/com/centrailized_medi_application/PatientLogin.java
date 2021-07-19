@@ -33,7 +33,7 @@ public class PatientLogin implements LoginCommand {
   }
 
   /**
-   * This method sets the Patient Username (emaild).
+   * This method sets the Patient Username (emailId).
    * If the username is valid, it sets the name else it will ask to re-enter the details
    *
    * @return void
@@ -113,7 +113,6 @@ public class PatientLogin implements LoginCommand {
       if (sc.nextLine().equals("y")) {
         System.out.println("Navigating to main menu...");
         this.mainPage.display();
-
       } else {
         System.out.println("Logging in....");
         this.execute();
