@@ -5,16 +5,16 @@ import java.sql.SQLException;
 
 /* Implementation for com.centrailized_medi_application.Patient */
 public class Patient extends Login {
-    private String user_name; // Stores Patient name
+    private String userName; // Stores Patient name
     private String password; // Stores patient passwd
     private boolean validId = false; // Sets true when patient is registered
     private boolean validPsswd = false; // Sets true when patient is registered
     private boolean authenticatePhase = false;
-    private boolean[] creds = new boolean[2];
-    private MainDashboard init;
-    private PatientDashboard pd;
+    private boolean[] credentials = new boolean[2];
+    private MainDashboard dashboard;
+    private PatientDashboard patientDashboard;
     private DbConnection connect;
-    private ILoginAuthorisation la;
+    private ILoginAuthorisation loginAuthorisation;
     private static int localRetry=0;
 
 
@@ -23,7 +23,7 @@ public class Patient extends Login {
     }
 
     public String getUsername() {
-        return this.user_name;
+        return this.userName;
     }
 
     public boolean get_id_status() {
@@ -39,26 +39,28 @@ public class Patient extends Login {
     }
 
 
-    public Patient(MainDashboard init, PatientDashboard patient_menu, DbConnection connection, ILoginAuthorisation loginauth) {
-        this.init = init;
-        this.pd = patient_menu;
+    public Patient(MainDashboard dashboard, PatientDashboard patient_menu, DbConnection connection, ILoginAuthorisation loginauth) {
+        this.dashboard = dashboard;
+        this.patientDashboard = patient_menu;
         this.connect = connection;
-        this.la = loginauth;
+        this.loginAuthorisation = loginauth;
     }
 
     /* Fetching patient credentials*/
     @Override
-    public void fetch(String u_name, String psswd) {
-        this.user_name = u_name;
+    public void fetch(String userName, String psswd) {
+        this.userName = userName;
         this.password = psswd;
     }
+
+
 
     /* Connect to database and check against the data*/
     @Override
     public void validate() throws SQLException, IOException, ClassNotFoundException {
-        creds = connect.getDetails();
-        this.validId = creds[0];
-        this.validPsswd = creds[1];
+        credentials = connect.getDetails();
+        this.validId = credentials[0];
+        this.validPsswd = credentials[1];
     }
 
     /* Defining the placeholder for com.centrailized_medi_application.Patient authentication*/
@@ -68,22 +70,22 @@ public class Patient extends Login {
         authenticatePhase = true;
         if (this.validId && this.validPsswd) // Exist and valid credentials
         {
-            System.out.println("Welcome " + this.user_name); // name to be replaced with the actual name stored in db
-            this.pd.display();
+            System.out.println("Welcome " + this.userName); // name to be replaced with the actual name stored in db
+            this.patientDashboard.display();
         } else if (this.validId && !this.validPsswd) {
             //call authentication mechanism
             System.out.println("Check your credentials!");
             localRetry++;
-            this.la.set_Retry(localRetry);
+            this.loginAuthorisation.set_Retry(localRetry);
             if(localRetry!=3) {
-                this.init.display_patient_login();
+                this.dashboard.display_patient_login();
             }else if(localRetry==3){
-                this.la.getSecurityQuestion(user_name);
+                this.loginAuthorisation.getSecurityQuestion(userName);
             }
         } else {
             System.out.println("Please register to the system!");
             System.out.println("Navigating to main menu...");
-            init.display();
+            dashboard.display();
         }
 
     }
