@@ -8,17 +8,23 @@ import java.sql.SQLException;
 
 public class DB_Layer {
 
-  public ResultSet getDcotorDetails(String doctorUsername) throws ClassNotFoundException, IOException, SQLException {
+  public ResultSet getUserDetails(String username,String user_type) throws ClassNotFoundException, IOException, SQLException {
+
+    String sqlStmt;
+    if(user_type.equals("Doctor")){ sqlStmt = "SELECT * FROM doctor_info where emailId =?;";}
+    else{ sqlStmt = "SELECT * FROM patient_info where emailId =?;";}
 
     ResultSet currentDoctorDetails;
     DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
     Connection c = one.createConnection();
 
-    String sqlStmt = "SELECT * FROM doctor_info where emailId =?";
+
 
     PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
     prepStmt.toString();
-    prepStmt.setString(1, doctorUsername);
+
+    prepStmt.setString(1, username);
+
     currentDoctorDetails = prepStmt.executeQuery();
 
     return currentDoctorDetails;

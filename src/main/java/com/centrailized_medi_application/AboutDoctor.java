@@ -31,7 +31,7 @@ public class AboutDoctor implements About {
   public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
     System.out.println("Loading About...\n");
     DB_Layer layer=new DB_Layer();
-   this.currentDoctorDetails=layer.getDcotorDetails(doctorUsername);//call to the DB layer.
+   this.currentDoctorDetails=layer.getUserDetails(doctorUsername,"Doctor");//call to the DB layer.
 
     //c.close();//close the connection
   }
