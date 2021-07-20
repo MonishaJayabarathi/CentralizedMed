@@ -3,11 +3,24 @@ package com.centrailized_medi_application;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * @author Aditya Jain & Monisha J
+ * @description: WelcomePage is a Concrete class which extends MainDashboard
+ * It overrides methods such as displayPatientLogin(), displayPatientRegistration(),
+ * displayDoctorRegistration(), displayDoctorLogin()
+ */
 public class WelcomePage extends MainDashboard {
   String environment = "src/main/resources/config_test.properties";
 
+  /**
+   * This function allows the user to login as a Patient
+   *
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws IOException
+   */
   @Override
-  public void display_patient_login() throws ClassNotFoundException, SQLException, IOException {
+  public void displayPatientLogin() throws ClassNotFoundException, SQLException, IOException {
 
     System.out.println("Enter your username:");
     String patient_name = (sc.next());
@@ -22,18 +35,25 @@ public class WelcomePage extends MainDashboard {
     action.run();
   }
 
+  /**
+   * This function allows the user to register as a Patient
+   *
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   * @throws IOException
+   */
   @Override
-  public void display_patient_registration() throws SQLException, IOException, ClassNotFoundException {
+  public void displayPatientRegistration() throws SQLException, IOException, ClassNotFoundException {
     try {
-//            BasicDetails basicDetails = new BasicDetails();
-//            PatientDetails patientDetails = new PatientDetails();
-//            SecurityQuestions securityQuestions = new SecurityQuestions();
-//            Action action = new Action(); // Initialize Action
-//            NewPatient p = new NewPatient(basicDetails, patientDetails, securityQuestions, this );
-//            PatientRegistration patientReg = new PatientRegistration(p,this);
-//            patientReg.start();
-//            action.setCommand(patientReg);
-//            action.run();
+      BasicDetails basicDetails = new BasicDetails();
+      PatientDetails patientDetails = new PatientDetails();
+      SecurityQuestions securityQuestions = new SecurityQuestions();
+      Action action = new Action(); // Initialize Action
+      NewPatient p = new NewPatient(basicDetails, patientDetails, securityQuestions, this);
+      PatientRegistration patientReg = new PatientRegistration(p, this);
+      patientReg.start();
+      action.setCommand(patientReg);
+      action.run();
 
     } catch (Exception e) {
       System.out.println("Input Exception Encountered moving to main menu " + e);
@@ -52,7 +72,7 @@ public class WelcomePage extends MainDashboard {
    */
 
   @Override
-  public void display_doctor_registration() throws SQLException, IOException, ClassNotFoundException {
+  public void displayDoctorRegistration() throws SQLException, IOException, ClassNotFoundException {
 
     BasicDetails basicDetails = new BasicDetails();
     DoctorDetails doctorDetails = new DoctorDetails();
@@ -74,7 +94,7 @@ public class WelcomePage extends MainDashboard {
    * @throws ClassNotFoundException
    */
   @Override
-  public void display_doctor_login() throws SQLException, IOException, ClassNotFoundException {
+  public void displayDoctorLogin() throws SQLException, IOException, ClassNotFoundException {
 
     System.out.println("Enter your username:");
     String doctor_name = (sc.next());

@@ -13,14 +13,15 @@ public class PastConsultations {
   DbConnection db_access;
   private String docterUsername = null;
   private ArrayList<ArrayList<String>> patientsList = new ArrayList<ArrayList<String>>();
-
+  Connection local = null;
   public PastConsultations(DbConnection connection, String doc_name) {
     db_access = connection;
     docterUsername = doc_name;
+    local = db_access.createConnection();
   }
 
   public void retrievePatientDetails(String patientName, String date) throws SQLException {
-    Connection local = db_access.createConnection();
+
     PreparedStatement prep_statement = local.prepareStatement("SELECT * from " +
         "patientinfo WHERE emailId ='" + patientName + "'");
     ResultSet resultSet = prep_statement.executeQuery();
@@ -34,10 +35,11 @@ public class PastConsultations {
       resultRow.add(resultSet.getString("contactNo"));
       patientsList.add(resultRow);
     }
+
   }
 
   public void retrievePatients() throws SQLException, IOException, ClassNotFoundException {
-    Connection local = db_access.createConnection();
+
     PreparedStatement prep_statement = local.prepareStatement("SELECT consultation_date_and_time, patient_username " +
         "from " +
         "consultations WHERE doctor_username ='" + docterUsername + "' GROUP BY patient_username");
@@ -45,9 +47,10 @@ public class PastConsultations {
     while (resultSet.next()) {
       retrievePatientDetails(resultSet.getString("patient_username"), resultSet.getString("consultation_date_and_time"));
     }
+
   }
 
-  public String getPreviousConsultations() {
+  public String getPreviousConsultations() throws SQLException {
     try {
       this.retrievePatients();
     } catch (SQLException | IOException | ClassNotFoundException throwables) {
@@ -68,7 +71,7 @@ public class PastConsultations {
           "\n";
       pList.append(singlePatient);
     }
-
+    this.local.close();
     return pList.toString();
   }
 
