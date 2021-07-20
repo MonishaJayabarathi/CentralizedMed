@@ -6,8 +6,13 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-
-
+/**
+ * author:Ridampreet Singh
+ * DbConnection interface implemented by the classes.
+ * Constructors take parameters as config file to get database details.
+ * getDetails()-method will return boolean array containing the validity status of the entered credentials.
+ * createConnection()-returns a connection so that the interaction with the database can begin.
+ */
 public class DB_Connection implements DbConnection {
 
     private String url;
@@ -50,6 +55,8 @@ public class DB_Connection implements DbConnection {
         connection = DriverManager.getConnection(url, username, password);
 
     }
+
+    //create and return the connection
     @Override
     public Connection createConnection()
     {
@@ -57,6 +64,7 @@ public class DB_Connection implements DbConnection {
         return connection;
     }
 
+    //return credential array containing info if the username and password are valid.
     @Override
     public boolean[] getDetails() throws SQLException, IOException, ClassNotFoundException {
         DB_Layer db=new DB_Layer();
