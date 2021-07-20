@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DoctorTest {
 
-  Doctor dr = new Doctor(new WelcomePage(),new DoctorPage("monisha@yahoo.com"));
+  Doctor dr = new Doctor(new WelcomePage(),new DoctorPage("monisha@yahoo.com"), new LoginAuthorisation());
   DoctorLogin docLogin = new DoctorLogin(dr, new WelcomePage());
 
   @Test
