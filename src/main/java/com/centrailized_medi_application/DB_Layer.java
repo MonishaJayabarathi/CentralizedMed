@@ -22,6 +22,10 @@ import java.util.Scanner;
  * updatePatient()-Updates the login information stored about the patient.
  * updateDoctor()-Updates the login information stored about the patient.
  * displayPatientInfo()-Returns a result set containing information about the patient.
+ * displayFamilyinfo()-Returns the result set containing the family information.
+ * insertNewDoctor()-Inserts a new Doctor into the database.
+ * insertNewPatient()-Inserts a new patient into the database.
+ * feedRatings()-Inserts ratings about the patient into the database.
  */
 
 
