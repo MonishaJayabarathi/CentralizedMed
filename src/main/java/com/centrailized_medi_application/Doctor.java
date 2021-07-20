@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * @author Monisha J
+ * @author Monisha J and Ridampreet Singh
  * @description : This program performs the actual authentication of Doctor Login.
  * @params : MainDashboard and DoctorDashboard are passed, which are used to handle
  * changes after a login failure or success respectively.
@@ -73,10 +73,11 @@ public class Doctor extends Login {
     } else if (this.isValidUsername && !this.isValidPassword) {
       System.out.println("Check your credentials!");
       localRetry++;
-      //set_Retry(localRetry);
+
       if(localRetry!=3) {
-        this.init.display_patient_login();
+        this.init.display_doctor_login();
       }else if(localRetry==3){
+
         //getSecurityQuestion(userName);
       }
 

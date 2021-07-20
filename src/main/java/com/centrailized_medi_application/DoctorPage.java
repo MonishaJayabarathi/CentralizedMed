@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
- * @author Monisha J
+ * @author Monisha J, Ridampreet Singh, Neelay Goswami
  * @description: This program extends DoctorDashboard.
  * Holds abstract methods to define actual routing classes of tabs.
  * @params: int doctor_id : passed after successful login
@@ -46,7 +46,7 @@ public class DoctorPage extends DoctorDashboard{
 
   }
 
-
+//gets the list of patients registered who have opted "YES" for donations.
   @Override
   public void display_donors() throws SQLException, IOException, ClassNotFoundException {
     DB_Layer layer=new DB_Layer();
@@ -67,7 +67,7 @@ public class DoctorPage extends DoctorDashboard{
     redirect_home.display();
 
   }
-
+//Logs out the currently signed in user out of the portal
   @Override
   public void Logout() throws SQLException, IOException, ClassNotFoundException {
     System.out.println("User has been successfuly logged out !");
