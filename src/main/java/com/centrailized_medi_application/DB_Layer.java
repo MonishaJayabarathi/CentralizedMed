@@ -113,4 +113,49 @@ Connection connection=db.createConnection();
     return exec_get_donors;
   }
 
+
+  public ResultSet check_if_patient(String user_name) throws SQLException, IOException, ClassNotFoundException {
+    DB_Connection db = new DB_Connection(environment);
+    Connection connect = db.createConnection();
+    PreparedStatement check_if_patient = connect.prepareStatement("select * from patient_info where emailId=?");
+    check_if_patient.setString(1, user_name);
+    ResultSet s1 = check_if_patient.executeQuery();
+    return s1;
+  }
+
+  public ResultSet check_if_doctor(String user_name) throws SQLException, IOException, ClassNotFoundException {
+    DB_Connection db = new DB_Connection(environment);
+    Connection connect = db.createConnection();
+    PreparedStatement check_if_Doctor = connect.prepareStatement("select * from doctor_info where emailId=?");
+    check_if_Doctor.setString(1, user_name);
+    ResultSet s2 = check_if_Doctor.executeQuery();
+    return s2;
+  }
+
+  public void updatePatient(String newPassword,String user_name) throws SQLException, IOException, ClassNotFoundException {
+    DB_Connection db=new DB_Connection(environment);
+    Connection connection= db.createConnection();
+                PreparedStatement updatePass=connection.prepareStatement("Update patient_info set password=? where emailid=?");
+            updatePass.setString(1,newPassword);
+            updatePass.setString(2,user_name);
+            updatePass.execute();
+            updatePass=connection.prepareStatement("Update login_details set pass=? where user_name=?");
+            updatePass.setString(1,newPassword);
+            updatePass.setString(2,user_name);
+            updatePass.execute();
+  }
+
+  public void updateDoctor(String newPassword,String user_name) throws SQLException, IOException, ClassNotFoundException {
+    DB_Connection db=new DB_Connection(environment);
+    Connection connection= db.createConnection();
+    PreparedStatement updatePass=connection.prepareStatement("Update doctor_info set password=? where emailid=?");
+    updatePass.setString(1,newPassword);
+    updatePass.setString(2,user_name);
+    updatePass.execute();
+    updatePass=connection.prepareStatement("Update login_details set pass=? where user_name=?");
+    updatePass.setString(1,newPassword);
+    updatePass.setString(2,user_name);
+    updatePass.execute();
+    connection.close();
+  }
 }

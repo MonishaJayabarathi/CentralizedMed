@@ -12,16 +12,18 @@ public class LoginAuthorisation implements ILoginAuthorisation {
 
     @Override
     public String getSecurityQuestion(String user_name) throws SQLException, IOException, ClassNotFoundException {
-        String environment = "src/main/resources/config_test.properties";
-        DB_Connection db = new DB_Connection(environment);
-        Connection connect = db.createConnection();
-        PreparedStatement check_if_patient = connect.prepareStatement("select * from patient_info where emailId=?");
-        check_if_patient.setString(1, user_name);
-        ResultSet s1 = check_if_patient.executeQuery();
+//        String environment = "src/main/resources/config_test.properties";
+//        DB_Connection db = new DB_Connection(environment);
+//        Connection connect = db.createConnection();
+//        PreparedStatement check_if_patient = connect.prepareStatement("select * from patient_info where emailId=?");
+//        check_if_patient.setString(1, user_name);
+        DB_Layer layer=new DB_Layer();
+        ResultSet s1 = layer.check_if_patient(user_name);
 
-        PreparedStatement check_if_Doctor = connect.prepareStatement("select * from doctor_info where emailId=?");
-        check_if_Doctor.setString(1, user_name);
-        ResultSet s2 = check_if_Doctor.executeQuery();
+//        PreparedStatement check_if_Doctor = connect.prepareStatement("select * from doctor_info where emailId=?");
+//        check_if_Doctor.setString(1, user_name);
+//        ResultSet s2 = check_if_Doctor.executeQuery();
+        ResultSet s2= layer.check_if_doctor(user_name);
 
         if(s1.next())
         {
@@ -62,29 +64,34 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         {
             return "Please answer the security question first !";
         }
-        String configFile="src/main/resources/config_test.properties";
-        DB_Connection db=new DB_Connection(configFile);
-        Connection connection=db.createConnection();
-        PreparedStatement checkUser = connection.prepareStatement("select * from patient_info where emailId=?");
-        checkUser.setString(1, user_name);
-        ResultSet s2 = checkUser.executeQuery();
-        PreparedStatement checkUser_from_Doctor = connection.prepareStatement("select * from doctor_info where emailId=?");
-        checkUser_from_Doctor.setString(1, user_name);
-        ResultSet s3 = checkUser_from_Doctor.executeQuery();
+//        String configFile="src/main/resources/config_test.properties";
+//        DB_Connection db=new DB_Connection(configFile);
+//        Connection connection=db.createConnection();
+//        PreparedStatement checkUser = connection.prepareStatement("select * from patient_info where emailId=?");
+//        checkUser.setString(1, user_name);
+//        ResultSet s2 = checkUser.executeQuery();
+        DB_Layer layer=new DB_Layer();
+        ResultSet s2=layer.check_if_patient(user_name);
+//        PreparedStatement checkUser_from_Doctor = connection.prepareStatement("select * from doctor_info where emailId=?");
+//        checkUser_from_Doctor.setString(1, user_name);
+//        ResultSet s3 = checkUser_from_Doctor.executeQuery();
+        ResultSet s3=layer.check_if_doctor(user_name);
+
         if(s2.next())
         {
 
             Scanner sc=new Scanner(System.in);
             System.out.println("Enter the new password");
             String newPassword=sc.next();
-            PreparedStatement updatePass=connection.prepareStatement("Update patient_info set password=? where emailid=?");
-            updatePass.setString(1,newPassword);
-            updatePass.setString(2,user_name);
-            updatePass.execute();
-            updatePass=connection.prepareStatement("Update login_details set pass=? where user_name=?");
-            updatePass.setString(1,newPassword);
-            updatePass.setString(2,user_name);
-            updatePass.execute();
+//            PreparedStatement updatePass=connection.prepareStatement("Update patient_info set password=? where emailid=?");
+//            updatePass.setString(1,newPassword);
+//            updatePass.setString(2,user_name);
+//            updatePass.execute();
+            layer.updatePatient(newPassword,user_name);
+//            updatePass=connection.prepareStatement("Update login_details set pass=? where user_name=?");
+//            updatePass.setString(1,newPassword);
+//            updatePass.setString(2,user_name);
+//            updatePass.execute();
 
             return "Password reset was successful !";
         }
@@ -94,23 +101,24 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             Scanner sc=new Scanner(System.in);
             System.out.println("Enter the new password");
             String newPassword=sc.next();
-            PreparedStatement updatePass=connection.prepareStatement("Update doctor_info set password=? where emailid=?");
-            updatePass.setString(1,newPassword);
-            updatePass.setString(2,user_name);
-            updatePass.execute();
-            updatePass=connection.prepareStatement("Update login_details set pass=? where user_name=?");
-            updatePass.setString(1,newPassword);
-            updatePass.setString(2,user_name);
-            updatePass.execute();
+            layer.updateDoctor(newPassword,user_name);
+//            PreparedStatement updatePass=connection.prepareStatement("Update doctor_info set password=? where emailid=?");
+//            updatePass.setString(1,newPassword);
+//            updatePass.setString(2,user_name);
+//            updatePass.execute();
+//            updatePass=connection.prepareStatement("Update login_details set pass=? where user_name=?");
+//            updatePass.setString(1,newPassword);
+//            updatePass.setString(2,user_name);
+//            updatePass.execute();
         }
         else
         {
 
-            connection.close();
+//            connection.close();
             return "User is not registered !";
 
         }
-        connection.close();
+//        connection.close();
         return null;
     }
 
