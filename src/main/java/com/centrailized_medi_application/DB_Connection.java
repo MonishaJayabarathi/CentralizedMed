@@ -27,7 +27,7 @@ public class DB_Connection implements DbConnection {
 
     public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        f1 = new FileInputStream(configFile);
+        f1 = new FileInputStream(String.valueOf(getClass().getClassLoader().getResourceAsStream(configFile)));
         pr = new Properties();
         pr.load(f1);
         url = pr.getProperty("database");
@@ -40,7 +40,7 @@ public class DB_Connection implements DbConnection {
     }
     public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        f1 = new FileInputStream(configFile);
+        f1 = new FileInputStream(String.valueOf(getClass().getClassLoader().getResourceAsStream(configFile)));
 
         pr = new Properties();
         pr.load(f1);
