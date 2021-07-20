@@ -9,6 +9,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * @author Ridampreet Singh
+ * Description: This class acts as a data layer for the whole application and allows other classes to send their
+ * parameters so that respective queries can be executed and the valid result sets can be returned.
+ * getUserDetails()-Method gets the details from the respective tables of the patient or the doctor and returns a result set
+ * insertConsultations()-Inserts the Consultations of doctors.
+ * getCredStatus()-Returns the credentials array which contains boolean values of username and password being correct.
+ * fetchDonors()-Returns the result set containing donors.
+ * check_if_patient()-checks if the user is a patient, if yes then returns all of the information about the patient.
+ * check_if_doctor()-checks if the user is a doctor, if yes then returns all of the information about the doctor.
+ * updatePatient()-Updates the login information stored about the patient.
+ * updateDoctor()-Updates the login information stored about the patient.
+ * displayPatientInfo()-Returns a result set containing information about the patient.
+ */
+
+
+
 public class DB_Layer {
 String environment="src/main/resources/config_test.properties";
   public ResultSet getUserDetails(String username,String user_type) throws ClassNotFoundException, IOException, SQLException {
