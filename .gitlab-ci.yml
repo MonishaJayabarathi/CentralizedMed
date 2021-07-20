@@ -46,9 +46,8 @@ deployStep:
     - chmod 700 ~/.ssh
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    #- mvn install assembly:single
     - mvn resources:copy-resources
-    - mvn package
+    - mvn install assembly:single
   artifacts:
     paths:
       - target/centrailized_medi_application-1.0-SNAPSHOT-jar-with-dependencies.jar
