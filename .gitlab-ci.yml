@@ -47,6 +47,7 @@ deployStep:
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
     #- mvn install assembly:single
+    - mvn resources:copy-resources
     - mvn package
   artifacts:
     paths:
