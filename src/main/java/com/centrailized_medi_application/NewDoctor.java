@@ -75,7 +75,7 @@ public class NewDoctor implements Details, Registration {
 //    insert_statement.setString(16,this.securityQuestions.getAnswer3());
 //
 //    insert_statement.execute();
-    System.out.println("Reached");
+
     DB_Layer layer= new DB_Layer();
     layer.insertNewDoctor(basicDetails,doctorDetails,securityQuestions);
     this.hasRegisteredSuccessfully = true;
