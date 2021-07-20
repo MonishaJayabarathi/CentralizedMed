@@ -147,7 +147,6 @@ public class PatientSuggestions {
             pstatement.setString(2, email_doc);
             boolean doc_rate = pstatement.execute();
         }
-
         PatientPage pd = new PatientPage(this.userName);
         pd.display();
         return true;
