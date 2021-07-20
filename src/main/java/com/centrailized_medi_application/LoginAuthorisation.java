@@ -6,7 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-
+/**
+ * @author Ridampreet Singh
+ * Implements interface ILoginAuthorisation.
+ * getSecurityQuestion()-gets the security question from the database for that specific user.
+ * resetPassword()-method invoked from the getSecurityQuestion() when the user has successfuly
+ * answered security question, asks user for the new password and then sends to the database.
+ */
 public class LoginAuthorisation implements ILoginAuthorisation {
     int retry=0;
 
