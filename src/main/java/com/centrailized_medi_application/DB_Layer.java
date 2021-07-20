@@ -182,4 +182,44 @@ Connection connection=db.createConnection();
     ResultSet familyDetails = prepStmt.executeQuery();
     return familyDetails;
   }
+
+  public void insertNewDoctor(BasicDetails basicDetails,DoctorDetails doctorDetails,SecurityQuestions securityQuestions) throws SQLException, IOException, ClassNotFoundException {
+    DB_Connection db=new DB_Connection("src/main/resources/config_test.properties");
+    Connection connection=db.createConnection();
+
+    PreparedStatement st =connection.prepareStatement("Insert into login_details(user_name,pass) values(?,?)");
+    st.setString(1,basicDetails.getEmailId());
+    st.setString(2,basicDetails.getPassword());
+
+    st.execute();
+    st = connection.prepareStatement("Select * from login_details where user_name=\"" + basicDetails.getEmailId() + "\"");
+    ResultSet rs2 = st.executeQuery();
+    rs2.next();
+    int curr_id = rs2.getInt("idlogin_details");
+
+    PreparedStatement insert_statement=connection.prepareStatement("insert into " +
+        "doctor_info(id,firstname,lastname,gender,dateOfBirth,address,latitude,longitude,contactNo,speciality,registrationNumber," +
+        "emailId,password,security_answer_1,security_answer_2,security_answer_3) " +
+        "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+    insert_statement.setInt(1,curr_id);
+    insert_statement.setString(2,basicDetails.getFirstName());
+    insert_statement.setString(3,basicDetails.getLastName());
+    insert_statement.setString(4,basicDetails.getGender());
+    insert_statement.setString(5,basicDetails.getDob());
+    insert_statement.setString(6,basicDetails.getAddress());
+    insert_statement.setInt(7,basicDetails.getLatitude());
+    insert_statement.setInt(8,basicDetails.getLongitude());
+    insert_statement.setString(9,basicDetails.getContactNo());
+    insert_statement.setString(10,doctorDetails.getSpeciality());
+    insert_statement.setInt(11,doctorDetails.getRegistrationNumber());
+    insert_statement.setString(12,basicDetails.getEmailId());
+    insert_statement.setString(13,basicDetails.getPassword());
+    insert_statement.setString(14,securityQuestions.getAnswer1());
+    insert_statement.setString(15,securityQuestions.getAnswer2());
+    insert_statement.setString(16,securityQuestions.getAnswer3());
+
+    insert_statement.execute();
+    connection.close();
+  }
+
 }
