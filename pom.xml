@@ -121,8 +121,8 @@
           <configuration>
             <archive>
               <manifest>
-                <addClasspath>true</addClasspath>
-                <classpathPrefix>src/main/java/</classpathPrefix>
+<!--                <addClasspath>true</addClasspath>-->
+<!--                <classpathPrefix>src/main/java/</classpathPrefix>-->
                 <mainClass>com.centrailized_medi_application.App</mainClass>
               </manifest>
             </archive>
