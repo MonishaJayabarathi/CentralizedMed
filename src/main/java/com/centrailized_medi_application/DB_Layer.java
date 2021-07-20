@@ -158,4 +158,28 @@ Connection connection=db.createConnection();
     updatePass.execute();
     connection.close();
   }
+
+  public ResultSet displayPatientInfo(String patientEmail) throws SQLException, IOException, ClassNotFoundException {
+    DbConnection test = new DB_Connection(environment);
+   Connection c = test.createConnection();
+
+    String sqlStmt = "SELECT * FROM patient_info where emailId =?";
+
+    PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
+        prepStmt.setString(1, patientEmail);
+        ResultSet currentPatientDetails = prepStmt.executeQuery();
+        return currentPatientDetails;
+
+  }
+
+  public ResultSet displayFamilyinfo(String familyCode,String patientEmail) throws SQLException, IOException, ClassNotFoundException {
+    DbConnection test = new DB_Connection(environment);
+    Connection c = test.createConnection();
+    String sqlStmt = "SELECT * FROM patient_info where familyMemberCode =\""+familyCode+"\" and not emailId=\""+patientEmail+"\"";
+    PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
+
+
+    ResultSet familyDetails = prepStmt.executeQuery();
+    return familyDetails;
+  }
 }
