@@ -66,6 +66,14 @@
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <outputDirectory>${project.build.directory}/resources</outputDirectory>
+            <resources>
+              <resource>
+                <directory>src/main/resources</directory>
+              </resource>
+            </resources>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -121,8 +129,8 @@
           <configuration>
             <archive>
               <manifest>
-                <addClasspath>true</addClasspath>
-                <classpathPrefix>src/main/resources</classpathPrefix>
+<!--                <addClasspath>true</addClasspath>-->
+<!--                <classpathPrefix>src/main/resources</classpathPrefix>-->
                 <mainClass>com.centrailized_medi_application.App</mainClass>
               </manifest>
             </archive>
