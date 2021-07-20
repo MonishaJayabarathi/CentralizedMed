@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DoctorLoginTest {
-  Doctor dr = new Doctor(new WelcomePage(), new DoctorPage("monisha@yahoo.com"));
+  Doctor dr = new Doctor(new WelcomePage(), new DoctorPage("monisha@yahoo.com"), new LoginAuthorisation());
   DoctorLogin docLogin = new DoctorLogin(dr,new WelcomePage());
 
   @Test

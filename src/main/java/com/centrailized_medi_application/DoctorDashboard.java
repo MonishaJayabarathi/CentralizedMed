@@ -30,6 +30,7 @@ public abstract class DoctorDashboard extends Dashboard {
 
   protected boolean flag = false;
   protected boolean logout = false;
+  protected Scanner sc = new Scanner(System.in);
 
   /**
    * Method the displays the available tabs and corresponding keys
@@ -48,7 +49,6 @@ public abstract class DoctorDashboard extends Dashboard {
     System.out.println(" Enter from above options to proceed:");
 
     while (flag != true) {
-      Scanner sc = new Scanner(System.in);
       int option = sc.nextInt();
       if (option == 1) {
         this.display_about_doctor();  // navigates to display About Doctor Tab.
