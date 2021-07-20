@@ -39,7 +39,7 @@ public class DoctorLogin extends LoginCommand {
     } else {
       System.out.println("Expecting Email id");
       System.out.println("Re-enter you details");
-      init.display_doctor_login();
+      init.displayDoctorLogin();
     }
 
   }

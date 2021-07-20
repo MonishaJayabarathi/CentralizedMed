@@ -128,7 +128,7 @@ public class Doctor extends Login {
       localRetry++;
       this.loginAuthorisation.set_Retry(localRetry);
       if (localRetry != 3) {
-        this.init.display_doctor_login();
+        this.init.displayDoctorLogin();
       } else if (localRetry == 3) {
         this.loginAuthorisation.getSecurityQuestion(userName);
       }
