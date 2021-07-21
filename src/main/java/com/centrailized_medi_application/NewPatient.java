@@ -45,7 +45,7 @@ public class NewPatient implements Details, Registration {
         if(this.hasRegisteredSuccessfully) {
             String firstName = this.basicDetails.getFirstName();
             System.out.println(firstName + " you have registered successfully. You can now login and access your dashboard"); // name to be replaced with the actual name stored in db
-            this.init.display_patient_login();
+            this.init.displayPatientLogin();
         } else {
             System.out.println("Unable to register. Please try again!");
             System.out.println("Navigating to main menu...");

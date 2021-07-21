@@ -16,43 +16,87 @@ public class Doctor extends Login {
   private boolean isValidPassword = false;
   private boolean isUserValidated = false;
   private boolean[] creds = new boolean[2];
-  static int localRetry=0;
+  private MainDashboard init;
+  private DoctorDashboard dd;
+  private ILoginAuthorisation loginAuthorisation; // Password interface
+  private static int localRetry = 0;          // Security Question counter
 
+  /**
+   * Constructor initializes the Dashboard members declared
+   *
+   * @param init       - It holds the MainDashboard instance
+   * @param doctorPage - It holds the DoctorDashboard instance
+   */
+  public Doctor(MainDashboard init, DoctorDashboard doctorPage, ILoginAuthorisation localAuthorisation) {
+    this.init = init;
+    this.dd = doctorPage;
+    this.loginAuthorisation = localAuthorisation;
+  }
 
+  /**
+   * This method returns the doctor username entered.
+   *
+   * @return String username
+   */
   public String getUsername() {
     return this.userName;
   }
 
+  /**
+   * This method returns the doctor password entered.
+   *
+   * @return String password
+   */
   public String getPassword() {
     return this.password;
   }
 
+  /**
+   * This method returns the boolean stating the validity of the username entered
+   *
+   * @return boolean isValidUsername
+   */
   public boolean getUsernameStatus() {
     return this.isValidUsername;
   }
 
+  /**
+   * This method returns the boolean stating the validity of the password entered
+   *
+   * @return boolean isValidPassword
+   */
   public boolean getPasswordStatus() {
     return this.isValidPassword;
   }
 
+  /**
+   * This method returns the boolean if the user credentials were validated.
+   *
+   * @return boolean isUserValidated
+   */
   public boolean getValidationStatus() {
     return this.isUserValidated;
   }
 
-  MainDashboard init;
-  DoctorDashboard dd;
-
-  public Doctor(MainDashboard init, DoctorDashboard doctorPage) {
-    this.init = init;
-    this.dd = doctorPage;
-  }
-
+  /**
+   * This method receives and initialises the login credentials
+   *
+   * @param name     - It holds the username
+   * @param password - It holds the user password
+   */
   @Override
   public void fetch(String name, String password) {
     this.userName = name;
     this.password = password;
   }
 
+  /**
+   * This method validates the user credentials shared.
+   *
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
   @Override
   public void validate() throws SQLException, IOException, ClassNotFoundException {
     String environment = "src/main/resources/config_test.properties";
@@ -62,6 +106,16 @@ public class Doctor extends Login {
     this.isValidPassword = creds[1];
   }
 
+  /**
+   * This checks the authentication of the user.
+   * If it is valid, navigates to user dashboard
+   * Else if password entered is wrong, it gives maximum 3 trials and asks the user to reset the password
+   * Else(username doesn't exits) asks the user to register first
+   *
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
   @Override
   public void authenticate() throws SQLException, IOException, ClassNotFoundException {
 
@@ -72,12 +126,12 @@ public class Doctor extends Login {
       this.dd.display();
     } else if (this.isValidUsername && !this.isValidPassword) {
       System.out.println("Check your credentials!");
-      localRetry++; //maintains a record of how many retries have been done for login.
-
-      if(localRetry!=3) {
-        this.init.display_doctor_login();
-      }else if(localRetry==3){ //if the retries have reached 3, its time to reset the password by answering a security question.
-        //getSecurityQuestion(userName);
+      localRetry++;
+      this.loginAuthorisation.set_Retry(localRetry);
+      if (localRetry != 3) {
+        this.init.displayDoctorLogin();
+      } else if (localRetry == 3) {
+        this.loginAuthorisation.getSecurityQuestion(userName);
       }
 
     } else {

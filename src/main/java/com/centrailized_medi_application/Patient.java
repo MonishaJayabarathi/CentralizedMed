@@ -143,7 +143,7 @@ public class Patient extends Login {
       localRetry++;
       this.loginAuthorisation.set_Retry(localRetry);
       if (localRetry != 3) {
-        this.dashboard.display_patient_login();
+        this.dashboard.displayPatientLogin();
       } else if (localRetry == 3) {
         this.loginAuthorisation.getSecurityQuestion(userName);
       }

@@ -46,7 +46,7 @@ public class PatientLogin extends LoginCommand {
     } else {
       System.out.println("Expecting Email id");
       System.out.println("Re-enter you details");
-      mainPage.display_patient_login();
+      mainPage.displayPatientLogin();
     }
 
   }
