@@ -24,22 +24,13 @@ public class FamilyInfo {
     {
       patientEmail = email[0];
     }
-    DbConnection test = new DB_Connection("src/main/resources/config_test.properties");
-    c = test.createConnection();
 
-    String sqlStmt = "SELECT * FROM patient_info where emailId =\""+patientEmail+"\"";
-
-    PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
-//        prepStmt.setString(1, patientEmail);
-    this.currentPatientDetails = prepStmt.executeQuery();
+    DB_Layer layer=new DB_Layer();
+    this.currentPatientDetails = layer.displayPatientInfo(patientEmail);
     displayCurrentPatient();
 
 
-    sqlStmt = "SELECT * FROM patient_info where familyMemberCode =\""+familyCode+"\" and not emailId=\""+patientEmail+"\"";
-    prepStmt = c.prepareStatement(sqlStmt);
-
-
-    this.familyDetails = prepStmt.executeQuery();
+    this.familyDetails = layer.displayFamilyinfo(familyCode,patientEmail);
     displayMembers();
 
     return familyCode;

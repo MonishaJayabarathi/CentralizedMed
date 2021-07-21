@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * @author Monisha J
+ * @author Monisha J and Ridampreet Singh
  * @description : This program performs the actual authentication of Doctor Login.
  * @params : MainDashboard and DoctorDashboard are passed, which are used to handle
  * changes after a login failure or success respectively.
@@ -120,7 +120,8 @@ public class Doctor extends Login {
   public void authenticate() throws SQLException, IOException, ClassNotFoundException {
 
     isUserValidated = true;
-    if (this.isValidUsername && this.isValidPassword) {
+    if (this.isValidUsername && this.isValidPassword)
+    {
       System.out.println("Welcome " + this.userName);
       this.dd.display();
     } else if (this.isValidUsername && !this.isValidPassword) {

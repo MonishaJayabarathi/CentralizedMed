@@ -24,15 +24,11 @@ public class AboutPatient implements About{
     @Override
     public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("Loading About...\n");
+        DB_Layer layer=new DB_Layer();
+        this.currentPatientDetails=layer.getUserDetails(user_name,"Patient");//call db layer.
         DbConnection test = new DB_Connection("src/main/resources/config_test.properties");
         c = test.createConnection();
 
-        String sqlStmt = "SELECT * FROM patient_info where emailId =?";
-
-        PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
-        prepStmt.toString();
-        prepStmt.setString(1, this.user_name);
-        this.currentPatientDetails = prepStmt.executeQuery();
 
     }
     //Display Patient Details
@@ -51,7 +47,7 @@ public class AboutPatient implements About{
             System.out.println("Allergy: " + this.currentPatientDetails.getString("allergy"));
             System.out.println("ChronicDisease: " + this.currentPatientDetails.getString("chronicDisease"));
             System.out.println("InsuranceNo: " + this.currentPatientDetails.getString("insuranceNo"));
-            System.out.println("DonorCardNo: " + this.currentPatientDetails.getString("insuranceNo"));
+            System.out.println("DonorCardNo: " + this.currentPatientDetails.getString("donorCardNo"));
             System.out.println("FamilyMemberCode: " + this.currentPatientDetails.getString("familyMemberCode"));
             System.out.println("Volunteer: " + this.currentPatientDetails.getString("volunteer"));
             System.out.println("*****************************************************************");
