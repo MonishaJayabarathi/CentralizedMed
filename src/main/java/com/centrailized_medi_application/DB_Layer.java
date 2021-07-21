@@ -50,7 +50,7 @@ String environment="src/main/resources/config_test.properties";
     prepStmt.setString(1, username);
 
     currentDoctorDetails = prepStmt.executeQuery();
-
+    c.close();
     return currentDoctorDetails;
   }
 
@@ -62,6 +62,7 @@ String environment="src/main/resources/config_test.properties";
       prep_statement.setString(2, p_name);
       prep_statement.setString(3, (consultation_date.format(current_time)));
       prep_statement.executeUpdate();
+      local.close();
 
   }
 
@@ -102,6 +103,7 @@ Connection connection=db.createConnection();
         }
         cred_validity[0]=res_id;
         cred_validity[1]=res_pass;
+
         return cred_validity;
       }
 
@@ -122,6 +124,7 @@ Connection connection=db.createConnection();
       cred_validity[0]=res_id;
       cred_validity[1]=res_pass;
     }
+    connection.close();
     return cred_validity;
   }
 
@@ -131,6 +134,7 @@ Connection connection=db.createConnection();
     PreparedStatement get_donors=connect.prepareStatement("Select * from patient_info where volunteer=? ");
     get_donors.setString(1,"yes");
     ResultSet exec_get_donors=get_donors.executeQuery();
+    connect.close();
     return exec_get_donors;
   }
 
@@ -141,6 +145,7 @@ Connection connection=db.createConnection();
     PreparedStatement check_if_patient = connect.prepareStatement("select * from patient_info where emailId=?");
     check_if_patient.setString(1, user_name);
     ResultSet s1 = check_if_patient.executeQuery();
+
     return s1;
   }
 
@@ -150,6 +155,7 @@ Connection connection=db.createConnection();
     PreparedStatement check_if_Doctor = connect.prepareStatement("select * from doctor_info where emailId=?");
     check_if_Doctor.setString(1, user_name);
     ResultSet s2 = check_if_Doctor.executeQuery();
+
     return s2;
   }
 
@@ -164,6 +170,7 @@ Connection connection=db.createConnection();
             updatePass.setString(1,newPassword);
             updatePass.setString(2,user_name);
             updatePass.execute();
+            connection.close();
   }
 
   public void updateDoctor(String newPassword,String user_name) throws SQLException, IOException, ClassNotFoundException {
@@ -189,6 +196,7 @@ Connection connection=db.createConnection();
     PreparedStatement prepStmt = c.prepareStatement(sqlStmt);
         prepStmt.setString(1, patientEmail);
         ResultSet currentPatientDetails = prepStmt.executeQuery();
+        c.close();
         return currentPatientDetails;
 
   }
@@ -201,6 +209,7 @@ Connection connection=db.createConnection();
 
 
     ResultSet familyDetails = prepStmt.executeQuery();
+    c.close();
     return familyDetails;
   }
 
@@ -285,6 +294,7 @@ Connection connection=db.createConnection();
     test.setInt(20,basicDetails.getLatitude());
     test.setInt(21,basicDetails.getLongitude());
     test.execute();
+    connection.close();
   }
 
 
@@ -326,6 +336,7 @@ Connection connection=db.createConnection();
       pstatement.setString(2, email_doc);
       boolean doc_rate = pstatement.execute();
     }
+    connection.close();
   }
 
 
