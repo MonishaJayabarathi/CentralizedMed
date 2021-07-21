@@ -1,11 +1,13 @@
 package com.centrailized_medi_application;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.*;
-import java.util.Properties;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.sql.*;
+import java.util.Objects;
+import java.util.Properties;
+import java.util.Scanner;
+import java.util.stream.Stream;
 
 
 public class DB_Connection implements DbConnection {
@@ -27,7 +29,7 @@ public class DB_Connection implements DbConnection {
 
     public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        f1 = new FileInputStream(String.valueOf(getClass().getClassLoader().getResourceAsStream(configFile)));
+        f1 = new FileInputStream(configFile);
         pr = new Properties();
         pr.load(f1);
         url = pr.getProperty("database");
@@ -40,7 +42,7 @@ public class DB_Connection implements DbConnection {
     }
     public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        f1 = new FileInputStream(String.valueOf(getClass().getClassLoader().getResourceAsStream(configFile)));
+        f1 = new FileInputStream(configFile);
 
         pr = new Properties();
         pr.load(f1);
