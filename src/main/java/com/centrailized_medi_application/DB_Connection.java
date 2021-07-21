@@ -36,7 +36,7 @@ public class DB_Connection implements DbConnection {
         String fileName = fullFileName[3];
 
         InputStream f1 = getClass().getResourceAsStream(fileName);
-        BufferedReader br = new BufferedReader(new InputStreamReader(f1, StandardCharsets.UTF_8));
+        //BufferedReader br = new BufferedReader(new InputStreamReader(f1, StandardCharsets.UTF_8));
 
         pr = new Properties();
         pr.load(f1);  //load the details from the properties file
@@ -54,7 +54,7 @@ public class DB_Connection implements DbConnection {
         String[] fullFileName = configFile.split("/", 0);
         String fileName = fullFileName[3];
         InputStream f1 = getClass().getResourceAsStream(fileName);
-        BufferedReader br = new BufferedReader(new InputStreamReader(f1, StandardCharsets.UTF_8));
+        //BufferedReader br = new BufferedReader(new InputStreamReader(f1, StandardCharsets.UTF_8));
 
         pr = new Properties();
         pr.load(f1); //load the details from the properties file
