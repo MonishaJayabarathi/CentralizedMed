@@ -3,6 +3,13 @@ package com.centrailized_medi_application;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * @author Ridampreet Singh
+ * Interface implemented by the LoginAuthorisation class.
+ * getSecurityQuestion()-gets the security question from the database for that specific user.
+ * resetPassword()-method invoked from the getSecurityQuestion() when the user has successfuly
+ * answered security question, asks user for the new password and then sends to the database.
+ */
 public interface ILoginAuthorisation {
 
 

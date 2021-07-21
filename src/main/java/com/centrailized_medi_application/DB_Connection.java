@@ -6,8 +6,13 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-
-
+/**
+ * author:Ridampreet Singh
+ * DbConnection interface implemented by the classes.
+ * Constructors take parameters as config file to get database details.
+ * getDetails()-method will return boolean array containing the validity status of the entered credentials.
+ * createConnection()-returns a connection so that the interaction with the database can begin.
+ */
 public class DB_Connection implements DbConnection {
 
     private String url;
@@ -29,7 +34,7 @@ public class DB_Connection implements DbConnection {
         Class.forName("com.mysql.cj.jdbc.Driver");
         f1 = new FileInputStream(configFile);
         pr = new Properties();
-        pr.load(f1);
+        pr.load(f1);  //load the details from the properties file
         url = pr.getProperty("database");
         username = pr.getProperty("user");
         password = pr.getProperty("password");
@@ -41,15 +46,16 @@ public class DB_Connection implements DbConnection {
     public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         f1 = new FileInputStream(configFile);
-
         pr = new Properties();
-        pr.load(f1);
+        pr.load(f1); //load the details from the properties file
         url = pr.getProperty("database");
         username = pr.getProperty("user");
         password = pr.getProperty("password");
         connection = DriverManager.getConnection(url, username, password);
 
     }
+
+    //return the connection created in the constructor of this class.
     @Override
     public Connection createConnection()
     {
@@ -57,59 +63,12 @@ public class DB_Connection implements DbConnection {
         return connection;
     }
 
+    //return credential array containing info if the username and password are valid.
     @Override
-    public boolean[] getDetails() throws SQLException {
+    public boolean[] getDetails() throws SQLException, IOException, ClassNotFoundException {
+        DB_Layer db=new DB_Layer();
+        return db.getCredStatus(u_name,u_pass);
 
-        PreparedStatement p1 = connection.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=?");
-        p1.setString(1, u_name);
-        ResultSet login_name = p1.executeQuery();
-        // and pass=?
-        // p1.setString(2, u_pass);
-        while (login_name.next())
-        {
-            name=login_name.getString("user_name");
-            //System.out.println(b.getString("user_name"));
-            if(name.equals((this.u_name)))
-            {
-                res_id = true;
-            }
-            PreparedStatement check_for_doc=connection.prepareStatement("select * from doctor_info where emailid=?");
-            check_for_doc.setString(1,u_name);
-            ResultSet res_check_for_doc=check_for_doc.executeQuery();
-            if(res_check_for_doc.next()==true)
-            {
-                res_id=true;
-                if(res_check_for_doc.getString("password").equals(u_pass))
-                {
-                    res_pass=true;
-                }
-                else
-                {
-                    res_pass=false;
-                }
-                cred_validity[0]=res_id;
-                cred_validity[1]=res_pass;
-                return cred_validity;
-            }
-
-
-
-
-            PreparedStatement p2 = connection.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=? and pass=?");
-            p2.setString(1, this.u_name);
-            p2.setString(2, this.u_pass);
-            ResultSet login_pass  = p2.executeQuery();
-            while (login_pass.next()) {
-
-                pass = login_pass.getString("pass");
-                if (pass.equals(this.u_pass)) {
-                    res_pass = true;
-                }
-            }
-            cred_validity[0]=res_id;
-            cred_validity[1]=res_pass;
-        }
-        return cred_validity;
     }
 
 

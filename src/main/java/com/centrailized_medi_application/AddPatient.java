@@ -1,6 +1,7 @@
 package com.centrailized_medi_application;
 
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ public class AddPatient {
   }
 
   // Verifies weather person exists in system
-  public boolean verify_patient(String patient_name) throws SQLException {
+  public boolean verify_patient(String patient_name) throws SQLException, IOException, ClassNotFoundException {
     p_name = patient_name;
     creds = db_access.getDetails();
 
@@ -37,16 +38,13 @@ public class AddPatient {
     }
   }
 
-  public boolean link_patient(String patient_name) throws SQLException {
+  public boolean link_patient(String patient_name) throws SQLException, IOException, ClassNotFoundException {
     DateTimeFormatter consultation_date = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     LocalDateTime current_time = LocalDateTime.now();
     if (this.verify_patient(patient_name)) {
-      Connection local = db_access.createConnection();
-      PreparedStatement prep_statement = local.prepareStatement("INSERT INTO `consultations`(doctor_username,patient_username,consultation_date_and_time) VALUES (?, ?, ?)");
-      prep_statement.setString(1, docter_user_name);
-      prep_statement.setString(2, p_name);
-      prep_statement.setString(3, (consultation_date.format(current_time)));
-      prep_statement.executeUpdate();
+
+      DB_Layer layer=new DB_Layer();
+      layer.insertConsultations(docter_user_name,p_name,consultation_date,current_time);
       System.out.println("Added Successfully!");
       registered = true;
       return registered;
