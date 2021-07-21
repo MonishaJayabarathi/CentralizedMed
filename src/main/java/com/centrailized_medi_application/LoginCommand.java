@@ -1,11 +1,17 @@
 package com.centrailized_medi_application;
+/*Importing modules*/
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-/* To Drive the necessary functions for logging into the system*/
-public interface LoginCommand
-{
-    public void execute() throws SQLException, IOException, ClassNotFoundException;
-    public void confirmation() throws SQLException, IOException, ClassNotFoundException;
+/**
+ * @author Aditya Jain & Monisha J
+ * @description: Abstract class LoginCommand has abstract methods such as execute() and confirmation().
+ * execute() triggers actions such as fetch(), validate() and authenticate() when user is trying to login
+ * confirmation() triggers execute() whenever user agrees to proceed with
+ */
+public abstract class LoginCommand {
+  protected abstract void execute() throws SQLException, IOException, ClassNotFoundException;
+
+  protected abstract void confirmation() throws SQLException, IOException, ClassNotFoundException;
 }

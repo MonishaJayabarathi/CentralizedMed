@@ -1,87 +1,156 @@
 package com.centrailized_medi_application;
 
+/*Importing Modules*/
+
 import java.io.IOException;
 import java.sql.SQLException;
 
-/* Implementation for com.centrailized_medi_application.Patient */
-public class Patient extends LoginAuthorisation implements Login {
-    private String user_name; // Stores Patient name
-    private String password; // Stores patient passwd
-    private boolean valid_id = false; // Sets true when patient is registered
-    private boolean valid_psswd = false; // Sets true when patient is registered
-    private boolean authenticate_phase = false;
-    private boolean[] creds = new boolean[2];
-    static int localRetry=0;
+/**
+ * @author Aditya Jain & RidamPreet Jaggi
+ * @description: This class implements the methods from abstract class Login.
+ * fetch() - It sets username and password of a Patient
+ * validate() - It checks the stored username and password against the database
+ * authenticate() - It then directs to the respective pages i.e. Back to Main-Menu, Login Page or Patient Page
+ * All the functions are encapsulated under execute() in PatientLogin
+ */
+public class Patient extends Login {
 
+  private String userName; // Stores Patient emailId as username
+  private String password; // Stores patient password
+  private boolean validId = false; // Sets true when patient is registered
+  private boolean validPsswd = false; // Sets true when patient is registered
+  private boolean authenticatePhase = false;  // Sets true then user is in authenticate Phase
+  private boolean[] credentials = new boolean[2]; // Sets the respective index based on credibility of username & password
+  private MainDashboard dashboard;    // Main dashboard interface
+  private PatientDashboard patientDashboard;  // Patient Dashboard interface
+  private DbConnection connect;               // Database interface
+  private ILoginAuthorisation loginAuthorisation; // Password interface
+  private static int localRetry = 0;          // Security Question counter
 
-    public String getPassword() {
-        return this.password;
+  /**
+   * Constructor with Login and MainDashboard as input parameters
+   *
+   * @Param dashboard as MainDashboard Interface
+   * @Param patientMenu as PatientDashboard Interface
+   * @Param connection as DbConnection Interface
+   * @Param localAuthorisation as ILoginAuthorisation Interface
+   */
+  public Patient(MainDashboard dashboard, PatientDashboard patientMenu, DbConnection connection, ILoginAuthorisation localAuthorisation) {
+    this.dashboard = dashboard;
+    this.patientDashboard = patientMenu;
+    this.connect = connection;
+    this.loginAuthorisation = localAuthorisation;
+  }
+
+  /**
+   * This method returns the Patient Password.
+   *
+   * @return String
+   * @Param None
+   */
+  public String getPassword() {
+    return this.password;
+  }
+
+  /**
+   * This method returns the Patient Username.
+   *
+   * @return String
+   * @Param None
+   */
+  public String getUsername() {
+    return this.userName;
+  }
+
+  /**
+   * This method returns the status of Patient's Username i.e. whether it is valid or not
+   *
+   * @return boolean
+   * @Param None
+   */
+  public boolean getUsernameStatus() {
+    return this.validId;
+  }
+
+  /**
+   * This method returns the status of Patient's Password i.e. whether it is valid or not
+   *
+   * @return boolean
+   * @Param None
+   */
+  public boolean getPassStatus() {
+    return this.validPsswd;
+  }
+
+  /**
+   * This method returns true if the Patient is in authentication Phase
+   *
+   * @return boolean
+   * @Param None
+   */
+  public boolean getAuthStatus() {
+    return this.authenticatePhase;
+  }
+
+  /**
+   * This method sets the Patient Username (emailId) and Password
+   *
+   * @return void
+   * @Param String userName - Patient's Username
+   * @Param String psswd - Patient's Password
+   */
+  @Override
+  protected void fetch(String userName, String psswd) {
+    this.userName = userName;
+    this.password = psswd;
+  }
+
+  /**
+   * This method sets the flags (True/False) validId and validPsswd based on the input.
+   * The details are checked against the database
+   *
+   * @return void
+   * @Param void
+   */
+  @Override
+  protected void validate() throws SQLException, IOException, ClassNotFoundException {
+    credentials = connect.getDetails();
+    this.validId = credentials[0];
+    this.validPsswd = credentials[1];
+  }
+
+  /**
+   * This method drives the Page to trigger based on the flags validId and validPsswd.
+   * If username & password is valid, the program is directed towards Patient Dashboard
+   * If username is valid & password isnt valid, the program is directed to Login Page
+   * at the same time, counter for security question is checked so as to trigger security question
+   * when login tries exceeds 3, then the patient is asked to enter Security Answer and to set a new Password
+   * If both username & password both are incorrect, the program is directed towards MainMenu Dashboard
+   *
+   * @return void
+   * @Param void
+   */
+  @Override
+  protected void authenticate() throws SQLException, IOException, ClassNotFoundException {
+
+    authenticatePhase = true;
+    if (this.validId && this.validPsswd) // Valid Credentials
+    {
+      System.out.println("Welcome " + this.userName);
+      this.patientDashboard.display();
+    } else if (this.validId && !this.validPsswd) {  // Valid Username, Invalid Password
+      System.out.println("Check your credentials!");
+      localRetry++;
+      this.loginAuthorisation.set_Retry(localRetry);
+      if (localRetry != 3) {
+        this.dashboard.displayPatientLogin();
+      } else if (localRetry == 3) {
+        this.loginAuthorisation.getSecurityQuestion(userName);
+      }
+    } else {                                          // Patient is not registered to the system
+      System.out.println("Please register to the system!");
+      System.out.println("Navigating to main menu...");
+      dashboard.display();
     }
-
-    public String getUsername() {
-        return this.user_name;
-    }
-
-    public boolean get_id_status() {
-        return this.valid_id;
-    }
-
-    public boolean get_pass_status() {
-        return this.valid_psswd;
-    }
-
-    public boolean get_auth_status() {
-        return this.authenticate_phase;
-    }
-
-    MainDashboard init;
-    PatientDashboard pd;
-    DbConnection connect;
-    public Patient(MainDashboard init, PatientDashboard patient_menu, DbConnection connection) {
-        this.init = init;
-        this.pd = patient_menu;
-        this.connect = connection;
-    }
-
-    /* Fetching patient credentials*/
-    @Override
-    public void fetch(String u_name, String psswd) {
-        this.user_name = u_name;
-        this.password = psswd;
-    }
-
-    /* Connect to database and check against the data*/
-    @Override
-    public void validate() throws SQLException, IOException, ClassNotFoundException {
-        creds = connect.getDetails();
-        this.valid_id = creds[0];
-        this.valid_psswd = creds[1];
-    }
-
-    /* Defining the placeholder for com.centrailized_medi_application.Patient authentication*/
-    @Override
-    public void authenticate() throws SQLException, IOException, ClassNotFoundException {
-
-        authenticate_phase = true;
-        if (this.valid_id && this.valid_psswd) // Exist and valid credentials
-        {
-            System.out.println("Welcome " + this.user_name); // name to be replaced with the actual name stored in db
-            this.pd.display();
-        } else if (this.valid_id && !this.valid_psswd) {
-            //call authentication mechanism
-            System.out.println("Check your credentials!");
-            localRetry++;
-            set_Retry(localRetry);
-            if(localRetry!=3) {
-                this.init.display_patient_login();
-            }else if(localRetry==3){
-                getSecurityQuestion(user_name);
-            }
-        } else {
-            System.out.println("Please register to the system!");
-            System.out.println("Navigating to main menu...");
-            init.display();
-        }
-
-    }
+  }
 }
