@@ -1,39 +1,36 @@
 package com.centrailized_medi_application;
 
+/*Importing Modules*/
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AddPatient {
-
-  private boolean patient_exist = false;
-  private String p_name = null;
-  private boolean[] creds = new boolean[2];
-  DbConnection db_access;
-  private String docter_user_name = null;
+  private boolean patientExist = false;
+  private boolean[] credentials = new boolean[2];
   private boolean registered = false;
+  private String patientUserName = null;
+  private String doctorUserName = null;
+  DbConnection dbAccess;
 
   public AddPatient(DbConnection connection, String doc_name) {
-    db_access = connection;
-    docter_user_name = doc_name;
+    dbAccess = connection;
+    doctorUserName = doc_name;
   }
 
   // Verifies weather person exists in system
   public boolean verify_patient(String patient_name) throws SQLException, IOException, ClassNotFoundException {
-    p_name = patient_name;
-    creds = db_access.getDetails();
+    patientUserName = patient_name;
+    credentials = dbAccess.getDetails();
 
     //Checking only against username ( index 0 is for username )
-    if (creds[0] != false)
-    {
-      this.patient_exist = true;
-      return patient_exist;
+    if (credentials[0] != false) {
+      this.patientExist = true;
+      return patientExist;
     } else {
-      return patient_exist;
+      return patientExist;
     }
   }
 
@@ -41,15 +38,12 @@ public class AddPatient {
     DateTimeFormatter consultation_date = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     LocalDateTime current_time = LocalDateTime.now();
     if (this.verify_patient(patient_name)) {
-
-      DB_Layer layer=new DB_Layer();
-      layer.insertConsultations(docter_user_name,p_name,consultation_date,current_time);
+      DB_Layer layer = new DB_Layer();
+      layer.insertConsultations(doctorUserName, patientUserName, consultation_date, current_time);
       System.out.println("Added Successfully!");
       registered = true;
       return registered;
-    }
-    else
-    {
+    } else {
       System.out.println("Error Patient is not registered into the system!");
       return registered;
     }
