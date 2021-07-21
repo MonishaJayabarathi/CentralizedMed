@@ -34,7 +34,7 @@ public class DB_Connection implements DbConnection {
         Class.forName("com.mysql.cj.jdbc.Driver");
         f1 = new FileInputStream(configFile);
         pr = new Properties();
-        pr.load(f1);
+        pr.load(f1);  //load the details from the properties file
         url = pr.getProperty("database");
         username = pr.getProperty("user");
         password = pr.getProperty("password");
@@ -46,9 +46,8 @@ public class DB_Connection implements DbConnection {
     public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         f1 = new FileInputStream(configFile);
-
         pr = new Properties();
-        pr.load(f1);
+        pr.load(f1); //load the details from the properties file
         url = pr.getProperty("database");
         username = pr.getProperty("user");
         password = pr.getProperty("password");
@@ -56,7 +55,7 @@ public class DB_Connection implements DbConnection {
 
     }
 
-    //create and return the connection
+    //return the connection created in the constructor of this class.
     @Override
     public Connection createConnection()
     {

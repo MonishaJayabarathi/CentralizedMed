@@ -72,12 +72,11 @@ public class Doctor extends Login {
       this.dd.display();
     } else if (this.isValidUsername && !this.isValidPassword) {
       System.out.println("Check your credentials!");
-      localRetry++;
+      localRetry++; //maintains a record of how many retries have been done for login.
 
       if(localRetry!=3) {
         this.init.display_doctor_login();
-      }else if(localRetry==3){
-
+      }else if(localRetry==3){ //if the retries have reached 3, its time to reset the password by answering a security question.
         //getSecurityQuestion(userName);
       }
 

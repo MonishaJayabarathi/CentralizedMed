@@ -50,6 +50,6 @@ public class PatientPage extends PatientDashboard
         System.out.println("User has been successfuly logged out !");
         WelcomePage back_to_menu=new WelcomePage();
         back_to_menu.display();
-//        return "User has been successfuly logged out !";
+
     }
 }

@@ -77,12 +77,11 @@ Connection connection=db.createConnection();
     PreparedStatement p1 = connection.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=?");
     p1.setString(1, u_name);
     ResultSet login_name = p1.executeQuery();
-    // and pass=?
-    // p1.setString(2, u_pass);
+
     while (login_name.next())
     {
       name=login_name.getString("user_name");
-      //System.out.println(b.getString("user_name"));
+
       if(name.equals((u_name)))
       {
         res_id = true;

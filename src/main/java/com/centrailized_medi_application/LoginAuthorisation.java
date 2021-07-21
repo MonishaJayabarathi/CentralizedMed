@@ -46,11 +46,6 @@ public class LoginAuthorisation implements ILoginAuthorisation {
                 resetPassword(user_name,true,retry);
             }
             return (s2.getString("security_answer_1"));
-
-
-
-
-
         }
         else
         {

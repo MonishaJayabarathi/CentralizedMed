@@ -45,7 +45,7 @@ public abstract class PatientDashboard extends Dashboard{
                 flag = true;
             }else if(option==5) {
                 this.Logout();
-                logout=true;
+                logout=true; //setting the logout status for this user as true.
                 flag=true;
             }
             else {
