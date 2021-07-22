@@ -8,8 +8,12 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DoctorLoginTest {
-  Doctor dr = new Doctor(new WelcomePage(), new DoctorPage("monisha@yahoo.com"), new LoginAuthorisation());
+  Doctor dr = new Doctor(new WelcomePage(), new DoctorPage("monisha@yahoo.com"), new DB_Connection("src/main/resources/config_test.properties"),new LoginAuthorisation());
   DoctorLogin docLogin = new DoctorLogin(dr,new WelcomePage());
+
+  DoctorLoginTest() throws SQLException, IOException, ClassNotFoundException {
+
+  }
 
   @Test
   @DisplayName("To get doctor username")
