@@ -1,8 +1,7 @@
 package com.centrailized_medi_application;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.Properties;
 
@@ -24,7 +23,7 @@ public class DB_Connection implements DbConnection {
     private String configFile;
     private String u_name;
     private String u_pass;
-    private  FileInputStream f1 = null;
+    //private  FileInputStream f1 = null;
     Properties pr = null;
     private String name;
     private String pass;
@@ -32,7 +31,13 @@ public class DB_Connection implements DbConnection {
 
     public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        f1 = new FileInputStream(configFile);
+        //f1 = new FileInputStream(configFile);
+        String[] fullFileName = configFile.split("/", 0);
+        String fileName = fullFileName[3];
+
+        InputStream f1 = getClass().getResourceAsStream(fileName);
+        //BufferedReader br = new BufferedReader(new InputStreamReader(f1, StandardCharsets.UTF_8));
+
         pr = new Properties();
         pr.load(f1);  //load the details from the properties file
         url = pr.getProperty("database");
@@ -45,7 +50,12 @@ public class DB_Connection implements DbConnection {
     }
     public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        f1 = new FileInputStream(configFile);
+        //f1 = new FileInputStream(configFile);
+        String[] fullFileName = configFile.split("/", 0);
+        String fileName = fullFileName[3];
+        InputStream f1 = getClass().getResourceAsStream(fileName);
+        //BufferedReader br = new BufferedReader(new InputStreamReader(f1, StandardCharsets.UTF_8));
+
         pr = new Properties();
         pr.load(f1); //load the details from the properties file
         url = pr.getProperty("database");
