@@ -15,11 +15,13 @@ public class PatientSuggestions {
     public double latitude;
     public double longitude;
     private String specialization;
+    DbConnection dbInstance;
     private ArrayList<ArrayList<String>> doctorsList = new ArrayList<ArrayList<String>>();
 
     /* initialize the class using patient username */
-    public PatientSuggestions(String userName){
+    public PatientSuggestions(String userName,DbConnection connection){
         this.userName = userName;
+        this.dbInstance=connection;
 
     }
 
@@ -28,8 +30,8 @@ public class PatientSuggestions {
      * use patient username to retrieve latitude longitude
      */
     public void setLatLon() throws SQLException, IOException, ClassNotFoundException {
-        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
-        Connection connection = one.createConnection();
+//        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+        Connection connection = dbInstance.createConnection();
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM CSCI5308_5_TEST.patient_info\n"+

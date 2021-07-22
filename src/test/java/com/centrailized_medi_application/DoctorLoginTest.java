@@ -2,14 +2,20 @@ package com.centrailized_medi_application;
 
 import org.junit.jupiter.api.*;
 
+import javax.print.Doc;
 import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DoctorLoginTest {
-  Doctor dr = new Doctor(new WelcomePage(), new DoctorPage("monisha@yahoo.com"), new LoginAuthorisation());
+  String environment="src/main/resources/config_test.properties";
+  Doctor dr = new Doctor(new WelcomePage(), new DoctorPage("monisha@yahoo.com"), new DB_Connection("src/main/resources/config_test.properties"),new LoginAuthorisation());
   DoctorLogin docLogin = new DoctorLogin(dr,new WelcomePage());
+
+  DoctorLoginTest() throws SQLException, IOException, ClassNotFoundException {
+
+  }
 
   @Test
   @DisplayName("To get doctor username")
@@ -43,8 +49,13 @@ class DoctorLoginTest {
   @Test
   @DisplayName("To execute doctor login")
   void execute() throws SQLException, IOException, ClassNotFoundException {
-    docLogin.setDoctorName("Kazi@gmail.com");
-    docLogin.setDoctorPassword("k1234");
+    String username="Kazi@gmail.com";
+    String pass="k1234";
+    Doctor dr = new Doctor(new WelcomePage(), new DoctorPage(username), new DB_Connection(environment, username, pass), new LoginAuthorisation());
+    DoctorLogin docLogin = new DoctorLogin(dr,new WelcomePage());
+    docLogin.setDoctorName(username);
+    docLogin.setDoctorPassword(pass);
+
 
     //Fetch and Validate
     dr.fetch(docLogin.getDoctorName(),docLogin.getDoctorPassword());

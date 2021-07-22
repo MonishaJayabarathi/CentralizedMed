@@ -13,6 +13,7 @@ import java.sql.SQLException;
  */
 public class PatientPage extends PatientDashboard {
   private String userName;
+  String environment = "src/main/resources/config_test.properties";
 
 
   /**
@@ -45,7 +46,7 @@ public class PatientPage extends PatientDashboard {
    */
   @Override
   public void displayConsultations() throws SQLException, IOException, ClassNotFoundException {
-    PatientSuggestions patientSuggestions = new PatientSuggestions(userName);
+    PatientSuggestions patientSuggestions = new PatientSuggestions(userName,new DB_Connection(environment));
     patientSuggestions.rateDoctor();
   }
 
@@ -74,7 +75,7 @@ public class PatientPage extends PatientDashboard {
    */
   @Override
   public void displaySuggestions() throws SQLException, IOException, ClassNotFoundException {
-    PatientSuggestions patientSuggestions = new PatientSuggestions(userName);
+    PatientSuggestions patientSuggestions = new PatientSuggestions(userName,new DB_Connection(environment));
     patientSuggestions.setLatLon();
     patientSuggestions.retrieveDoctorSuggestions();
     patientSuggestions.getSuggestedDoctors();
