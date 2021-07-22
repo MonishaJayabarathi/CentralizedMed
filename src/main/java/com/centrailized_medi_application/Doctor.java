@@ -6,7 +6,6 @@ import java.sql.SQLException;
 /**
  * @author Monisha J and Ridampreet Singh
  * @description : This program performs the actual authentication of Doctor Login.
- * @params : MainDashboard and DoctorDashboard are passed, which are used to handle
  * changes after a login failure or success respectively.
  */
 public class Doctor extends Login {

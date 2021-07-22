@@ -1,18 +1,16 @@
 package com.centrailized_medi_application;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
  * @author Monisha J
- * @description: This program implements About Interface.
+ * @description : This program implements About Interface.
  * To fetch and display details of a doctor.
  * Overrides the methods defining structure of execution.
- * @params: int doctor_id : gets username of the doctor who logged in.
+ * @params : int doctor_id : gets username of the doctor who logged in.
  * DoctorDashboard dd : this triggers return to users dashboard.
  */
 public class AboutDoctor implements About {
@@ -26,16 +24,27 @@ public class AboutDoctor implements About {
     this.init = dd;
   }
 
-  //fetch user details from DB
+  /**
+   * This method fetches details of the logged in Doctor.
+   *
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
   @Override
   public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
     System.out.println("Loading About...\n");
-    DB_Layer layer=new DB_Layer();
-   this.currentDoctorDetails=layer.getUserDetails(doctorUsername,"Doctor");//call to the DB layer.
+    DB_Layer layer = new DB_Layer();
+    this.currentDoctorDetails = layer.getUserDetails(doctorUsername, "Doctor");//call to the DB layer.
 
     //c.close();//close the connection
   }
-  //display user details
+
+  /**
+   * This method defines the display format of the details of a Doctor
+   *
+   * @throws SQLException
+   */
   @Override
   public void displayDetails() throws SQLException {
     while (this.currentDoctorDetails.next()) {
@@ -54,15 +63,20 @@ public class AboutDoctor implements About {
     }
   }
 
-  //handles navigation to dashboard
+  /**
+   * This method handles navigation to dashboard
+   *
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
   @Override
-  public void back  () throws SQLException, IOException, ClassNotFoundException {
+  public void back() throws SQLException, IOException, ClassNotFoundException {
     System.out.println("Press 1 to move to your Dashboard");
     Scanner sc = new Scanner(System.in);
     int option = sc.nextInt();
     if (option == 1) {
       System.out.println("Returning to your Dashboard...");
-      WelcomePage init = new WelcomePage();
       this.init.display();
     } else {
       System.out.println("Please provide a valid entry");

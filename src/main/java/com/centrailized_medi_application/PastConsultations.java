@@ -10,21 +10,17 @@ import java.util.ArrayList;
  * This retrieves and displays the list of patients consulted the doctor.
  */
 public class PastConsultations {
-  DbConnection db_access;
-  private String docterUsername = null;
+  DB_Layer layer = new DB_Layer();
+  private String doctorUsername = null;
   private ArrayList<ArrayList<String>> patientsList = new ArrayList<ArrayList<String>>();
-  Connection local = null;
-  public PastConsultations(DbConnection connection, String doc_name) {
-    db_access = connection;
-    docterUsername = doc_name;
-    local = db_access.createConnection();
+
+  public PastConsultations(DbConnection connection, String doc_name) throws SQLException, IOException, ClassNotFoundException {
+    doctorUsername = doc_name;
   }
 
-  public void retrievePatientDetails(String patientName, String date) throws SQLException {
+  public void retrievePatientDetails(String patientName, String date) throws SQLException, IOException, ClassNotFoundException {
 
-    PreparedStatement prep_statement = local.prepareStatement("SELECT * from " +
-        "patientinfo WHERE emailId ='" + patientName + "'");
-    ResultSet resultSet = prep_statement.executeQuery();
+    ResultSet resultSet = layer.getUserDetails(patientName,"Patient");
     while (resultSet.next()) {
       ArrayList<String> resultRow = new ArrayList<String>();
       resultRow.add(resultSet.getString("firstname"));
@@ -39,13 +35,9 @@ public class PastConsultations {
   }
 
   public void retrievePatients() throws SQLException, IOException, ClassNotFoundException {
-
-    PreparedStatement prep_statement = local.prepareStatement("SELECT consultation_date_and_time, patient_username " +
-        "from " +
-        "consultations WHERE doctor_username ='" + docterUsername + "' GROUP BY patient_username");
-    ResultSet resultSet = prep_statement.executeQuery();
+    ResultSet resultSet = layer.fetchPastConsultations(doctorUsername);
     while (resultSet.next()) {
-      retrievePatientDetails(resultSet.getString("patient_username"), resultSet.getString("consultation_date_and_time"));
+      retrievePatientDetails(resultSet.getString("patientUsername"), resultSet.getString("consultationDateTime"));
     }
 
   }
@@ -71,7 +63,6 @@ public class PastConsultations {
           "\n";
       pList.append(singlePatient);
     }
-    this.local.close();
     return pList.toString();
   }
 

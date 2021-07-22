@@ -1,8 +1,6 @@
 package com.centrailized_medi_application;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -65,23 +63,36 @@ public class DoctorPage extends DoctorDashboard {
   public void display_pastConsultations() throws SQLException, IOException, ClassNotFoundException {
     PastConsultations pastPatients = new PastConsultations(new DB_Connection(environment), this.doctorUsername);
     System.out.println(pastPatients.getPreviousConsultations());
-    DoctorDashboard redirect_home=new DoctorPage(this.doctorUsername);
+    DoctorDashboard redirect_home = new DoctorPage(this.doctorUsername);
     redirect_home.display();
   }
 
-//gets the list of patients registered who have opted "YES" for donations.
+  /**
+   * This method gets and displays the list of patients registered who have opted "YES" for donations.
+   *
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
   @Override
   public void display_donors() throws SQLException, IOException, ClassNotFoundException {
-    DB_Layer layer=new DB_Layer();
-    ResultSet exec_get_donors=layer.fetchDonors();
-    while(exec_get_donors.next())
-    {
-      System.out.println(exec_get_donors.getInt("Id")+"\t"+exec_get_donors.getString("firstname")+"\t"+exec_get_donors.getString("lastname")+"\t"+exec_get_donors.getString("bloodGroup"));
+    DB_Layer layer = new DB_Layer();
+    ResultSet exec_get_donors = layer.fetchDonors();
+    while (exec_get_donors.next()) {
+      System.out.println(exec_get_donors.getInt("Id") + "\t" + exec_get_donors.getString("firstname") + "\t" + exec_get_donors.getString("lastname") + "\t" + exec_get_donors.getString("bloodGroup"));
     }
     DoctorDashboard redirect_home = new DoctorPage(this.doctorUsername);
     redirect_home.display();
   }
 
+  /**
+   * This method displays the details of members of same family.
+   * These members share similar family code
+   *
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
   @Override
   public void display_patient_family_history() throws SQLException, IOException, ClassNotFoundException {
     FamilyInfo fi = new FamilyInfo();
@@ -90,14 +101,19 @@ public class DoctorPage extends DoctorDashboard {
     redirect_home.display();
 
   }
-//Logs out the currently signed in user out of the portal
+
+  /**
+   * This method Logs out the currently signed in user out of the portal
+   *
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
   @Override
   public void Logout() throws SQLException, IOException, ClassNotFoundException {
     System.out.println("User has been successfuly logged out !");
     WelcomePage back_to_menu = new WelcomePage();
     back_to_menu.display();
-//        return "User has been successfuly logged out !";
   }
-
 
 }

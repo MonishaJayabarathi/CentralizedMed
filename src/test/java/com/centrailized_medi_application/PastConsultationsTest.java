@@ -38,6 +38,7 @@ class PastConsultationsTest {
         "Blood Group: B+ve\n" +
         "Contact No: 998877665544\n" +
         "\n";
-    assertEquals(result, pastConsultations.getPreviousConsultations());
+    assertEquals(result, pastConsultations.getPreviousConsultations(), "method failed to display the past " +
+        "consultations");
   }
 }

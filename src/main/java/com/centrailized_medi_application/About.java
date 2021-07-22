@@ -5,11 +5,13 @@ import java.sql.SQLException;
 
 /**
  * @author Monisha J
- * @description: This program declares structure for About functionality.
+ * @description : This program declares structure for About functionality.
  * Holds methods to be overridden in classes inheriting this.
  */
 public interface About {
   public void fetchDetails() throws SQLException, IOException, ClassNotFoundException;
+
   public void displayDetails() throws SQLException, IOException, ClassNotFoundException;
+
   public void back() throws SQLException, IOException, ClassNotFoundException;
 }

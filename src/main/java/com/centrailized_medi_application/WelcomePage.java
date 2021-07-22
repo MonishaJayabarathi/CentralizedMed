@@ -21,7 +21,6 @@ public class WelcomePage extends MainDashboard {
    */
   @Override
   public void displayPatientLogin() throws ClassNotFoundException, SQLException, IOException {
-
     System.out.println("Enter your username:");
     String patient_name = (sc.next());
     System.out.println("Enter your password:");
@@ -73,7 +72,6 @@ public class WelcomePage extends MainDashboard {
 
   @Override
   public void displayDoctorRegistration() throws SQLException, IOException, ClassNotFoundException {
-
     BasicDetails basicDetails = new BasicDetails();
     DoctorDetails doctorDetails = new DoctorDetails();
     SecurityQuestions securityQuestions = new SecurityQuestions();
@@ -95,7 +93,6 @@ public class WelcomePage extends MainDashboard {
    */
   @Override
   public void displayDoctorLogin() throws SQLException, IOException, ClassNotFoundException {
-
     System.out.println("Enter your username:");
     String doctor_name = (sc.next());
     System.out.println("Enter your password:");
