@@ -28,7 +28,7 @@ public class Patient extends Login {
   private static int localRetry = 0;          // Security Question counter
 
   /**
-   * Constructor with Login and MainDashboard as input parameters
+   * Constructor with PatientDashboard,MainDashboard,DbConnection,ILoginAuthorisation as input parameters
    *
    * @Param dashboard as MainDashboard Interface
    * @Param patientMenu as PatientDashboard Interface

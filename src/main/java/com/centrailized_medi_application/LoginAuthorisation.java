@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 /**
- * @author Ridampreet Singh
+ * @author Ridampreet Singh & Aditya Jain
  * Implements interface ILoginAuthorisation.
  * getSecurityQuestion()-gets the security question from the database for that specific user.
  * resetPassword()-method invoked from the getSecurityQuestion() when the user has successfuly
