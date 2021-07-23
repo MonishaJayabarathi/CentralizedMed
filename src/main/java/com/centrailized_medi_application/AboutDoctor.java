@@ -20,19 +20,20 @@ public class AboutDoctor implements About {
   DoctorDashboard init;
   private String doctorUsername; //holds the give doctor username.
   private ResultSet currentDoctorDetails; // holds the db results fetched
-
-  AboutDoctor(String doctor_id, DoctorDashboard dd) {
+  DB_Layer layer;
+  AboutDoctor(String doctor_id, DoctorDashboard dd) throws SQLException, IOException, ClassNotFoundException {
     this.doctorUsername = doctor_id;
     this.init = dd;
+    layer=new DB_Layer();
   }
 
   //fetch user details from DB
   @Override
   public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
     System.out.println("Loading About...\n");
-    DB_Layer layer=new DB_Layer();
+
    this.currentDoctorDetails=layer.getUserDetails(doctorUsername,"Doctor");//call to the DB layer.
-    layer.close();
+
     //c.close();//close the connection
   }
   //display user details
@@ -61,6 +62,7 @@ public class AboutDoctor implements About {
     Scanner sc = new Scanner(System.in);
     int option = sc.nextInt();
     if (option == 1) {
+      layer.close();
       System.out.println("Returning to your Dashboard...");
       WelcomePage init = new WelcomePage();
       this.init.display();

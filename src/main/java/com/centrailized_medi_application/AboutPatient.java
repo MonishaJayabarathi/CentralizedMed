@@ -13,10 +13,11 @@ public class AboutPatient implements About{
 
     // This stores results fetched from Database
     private ResultSet currentPatientDetails;
-
-    AboutPatient(String patient_id, PatientDashboard pd) {
+    private DB_Layer layer;
+    AboutPatient(String patient_id, PatientDashboard pd) throws SQLException, IOException, ClassNotFoundException {
         this.user_name = patient_id;
         this.init = pd;
+        layer=new DB_Layer();
 
     }
 
@@ -24,9 +25,8 @@ public class AboutPatient implements About{
     @Override
     public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
         System.out.println("Loading About...\n");
-        DB_Layer layer=new DB_Layer();
         this.currentPatientDetails=layer.getUserDetails(user_name,"Patient");//call db layer.
-        layer.close();
+
 
 
     }
@@ -50,6 +50,7 @@ public class AboutPatient implements About{
             System.out.println("FamilyMemberCode: " + this.currentPatientDetails.getString("familyMemberCode"));
             System.out.println("Volunteer: " + this.currentPatientDetails.getString("volunteer"));
             System.out.println("*****************************************************************");
+
         }
     }
 
@@ -60,7 +61,7 @@ public class AboutPatient implements About{
         Scanner sc = new Scanner(System.in);
         int option = sc.nextInt();
         if (option == 1) {
-            c.close();
+            layer.close();;
             System.out.println("Returning to your Dashboard...");
             PatientPage init = new PatientPage(user_name);
             this.init.display();
