@@ -33,11 +33,19 @@ public class DB_Layer {
   String environment = "src/main/resources/config_test.properties";
 
   DB_Connection db = null;
-  Connection connect = null;
-
-  public DB_Layer() throws SQLException, IOException, ClassNotFoundException {
+  Connection connect;
+  private static DB_Layer dlb=null;
+  private DB_Layer() throws SQLException, IOException, ClassNotFoundException {
     db = new DB_Connection(this.environment);
     connect = db.createConnection();
+  }
+
+  public static DB_Layer singleConnection() throws SQLException, IOException, ClassNotFoundException {
+    if(dlb==null){
+      dlb=new DB_Layer();
+      return dlb;
+    }
+    return dlb;
   }
 
   public ResultSet getUserDetails(String username, String user_type) throws ClassNotFoundException, IOException, SQLException {

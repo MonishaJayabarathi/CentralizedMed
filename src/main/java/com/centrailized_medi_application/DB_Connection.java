@@ -17,7 +17,7 @@ public class DB_Connection implements DbConnection {
     private String url;
     private String username;
     private String password;
-    private Connection connection=null;
+    private static Connection connection=null;
     private  boolean res_id=false;
     private  boolean res_pass=false;
     private String configFile;
@@ -28,6 +28,8 @@ public class DB_Connection implements DbConnection {
     private String name;
     private String pass;
     private boolean[] cred_validity=new boolean[2];
+
+
 
     public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -76,7 +78,7 @@ public class DB_Connection implements DbConnection {
     //return credential array containing info if the username and password are valid.
     @Override
     public boolean[] getDetails() throws SQLException, IOException, ClassNotFoundException {
-        DB_Layer db=new DB_Layer();
+        DB_Layer db=DB_Layer.singleConnection();
         return db.getCredStatus(u_name,u_pass);
 
     }

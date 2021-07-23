@@ -25,7 +25,7 @@ public class FamilyInfo {
       patientEmail = email[0];
     }
 
-    DB_Layer layer=new DB_Layer();
+    DB_Layer layer=DB_Layer.singleConnection();
     this.currentPatientDetails = layer.displayPatientInfo(patientEmail);
     displayCurrentPatient();
 
@@ -33,7 +33,7 @@ public class FamilyInfo {
     this.familyDetails = layer.displayFamilyinfo(familyCode,patientEmail);
     displayMembers();
 
-    layer.close();
+    //layer.close();
     return familyCode;
   }
 

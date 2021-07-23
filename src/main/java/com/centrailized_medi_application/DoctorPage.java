@@ -72,14 +72,14 @@ public class DoctorPage extends DoctorDashboard {
 //gets the list of patients registered who have opted "YES" for donations.
   @Override
   public void display_donors() throws SQLException, IOException, ClassNotFoundException {
-    DB_Layer layer=new DB_Layer();
+    DB_Layer layer=DB_Layer.singleConnection();
     ResultSet exec_get_donors=layer.fetchDonors();
     while(exec_get_donors.next())
     {
       System.out.println(exec_get_donors.getInt("Id")+"\t"+exec_get_donors.getString("firstname")+"\t"+exec_get_donors.getString("lastname")+"\t"+exec_get_donors.getString("bloodGroup"));
     }
     DoctorDashboard redirect_home = new DoctorPage(this.doctorUsername);
-    layer.close();
+    //layer.close();
     redirect_home.display();
   }
 
