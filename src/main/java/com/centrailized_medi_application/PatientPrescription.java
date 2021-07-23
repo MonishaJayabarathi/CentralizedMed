@@ -16,7 +16,7 @@ public class PatientPrescription {
    * connect to DB
    * execute sql query
    * return DB query output */
-  public PatientPrescription(int patientID) {
+  public PatientPrescription(String patientUserName) {
     try {
       // Load a connection library between Java and the database
       try {
@@ -38,7 +38,7 @@ public class PatientPrescription {
       Statement statement = connection.createStatement();
       ResultSet resultSet = statement.executeQuery(
           "SELECT BrandName, GenericName, Route, Strength, Amount, Frequency, TimeOfDay FROM Patients, MedicationGeneral, MedicationSpecific, PatientMedication\n" +
-              "WHERE Patients.PatientID = " + Integer.toString(patientID) + " AND\n" +
+              "WHERE Patients.PatientUserName = '" + patientUserName + "' AND\n" +
               "\tMedicationSpecific.MedicationGeneralID = MedicationGeneral.MedicationGeneralID AND\n" +
               "    Patients.PatientID = PatientMedication.PatientID AND\n" +
               "    MedicationSpecific.MedicationSpecificID = PatientMedication.MedicationSpecificID;");

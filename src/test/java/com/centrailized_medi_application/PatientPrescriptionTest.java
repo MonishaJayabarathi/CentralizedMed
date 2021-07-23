@@ -15,7 +15,7 @@ class PatientPrescriptionTest {
   void PatientPrescription_oneMedication() {
     String expectedMedicationList = "Amodis, Metronidazole BP, Oral, 400, 1, Twice a day, Morning, ";
 
-    PatientPrescription patientPrescription = new PatientPrescription(1);
+    PatientPrescription patientPrescription = new PatientPrescription("Ridam@gmail.com");
     ArrayList<ArrayList<String>> medicationList = patientPrescription.getPrescriptionList();
     StringBuilder actualMedicationList = new StringBuilder();
     for (ArrayList<String> medication : medicationList) {
@@ -40,7 +40,7 @@ class PatientPrescriptionTest {
         "Fosamax, Alendronate, Oral, 400, 1, Twice a day, Evening, " +
         "Glucophage, Melformin, Oral, 100, 1, Once a day, Night, ";
 
-    PatientPrescription patientPrescription = new PatientPrescription(2);
+    PatientPrescription patientPrescription = new PatientPrescription("antor@gmail.com");
     ArrayList<ArrayList<String>> medicationList = patientPrescription.getPrescriptionList();
     StringBuilder actualMedicationList = new StringBuilder();
     for (ArrayList<String> medication : medicationList) {
@@ -78,7 +78,7 @@ class PatientPrescriptionTest {
             "Time of day: Night\n" +
             "No Medications\n";
 
-    PatientPrescription patientPrescription = new PatientPrescription(1);
+    PatientPrescription patientPrescription = new PatientPrescription("Ridam@gmail.com");
     String actualPrescriptionFormat = patientPrescription.formatPrescription();
 
     assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat,
@@ -129,7 +129,7 @@ class PatientPrescriptionTest {
             "   Frequency : Once a day\n" +
             "\n";
 
-    PatientPrescription patientPrescription = new PatientPrescription(2);
+    PatientPrescription patientPrescription = new PatientPrescription("antor@gmail.com");
     String actualPrescriptionFormat = patientPrescription.formatPrescription();
 
     assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat,
