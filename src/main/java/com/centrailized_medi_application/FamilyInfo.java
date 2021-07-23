@@ -33,6 +33,7 @@ public class FamilyInfo {
     this.familyDetails = layer.displayFamilyinfo(familyCode,patientEmail);
     displayMembers();
 
+    layer.close();
     return familyCode;
   }
 

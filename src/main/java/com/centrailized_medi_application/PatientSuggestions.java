@@ -151,7 +151,7 @@ public class PatientSuggestions {
 //        }
         DB_Layer layer=new DB_Layer();
         layer.feedRatings(userName);
-
+        layer.close();
         PatientPage pd = new PatientPage(this.userName);
         pd.display();
         return true;

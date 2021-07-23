@@ -42,6 +42,7 @@ public class NewDoctor implements Details, Registration {
     // Update details to doctor table
     DB_Layer layer= new DB_Layer();
     layer.insertNewDoctor(basicDetails,doctorDetails,securityQuestions);
+    layer.close();
     this.hasRegisteredSuccessfully = true;
 
   }

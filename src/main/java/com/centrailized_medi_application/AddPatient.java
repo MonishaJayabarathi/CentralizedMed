@@ -68,6 +68,7 @@ public class AddPatient {
       layer.insertConsultations(doctorUserName, patientUserName, consultation_date, current_time);
       System.out.println("Added Successfully!");
       registered = true;
+      layer.close();
       return registered;
     } else {
       System.out.println("Error Patient is not registered into the system!");
