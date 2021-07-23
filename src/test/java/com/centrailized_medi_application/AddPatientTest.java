@@ -16,7 +16,6 @@ class AddPatientTest {
     DB_Connection db_access = new DB_Connection(environment,patient_name,null);
     AddPatient new_entry = new AddPatient(db_access,doc_name);
     assertEquals(exist, new_entry.patientPresence(patient_name), "Patient is not registered into the system");
-
   }
 
   @Test
@@ -37,6 +36,5 @@ class AddPatientTest {
     AddPatient new_entry = new AddPatient(db_access, docter_name);
     assertTrue(new_entry.link_patient(patient_name), "Could not add patient");
   }
-
 
 }

@@ -22,7 +22,7 @@ public class AddPatient {
   private String patientUserName = null;
   private String doctorUserName;
   DbConnection dbAccess;
-  DB_Layer layer = new DB_Layer();
+  DB_Layer layer = DB_Layer.singleConnection();
 
   /**
    * Constructor with DbConnection and String as input parameters
@@ -68,7 +68,7 @@ public class AddPatient {
       layer.insertConsultations(doctorUserName, patientUserName, consultation_date, current_time);
       System.out.println("Added Successfully!");
       registered = true;
-      layer.close();
+      //layer.close();
       return registered;
     } else {
       System.out.println("Error Patient is not registered into the system!");

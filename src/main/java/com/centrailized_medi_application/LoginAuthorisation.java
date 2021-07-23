@@ -21,7 +21,8 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     @Override
     public String getSecurityQuestion(String user_name) throws SQLException, IOException, ClassNotFoundException {
 
-        DB_Layer layer=new DB_Layer();
+        DB_Layer layer=DB_Layer.singleConnection();
+
         ResultSet s1 = layer.check_if_patient(user_name);
 
 
@@ -36,7 +37,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             if(answerFromDB.equals(inputAnswer)){
                 resetPassword(user_name,true,retry);
             }
-            layer.close();
+            //layer.close();
             return (answerFromDB);
         }
         else if(s2.next()){
@@ -48,7 +49,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             if(answerFromDB.equals(inputAnswer)){
                 resetPassword(user_name,true,retry);
             }
-            layer.close();
+            //layer.close();
             return (answerFromDB);
         }
         else
@@ -64,7 +65,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             return "Please answer the security question first !";
         }
 
-        DB_Layer layer=new DB_Layer();
+        DB_Layer layer= DB_Layer.singleConnection();
         ResultSet s2=layer.check_if_patient(user_name);
 
         ResultSet s3=layer.check_if_doctor(user_name);
@@ -78,7 +79,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
 
             layer.updatePatient(newPassword,user_name);
 
-            layer.close();
+            //layer.close();
             return "Password reset was successful !";
         }
         else if(s3.next())
@@ -88,7 +89,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             System.out.println("Enter the new password");
             String newPassword=sc.next();
             layer.updateDoctor(newPassword,user_name);
-            layer.close();
+            //layer.close();
         }
         else
         {

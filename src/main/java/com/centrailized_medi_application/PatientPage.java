@@ -46,7 +46,7 @@ public class PatientPage extends PatientDashboard {
    */
   @Override
   public void displayConsultations() throws SQLException, IOException, ClassNotFoundException {
-    PatientSuggestions patientSuggestions = new PatientSuggestions(userName,new DB_Connection(environment));
+    PatientSuggestions patientSuggestions = new PatientSuggestions(userName);
     patientSuggestions.rateDoctor();
   }
 
@@ -59,7 +59,7 @@ public class PatientPage extends PatientDashboard {
   @Override
   public void displayPrescriptions() throws SQLException, IOException, ClassNotFoundException {
 
-    PatientPrescription pp = new PatientPrescription(2);
+    PatientPrescription pp = new PatientPrescription(userName);
     System.out.println(pp.formatPrescription());
     PatientPage patientPage = new PatientPage(userName);
     patientPage.display();
@@ -75,10 +75,10 @@ public class PatientPage extends PatientDashboard {
    */
   @Override
   public void displaySuggestions() throws SQLException, IOException, ClassNotFoundException {
-    PatientSuggestions patientSuggestions = new PatientSuggestions(userName,new DB_Connection(environment));
+    PatientSuggestions patientSuggestions = new PatientSuggestions(userName);
     patientSuggestions.setLatLon();
-    patientSuggestions.retrieveDoctorSuggestions();
-    patientSuggestions.getSuggestedDoctors();
+    patientSuggestions.setSpecializationByPatient();
+    System.out.println(patientSuggestions.getSuggestedDoctors());
     PatientPage patientPage = new PatientPage(userName);
     patientPage.display();
   }
