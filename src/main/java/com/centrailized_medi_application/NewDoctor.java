@@ -40,9 +40,9 @@ public class NewDoctor implements Details, Registration {
   @Override
   public void update() throws IOException, ClassNotFoundException, SQLException {
     // Update details to doctor table
-    DB_Layer layer= new DB_Layer();
+    DB_Layer layer= DB_Layer.singleConnection();
     layer.insertNewDoctor(basicDetails,doctorDetails,securityQuestions);
-    layer.close();
+    //layer.close();
     this.hasRegisteredSuccessfully = true;
 
   }

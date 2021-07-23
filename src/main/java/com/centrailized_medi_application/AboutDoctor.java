@@ -24,7 +24,7 @@ public class AboutDoctor implements About {
   AboutDoctor(String doctor_id, DoctorDashboard dd) throws SQLException, IOException, ClassNotFoundException {
     this.doctorUsername = doctor_id;
     this.init = dd;
-    layer=new DB_Layer();
+    layer=DB_Layer.singleConnection();
   }
 
   //fetch user details from DB
@@ -62,7 +62,7 @@ public class AboutDoctor implements About {
     Scanner sc = new Scanner(System.in);
     int option = sc.nextInt();
     if (option == 1) {
-      layer.close();
+      //layer.close();
       System.out.println("Returning to your Dashboard...");
       WelcomePage init = new WelcomePage();
       this.init.display();

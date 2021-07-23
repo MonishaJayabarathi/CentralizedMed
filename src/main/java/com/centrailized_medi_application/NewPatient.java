@@ -33,9 +33,9 @@ public class NewPatient implements Details, Registration {
     @Override
     public void update() throws IOException, ClassNotFoundException, SQLException {
         // Update details to patient table
-        DB_Layer layer=new DB_Layer();
+        DB_Layer layer=DB_Layer.singleConnection();
         layer.insertNewPatient(basicDetails,patientDetails,securityQuestions);
-        layer.close();
+        //layer.close();
         this.hasRegisteredSuccessfully = true;
 
     }
