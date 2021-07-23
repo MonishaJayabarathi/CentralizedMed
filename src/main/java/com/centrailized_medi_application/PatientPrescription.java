@@ -18,23 +18,8 @@ public class PatientPrescription {
    * return DB query output */
   public PatientPrescription(String patientUserName) {
     try {
-      // Load a connection library between Java and the database
-      try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-      } catch (Exception ex) {
-        System.out.println("Error connecting to jdbc");
-      }
-
-      // retrieve credentials from properties file
-      FileInputStream testEnvironmentCred = new FileInputStream("src/main/resources/config_test.properties");
-      Properties testCredentials = new Properties();
-      testCredentials.load(testEnvironmentCred);
-      String hostName = testCredentials.getProperty("database");
-      String userName = testCredentials.getProperty("user");
-      String password = testCredentials.getProperty("password");
-
-      // connect to test database and execute query
-      Connection connection = DriverManager.getConnection(hostName, userName, password);
+      DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+      Connection connection = one.createConnection();
       Statement statement = connection.createStatement();
       ResultSet resultSet = statement.executeQuery(
           "SELECT BrandName, GenericName, Route, Strength, Amount, Frequency, TimeOfDay FROM Patients, MedicationGeneral, MedicationSpecific, PatientMedication\n" +
@@ -58,7 +43,7 @@ public class PatientPrescription {
       }
       connection.close();
 
-    } catch (SQLException | IOException e) {
+    } catch (SQLException | IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
   }
