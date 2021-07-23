@@ -32,7 +32,7 @@ public class AboutDoctor implements About {
     System.out.println("Loading About...\n");
     DB_Layer layer=new DB_Layer();
    this.currentDoctorDetails=layer.getUserDetails(doctorUsername,"Doctor");//call to the DB layer.
-
+    layer.close();
     //c.close();//close the connection
   }
   //display user details
