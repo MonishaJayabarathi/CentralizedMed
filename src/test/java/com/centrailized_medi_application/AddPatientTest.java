@@ -1,14 +1,8 @@
 package com.centrailized_medi_application;
 
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddPatientTest {
@@ -21,7 +15,7 @@ class AddPatientTest {
     String patient_name = "Aditya@hotmail.com";
     DB_Connection db_access = new DB_Connection(environment,patient_name,null);
     AddPatient new_entry = new AddPatient(db_access,doc_name);
-    assertEquals(exist, new_entry.verify_patient(patient_name), "Patient is not registered into the system");
+    assertEquals(exist, new_entry.patientPresence(patient_name), "Patient is not registered into the system");
 
   }
 
@@ -32,20 +26,17 @@ class AddPatientTest {
     String patient_name = "Nihal@hotmail.com";
     DB_Connection db_access = new DB_Connection(environment,patient_name,null);
     AddPatient new_entry = new AddPatient(db_access,doc_name);
-    assertEquals(exist, new_entry.verify_patient(patient_name), "Patient is registered into the system");
+    assertEquals(exist, new_entry.patientPresence(patient_name), "Patient is registered into the system");
   }
 
   @Test
-  public void link_patient_with_doc() throws SQLException, IOException, ClassNotFoundException { String docter_name = "key@gmail.com";
+  public void link_Valid_patient() throws SQLException, IOException, ClassNotFoundException {
+    String docter_name = "key@gmail.com";
     String patient_name = "Aditya@hotmail.com";
-    DB_Connection db_access = new DB_Connection(environment,patient_name,null);
-    String doc_name = "key@gmail.com";
-    AddPatient new_entry = new AddPatient(db_access,doc_name);
-    if(new_entry.verify_patient(patient_name))
-    {
-      assertTrue(new_entry.link_patient(patient_name),"Could not add patient");
-    }
-
+    DB_Connection db_access = new DB_Connection(environment, patient_name, null);
+    AddPatient new_entry = new AddPatient(db_access, docter_name);
+    assertTrue(new_entry.link_patient(patient_name), "Could not add patient");
   }
+
 
 }

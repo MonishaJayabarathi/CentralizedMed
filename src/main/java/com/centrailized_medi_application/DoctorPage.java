@@ -79,6 +79,7 @@ public class DoctorPage extends DoctorDashboard {
       System.out.println(exec_get_donors.getInt("Id")+"\t"+exec_get_donors.getString("firstname")+"\t"+exec_get_donors.getString("lastname")+"\t"+exec_get_donors.getString("bloodGroup"));
     }
     DoctorDashboard redirect_home = new DoctorPage(this.doctorUsername);
+    layer.close();
     redirect_home.display();
   }
 

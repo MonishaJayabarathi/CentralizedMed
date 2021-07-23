@@ -20,6 +20,7 @@ public class Doctor extends Login {
   private DoctorDashboard dd;
   private ILoginAuthorisation loginAuthorisation; // Password interface
   private static int localRetry = 0;          // Security Question counter
+  private DbConnection connect;
 
   /**
    * Constructor initializes the Dashboard members declared
@@ -27,10 +28,11 @@ public class Doctor extends Login {
    * @param init       - It holds the MainDashboard instance
    * @param doctorPage - It holds the DoctorDashboard instance
    */
-  public Doctor(MainDashboard init, DoctorDashboard doctorPage, ILoginAuthorisation localAuthorisation) {
+  public Doctor(MainDashboard init, DoctorDashboard doctorPage, DbConnection connect,ILoginAuthorisation localAuthorisation) {
     this.init = init;
     this.dd = doctorPage;
     this.loginAuthorisation = localAuthorisation;
+    this.connect=connect;
   }
 
   /**
@@ -100,7 +102,7 @@ public class Doctor extends Login {
   @Override
   public void validate() throws SQLException, IOException, ClassNotFoundException {
     String environment = "src/main/resources/config_test.properties";
-    DB_Connection connect = new DB_Connection(environment, this.userName, this.password);
+//    DB_Connection connect = new DB_Connection(environment, this.userName, this.password);
     creds = connect.getDetails();
     this.isValidUsername = creds[0];
     this.isValidPassword = creds[1];

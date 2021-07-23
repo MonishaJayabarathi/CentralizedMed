@@ -35,6 +35,7 @@ public class NewPatient implements Details, Registration {
         // Update details to patient table
         DB_Layer layer=new DB_Layer();
         layer.insertNewPatient(basicDetails,patientDetails,securityQuestions);
+        layer.close();
         this.hasRegisteredSuccessfully = true;
 
     }

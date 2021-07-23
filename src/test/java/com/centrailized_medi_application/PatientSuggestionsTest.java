@@ -12,18 +12,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PatientSuggestionsTest {
     public static final String patientUserName = "patient1@gmail.com";
+    String environment = "src/main/resources/config_test.properties";
 
     @Test
     @DisplayName("To get patient's user name")
-    void constructor(){
-        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
+    void constructor() throws SQLException, IOException, ClassNotFoundException {
+        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName,new DB_Connection(environment));
         assertEquals("patient1@gmail.com", patientSuggestions.userName);
     }
 
     @Test
     @DisplayName("To get patient's latitude and longitude")
     void setLatLon() throws SQLException, IOException, ClassNotFoundException {
-        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
+        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName, new DB_Connection(environment));
         patientSuggestions.setLatLon();
 
         assertEquals(50.11, patientSuggestions.latitude);
@@ -67,7 +68,7 @@ class PatientSuggestionsTest {
                 "\n";
 
 
-        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
+        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName, new DB_Connection(environment));
         patientSuggestions.setLatLon();
         patientSuggestions.setSpecialization("Gynaecology");
         String actualDoctorsList = patientSuggestions.getSuggestedDoctors();
@@ -78,7 +79,7 @@ class PatientSuggestionsTest {
     @Disabled("Asks for user input")
     @Test
     void rateDocter() throws SQLException, IOException, ClassNotFoundException {
-        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
+        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName, new DB_Connection(environment));
         assertTrue(patientSuggestions.rateDoctor(),"Incorrect result");
 
     }

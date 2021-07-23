@@ -26,8 +26,7 @@ public class AboutPatient implements About{
         System.out.println("Loading About...\n");
         DB_Layer layer=new DB_Layer();
         this.currentPatientDetails=layer.getUserDetails(user_name,"Patient");//call db layer.
-        DbConnection test = new DB_Connection("src/main/resources/config_test.properties");
-        c = test.createConnection();
+        layer.close();
 
 
     }

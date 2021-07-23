@@ -35,6 +35,7 @@ String environment="src/main/resources/config_test.properties";
 
   DB_Connection db = null;
   Connection connect = null;
+
   public DB_Layer() throws SQLException, IOException, ClassNotFoundException {
     db = new DB_Connection(this.environment);
     connect = db.createConnection();

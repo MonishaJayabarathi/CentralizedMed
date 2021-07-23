@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 /**
- * @author Ridampreet Singh
+ * @author Ridampreet Singh & Aditya Jain
  * Implements interface ILoginAuthorisation.
  * getSecurityQuestion()-gets the security question from the database for that specific user.
  * resetPassword()-method invoked from the getSecurityQuestion() when the user has successfuly
@@ -36,7 +36,8 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             if(answerFromDB.equals(inputAnswer)){
                 resetPassword(user_name,true,retry);
             }
-            return (s1.getString("security_answer_1"));
+            layer.close();
+            return (answerFromDB);
         }
         else if(s2.next()){
             System.out.println("Please enter Your first school:");
@@ -47,7 +48,8 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             if(answerFromDB.equals(inputAnswer)){
                 resetPassword(user_name,true,retry);
             }
-            return (s2.getString("security_answer_1"));
+            layer.close();
+            return (answerFromDB);
         }
         else
         {
@@ -76,7 +78,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
 
             layer.updatePatient(newPassword,user_name);
 
-
+            layer.close();
             return "Password reset was successful !";
         }
         else if(s3.next())
@@ -86,7 +88,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             System.out.println("Enter the new password");
             String newPassword=sc.next();
             layer.updateDoctor(newPassword,user_name);
-
+            layer.close();
         }
         else
         {
