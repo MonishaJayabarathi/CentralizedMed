@@ -19,10 +19,8 @@ public class PatientSuggestions {
   private ArrayList<ArrayList<String>> doctorsList = new ArrayList<ArrayList<String>>();
 
   /* initialize the class using patient username */
-  public PatientSuggestions(String userName, DbConnection connection) {
+  public PatientSuggestions(String userName) {
     this.userName = userName;
-    this.dbInstance = connection;
-
   }
 
   /* use patient username to retrieve latitude longitude for the patient
@@ -30,25 +28,28 @@ public class PatientSuggestions {
    * use patient username to retrieve latitude longitude
    */
   public void setLatLon() throws SQLException, IOException, ClassNotFoundException {
-//        DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
-    Connection connection = dbInstance.createConnection();
-
+    DbConnection db_connection = new DB_Connection("src/main/resources/config_test.properties");
+    Connection connection = db_connection.createConnection();
     Statement statement = connection.createStatement();
     ResultSet resultSet = statement.executeQuery("SELECT * FROM CSCI5308_5_TEST.patient_info\n" +
-        "WHERE patient_info.emailID = '" + this.userName + "';");
+        "WHERE patient_info.emailID = '" + userName + "';");
 
     while (resultSet.next()) {
       this.latitude = resultSet.getDouble("latitude");
       this.longitude = resultSet.getDouble("longitude");
     }
+    connection.close();
+  }
 
+  /* set specialization explicitly */
+  public void setSpecialization(String speciality) {
+    this.specialization = speciality;
   }
 
   /* ask patient input for specialization */
-  public void setSpecialization(String speciality) {
-    //Scanner inputSpecialization = new Scanner(System.in);
-    //this.specialization = inputSpecialization.nextLine();
-    this.specialization = speciality;
+  public void setSpecializationByPatient(){
+    Scanner inputSpecialization = new Scanner(System.in);
+    this.specialization = inputSpecialization.nextLine();
   }
 
   /* for current patient retrieve top rated specialized doctors within 10km
@@ -57,9 +58,9 @@ public class PatientSuggestions {
    * filter doctors by considering doctors within 10km radius of patient
    * order doctors by their ratings
    */
-  public void retrieveDoctorSuggestions() throws SQLException, IOException, ClassNotFoundException {
-    DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
-    Connection connection = one.createConnection();
+  private void retrieveDoctorSuggestions() throws SQLException, IOException, ClassNotFoundException {
+    DbConnection db_connection = new DB_Connection("src/main/resources/config_test.properties");
+    Connection connection = db_connection.createConnection();
 
     Statement statement = connection.createStatement();
     ResultSet resultSet = statement.executeQuery("WITH D_table AS\n" +
@@ -81,7 +82,7 @@ public class PatientSuggestions {
       resultRow.add(resultSet.getString("contactNo"));
       doctorsList.add(resultRow);
     }
-
+    connection.close();
   }
 
   /* getter function for list of suggested doctors */

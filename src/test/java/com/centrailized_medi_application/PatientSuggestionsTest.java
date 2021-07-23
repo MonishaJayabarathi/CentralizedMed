@@ -17,31 +17,19 @@ class PatientSuggestionsTest {
   @Test
   @DisplayName("To get patient's user name")
   void constructor() throws SQLException, IOException, ClassNotFoundException {
-    PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName, new DB_Connection(environment));
+    PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
     assertEquals("patient1@gmail.com", patientSuggestions.userName);
   }
 
   @Test
   @DisplayName("To get patient's latitude and longitude")
   void setLatLon() throws SQLException, IOException, ClassNotFoundException {
-    PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName, new DB_Connection(environment));
+    PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
     patientSuggestions.setLatLon();
 
     assertEquals(50.11, patientSuggestions.latitude);
     assertEquals(5.28, patientSuggestions.longitude);
   }
-
-    /*@Test
-    void setSpecialization() {
-        PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
-        patientSuggestions.setSpecialization();
-
-        assertEquals();
-    }*/
-
-    /*@Test
-    void retrieveDoctorSuggestions() {
-    }*/
 
   @Test
   @DisplayName("Check if suggested doctors list is correct")
@@ -68,7 +56,7 @@ class PatientSuggestionsTest {
             "\n";
 
 
-    PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName, new DB_Connection(environment));
+    PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
     patientSuggestions.setLatLon();
     patientSuggestions.setSpecialization("Gynaecology");
     String actualDoctorsList = patientSuggestions.getSuggestedDoctors();
@@ -79,7 +67,7 @@ class PatientSuggestionsTest {
   @Disabled("Asks for user input")
   @Test
   void rateDocter() throws SQLException, IOException, ClassNotFoundException {
-    PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName, new DB_Connection(environment));
+    PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
     assertTrue(patientSuggestions.rateDoctor(), "Incorrect result");
 
   }
