@@ -19,7 +19,7 @@ public class FamilyInfo {
       Scanner sc = new Scanner(System.in);
       System.out.print("Enter Patient Email :");
       patientEmail = sc.nextLine();
-      System.out.println(patientEmail);
+      //System.out.println(patientEmail);
     }else
     {
       patientEmail = email[0];
