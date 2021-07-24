@@ -23,7 +23,7 @@ public class PastConsultations {
   public void retrievePatientDetails(String patientName, String date) throws SQLException {
 
     PreparedStatement prep_statement = local.prepareStatement("SELECT * from " +
-        "patientinfo WHERE emailId ='" + patientName + "'");
+        "patient_info WHERE emailId ='" + patientName + "'");
     ResultSet resultSet = prep_statement.executeQuery();
     while (resultSet.next()) {
       ArrayList<String> resultRow = new ArrayList<String>();

@@ -49,6 +49,7 @@ public class PatientSuggestions {
   /* ask patient input for specialization */
   public void setSpecializationByPatient(){
     Scanner inputSpecialization = new Scanner(System.in);
+    System.out.println("Enter the speciality");
     this.specialization = inputSpecialization.nextLine();
   }
 
