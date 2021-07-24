@@ -75,6 +75,11 @@ public class DB_Connection implements DbConnection {
         return connection;
     }
 
+    @Override
+    public void close() throws SQLException {
+        connection.close();
+    }
+
     //return credential array containing info if the username and password are valid.
     @Override
     public boolean[] getDetails() throws SQLException, IOException, ClassNotFoundException {
