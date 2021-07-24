@@ -153,6 +153,7 @@ public class PatientSuggestions {
 //            pstatement.setString(2, email_doc);
 //            boolean doc_rate = pstatement.execute();
 //        }
+
     DB_Layer layer = DB_Layer.singleConnection();
     layer.feedRatings(userName);
     //layer.close();
