@@ -102,7 +102,7 @@ public class Doctor extends Login {
   @Override
   public void validate() throws SQLException, IOException, ClassNotFoundException {
     String environment = "src/main/resources/config_test.properties";
-//    DB_Connection connect = new DB_Connection(environment, this.userName, this.password);
+    //DB_Connection connect = new DB_Connection(environment, this.userName, this.password);
     creds = connect.getDetails();
     this.isValidUsername = creds[0];
     this.isValidPassword = creds[1];
