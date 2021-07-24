@@ -141,12 +141,24 @@ public class Patient extends Login {
     p2 = (PreparedStatement) resultState.get(5);
     check_for_doc = (PreparedStatement) resultState.get(6);
 
-    login_name.close();
-    login_pass.close();
-    check_for_doc.close();
-    p1.close();
-    p2.close();
-    check_for_doc.close();
+    if (login_name != null){
+      login_name.close();
+    }
+    if (login_pass != null) {
+      login_pass.close();
+    }
+    if (check_for_doc != null){
+      check_for_doc.close();
+    }
+    if (p1 != null){
+      p1.close();
+    }
+    if (p2 != null){
+      p2.close();
+    }
+    if (check_for_doc != null){
+      check_for_doc.close();
+    }
     connect.close();
   }
 
@@ -177,6 +189,7 @@ public class Patient extends Login {
         this.dashboard.displayPatientLogin();
       } else if (localRetry == 3) {
         this.loginAuthorisation.getSecurityQuestion(userName);
+        dashboard.display();
       }
     } else {                                          // Patient is not registered to the system
       System.out.println("Please register to the system!");
