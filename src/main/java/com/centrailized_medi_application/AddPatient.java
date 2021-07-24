@@ -33,7 +33,7 @@ public class AddPatient {
   public AddPatient(DbConnection connection, String docName) throws SQLException, IOException, ClassNotFoundException {
     dbAccess = connection;
     doctorUserName = docName;
-    dbAccess.close();
+    //dbAccess.close();
   }
 
   /**
