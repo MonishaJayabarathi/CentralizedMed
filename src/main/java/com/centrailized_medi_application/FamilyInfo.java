@@ -1,6 +1,7 @@
 package com.centrailized_medi_application;
 import java.io.IOException;
 import java.sql.*;
+import java.util.List;
 import java.util.Scanner;
 
 //This class return all the family member details whose patient email id passed
@@ -10,7 +11,8 @@ public class FamilyInfo {
   private ResultSet familyDetails;
   private Connection c;
   private String familyCode = "";
-
+  private PreparedStatement prpStmt = null;
+  DB_Layer layer = null;
 
   public String getFamilyInfo(String ...email)  throws SQLException, IOException, ClassNotFoundException
   {
@@ -25,15 +27,16 @@ public class FamilyInfo {
       patientEmail = email[0];
     }
 
-    DB_Layer layer=DB_Layer.singleConnection();
-    this.currentPatientDetails = layer.displayPatientInfo(patientEmail);
+    layer=DB_Layer.singleConnection();
+    List<Object> resultState = layer.displayPatientInfo(patientEmail);
+    this.currentPatientDetails = (ResultSet) resultState.get(0);
+    prpStmt = (PreparedStatement) resultState.get(1);
+
     displayCurrentPatient();
 
 
     this.familyDetails = layer.displayFamilyinfo(familyCode,patientEmail);
     displayMembers();
-
-    //layer.close();
     return familyCode;
   }
 
@@ -55,6 +58,10 @@ public class FamilyInfo {
       System.out.println("Volunteer: " + this.currentPatientDetails.getString("volunteer"));
       System.out.println("*****************************************************************");
     }
+
+    currentPatientDetails.close();
+    prpStmt.close();
+    layer.close();
   }
 
   public void displayMembers() throws SQLException, IOException, ClassNotFoundException

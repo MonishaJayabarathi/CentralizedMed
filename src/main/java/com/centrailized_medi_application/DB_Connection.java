@@ -3,6 +3,7 @@ package com.centrailized_medi_application;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -82,9 +83,10 @@ public class DB_Connection implements DbConnection {
 
     //return credential array containing info if the username and password are valid.
     @Override
-    public boolean[] getDetails() throws SQLException, IOException, ClassNotFoundException {
+    public List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException {
         DB_Layer db=DB_Layer.singleConnection();
-        return db.getCredStatus(u_name,u_pass);
+        List<Object> listResults = db.getCredStatus(u_name,u_pass);
+        return listResults;
 
     }
 

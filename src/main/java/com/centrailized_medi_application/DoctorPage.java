@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -73,13 +74,19 @@ public class DoctorPage extends DoctorDashboard {
   @Override
   public void display_donors() throws SQLException, IOException, ClassNotFoundException {
     DB_Layer layer=DB_Layer.singleConnection();
-    ResultSet exec_get_donors=layer.fetchDonors();
+    List<Object> resultState = layer.fetchDonors();
+    ResultSet exec_get_donors = (ResultSet) resultState.get(0);
+    PreparedStatement prdStatement = (PreparedStatement) resultState.get(1);
     while(exec_get_donors.next())
     {
       System.out.println(exec_get_donors.getInt("Id")+"\t"+exec_get_donors.getString("firstname")+"\t"+exec_get_donors.getString("lastname")+"\t"+exec_get_donors.getString("bloodGroup"));
     }
+
+    exec_get_donors.close();
+    prdStatement.close();
+    layer.close();
+
     DoctorDashboard redirect_home = new DoctorPage(this.doctorUsername);
-    //layer.close();
     redirect_home.display();
   }
 

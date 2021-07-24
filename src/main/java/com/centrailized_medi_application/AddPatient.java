@@ -3,9 +3,12 @@ package com.centrailized_medi_application;
 /*Importing Modules*/
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * @author Aditya Jain & Ridampreet Singh
@@ -23,6 +26,13 @@ public class AddPatient {
   private String doctorUserName;
   DbConnection dbAccess;
   DB_Layer layer = DB_Layer.singleConnection();
+
+  ResultSet login_name;
+  ResultSet login_pass;
+  ResultSet res_check_for_doc;
+  PreparedStatement p1;
+  PreparedStatement p2;
+  PreparedStatement check_for_doc;
 
   /**
    * Constructor with DbConnection and String as input parameters
@@ -45,7 +55,24 @@ public class AddPatient {
    */
   boolean patientPresence(String patientName) throws SQLException, IOException, ClassNotFoundException {
     patientUserName = patientName;
-    credentials = layer.getCredStatus(patientUserName,null);
+    List<Object> resultState  = layer.getCredStatus(patientUserName,null);
+    this.credentials = (boolean[]) resultState.get(0);
+
+    login_name = (ResultSet) resultState.get(1);
+    login_pass = (ResultSet) resultState.get(2);
+    res_check_for_doc = (ResultSet) resultState.get(3);
+    p1 = (PreparedStatement) resultState.get(4);
+    p2 = (PreparedStatement) resultState.get(5);
+    check_for_doc = (PreparedStatement) resultState.get(6);
+
+    login_name.close();
+    login_pass.close();
+    check_for_doc.close();
+    p1.close();
+    p2.close();
+    check_for_doc.close();
+
+    layer.close();
 
     if (credentials[0] != false) {
       this.patientExist = true;
@@ -66,10 +93,10 @@ public class AddPatient {
     DateTimeFormatter consultation_date = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     LocalDateTime current_time = LocalDateTime.now();
     if (this.patientPresence(patient_name)) {
+      this.layer = DB_Layer.singleConnection();
       layer.insertConsultations(doctorUserName, patientUserName, consultation_date, current_time);
       System.out.println("Added Successfully!");
       registered = true;
-      //layer.close();
       return registered;
     } else {
       System.out.println("Error Patient is not registered into the system!");

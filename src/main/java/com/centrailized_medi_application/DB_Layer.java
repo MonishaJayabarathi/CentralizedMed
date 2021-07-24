@@ -1,5 +1,6 @@
 package com.centrailized_medi_application;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -48,7 +51,7 @@ public class DB_Layer {
     return dlb;
   }
 
-  public ResultSet getUserDetails(String username, String user_type) throws ClassNotFoundException, IOException, SQLException {
+  public List<Object> getUserDetails(String username, String user_type) throws ClassNotFoundException, IOException, SQLException {
 
     String sqlStmt;
     if (user_type.equals("Doctor")) {
@@ -59,7 +62,6 @@ public class DB_Layer {
 
     ResultSet currentDoctorDetails;
 
-
     PreparedStatement prepStmt = connect.prepareStatement(sqlStmt);
     prepStmt.toString();
 
@@ -67,7 +69,7 @@ public class DB_Layer {
 
     currentDoctorDetails = prepStmt.executeQuery();
     //c.close();
-    return currentDoctorDetails;
+    return Arrays.asList(currentDoctorDetails, prepStmt);
   }
 
   public void close() throws SQLException {
@@ -82,11 +84,12 @@ public class DB_Layer {
     prep_statement.setString(3, (consultation_date.format(current_time)));
     prep_statement.executeUpdate();
 
+    prep_statement.close();
 
   }
 
 
-  public boolean[] getCredStatus(String u_name, String u_pass) throws SQLException, IOException, ClassNotFoundException {
+  public List<Object> getCredStatus(String u_name, String u_pass) throws SQLException, IOException, ClassNotFoundException {
     String name;
     boolean res_id = false;
     boolean res_pass = false;
@@ -94,8 +97,12 @@ public class DB_Layer {
     String pass;
 
     PreparedStatement p1 = connect.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=?");
+    PreparedStatement p2=null;
+    PreparedStatement check_for_doc=null;
     p1.setString(1, u_name);
     ResultSet login_name = p1.executeQuery();
+    ResultSet login_pass=null;
+    ResultSet res_check_for_doc=null;
 
     while (login_name.next()) {
       name = login_name.getString("user_name");
@@ -103,9 +110,9 @@ public class DB_Layer {
       if (name.equals((u_name))) {
         res_id = true;
       }
-      PreparedStatement check_for_doc = connect.prepareStatement("select * from doctor_info where emailid=?");
+      check_for_doc = connect.prepareStatement("select * from doctor_info where emailid=?");
       check_for_doc.setString(1, u_name);
-      ResultSet res_check_for_doc = check_for_doc.executeQuery();
+      res_check_for_doc = check_for_doc.executeQuery();
       if (res_check_for_doc.next() == true) {
         res_id = true;
         if (res_check_for_doc.getString("password").equals(u_pass)) {
@@ -116,14 +123,13 @@ public class DB_Layer {
         cred_validity[0] = res_id;
         cred_validity[1] = res_pass;
 
-        return cred_validity;
+        return Arrays.asList(cred_validity,login_name,res_check_for_doc,p1,check_for_doc);
       }
 
-
-      PreparedStatement p2 = connect.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=? and pass=?");
+      p2 = connect.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=? and pass=?");
       p2.setString(1, u_name);
       p2.setString(2, u_pass);
-      ResultSet login_pass = p2.executeQuery();
+      login_pass = p2.executeQuery();
       while (login_pass.next()) {
 
         pass = login_pass.getString("pass");
@@ -135,35 +141,35 @@ public class DB_Layer {
       cred_validity[1] = res_pass;
     }
 
-    return cred_validity;
+    return Arrays.asList(cred_validity,login_name,login_pass,res_check_for_doc,p1,p2,check_for_doc);
   }
 
-  public ResultSet fetchDonors() throws SQLException, IOException, ClassNotFoundException {
+  public List<Object> fetchDonors() throws SQLException, IOException, ClassNotFoundException {
 
     PreparedStatement get_donors = connect.prepareStatement("Select * from patient_info where volunteer=? ");
     get_donors.setString(1, "yes");
     ResultSet exec_get_donors = get_donors.executeQuery();
 
-    return exec_get_donors;
+    return Arrays.asList(exec_get_donors, get_donors);
   }
 
 
-  public ResultSet check_if_patient(String user_name) throws SQLException, IOException, ClassNotFoundException {
+  public List<Object> check_if_patient(String user_name) throws SQLException, IOException, ClassNotFoundException {
 
     PreparedStatement check_if_patient = connect.prepareStatement("select * from patient_info where emailId=?");
     check_if_patient.setString(1, user_name);
     ResultSet s1 = check_if_patient.executeQuery();
 
-    return s1;
+    return Arrays.asList(s1, check_if_patient);
   }
 
-  public ResultSet check_if_doctor(String user_name) throws SQLException, IOException, ClassNotFoundException {
+  public List<Object> check_if_doctor(String user_name) throws SQLException, IOException, ClassNotFoundException {
 
     PreparedStatement check_if_Doctor = connect.prepareStatement("select * from doctor_info where emailId=?");
     check_if_Doctor.setString(1, user_name);
     ResultSet s2 = check_if_Doctor.executeQuery();
 
-    return s2;
+    return Arrays.asList(s2, check_if_Doctor);
   }
 
   public void updatePatient(String newPassword, String user_name) throws SQLException, IOException, ClassNotFoundException {
@@ -176,6 +182,8 @@ public class DB_Layer {
     updatePass.setString(1, newPassword);
     updatePass.setString(2, user_name);
     updatePass.execute();
+
+    updatePass.close();
 
   }
 
@@ -190,9 +198,11 @@ public class DB_Layer {
     updatePass.setString(2, user_name);
     updatePass.execute();
 
+    updatePass.close();
+
   }
 
-  public ResultSet displayPatientInfo(String patientEmail) throws SQLException, IOException, ClassNotFoundException {
+  public List<Object> displayPatientInfo(String patientEmail) throws SQLException, IOException, ClassNotFoundException {
 
 
     String sqlStmt = "SELECT * FROM patient_info where emailId =?";
@@ -201,7 +211,7 @@ public class DB_Layer {
     prepStmt.setString(1, patientEmail);
     ResultSet currentPatientDetails = prepStmt.executeQuery();
 
-    return currentPatientDetails;
+    return Arrays.asList(currentPatientDetails, prepStmt);
 
   }
 

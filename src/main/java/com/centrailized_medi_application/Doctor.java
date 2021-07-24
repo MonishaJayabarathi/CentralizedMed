@@ -1,7 +1,10 @@
 package com.centrailized_medi_application;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author Monisha J and Ridampreet Singh
@@ -21,6 +24,13 @@ public class Doctor extends Login {
   private ILoginAuthorisation loginAuthorisation; // Password interface
   private static int localRetry = 0;          // Security Question counter
   private DbConnection connect;
+
+  ResultSet login_name;
+  ResultSet login_pass;
+  ResultSet res_check_for_doc;
+  PreparedStatement p1;
+  PreparedStatement p2;
+  PreparedStatement check_for_doc;
 
   /**
    * Constructor initializes the Dashboard members declared
@@ -103,9 +113,25 @@ public class Doctor extends Login {
   public void validate() throws SQLException, IOException, ClassNotFoundException {
     String environment = "src/main/resources/config_test.properties";
     //DB_Connection connect = new DB_Connection(environment, this.userName, this.password);
-    creds = connect.getDetails();
+    List<Object> resultState = connect.getDetails();
+    this.creds = (boolean[]) resultState.get(0);
     this.isValidUsername = creds[0];
     this.isValidPassword = creds[1];
+
+    login_name = (ResultSet) resultState.get(1);
+    login_pass = (ResultSet) resultState.get(2);
+    res_check_for_doc = (ResultSet) resultState.get(3);
+    p1 = (PreparedStatement) resultState.get(4);
+    p2 = (PreparedStatement) resultState.get(5);
+    check_for_doc = (PreparedStatement) resultState.get(6);
+
+    login_name.close();
+    login_pass.close();
+    check_for_doc.close();
+    p1.close();
+    p2.close();
+    check_for_doc.close();
+    connect.close();
   }
 
   /**
