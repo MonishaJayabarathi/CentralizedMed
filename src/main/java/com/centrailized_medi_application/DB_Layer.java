@@ -124,7 +124,7 @@ public class DB_Layer {
         cred_validity[0] = res_id;
         cred_validity[1] = res_pass;
 
-        return Arrays.asList(cred_validity,login_name,res_check_for_doc,p1,check_for_doc);
+        return Arrays.asList(cred_validity,login_name,login_pass,res_check_for_doc,p1,p2,check_for_doc);
       }
 
       p2 = connect.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=? and pass=?");
