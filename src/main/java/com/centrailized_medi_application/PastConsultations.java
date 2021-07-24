@@ -36,6 +36,9 @@ public class PastConsultations {
       patientsList.add(resultRow);
     }
 
+    resultSet.close();
+    prep_statement.close();
+
   }
 
   public void retrievePatients() throws SQLException, IOException, ClassNotFoundException {
@@ -48,6 +51,8 @@ public class PastConsultations {
       retrievePatientDetails(resultSet.getString("patient_username"), resultSet.getString("consultation_date_and_time"));
     }
 
+    resultSet.close();
+    prep_statement.close();
   }
 
   public String getPreviousConsultations() throws SQLException {

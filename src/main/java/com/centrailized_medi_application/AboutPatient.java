@@ -2,6 +2,7 @@ package com.centrailized_medi_application;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.List;
 import java.util.Scanner;
 
 public class AboutPatient implements About{
@@ -13,20 +14,23 @@ public class AboutPatient implements About{
 
     // This stores results fetched from Database
     private ResultSet currentPatientDetails;
+    private PreparedStatement prepStmt;
     private DB_Layer layer;
     AboutPatient(String patient_id, PatientDashboard pd) throws SQLException, IOException, ClassNotFoundException {
         this.user_name = patient_id;
         this.init = pd;
-        layer=DB_Layer.singleConnection();
+        //layer=DB_Layer.singleConnection();
 
     }
 
     //Fetch Patient Information from the Database
     @Override
     public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
+        layer=DB_Layer.singleConnection();
         System.out.println("Loading About...\n");
-        this.currentPatientDetails=layer.getUserDetails(user_name,"Patient");//call db layer.
-
+        List<Object> resultState=layer.getUserDetails(user_name,"Patient");//call db layer.
+        this.currentPatientDetails = (ResultSet) resultState.get(0);
+        this.prepStmt = (PreparedStatement) resultState.get(1);
 
 
     }
@@ -50,8 +54,11 @@ public class AboutPatient implements About{
             System.out.println("FamilyMemberCode: " + this.currentPatientDetails.getString("familyMemberCode"));
             System.out.println("Volunteer: " + this.currentPatientDetails.getString("volunteer"));
             System.out.println("*****************************************************************");
-
         }
+
+        currentPatientDetails.close();
+        prepStmt.close();
+        layer.close();
     }
 
     //Navigation to patients dashboard

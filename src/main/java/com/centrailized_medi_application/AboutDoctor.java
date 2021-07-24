@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -20,21 +21,24 @@ public class AboutDoctor implements About {
   DoctorDashboard init;
   private String doctorUsername; //holds the give doctor username.
   private ResultSet currentDoctorDetails; // holds the db results fetched
+  private PreparedStatement prepStmt;
   DB_Layer layer;
   AboutDoctor(String doctor_id, DoctorDashboard dd) throws SQLException, IOException, ClassNotFoundException {
     this.doctorUsername = doctor_id;
     this.init = dd;
-    layer=DB_Layer.singleConnection();
+    //this.layer=DB_Layer.singleConnection();
   }
 
   //fetch user details from DB
   @Override
   public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
+    this.layer=DB_Layer.singleConnection();
     System.out.println("Loading About...\n");
+    List<Object> resultState =layer.getUserDetails(doctorUsername,"Doctor");//call to the DB layer.
 
-   this.currentDoctorDetails=layer.getUserDetails(doctorUsername,"Doctor");//call to the DB layer.
+    this.currentDoctorDetails = (ResultSet) resultState.get(0);
+    this.prepStmt = (PreparedStatement) resultState.get(1);
 
-    //c.close();//close the connection
   }
   //display user details
   @Override
@@ -53,6 +57,10 @@ public class AboutDoctor implements About {
       System.out.println("Contact: " + this.currentDoctorDetails.getString("contactNo"));
       System.out.println("*****************************************************************");
     }
+
+    currentDoctorDetails.close();
+    prepStmt.close();
+    layer.close();
   }
 
   //handles navigation to dashboard
@@ -62,7 +70,6 @@ public class AboutDoctor implements About {
     Scanner sc = new Scanner(System.in);
     int option = sc.nextInt();
     if (option == 1) {
-      //layer.close();
       System.out.println("Returning to your Dashboard...");
       WelcomePage init = new WelcomePage();
       this.init.display();
