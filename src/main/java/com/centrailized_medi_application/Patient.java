@@ -3,7 +3,11 @@ package com.centrailized_medi_application;
 /*Importing Modules*/
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author Aditya Jain & RidamPreet Jaggi
@@ -23,9 +27,16 @@ public class Patient extends Login {
   private boolean[] credentials = new boolean[2]; // Sets the respective index based on credibility of username & password
   private MainDashboard dashboard;    // Main dashboard interface
   private PatientDashboard patientDashboard;  // Patient Dashboard interface
-  private DbConnection connect;               // Database interface
+  private static DbConnection connect = null;               // Database interface
   private ILoginAuthorisation loginAuthorisation; // Password interface
   private static int localRetry = 0;          // Security Question counter
+
+  ResultSet login_name;
+  ResultSet login_pass;
+  ResultSet res_check_for_doc;
+  PreparedStatement p1;
+  PreparedStatement p2;
+  PreparedStatement check_for_doc;
 
   /**
    * Constructor with PatientDashboard,MainDashboard,DbConnection,ILoginAuthorisation as input parameters
@@ -35,10 +46,13 @@ public class Patient extends Login {
    * @Param connection as DbConnection Interface
    * @Param localAuthorisation as ILoginAuthorisation Interface
    */
-  public Patient(MainDashboard dashboard, PatientDashboard patientMenu, DbConnection connection, ILoginAuthorisation localAuthorisation) {
+  public Patient(MainDashboard dashboard, PatientDashboard patientMenu, DbConnection connection, ILoginAuthorisation localAuthorisation) throws SQLException {
     this.dashboard = dashboard;
     this.patientDashboard = patientMenu;
-    this.connect = connection;
+    if (Patient.connect != null) {
+      connect.close();
+    }
+    connect = connection;
     this.loginAuthorisation = localAuthorisation;
   }
 
@@ -114,9 +128,26 @@ public class Patient extends Login {
    */
   @Override
   protected void validate() throws SQLException, IOException, ClassNotFoundException {
-    credentials = connect.getDetails();
+    List<Object> resultState = connect.getDetails();
+
+    credentials = (boolean[]) resultState.get(0);
     this.validId = credentials[0];
     this.validPsswd = credentials[1];
+
+    login_name = (ResultSet) resultState.get(1);
+    login_pass = (ResultSet) resultState.get(2);
+    res_check_for_doc = (ResultSet) resultState.get(3);
+    p1 = (PreparedStatement) resultState.get(4);
+    p2 = (PreparedStatement) resultState.get(5);
+    check_for_doc = (PreparedStatement) resultState.get(6);
+
+    login_name.close();
+    login_pass.close();
+    check_for_doc.close();
+    p1.close();
+    p2.close();
+    check_for_doc.close();
+    connect.close();
   }
 
   /**

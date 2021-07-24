@@ -23,7 +23,7 @@ public class PastConsultations {
   public void retrievePatientDetails(String patientName, String date) throws SQLException {
 
     PreparedStatement prep_statement = local.prepareStatement("SELECT * from " +
-        "patientinfo WHERE emailId ='" + patientName + "'");
+        "patient_info WHERE emailId ='" + patientName + "'");
     ResultSet resultSet = prep_statement.executeQuery();
     while (resultSet.next()) {
       ArrayList<String> resultRow = new ArrayList<String>();
@@ -35,6 +35,9 @@ public class PastConsultations {
       resultRow.add(resultSet.getString("contactNo"));
       patientsList.add(resultRow);
     }
+
+    resultSet.close();
+    prep_statement.close();
 
   }
 
@@ -48,6 +51,8 @@ public class PastConsultations {
       retrievePatientDetails(resultSet.getString("patient_username"), resultSet.getString("consultation_date_and_time"));
     }
 
+    resultSet.close();
+    prep_statement.close();
   }
 
   public String getPreviousConsultations() throws SQLException {

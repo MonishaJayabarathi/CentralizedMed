@@ -13,8 +13,7 @@ class AddPatientTest {
     boolean exist = true;
     String doc_name = "key@gmail.com";
     String patient_name = "Aditya@hotmail.com";
-    DB_Connection db_access = new DB_Connection(environment,patient_name,null);
-    AddPatient new_entry = new AddPatient(db_access,doc_name);
+    AddPatient new_entry = new AddPatient(doc_name);
     assertEquals(exist, new_entry.patientPresence(patient_name), "Patient is not registered into the system");
   }
 
@@ -23,8 +22,7 @@ class AddPatientTest {
     boolean exist = false;
     String doc_name = "key@gmail.com";
     String patient_name = "Nihal@hotmail.com";
-    DB_Connection db_access = new DB_Connection(environment,patient_name,null);
-    AddPatient new_entry = new AddPatient(db_access,doc_name);
+    AddPatient new_entry = new AddPatient(doc_name);
     assertEquals(exist, new_entry.patientPresence(patient_name), "Patient is registered into the system");
   }
 
@@ -32,8 +30,7 @@ class AddPatientTest {
   public void link_Valid_patient() throws SQLException, IOException, ClassNotFoundException {
     String docter_name = "key@gmail.com";
     String patient_name = "Aditya@hotmail.com";
-    DB_Connection db_access = new DB_Connection(environment, patient_name, null);
-    AddPatient new_entry = new AddPatient(db_access, docter_name);
+    AddPatient new_entry = new AddPatient(docter_name);
     assertTrue(new_entry.link_patient(patient_name), "Could not add patient");
   }
 
