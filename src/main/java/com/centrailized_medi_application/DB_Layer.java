@@ -33,22 +33,22 @@ import java.util.Scanner;
 
 
 public class DB_Layer {
-  String environment = "src/main/resources/config_test.properties";
 
-  DB_Connection db = null;
-  Connection connect;
+
+  private Connection connect;
   private static DB_Layer dlb=null;
   private DB_Layer() throws SQLException, IOException, ClassNotFoundException {
-    db = new DB_Connection(this.environment);
-    connect = db.createConnection();
+    String environment = "src/main/resources/config_test.properties";
+    DB_Connection db = new DB_Connection(environment);
+    this.connect = db.createConnection();
   }
 
   public static DB_Layer singleConnection() throws SQLException, IOException, ClassNotFoundException {
     if(dlb==null){
-      dlb=new DB_Layer();
+      DB_Layer.dlb=new DB_Layer();
       return dlb;
     }
-    return dlb;
+    return DB_Layer.dlb;
   }
 
   public List<Object> getUserDetails(String username, String user_type) throws ClassNotFoundException, IOException, SQLException {
@@ -74,6 +74,7 @@ public class DB_Layer {
 
   public void close() throws SQLException {
     connect.close();
+    DB_Layer.dlb = null;
   }
 
   public void insertConsultations(String docter_user_name, String p_name, DateTimeFormatter consultation_date, LocalDateTime current_time) throws SQLException, IOException, ClassNotFoundException {
@@ -215,7 +216,7 @@ public class DB_Layer {
 
   }
 
-  public ResultSet displayFamilyinfo(String familyCode, String patientEmail) throws SQLException, IOException, ClassNotFoundException {
+  public List<Object> displayFamilyinfo(String familyCode, String patientEmail) throws SQLException, IOException, ClassNotFoundException {
 
     String sqlStmt = "SELECT * FROM patient_info where familyMemberCode =\"" + familyCode + "\" and not emailId=\"" + patientEmail + "\"";
     PreparedStatement prepStmt = connect.prepareStatement(sqlStmt);
@@ -223,7 +224,7 @@ public class DB_Layer {
 
     ResultSet familyDetails = prepStmt.executeQuery();
 
-    return familyDetails;
+    return Arrays.asList(familyDetails, prepStmt);
   }
 
   public void insertNewDoctor(BasicDetails basicDetails, DoctorDetails doctorDetails, SecurityQuestions securityQuestions) throws SQLException, IOException, ClassNotFoundException {
@@ -238,6 +239,8 @@ public class DB_Layer {
     ResultSet rs2 = st.executeQuery();
     rs2.next();
     int curr_id = rs2.getInt("idlogin_details");
+
+    st.close();
 
     PreparedStatement insert_statement = connect.prepareStatement("insert into " +
         "doctor_info(id,firstname,lastname,gender,dateOfBirth,address,latitude,longitude,contactNo,speciality,registrationNumber," +
@@ -259,9 +262,9 @@ public class DB_Layer {
     insert_statement.setString(14, securityQuestions.getAnswer1());
     insert_statement.setString(15, securityQuestions.getAnswer2());
     insert_statement.setString(16, securityQuestions.getAnswer3());
-
     insert_statement.execute();
 
+    insert_statement.close();
   }
 
 
@@ -277,6 +280,8 @@ public class DB_Layer {
     ResultSet rs2 = st.executeQuery();
     rs2.next();
     int curr_id = rs2.getInt("idlogin_details");
+
+    st.close();
 
     PreparedStatement test = connect.prepareStatement("INSERT INTO patient_info(id,firstname,lastname," +
         "dateOfbirth,gender,password,emailId,address,contactNo,bloodGroup," +
@@ -306,16 +311,16 @@ public class DB_Layer {
     test.setInt(21, basicDetails.getLongitude());
     test.execute();
 
+    test.close();
   }
 
 
-  public void feedRatings(String userName) throws SQLException, IOException, ClassNotFoundException {
-
+  public List<Object> feedRatings(String userName) throws SQLException, IOException, ClassNotFoundException {
 
     PreparedStatement prep_statement = connect.prepareStatement("SELECT * FROM `consultations` WHERE patient_username = ?");
     prep_statement.setString(1, userName);
     ResultSet doc_list = prep_statement.executeQuery();
-    //prep_statement.close();
+    ResultSet get_current_value = null;
     Scanner sc = new Scanner(System.in);
     while (doc_list.next()) {
       System.out.println(doc_list.getString("doctor_username") + " " + doc_list.getString("consultation_date_and_time"));
@@ -328,7 +333,7 @@ public class DB_Layer {
       PreparedStatement current_val = connect.prepareStatement("SELECT * FROM `doctor_info` WHERE emailId=?");
       current_val.setString(1, email_doc);
       //current_val.setInt(2, rating);
-      ResultSet get_current_value = current_val.executeQuery();
+      get_current_value = current_val.executeQuery();
       int updt_rating = 0;
       if (get_current_value.next()) {
         current_value = get_current_value.getInt("rating");
@@ -344,6 +349,8 @@ public class DB_Layer {
       pstatement.setString(2, email_doc);
       boolean doc_rate = pstatement.execute();
     }
+
+    return Arrays.asList(doc_list, get_current_value, prep_statement);
 
   }
 

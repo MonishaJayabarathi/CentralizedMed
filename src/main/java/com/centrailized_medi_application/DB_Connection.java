@@ -86,6 +86,7 @@ public class DB_Connection implements DbConnection {
     public List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException {
         DB_Layer db=DB_Layer.singleConnection();
         List<Object> listResults = db.getCredStatus(u_name,u_pass);
+        db.close();
         return listResults;
 
     }

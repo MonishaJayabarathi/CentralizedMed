@@ -38,6 +38,9 @@ public class PatientSuggestions {
       this.latitude = resultSet.getDouble("latitude");
       this.longitude = resultSet.getDouble("longitude");
     }
+
+    resultSet.close();
+    statement.close();
     connection.close();
   }
 
@@ -83,6 +86,9 @@ public class PatientSuggestions {
       resultRow.add(resultSet.getString("contactNo"));
       doctorsList.add(resultRow);
     }
+
+    resultSet.close();
+    statement.close();
     connection.close();
   }
 
@@ -155,10 +161,18 @@ public class PatientSuggestions {
 //        }
 
     DB_Layer layer = DB_Layer.singleConnection();
-    layer.feedRatings(userName);
-    //layer.close();
+    List<Object> resultState = layer.feedRatings(userName);
+    ResultSet result1 = (ResultSet) resultState.get(0);
+    ResultSet result2 = (ResultSet) resultState.get(1);
+    PreparedStatement prepStmt = (PreparedStatement) resultState.get(2);
+
     PatientPage pd = new PatientPage(this.userName);
     pd.display();
+
+    result1.close();
+    result2.close();
+    prepStmt.close();
+    layer.close();
     return true;
   }
 

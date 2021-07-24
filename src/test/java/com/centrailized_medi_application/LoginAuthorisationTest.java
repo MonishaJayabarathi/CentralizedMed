@@ -58,6 +58,11 @@ class LoginAuthorisationTest {
         ResultSet s1 = answer.executeQuery();
         s1.next();
         LoginAuthorisation key = new LoginAuthorisation();
+
+        s1.close();
+        answer.close();
+        db.close();
+
         assertEquals(s1.getString("security_answer_1"), key.getSecurityQuestion(user_name), "Incorrect Security Answer");
 
     }
@@ -87,6 +92,11 @@ class LoginAuthorisationTest {
         ResultSet s1 = answer.executeQuery();
         s1.next();
         LoginAuthorisation key = new LoginAuthorisation();
+
+        s1.close();
+        answer.close();
+        db.close();
+
         assertEquals(s1.getString("security_answer_1"), key.getSecurityQuestion(user_name), "Incorrect Security Answer");
 
     }

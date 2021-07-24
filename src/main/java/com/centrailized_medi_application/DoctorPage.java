@@ -49,7 +49,7 @@ public class DoctorPage extends DoctorDashboard {
     System.out.println("Enter a Patient Name to register");
     Scanner sc = new Scanner(System.in);
     String patient_name = sc.next();
-    AddPatient newEntry = new AddPatient(new DB_Connection(environment, patient_name, null), this.doctorUsername);
+    AddPatient newEntry = new AddPatient(this.doctorUsername);
     newEntry.link_patient(patient_name);
     this.display();
   }

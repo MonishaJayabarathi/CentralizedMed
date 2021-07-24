@@ -1,5 +1,6 @@
 package com.centrailized_medi_application;
 
+import javax.print.Doc;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ public class Doctor extends Login {
   private DoctorDashboard dd;
   private ILoginAuthorisation loginAuthorisation; // Password interface
   private static int localRetry = 0;          // Security Question counter
-  private DbConnection connect;
+  private static DbConnection connect;
 
   ResultSet login_name;
   ResultSet login_pass;
@@ -38,11 +39,14 @@ public class Doctor extends Login {
    * @param init       - It holds the MainDashboard instance
    * @param doctorPage - It holds the DoctorDashboard instance
    */
-  public Doctor(MainDashboard init, DoctorDashboard doctorPage, DbConnection connect,ILoginAuthorisation localAuthorisation) {
+  public Doctor(MainDashboard init, DoctorDashboard doctorPage, DbConnection connection,ILoginAuthorisation localAuthorisation) throws SQLException {
     this.init = init;
     this.dd = doctorPage;
     this.loginAuthorisation = localAuthorisation;
-    this.connect=connect;
+    if (Doctor.connect != null) {
+      connect.close();
+    }
+    connect=connection;
   }
 
   /**
@@ -111,8 +115,6 @@ public class Doctor extends Login {
    */
   @Override
   public void validate() throws SQLException, IOException, ClassNotFoundException {
-    String environment = "src/main/resources/config_test.properties";
-    //DB_Connection connect = new DB_Connection(environment, this.userName, this.password);
     List<Object> resultState = connect.getDetails();
     this.creds = (boolean[]) resultState.get(0);
     this.isValidUsername = creds[0];

@@ -24,8 +24,7 @@ public class AddPatient {
   private boolean registered = false;
   private String patientUserName = null;
   private String doctorUserName;
-  DbConnection dbAccess;
-  DB_Layer layer = DB_Layer.singleConnection();
+  DB_Layer layer;
 
   ResultSet login_name;
   ResultSet login_pass;
@@ -40,10 +39,8 @@ public class AddPatient {
    * @Param connection as DbConnection Interface
    * @Param docName as doctor's username
    */
-  public AddPatient(DbConnection connection, String docName) throws SQLException, IOException, ClassNotFoundException {
-    dbAccess = connection;
+  public AddPatient(String docName) throws SQLException, IOException, ClassNotFoundException {
     doctorUserName = docName;
-    //dbAccess.close();
   }
 
   /**
@@ -55,6 +52,7 @@ public class AddPatient {
    */
   boolean patientPresence(String patientName) throws SQLException, IOException, ClassNotFoundException {
     patientUserName = patientName;
+    this.layer = DB_Layer.singleConnection();
     List<Object> resultState  = layer.getCredStatus(patientUserName,null);
     this.credentials = (boolean[]) resultState.get(0);
 
@@ -66,12 +64,19 @@ public class AddPatient {
     check_for_doc = (PreparedStatement) resultState.get(6);
 
     login_name.close();
-    login_pass.close();
-    check_for_doc.close();
+    if (login_pass != null){
+      login_pass.close();
+    }
+    if (res_check_for_doc != null){
+      res_check_for_doc.close();
+    }
     p1.close();
-    p2.close();
-    check_for_doc.close();
-
+    if (p2 != null){
+      p2.close();
+    }
+    if (check_for_doc != null){
+      check_for_doc.close();
+    }
     layer.close();
 
     if (credentials[0] != false) {
@@ -97,10 +102,13 @@ public class AddPatient {
       layer.insertConsultations(doctorUserName, patientUserName, consultation_date, current_time);
       System.out.println("Added Successfully!");
       registered = true;
+      layer.close();
       return registered;
     } else {
       System.out.println("Error Patient is not registered into the system!");
+      layer.close();
       return registered;
     }
+
   }
 }

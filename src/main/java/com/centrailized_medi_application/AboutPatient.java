@@ -19,13 +19,14 @@ public class AboutPatient implements About{
     AboutPatient(String patient_id, PatientDashboard pd) throws SQLException, IOException, ClassNotFoundException {
         this.user_name = patient_id;
         this.init = pd;
-        layer=DB_Layer.singleConnection();
+        //layer=DB_Layer.singleConnection();
 
     }
 
     //Fetch Patient Information from the Database
     @Override
     public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
+        layer=DB_Layer.singleConnection();
         System.out.println("Loading About...\n");
         List<Object> resultState=layer.getUserDetails(user_name,"Patient");//call db layer.
         this.currentPatientDetails = (ResultSet) resultState.get(0);

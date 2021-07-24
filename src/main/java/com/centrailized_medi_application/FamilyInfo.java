@@ -12,6 +12,7 @@ public class FamilyInfo {
   private Connection c;
   private String familyCode = "";
   private PreparedStatement prpStmt = null;
+  private PreparedStatement prepstmt2 = null;
   DB_Layer layer = null;
 
   public String getFamilyInfo(String ...email)  throws SQLException, IOException, ClassNotFoundException
@@ -35,7 +36,9 @@ public class FamilyInfo {
     displayCurrentPatient();
 
 
-    this.familyDetails = layer.displayFamilyinfo(familyCode,patientEmail);
+    List<Object> resultState1 = layer.displayFamilyinfo(familyCode,patientEmail);
+    this.familyDetails = (ResultSet) resultState1.get(0);
+    prepstmt2 = (PreparedStatement) resultState1.get(1);
     displayMembers();
     return familyCode;
   }
@@ -86,6 +89,10 @@ public class FamilyInfo {
       System.out.println("*****************************************************************");
       count++;
     }
+
+    familyDetails.close();
+    prepstmt2.close();
+    layer.close();
   }
 
 
