@@ -11,14 +11,14 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PatientSuggestionsTest {
-  public static final String patientUserName = "patient1@gmail.com";
+  public static final String patientUserName = "Ridam@gmail.com";
   String environment = "src/main/resources/config_test.properties";
 
   @Test
   @DisplayName("To get patient's user name")
   void constructor() throws SQLException, IOException, ClassNotFoundException {
     PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
-    assertEquals("patient1@gmail.com", patientSuggestions.userName);
+    assertEquals(patientUserName, patientSuggestions.userName);
   }
 
   @Test
