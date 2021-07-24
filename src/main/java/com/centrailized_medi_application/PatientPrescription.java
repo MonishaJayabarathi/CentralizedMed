@@ -22,10 +22,10 @@ public class PatientPrescription {
       Connection connection = one.createConnection();
       Statement statement = connection.createStatement();
       ResultSet resultSet = statement.executeQuery(
-          "SELECT BrandName, GenericName, Route, Strength, Amount, Frequency, TimeOfDay FROM Patients, MedicationGeneral, MedicationSpecific, PatientMedication\n" +
-              "WHERE Patients.PatientUserName = '" + patientUserName + "' AND\n" +
+          "SELECT BrandName, GenericName, Route, Strength, Amount, Frequency, TimeOfDay FROM patient_info, MedicationGeneral, MedicationSpecific, PatientMedication\n" +
+              "WHERE patient_info.emailId = '" + patientUserName + "' AND\n" +
               "\tMedicationSpecific.MedicationGeneralID = MedicationGeneral.MedicationGeneralID AND\n" +
-              "    Patients.PatientID = PatientMedication.PatientID AND\n" +
+              "    patient_info.id = PatientMedication.id AND\n" +
               "    MedicationSpecific.MedicationSpecificID = PatientMedication.MedicationSpecificID;");
 
       // add the retrieved medication list to class arraylist of medications

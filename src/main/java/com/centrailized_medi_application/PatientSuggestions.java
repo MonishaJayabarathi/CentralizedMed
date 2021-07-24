@@ -48,6 +48,7 @@ public class PatientSuggestions {
 
   /* ask patient input for specialization */
   public void setSpecializationByPatient(){
+    System.out.println("Please Enter the Doctor Specialization to search for: ");
     Scanner inputSpecialization = new Scanner(System.in);
     System.out.println("Enter the speciality");
     this.specialization = inputSpecialization.nextLine();
@@ -93,6 +94,8 @@ public class PatientSuggestions {
     } catch (SQLException | IOException | ClassNotFoundException throwables) {
       throwables.printStackTrace();
     }
+
+    System.out.println("Doctors, Specialized in " + specialization + " within 10km radius are: ");
 
     StringBuilder suggestedDoctors = new StringBuilder();
     suggestedDoctors.append("SUGGESTED DOCTORS\n");
@@ -151,6 +154,7 @@ public class PatientSuggestions {
 //            pstatement.setString(2, email_doc);
 //            boolean doc_rate = pstatement.execute();
 //        }
+
     DB_Layer layer = DB_Layer.singleConnection();
     layer.feedRatings(userName);
     //layer.close();

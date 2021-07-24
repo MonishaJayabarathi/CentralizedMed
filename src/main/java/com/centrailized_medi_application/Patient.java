@@ -117,7 +117,6 @@ public class Patient extends Login {
     credentials = connect.getDetails();
     this.validId = credentials[0];
     this.validPsswd = credentials[1];
-
   }
 
   /**

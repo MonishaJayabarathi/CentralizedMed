@@ -15,5 +15,6 @@ public interface DbConnection {
 
     public boolean[] getDetails() throws SQLException, IOException, ClassNotFoundException;
     public Connection createConnection();
+    public void close() throws SQLException;
 
 }
