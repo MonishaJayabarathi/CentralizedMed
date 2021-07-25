@@ -5,10 +5,11 @@ import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
 
-public class AboutPatient implements About{
+public class AboutPatient implements About {
+
     //Static private String tempemail;
     PatientDashboard init;
-    private  Connection c;
+    private Connection c;
     //This variable stores Patient username
     private String user_name;
 
@@ -16,7 +17,9 @@ public class AboutPatient implements About{
     private ResultSet currentPatientDetails;
     private PreparedStatement prepStmt;
     private DB_Layer layer;
+
     AboutPatient(String patient_id, PatientDashboard pd) throws SQLException, IOException, ClassNotFoundException {
+
         this.user_name = patient_id;
         this.init = pd;
         //layer=DB_Layer.singleConnection();
@@ -26,17 +29,20 @@ public class AboutPatient implements About{
     //Fetch Patient Information from the Database
     @Override
     public void fetchDetails() throws SQLException, IOException, ClassNotFoundException {
-        layer=DB_Layer.singleConnection();
+
+        layer = DB_Layer.singleConnection();
         System.out.println("Loading About...\n");
-        List<Object> resultState=layer.getUserDetails(user_name,"Patient");//call db layer.
+        List<Object> resultState = layer.getUserDetails(user_name, "Patient");//call db layer.
         this.currentPatientDetails = (ResultSet) resultState.get(0);
         this.prepStmt = (PreparedStatement) resultState.get(1);
 
 
     }
+
     //Display Patient Details
     @Override
     public void displayDetails() throws SQLException {
+
         while (this.currentPatientDetails.next()) {
             System.out.println("**************************** About You **************************");
             System.out.println("Requested Patient Info:");
@@ -63,18 +69,24 @@ public class AboutPatient implements About{
 
     //Navigation to patients dashboard
     @Override
-    public void back  () throws SQLException, IOException, ClassNotFoundException {
-        System.out.println("Press 1 to move to your Dashboard");
-        Scanner sc = new Scanner(System.in);
-        int option = sc.nextInt();
-        if (option == 1) {
-            //layer.close();;
-            System.out.println("Returning to your Dashboard...");
-            PatientPage init = new PatientPage(user_name);
-            this.init.display();
-        } else {
-            System.out.println("Please provide a valid entry");
-            this.back();
+    public void back() {
+
+        try {
+            System.out.println("Press 1 to move to your Dashboard");
+            Scanner sc = new Scanner(System.in);
+            int option = sc.nextInt();
+            if (option == 1) {
+                //layer.close();;
+                System.out.println("Returning to your Dashboard...");
+                PatientPage init = new PatientPage(user_name);
+                this.init.display();
+            } else {
+                System.out.println("Please provide a valid entry");
+                this.back();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
