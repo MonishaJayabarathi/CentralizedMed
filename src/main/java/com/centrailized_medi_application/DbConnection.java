@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * author:Ridampreet Singh
@@ -13,7 +14,7 @@ import java.sql.SQLException;
  */
 public interface DbConnection {
 
-    public boolean[] getDetails() throws SQLException, IOException, ClassNotFoundException;
+    public List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException;
     public Connection createConnection();
     public void close() throws SQLException;
 

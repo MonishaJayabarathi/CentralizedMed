@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 /**
  * @author Ridampreet Singh & Aditya Jain
@@ -17,16 +18,22 @@ import java.util.Scanner;
  */
 public class LoginAuthorisation implements ILoginAuthorisation {
     int retry=0;
+    DB_Layer layer = null;
 
     @Override
     public String getSecurityQuestion(String user_name) throws SQLException, IOException, ClassNotFoundException {
 
-        DB_Layer layer=DB_Layer.singleConnection();
+        layer=DB_Layer.singleConnection();
 
-        ResultSet s1 = layer.check_if_patient(user_name);
+        List<Object> resultState = layer.check_if_patient(user_name);
 
+        ResultSet s1 = (ResultSet) resultState.get(0);
+        PreparedStatement prtstmt1 = (PreparedStatement) resultState.get(1);
 
-        ResultSet s2= layer.check_if_doctor(user_name);
+        List<Object> resultState1 = layer.check_if_doctor(user_name);
+
+        ResultSet s2= (ResultSet) resultState1.get(0);
+        PreparedStatement prtstmt2 = (PreparedStatement) resultState1.get(1);
 
         if(s1.next())
         {
@@ -37,7 +44,11 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             if(answerFromDB.equals(inputAnswer)){
                 resetPassword(user_name,true,retry);
             }
-            //layer.close();
+
+            s1.close();
+            prtstmt1.close();
+            layer.close();
+
             return (answerFromDB);
         }
         else if(s2.next()){
@@ -49,7 +60,10 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             if(answerFromDB.equals(inputAnswer)){
                 resetPassword(user_name,true,retry);
             }
-            //layer.close();
+            s2.close();
+            prtstmt2.close();
+            layer.close();
+
             return (answerFromDB);
         }
         else
@@ -65,21 +79,27 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             return "Please answer the security question first !";
         }
 
-        DB_Layer layer= DB_Layer.singleConnection();
-        ResultSet s2=layer.check_if_patient(user_name);
+        layer= DB_Layer.singleConnection();
+        List<Object> resultState = layer.check_if_patient(user_name);
 
-        ResultSet s3=layer.check_if_doctor(user_name);
+        ResultSet s2 = (ResultSet) resultState.get(0);
+        PreparedStatement prtstmt2 = (PreparedStatement) resultState.get(1);
+
+
+        List<Object> resultState1 = layer.check_if_doctor(user_name);
+
+        ResultSet s3= (ResultSet) resultState1.get(0);
+        PreparedStatement prtstmt3 = (PreparedStatement) resultState1.get(1);
 
         if(s2.next())
         {
-
             Scanner sc=new Scanner(System.in);
             System.out.println("Enter the new password");
             String newPassword=sc.next();
-
             layer.updatePatient(newPassword,user_name);
-
-            //layer.close();
+            s2.close();
+            prtstmt2.close();
+            layer.close();
             return "Password reset was successful !";
         }
         else if(s3.next())
@@ -89,16 +109,15 @@ public class LoginAuthorisation implements ILoginAuthorisation {
             System.out.println("Enter the new password");
             String newPassword=sc.next();
             layer.updateDoctor(newPassword,user_name);
-            //layer.close();
+
+            s3.close();
+            prtstmt3.close();
+            layer.close();
         }
         else
         {
-
-
             return "User is not registered !";
-
         }
-
         return null;
     }
 

@@ -41,6 +41,9 @@ public class PatientPrescription {
         this.medicationList.add(resultRow);
 
       }
+
+      resultSet.close();
+      statement.close();
       connection.close();
 
     } catch (SQLException | IOException | ClassNotFoundException e) {
