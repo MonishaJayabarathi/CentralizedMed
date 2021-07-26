@@ -1,7 +1,5 @@
 package com.centrailized_medi_application;
 
-import java.io.IOException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,10 +8,10 @@ import java.util.Scanner;
 
 /**
  * @author Monisha J
- * @description: This program implements About Interface.
+ * @description : This program implements About Interface.
  * To fetch and display details of a doctor.
  * Overrides the methods defining structure of execution.
- * @params: int doctor_id : gets username of the doctor who logged in.
+ * @params : int doctor_id : gets username of the doctor who logged in.
  * DoctorDashboard dd : this triggers return to users dashboard.
  */
 public class AboutDoctor implements About {
@@ -23,7 +21,8 @@ public class AboutDoctor implements About {
   private ResultSet currentDoctorDetails; // holds the db results fetched
   private PreparedStatement prepStmt;
   DB_Layer layer;
-  AboutDoctor(String doctor_id, DoctorDashboard dd)  {
+
+  AboutDoctor(String doctor_id, DoctorDashboard dd) {
     this.doctorUsername = doctor_id;
     this.init = dd;
     //this.layer=DB_Layer.singleConnection();
@@ -32,21 +31,22 @@ public class AboutDoctor implements About {
   //fetch user details from DB
   @Override
   public void fetchDetails() {
-    try{
-    this.layer=DB_Layer.singleConnection();
-    System.out.println("Loading About...\n");
-    List<Object> resultState =layer.getUserDetails(doctorUsername,"Doctor");//call to the DB layer.
+    try {
+      this.layer = DB_Layer.singleConnection();
+      System.out.println("Loading About...\n");
+      List<Object> resultState = layer.getUserDetails(doctorUsername, "Doctor");//call to the DB layer.
 
-    this.currentDoctorDetails = (ResultSet) resultState.get(0);
-    this.prepStmt = (PreparedStatement) resultState.get(1);
-    }catch (Exception e){
+      this.currentDoctorDetails = (ResultSet) resultState.get(0);
+      this.prepStmt = (PreparedStatement) resultState.get(1);
+    } catch (Exception e) {
       System.out.println(e.getMessage());
     }
 
   }
+
   //display user details
   @Override
-  public void displayDetails()  {
+  public void displayDetails() {
     try {
       while (this.currentDoctorDetails.next()) {
         System.out.println("**************************** About You **************************");
@@ -66,15 +66,14 @@ public class AboutDoctor implements About {
       currentDoctorDetails.close();
       prepStmt.close();
       layer.close();
-    }
-    catch (SQLException s){
+    } catch (SQLException s) {
       System.out.println(s.getMessage());
     }
   }
 
   //handles navigation to dashboard
   @Override
-  public void back  () {
+  public void back() {
 
     try {
       System.out.println("Press 1 to move to your Dashboard");
@@ -82,14 +81,12 @@ public class AboutDoctor implements About {
       int option = sc.nextInt();
       if (option == 1) {
         System.out.println("Returning to your Dashboard...");
-        WelcomePage init = new WelcomePage();
         this.init.display();
       } else {
         System.out.println("Please provide a valid entry");
         this.back();
       }
-    }
-    catch(Exception e){
+    } catch (Exception e) {
       System.out.println(e.getMessage());
     }
   }
