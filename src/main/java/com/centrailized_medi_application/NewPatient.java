@@ -44,18 +44,14 @@ public class NewPatient implements Details, Registration {
   @Override
   public void action() {
     // check if the details were updated successfully
-    try {
-      if (this.hasRegisteredSuccessfully) {
-        String firstName = this.basicDetails.getFirstName();
-        System.out.println(firstName + " you have registered successfully. You can now login and access your dashboard"); // name to be replaced with the actual name stored in db
-        this.init.displayPatientLogin();
-      } else {
-        System.out.println("Unable to register. Please try again!");
-        System.out.println("Navigating to main menu...");
-        this.init.display();
-      }
-    } catch (SQLException | IOException | ClassNotFoundException e) {
-      System.out.println("Patient Registration Error " + e.getMessage());
+    if (this.hasRegisteredSuccessfully) {
+      String firstName = this.basicDetails.getFirstName();
+      System.out.println(firstName + " you have registered successfully. You can now login and access your dashboard"); // name to be replaced with the actual name stored in db
+      this.init.displayPatientLogin();
+    } else {
+      System.out.println("Unable to register. Please try again!");
+      System.out.println("Navigating to main menu...");
+      this.init.display();
     }
   }
 }

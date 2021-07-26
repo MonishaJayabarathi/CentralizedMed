@@ -1,7 +1,5 @@
 package com.centrailized_medi_application;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -38,24 +36,20 @@ public class DoctorRegistration extends LoginCommand {
    */
   @Override
   public void confirmation() {
-    try {
-      System.out.println("Please enter 1 to register or any other option to revert");
-      Scanner sc = new Scanner(System.in);
-      if (sc.nextInt() == 1) {
-        this.execute();
+    System.out.println("Please enter 1 to register or any other option to revert");
+    Scanner sc = new Scanner(System.in);
+    if (sc.nextInt() == 1) {
+      this.execute();
+    } else {
+      System.out.println("Are you sure you want to cancel registration, please enter y/n to confirm");
+      sc = new Scanner(System.in);
+      if (sc.nextLine().equals("y")) {
+        System.out.println("Navigating to main menu...");
+        this.init.display();
       } else {
-        System.out.println("Are you sure you want to cancel registration, please enter y/n to confirm");
-        sc = new Scanner(System.in);
-        if (sc.nextLine().equals("y")) {
-          System.out.println("Navigating to main menu...");
-          this.init.display();
-        } else {
-          System.out.println("Registration in progress....");
-          this.execute();
-        }
+        System.out.println("Registration in progress....");
+        this.execute();
       }
-    } catch (SQLException | IOException | ClassNotFoundException e) {
-      System.out.println("Confirmation in Doctor Registration Error " + e.getMessage());
     }
   }
 }
