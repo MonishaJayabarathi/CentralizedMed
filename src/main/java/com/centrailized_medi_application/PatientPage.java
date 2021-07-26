@@ -13,7 +13,6 @@ import java.sql.SQLException;
  */
 public class PatientPage extends PatientDashboard {
   private String userName;
-  String environment = "src/main/resources/config_test.properties";
 
 
   /**
@@ -90,7 +89,7 @@ public class PatientPage extends PatientDashboard {
    * @Param None
    */
   @Override
-  public void displayLogout() throws SQLException, IOException, ClassNotFoundException {
+  public void displayLogout(){
     System.out.println("User has been successfully logged out !");
     WelcomePage back_to_menu = new WelcomePage();
     back_to_menu.display();

@@ -1,8 +1,10 @@
 package com.centrailized_medi_application;
 
-import java.util.*;
+
 
 //Class for patient registration
+
+import java.util.Scanner;
 
 public class PatientRegistration extends LoginCommand {
   NewPatient patient;
@@ -33,7 +35,7 @@ public class PatientRegistration extends LoginCommand {
     } else {
       System.out.println("Are you sure you want to cancel registration, please enter y/n to confirm");
       sc = new Scanner(System.in);
-      if (sc.nextLine().toLowerCase().equals("y")) {
+      if (sc.nextLine().equals("y")) {
         System.out.println("Navigating to main menu...");
         this.init.display();
       } else {
