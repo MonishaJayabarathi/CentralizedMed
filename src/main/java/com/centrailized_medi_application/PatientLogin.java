@@ -39,16 +39,19 @@ public class PatientLogin extends LoginCommand {
    * @return void
    * @Param String patientUsername - This is the only input parameter
    */
-  public void setPatientName(String patientUsername) throws SQLException, IOException, ClassNotFoundException {
+  public void setPatientName(String patientUsername){
 
-    if (patientUsername.contains("@") && patientUsername.contains(".com")) {
-      patientName = patientUsername;
-    } else {
-      System.out.println("Expecting Email id");
-      System.out.println("Re-enter you details");
-      mainPage.displayPatientLogin();
+    try {
+      if (patientUsername.contains("@") && patientUsername.contains(".com")) {
+        patientName = patientUsername;
+      } else {
+        System.out.println("Expecting Email id");
+        System.out.println("Re-enter you details");
+        mainPage.displayPatientLogin();
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
-
   }
 
   /**
@@ -88,10 +91,14 @@ public class PatientLogin extends LoginCommand {
    * @Param None
    */
   @Override
-  protected void execute() throws SQLException, IOException, ClassNotFoundException {
-    patientLogin.fetch(this.patientName, this.patientPass);
-    patientLogin.validate();
-    patientLogin.authenticate();
+  protected void execute() {
+    try {
+      patientLogin.fetch(this.patientName, this.patientPass);
+      patientLogin.validate();
+      patientLogin.authenticate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -102,21 +109,25 @@ public class PatientLogin extends LoginCommand {
    * @Param None
    */
   @Override
-  public void confirmation() throws SQLException, IOException, ClassNotFoundException {
+  public void confirmation() {
     System.out.println("Please enter 1 to submit or any other option to revert");
     Scanner sc = new Scanner(System.in);
-    if (sc.nextInt() == 1) {
-      this.execute();
-    } else {
-      System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
-      sc = new Scanner(System.in);
-      if (sc.nextLine().equals("y")) {
-        System.out.println("Navigating to main menu...");
-        this.mainPage.display();
-      } else {
-        System.out.println("Logging in....");
+    try {
+      if (sc.nextInt() == 1) {
         this.execute();
+      } else {
+        System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
+        sc = new Scanner(System.in);
+        if (sc.nextLine().equals("y")) {
+          System.out.println("Navigating to main menu...");
+          this.mainPage.display();
+        } else {
+          System.out.println("Logging in....");
+          this.execute();
+        }
       }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());;
     }
   }
 }
