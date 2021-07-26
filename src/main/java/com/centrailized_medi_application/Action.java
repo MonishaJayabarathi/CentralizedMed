@@ -1,10 +1,5 @@
 package com.centrailized_medi_application;
 
-/*Importing Module*/
-
-import java.io.IOException;
-import java.sql.SQLException;
-
 /**
  * @author Aditya Jain & Monisha J
  * @description: Action is an Ivoker class, which sets command and puts the command to work
@@ -29,7 +24,7 @@ public class Action {
    * @return void
    * @Param void
    */
-  public void run() throws SQLException, IOException, ClassNotFoundException {
+  public void run() {
     command.confirmation();
   }
 }

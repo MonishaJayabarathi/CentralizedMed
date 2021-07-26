@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class DoctorLogin extends LoginCommand {
   private Login doctorLogin;
   private MainDashboard init;
-
   private String doctorName;
   private String doctorPassword;
 
@@ -32,16 +31,19 @@ public class DoctorLogin extends LoginCommand {
    *
    * @params: It takes String doctor_name, which is the entered username.
    */
-  public void setDoctorName(String doctor_name) throws SQLException, IOException, ClassNotFoundException {
+  public void setDoctorName(String doctor_name) {
 
-    if (doctor_name.contains("@") && doctor_name.contains(".com")) {
-      this.doctorName = doctor_name;
-    } else {
-      System.out.println("Expecting Email id");
-      System.out.println("Re-enter you details");
-      init.displayDoctorLogin();
+    try {
+      if (doctor_name.contains("@") && doctor_name.contains(".com")) {
+        this.doctorName = doctor_name;
+      } else {
+        System.out.println("Expecting Email id");
+        System.out.println("Re-enter you details");
+        init.displayDoctorLogin();
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
-
   }
 
   /**
@@ -80,10 +82,14 @@ public class DoctorLogin extends LoginCommand {
    * @throws ClassNotFoundException
    */
   @Override
-  public void execute() throws SQLException, IOException, ClassNotFoundException {
-    doctorLogin.fetch(this.doctorName, this.doctorPassword);
-    doctorLogin.validate();
-    doctorLogin.authenticate();
+  public void execute(){
+    try {
+      doctorLogin.fetch(this.doctorName, this.doctorPassword);
+      doctorLogin.validate();
+      doctorLogin.authenticate();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   /**
@@ -96,23 +102,27 @@ public class DoctorLogin extends LoginCommand {
    * @throws ClassNotFoundException
    */
   @Override
-  public void confirmation() throws SQLException, IOException, ClassNotFoundException {
+  public void confirmation() {
     System.out.println("Please enter 1 to submit or any other option to revert");
     Scanner sc = new Scanner(System.in);
-    if (sc.nextInt() == 1) {
-      System.out.println("Logging in....");
-      this.execute();
-    } else {
-      System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
-      sc = new Scanner(System.in);
-      if (sc.nextLine().toLowerCase().equals("y")) {
-        System.out.println("Navigating to main menu...");
-        this.init.display();
-
-      } else {
+    try {
+      if (sc.nextInt() == 1) {
         System.out.println("Logging in....");
         this.execute();
+      } else {
+        System.out.println("Are you sure you want to cancel action, please enter y/n to confirm");
+        sc = new Scanner(System.in);
+        if (sc.nextLine().toLowerCase().equals("y")) {
+          System.out.println("Navigating to main menu...");
+          this.init.display();
+
+        } else {
+          System.out.println("Logging in....");
+          this.execute();
+        }
       }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }
 }
