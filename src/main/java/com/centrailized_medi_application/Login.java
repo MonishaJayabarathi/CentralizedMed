@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public abstract class Login {
   protected abstract void fetch(String username, String Psswd);
 
-  protected abstract void validate() throws SQLException, IOException, ClassNotFoundException;
+  protected abstract void validate();
 
-  protected abstract void authenticate() throws SQLException, IOException, ClassNotFoundException;
+  protected abstract void authenticate();
 }

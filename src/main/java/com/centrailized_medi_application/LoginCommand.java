@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * confirmation() triggers execute() whenever user agrees to proceed with
  */
 public abstract class LoginCommand {
-  protected abstract void execute() throws SQLException, IOException, ClassNotFoundException;
+  protected abstract void execute();
 
-  protected abstract void confirmation() throws SQLException, IOException, ClassNotFoundException;
+  protected abstract void confirmation();
 }

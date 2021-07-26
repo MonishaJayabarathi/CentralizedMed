@@ -1,6 +1,5 @@
 package com.centrailized_medi_application;
 
-import javax.print.Doc;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -114,38 +113,41 @@ public class Doctor extends Login {
    * @throws ClassNotFoundException
    */
   @Override
-  public void validate() throws SQLException, IOException, ClassNotFoundException {
-    List<Object> resultState = connect.getDetails();
-    this.creds = (boolean[]) resultState.get(0);
-    this.isValidUsername = creds[0];
-    this.isValidPassword = creds[1];
+  public void validate() {
+    try {
+      List<Object> resultState = connect.getDetails();
+      this.creds = (boolean[]) resultState.get(0);
+      this.isValidUsername = creds[0];
+      this.isValidPassword = creds[1];
+      login_name = (ResultSet) resultState.get(1);
+      login_pass = (ResultSet) resultState.get(2);
+      res_check_for_doc = (ResultSet) resultState.get(3);
+      p1 = (PreparedStatement) resultState.get(4);
+      p2 = (PreparedStatement) resultState.get(5);
+      check_for_doc = (PreparedStatement) resultState.get(6);
 
-    login_name = (ResultSet) resultState.get(1);
-    login_pass = (ResultSet) resultState.get(2);
-    res_check_for_doc = (ResultSet) resultState.get(3);
-    p1 = (PreparedStatement) resultState.get(4);
-    p2 = (PreparedStatement) resultState.get(5);
-    check_for_doc = (PreparedStatement) resultState.get(6);
-
-    if (login_name != null){
-      login_name.close();
+      if (login_name != null){
+        login_name.close();
+      }
+      if (login_pass != null) {
+        login_pass.close();
+      }
+      if (res_check_for_doc != null) {
+        res_check_for_doc.close();
+      }
+      if (p1 != null){
+        p1.close();
+      }
+      if (p2 != null){
+        p2.close();
+      }
+      if (check_for_doc != null){
+        check_for_doc.close();
+      }
+      connect.close();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
-    if (login_pass != null) {
-      login_pass.close();
-    }
-    if (res_check_for_doc != null) {
-      res_check_for_doc.close();
-    }
-    if (p1 != null){
-      p1.close();
-    }
-    if (p2 != null){
-      p2.close();
-    }
-    if (check_for_doc != null){
-      check_for_doc.close();
-    }
-    connect.close();
   }
 
   /**
@@ -159,28 +161,31 @@ public class Doctor extends Login {
    * @throws ClassNotFoundException
    */
   @Override
-  public void authenticate() throws SQLException, IOException, ClassNotFoundException {
+  public void authenticate(){
 
     isUserValidated = true;
-    if (this.isValidUsername && this.isValidPassword)
-    {
-      System.out.println("Welcome " + this.userName);
-      this.dd.display();
-    } else if (this.isValidUsername && !this.isValidPassword) {
-      System.out.println("Check your credentials!");
-      localRetry++;
-      this.loginAuthorisation.set_Retry(localRetry);
-      if (localRetry != 3) {
-        this.init.displayDoctorLogin();
-      } else if (localRetry == 3) {
-        this.loginAuthorisation.getSecurityQuestion(userName);
+    try {
+      if (this.isValidUsername && this.isValidPassword)
+      {
+        System.out.println("Welcome " + this.userName);
+        this.dd.display();
+      } else if (this.isValidUsername && !this.isValidPassword) {
+        System.out.println("Check your credentials!");
+        localRetry++;
+        this.loginAuthorisation.set_Retry(localRetry);
+        if (localRetry != 3) {
+          this.init.displayDoctorLogin();
+        } else if (localRetry == 3) {
+          this.loginAuthorisation.getSecurityQuestion(userName);
+        }
+
+      } else {
+        System.out.println("Please register to the system!");
+        System.out.println("Navigating to main menu...");
+        this.init.display();
       }
-
-    } else {
-      System.out.println("Please register to the system!");
-      System.out.println("Navigating to main menu...");
-      this.init.display();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());;
     }
-
   }
 }
