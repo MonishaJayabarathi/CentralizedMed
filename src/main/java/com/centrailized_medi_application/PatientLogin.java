@@ -2,8 +2,6 @@ package com.centrailized_medi_application;
 
 /*Importing modules*/
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -39,7 +37,7 @@ public class PatientLogin extends LoginCommand {
    * @return void
    * @Param String patientUsername - This is the only input parameter
    */
-  public void setPatientName(String patientUsername){
+  public void setPatientName(String patientUsername) {
 
     try {
       if (patientUsername.contains("@") && patientUsername.contains(".com")) {
@@ -127,7 +125,8 @@ public class PatientLogin extends LoginCommand {
         }
       }
     } catch (Exception e) {
-      System.out.println(e.getMessage());;
+      System.out.println(e.getMessage());
+      ;
     }
   }
 }
