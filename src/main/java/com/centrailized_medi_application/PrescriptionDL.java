@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class PrescriptionDL implements IPrescriptionPersistence {
 
   @Override
-  public void loadPrescription(Prescription prescription) {
-    ArrayList<ArrayList<String>> medicationList = new ArrayList<ArrayList<String>>();
+  public void loadPrescription(IPrescription prescription) {
+    ArrayList<ArrayList<String>> medicationList = new ArrayList<>();
     String patientUserName = prescription.getPatientUserName();
 
     try {

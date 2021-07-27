@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,17 +17,18 @@ class PatientSuggestionsTest {
   @DisplayName("To get patient's user name")
   void constructor() throws SQLException, IOException, ClassNotFoundException {
     PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
-    assertEquals(patientUserName, patientSuggestions.userName);
+    assertEquals(patientUserName, patientSuggestions.getPatientUserName());
   }
 
   @Test
   @DisplayName("To get patient's latitude and longitude")
   void setLatLon() throws SQLException, IOException, ClassNotFoundException {
     PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
-    patientSuggestions.setLatLon();
+    PatientSuggestionsDL patientSuggestionsDL = new PatientSuggestionsDL();
+    patientSuggestions.getPatientLatLon(patientSuggestionsDL);
 
-    assertEquals(50.11, patientSuggestions.latitude);
-    assertEquals(5.28, patientSuggestions.longitude);
+    assertEquals(50.11, patientSuggestions.getLatitude());
+    assertEquals(5.28, patientSuggestions.getLongitude());
   }
 
   @Test
@@ -57,9 +57,11 @@ class PatientSuggestionsTest {
 
 
     PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
-    patientSuggestions.setLatLon();
+    PatientSuggestionsDL patientSuggestionsDL = new PatientSuggestionsDL();
+    patientSuggestions.getPatientLatLon(patientSuggestionsDL);
     patientSuggestions.setSpecialization("Gynaecology");
-    String actualDoctorsList = patientSuggestions.getSuggestedDoctors();
+    patientSuggestions.getSuggestedDoctors(patientSuggestionsDL);
+    String actualDoctorsList = PatientSuggestionsPL.viewSuggestedDoctors(patientSuggestions);
     assertEquals(expectedDoctorsList, actualDoctorsList);
 
   }

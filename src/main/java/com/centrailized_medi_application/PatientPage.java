@@ -78,9 +78,10 @@ public class PatientPage extends PatientDashboard {
   @Override
   public void displaySuggestions() throws SQLException, IOException, ClassNotFoundException {
     PatientSuggestions patientSuggestions = new PatientSuggestions(userName);
-    patientSuggestions.setLatLon();
-    patientSuggestions.setSpecializationByPatient();
-    System.out.println(patientSuggestions.getSuggestedDoctors());
+    PatientSuggestionsDL patientSuggestionsDL = new PatientSuggestionsDL();
+    patientSuggestions.getPatientLatLon(patientSuggestionsDL);
+    PatientSuggestionsPL.setSpecializationByPatient(patientSuggestions);
+    System.out.println(PatientSuggestionsPL.viewSuggestedDoctors(patientSuggestions));
     PatientPage patientPage = new PatientPage(userName);
     patientPage.display();
   }
