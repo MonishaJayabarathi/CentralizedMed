@@ -1,8 +1,4 @@
 package com.centrailized_medi_application;
-/*Importing modules*/
-
-import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * @author Aditya Jain & Monisha J
