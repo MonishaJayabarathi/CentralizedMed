@@ -16,6 +16,13 @@ public class LoginAuthorisation implements ILoginAuthorisation {
   int retry = 0;
   DB_Layer layer = null;
 
+  /**
+   * Method gets the security question from database and then prompts the user to answer it,
+   * if answer correctly, the user gets teh funcionality to reset the password.
+   * @param user_name
+   * @return
+   */
+
   @Override
   public String getSecurityQuestion(String user_name) {
 
@@ -70,6 +77,13 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     return result;
   }
 
+  /**
+   * The method provides the functionality to the user to reset the password.
+   * @param user_name
+   * @param securityQuesCleared
+   * @param retries
+   * @return
+   */
   @Override
   public String resetPassword(String user_name, boolean securityQuesCleared, Integer retries) {
     String result = null;
@@ -119,6 +133,10 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     return result;
   }
 
+  /**
+   * Method keeps a strack of the number of retries.
+   * @param localRetry
+   */
   @Override
   public void set_Retry(Integer localRetry) {
 

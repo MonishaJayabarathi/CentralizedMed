@@ -65,7 +65,7 @@ public abstract class DoctorDashboard extends Dashboard {
         flag = true;
       } else if (option == 6) {
         this.Logout();
-        logout = true;
+        logout = true; //set the logout status true for this user.
         flag = true;
       } else {
         System.out.println("Enter the correct options to proceed");
