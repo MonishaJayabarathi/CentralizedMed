@@ -75,6 +75,7 @@ public class PatientPage extends PatientDashboard {
     PatientSuggestionsDL patientSuggestionsDL = new PatientSuggestionsDL();
     patientSuggestions.getPatientLatLon(patientSuggestionsDL);
     PatientSuggestionsPL.setSpecializationByPatient(patientSuggestions);
+    patientSuggestions.getSuggestedDoctors(patientSuggestionsDL);
     System.out.println(PatientSuggestionsPL.viewSuggestedDoctors(patientSuggestions));
     PatientPage patientPage = new PatientPage(userName);
     patientPage.display();
