@@ -3,7 +3,7 @@ package com.centrailized_medi_application;
 import java.util.Scanner;
 
 /**
- * @author Monisha J, Neelay
+ * @author Monisha J, Neelay Jayantbharti Goswami
  * @description : This program gets the answers for security question from the person trying to register or
  * trying to reset password. The class has getter and setter of the required variables holding security answers.
  */
