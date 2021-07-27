@@ -3,7 +3,7 @@ package com.centrailized_medi_application;
 import java.util.Scanner;
 
 /**
- * @author Monisha J, Neelay
+ * @author Monisha J, Neelay Jayanthbarti Goswami
  * @description : This program gets the basic details of a person trying to register.
  * The class has getter and setter of the required variables holding required data.
  */
