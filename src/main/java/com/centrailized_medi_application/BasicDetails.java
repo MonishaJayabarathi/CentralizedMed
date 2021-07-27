@@ -19,6 +19,8 @@ public class BasicDetails implements Details {
   private String contactNo;
   private String password;
   private String confirmPassword;
+  private static final int locationMin = 0;
+  private static final int locationMax = 200;
   private Validation validate = new Validation();
   protected Scanner sc = new Scanner(System.in);
 
@@ -200,7 +202,7 @@ public class BasicDetails implements Details {
     this.setPassword(confPass);
 
     //Getting information for latitude and longitude randomly from function
-    this.setLatitude(getRandomNumber(0, 200));
-    this.setLongitude(getRandomNumber(0, 200));
+    this.setLatitude(getRandomNumber(locationMin, locationMax));
+    this.setLongitude(getRandomNumber(locationMin, locationMax));
   }
 }
