@@ -66,7 +66,11 @@ public class DoctorPage extends DoctorDashboard {
     }
   }
 
-  //gets the list of patients registered who have opted "YES" for donations.
+
+
+  /**
+   * Method gets a list of students who have agreed to donate the organs and other types of donation swhile registering.
+   */
   @Override
   public void display_donors() {
     try {
@@ -87,6 +91,10 @@ public class DoctorPage extends DoctorDashboard {
     }
   }
 
+  /**
+   * Method displays the family history of a patient
+   */
+
   @Override
   public void display_patient_family_history() {
     FamilyInfo fi = new FamilyInfo();
@@ -95,7 +103,9 @@ public class DoctorPage extends DoctorDashboard {
 
   }
 
-  //Logs out the currently signed in user out of the portal
+  /**
+   * Logs the currently logged in user and redirects to the main dashboard of the application.
+   */
   @Override
   public void Logout() {
     System.out.println("User has been successfuly logged out !");

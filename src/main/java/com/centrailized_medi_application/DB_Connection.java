@@ -25,10 +25,10 @@ public class DB_Connection implements DbConnection {
   private String u_pass;
   Properties pr = null;
 
+
   public DB_Connection()  {
 
     configFile = "src/main/resources/config_Production.properties";
-
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
       String[] fullFileName = configFile.split("/", 0);
@@ -71,6 +71,13 @@ public class DB_Connection implements DbConnection {
     }
   }
 
+  /**
+   * The constructor DB_Connection takes parameters as configFile containing the database details, the username and the password,
+   * further eastablishes a connection with the database.
+   * @throws IOException
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   */
   public DB_Connection(String configFile, String u_name, String u_pass) throws IOException, ClassNotFoundException, SQLException {
     Class.forName("com.mysql.cj.jdbc.Driver");
     String[] fullFileName = configFile.split("/", 0);
@@ -87,6 +94,14 @@ public class DB_Connection implements DbConnection {
     connection = DriverManager.getConnection(url, username, password);
   }
 
+  /**
+   * Constructor takes parameeter only as a configFile which contains the details of database and then eastablishes a connection with the database
+   * @param configFile
+   * @throws ClassNotFoundException
+   * @throws IOException
+   * @throws SQLException
+   */
+
   public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
     Class.forName("com.mysql.cj.jdbc.Driver");
     String[] fullFileName = configFile.split("/", 0);
@@ -102,6 +117,11 @@ public class DB_Connection implements DbConnection {
 
   }
 
+  /**
+   * The method createConnection() returns a created connection of the database.
+   * @return
+   */
+
   //return the connection created in the constructor of this class.
   @Override
   public Connection createConnection() {
@@ -109,10 +129,23 @@ public class DB_Connection implements DbConnection {
     return connection;
   }
 
+  /**
+   *This method closes the connection
+   * @throws SQLException
+   */
+
   @Override
   public void close() throws SQLException {
     connection.close();
   }
+
+  /**
+   * Method uses the username and the password stored in local variables to check if the users are registered with the application.
+   * @return
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
 
   //return credential array containing info if the username and password are valid.
   @Override
