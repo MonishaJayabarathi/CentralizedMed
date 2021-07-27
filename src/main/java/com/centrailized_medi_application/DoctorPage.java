@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * @author Monisha J, Ridampreet Singh, Neelay Goswami
+ * @author Monisha J, Ridampreet Singh, Neelay Jayantbharti Goswami
  * @description : This program extends DoctorDashboard.
  * Holds abstract methods to define actual routing classes of tabs.
  * @params : int doctor_id : passed after successful login
@@ -97,8 +97,8 @@ public class DoctorPage extends DoctorDashboard {
 
   @Override
   public void display_patient_family_history() {
-    FamilyInfo fi = new FamilyInfo();
-    fi.getFamilyInfo();
+    FamilyInfo family_info = new FamilyInfo();
+    family_info.getFamilyInfo();
     this.display();
 
   }

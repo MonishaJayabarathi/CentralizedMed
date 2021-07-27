@@ -12,7 +12,7 @@ import java.util.Scanner;
  * To fetch and display details of a doctor.
  * Overrides the methods defining structure of execution.
  * @params : int doctor_id : gets username of the doctor who logged in.
- * DoctorDashboard dd : this triggers return to users dashboard.
+ * DoctorDashboard doctor_dashboard : this triggers return to users dashboard.
  */
 public class AboutDoctor implements About {
 
@@ -22,9 +22,9 @@ public class AboutDoctor implements About {
   private PreparedStatement prepStmt;
   DB_Layer layer;
 
-  AboutDoctor(String doctor_id, DoctorDashboard dd) {
+  AboutDoctor(String doctor_id, DoctorDashboard doctor_dashboard) {
     this.doctorUsername = doctor_id;
-    this.init = dd;
+    this.init = doctor_dashboard;
   }
 
   //fetch user details from DB

@@ -7,16 +7,16 @@ package com.centrailized_medi_application;
  * @params: AboutDoctor abtDr : gets instance of the class holding actual functionality.
  */
 public class AboutDoctorPage {
-  private AboutDoctor ad;
+  private AboutDoctor about_doctor;
 
   AboutDoctorPage(AboutDoctor abtDr) {
-    this.ad = abtDr;
+    this.about_doctor = abtDr;
   }
 
   // initiates actual execution for About doctor Tab
   public void display() {
-    this.ad.fetchDetails();
-    this.ad.displayDetails();
-    this.ad.back();
+    this.about_doctor.fetchDetails();
+    this.about_doctor.displayDetails();
+    this.about_doctor.back();
   }
 }

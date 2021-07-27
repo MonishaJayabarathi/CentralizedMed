@@ -4,8 +4,13 @@ import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
 
-//This class return all the family member details whose patient email id passed
-//Author:Neelay Goswami
+/**
+ * @author Neelay Jayantbharti Goswami
+ * @description :This class return all the family member details whose patient
+ * email id passed by the registered doctor in our system.
+ * This class has methods named getFamilyInfo() displayCurrentPatient()
+ * displayMembers()
+*/
 public class FamilyInfo {
   private ResultSet currentPatientDetails;
   private ResultSet familyDetails;
@@ -15,6 +20,12 @@ public class FamilyInfo {
   private PreparedStatement prepstmt2 = null;
   DB_Layer layer = null;
 
+  /**
+   * This method asks the patient email and on the basis of email
+   * patient family code is being fetched.
+   * @param email
+   * @return family code
+   */
   public String getFamilyInfo(String... email) {
     try {
       String patientEmail = "";
@@ -46,6 +57,10 @@ public class FamilyInfo {
     return familyCode;
   }
 
+  /**
+   * This method displays information related to patient whose email id is
+   * passed
+   */
   public void displayCurrentPatient() {
     try {
       if (this.currentPatientDetails.next()) {
@@ -74,6 +89,10 @@ public class FamilyInfo {
     }
   }
 
+  /**
+   * This method displays the family members of the patient who are registered
+   * in our system
+   */
   public void displayMembers() {
     try {
       int count = 1;
