@@ -1,22 +1,22 @@
 package com.centrailized_medi_application;
 
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.function.Try;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PatientPrescriptionTest {
+class PrescriptionTest {
 
   /* PatientPrescription retrieves the correct prescription from the database for current patient with one medication*/
   @Test
   void PatientPrescription_oneMedication() {
     String expectedMedicationList = "Amodis, Metronidazole BP, Oral, 400, 1, Twice a day, Morning, ";
 
-    PatientPrescription patientPrescription = new PatientPrescription("antor@gmail.com");
-    ArrayList<ArrayList<String>> medicationList = patientPrescription.getPrescriptionList();
+    Prescription prescription = new Prescription("antor@gmail.com");
+    PrescriptionDL prescriptionDL = new PrescriptionDL();
+    prescription.getPrescriptionList(prescriptionDL);
+    ArrayList<ArrayList<String>> medicationList = prescription.getMedicationList();
     StringBuilder actualMedicationList = new StringBuilder();
     for (ArrayList<String> medication : medicationList) {
       StringBuilder singleMedicationDetails = new StringBuilder();
@@ -24,7 +24,7 @@ class PatientPrescriptionTest {
         singleMedicationDetails.append(medicationDetails);
         singleMedicationDetails.append(", ");
       }
-      actualMedicationList.append(singleMedicationDetails.toString());
+      actualMedicationList.append(singleMedicationDetails);
     }
 
     assertEquals(expectedMedicationList, actualMedicationList.toString(),
@@ -40,8 +40,10 @@ class PatientPrescriptionTest {
         "Fosamax, Alendronate, Oral, 400, 1, Twice a day, Evening, " +
         "Glucophage, Melformin, Oral, 100, 1, Once a day, Night, ";
 
-    PatientPrescription patientPrescription = new PatientPrescription("Ridam@gmail.com");
-    ArrayList<ArrayList<String>> medicationList = patientPrescription.getPrescriptionList();
+    Prescription prescription = new Prescription("Ridam@gmail.com");
+    PrescriptionDL prescriptionDL = new PrescriptionDL();
+    prescription.getPrescriptionList(prescriptionDL);
+    ArrayList<ArrayList<String>> medicationList = prescription.getMedicationList();
     StringBuilder actualMedicationList = new StringBuilder();
     for (ArrayList<String> medication : medicationList) {
       StringBuilder singleMedicationDetails = new StringBuilder();
@@ -49,7 +51,7 @@ class PatientPrescriptionTest {
         singleMedicationDetails.append(medicationDetails);
         singleMedicationDetails.append(", ");
       }
-      actualMedicationList.append(singleMedicationDetails.toString());
+      actualMedicationList.append(singleMedicationDetails);
     }
 
     assertEquals(expectedMedicationList, actualMedicationList.toString(),
@@ -78,8 +80,10 @@ class PatientPrescriptionTest {
             "Time of day: Night\n" +
             "No Medications\n";
 
-    PatientPrescription patientPrescription = new PatientPrescription("antor@gmail.com");
-    String actualPrescriptionFormat = patientPrescription.formatPrescription();
+    Prescription prescription = new Prescription("antor@gmail.com");
+    PrescriptionDL prescriptionDL = new PrescriptionDL();
+    prescription.getPrescriptionList(prescriptionDL);
+    String actualPrescriptionFormat = PrescriptionPL.displayPrescription(prescription);
 
     assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat,
         "formatPrescription() did not structure the prescription for patient with one medication");
@@ -129,8 +133,10 @@ class PatientPrescriptionTest {
             "   Frequency : Once a day\n" +
             "\n";
 
-    PatientPrescription patientPrescription = new PatientPrescription("Ridam@gmail.com");
-    String actualPrescriptionFormat = patientPrescription.formatPrescription();
+    Prescription prescription = new Prescription("Ridam@gmail.com");
+    PrescriptionDL prescriptionDL = new PrescriptionDL();
+    prescription.getPrescriptionList(prescriptionDL);
+    String actualPrescriptionFormat = PrescriptionPL.displayPrescription(prescription);
 
     assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat,
         "formatPrescription() did not structure the prescription for patient with many medications");

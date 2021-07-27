@@ -52,8 +52,11 @@ public class PatientPage extends PatientDashboard {
   @Override
   public void displayPrescriptions() {
 
-    PatientPrescription pp = new PatientPrescription(userName);
-    System.out.println(pp.formatPrescription());
+    Prescription prescription = new Prescription(userName);
+    PrescriptionDL prescriptionDL = new PrescriptionDL();
+    prescription.getPrescriptionList(prescriptionDL);
+    String medicationList = PrescriptionPL.displayPrescription(prescription);
+    System.out.println(medicationList);
     PatientPage patientPage = new PatientPage(userName);
     patientPage.display();
   }
@@ -69,9 +72,10 @@ public class PatientPage extends PatientDashboard {
   @Override
   public void displaySuggestions() {
     PatientSuggestions patientSuggestions = new PatientSuggestions(userName);
-    patientSuggestions.setLatLon();
-    patientSuggestions.setSpecializationByPatient();
-    System.out.println(patientSuggestions.getSuggestedDoctors());
+    PatientSuggestionsDL patientSuggestionsDL = new PatientSuggestionsDL();
+    patientSuggestions.getPatientLatLon(patientSuggestionsDL);
+    PatientSuggestionsPL.setSpecializationByPatient(patientSuggestions);
+    System.out.println(PatientSuggestionsPL.viewSuggestedDoctors(patientSuggestions));
     PatientPage patientPage = new PatientPage(userName);
     patientPage.display();
   }
