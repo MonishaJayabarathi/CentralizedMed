@@ -1,6 +1,9 @@
 package com.centrailized_medi_application;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +23,6 @@ public class AboutPatient implements About {
   AboutPatient(String patient_id, PatientDashboard pd) {
     this.user_name = patient_id;
     this.init = pd;
-    //layer=DB_Layer.singleConnection();
 
   }
 

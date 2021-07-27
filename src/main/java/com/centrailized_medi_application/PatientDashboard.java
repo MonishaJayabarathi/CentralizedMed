@@ -1,7 +1,5 @@
 package com.centrailized_medi_application;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -13,22 +11,22 @@ import java.util.Scanner;
  * displaySuggestions(), displayLogout() are defined in the concrete class PatientPage
  */
 public abstract class PatientDashboard extends Dashboard {
-  public abstract void displayAbout() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void displayAbout();
 
-  public abstract void displayConsultations() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void displayConsultations();
 
-  public abstract void displayPrescriptions() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void displayPrescriptions();
 
-  public abstract void displaySuggestions() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void displaySuggestions();
 
-  public abstract void displayLogout() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void displayLogout();
 
   protected boolean flag = false;
   protected boolean logout = false;
   protected Scanner sc = new Scanner(System.in);
 
   @Override
-  public void display() throws SQLException, IOException, ClassNotFoundException {
+  public void display() {
     System.out.println("-----------Dashboard-------------");
     System.out.println("1.About");
     System.out.println("2.Consultations");

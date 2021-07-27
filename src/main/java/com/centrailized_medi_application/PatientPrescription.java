@@ -1,12 +1,9 @@
 package com.centrailized_medi_application;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Properties;
+
 
 /* Class representing prescription of a patient */
 public class PatientPrescription {

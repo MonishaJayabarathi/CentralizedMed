@@ -1,7 +1,5 @@
 package com.centrailized_medi_application;
 
-
-
 //Class for patient registration
 
 import java.util.Scanner;
