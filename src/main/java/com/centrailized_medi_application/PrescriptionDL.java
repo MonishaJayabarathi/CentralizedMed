@@ -14,36 +14,53 @@ public class PrescriptionDL implements IPrescriptionPersistence {
     // get general and specific medication details
     ArrayList<ArrayList<String>> medications = prescription.getMedicationsByDoctor();
 
-
-    DbConnection one = null;
     try {
-      one = new DB_Connection("src/main/resources/config_test.properties");
+      DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
       Connection connection = one.createConnection();
       Statement statement = connection.createStatement();
+      ResultSet resultSet1 = null;
+      ResultSet resultSet2 = null;
+      ResultSet resultSet3 = null;
+
+
       for (ArrayList<String> medication : medications) {
         statement.executeUpdate("INSERT INTO MedicationGeneral (BrandName,GenericName,Route)\n" +
             "VALUES ('" + medication.get(0) + "','" + medication.get(1) + "','" + medication.get(2) + "');");
 
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM MedicationGeneral ORDER BY " +
+        resultSet1 = statement.executeQuery("SELECT * FROM MedicationGeneral ORDER BY " +
             "MedicationGeneralID DESC LIMIT 1;");
-        int generalMedicationID = resultSet.getInt("MedicationGeneralID");
+        resultSet1.next();
+        int generalMedicationID = resultSet1.getInt("MedicationGeneralID");
 
         statement.executeUpdate("INSERT INTO MedicationSpecific (MedicationGeneralID, Strength, Amount, " +
             "Frequency,TimeOfDay)\nVALUES (" + generalMedicationID + "," + Integer.parseInt(medication.get(3)) +
             "," + Integer.parseInt(medication.get(4)) + ",'" + medication.get(5) + "','" + medication.get(6) + "');");
 
-        ResultSet resultSet2 = statement.executeQuery("SELECT * FROM MedicationSpecific ORDER BY " +
+        resultSet2 = statement.executeQuery("SELECT * FROM MedicationSpecific ORDER BY " +
             "MedicationSpecificID DESC LIMIT 1;");
-        int specificMedicationID = resultSet.getInt("MedicationSpecificID");
+        resultSet2.next();
+        int specificMedicationID = resultSet2.getInt("MedicationSpecificID");
 
-        ResultSet resultSet3 = statement.executeQuery("SELECT id FROM CSCI5308_5_TEST.patient_info\n" +
+        resultSet3 = statement.executeQuery("SELECT id FROM CSCI5308_5_TEST.patient_info\n" +
             "WHERE emailId='" + prescription.getPatientUserName() + "';");
-        int patientID = resultSet.getInt("id");
+        resultSet3.next();
+        int patientID = resultSet3.getInt("id");
 
         statement.executeUpdate("INSERT INTO PatientMedication\n" +
             "VALUES (" + specificMedicationID + "," + patientID + ");");
-
       }
+
+      if (resultSet1 != null){
+        resultSet1.close();
+      }
+      if (resultSet2 != null){
+        resultSet2.close();
+      }
+      if (resultSet3 != null){
+        resultSet3.close();
+      }
+      statement.close();
+      connection.close();
 
     } catch (ClassNotFoundException | IOException | SQLException e) {
       e.printStackTrace();
