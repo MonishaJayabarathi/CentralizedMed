@@ -2,7 +2,16 @@ package com.centrailized_medi_application;
 
 import java.util.Scanner;
 
+/**
+ * @author Neelay Jayantbharti Goswami
+ * @description : This program receives input of Patient medical details.
+ * The class object is used for a patient only. It holds getter and setter of
+ * the fields.
+ * It implements Details, to override the getDetails method, that receives
+ * command line input
+ */
 public class PatientDetails implements Details {
+  //variables for storing the patient input for their details
   private String bloodGroup;
   private String allergy;
   private String chronicDisease;
@@ -13,6 +22,12 @@ public class PatientDetails implements Details {
   final private Validation validate = new Validation();
   protected Scanner scanner = new Scanner(System.in);
 
+
+  /**
+   * These are the getter and setter method for various patient medical detail
+   * input
+   * @return
+   */
   public String getBloodGroup() {
     return bloodGroup;
   }
@@ -69,6 +84,12 @@ public class PatientDetails implements Details {
     this.volunteer = volunteer;
   }
 
+  /**
+   * This method gets the Patient medical details.
+   * While taking input it Validates the input and allows the user to re-enter
+   * if it is invalid.
+   * And assigns valid input it to the appropriate members.
+   */
   @Override
   public void getDetails() {
     try {
