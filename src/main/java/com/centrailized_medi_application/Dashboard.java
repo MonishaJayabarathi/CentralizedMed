@@ -12,6 +12,6 @@ import java.sql.SQLException;
  * loads the dashboard for Patient & Doctor respectively.
  */
 public abstract class Dashboard {
-  public abstract void display() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void display();
 }
 

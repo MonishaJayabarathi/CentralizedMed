@@ -25,7 +25,6 @@ public class AboutDoctor implements About {
   AboutDoctor(String doctor_id, DoctorDashboard dd) {
     this.doctorUsername = doctor_id;
     this.init = dd;
-    //this.layer=DB_Layer.singleConnection();
   }
 
   //fetch user details from DB
@@ -74,7 +73,6 @@ public class AboutDoctor implements About {
   //handles navigation to dashboard
   @Override
   public void back() {
-
     try {
       System.out.println("Press 1 to move to your Dashboard");
       Scanner sc = new Scanner(System.in);
