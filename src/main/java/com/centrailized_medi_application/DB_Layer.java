@@ -1,6 +1,5 @@
 package com.centrailized_medi_application;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,9 +38,9 @@ public class DB_Layer {
 
   private DB_Layer() {
 
-    String environment = "src/main/resources/config_test.properties";
+
     try {
-      DB_Connection db = new DB_Connection(environment);
+      DB_Connection db = new DB_Connection();
       this.connect = db.createConnection();
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -113,7 +112,7 @@ public class DB_Layer {
       boolean[] cred_validity = new boolean[2];
       String pass;
 
-      PreparedStatement p1 = connect.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=?");
+      PreparedStatement p1 = connect.prepareStatement("select * from CSCI5308_5_PRODUCTION.login_details where user_name=?");
       PreparedStatement p2 = null;
       PreparedStatement check_for_doc = null;
       p1.setString(1, u_name);
@@ -127,7 +126,7 @@ public class DB_Layer {
         if (name.equals((u_name))) {
           res_id = true;
         }
-        check_for_doc = connect.prepareStatement("select * from doctor_info where emailid=?");
+        check_for_doc = connect.prepareStatement("select * from CSCI5308_5_PRODUCTION.doctor_info where emailid=?");
         check_for_doc.setString(1, u_name);
         res_check_for_doc = check_for_doc.executeQuery();
         if (res_check_for_doc.next() == true) {
@@ -143,7 +142,7 @@ public class DB_Layer {
           return Arrays.asList(cred_validity, login_name, login_pass, res_check_for_doc, p1, p2, check_for_doc);
         }
 
-        p2 = connect.prepareStatement("select * from CSCI5308_5_TEST.login_details where user_name=? and pass=?");
+        p2 = connect.prepareStatement("select * from CSCI5308_5_PRODUCTION.login_details where user_name=? and pass=?");
         p2.setString(1, u_name);
         p2.setString(2, u_pass);
         login_pass = p2.executeQuery();
@@ -166,7 +165,7 @@ public class DB_Layer {
 
   public List<Object> fetchDonors() {
     try {
-      PreparedStatement get_donors = connect.prepareStatement("Select * from patient_info where volunteer=? ");
+      PreparedStatement get_donors = connect.prepareStatement("Select * from CSCI5308_5_PRODUCTION.patient_info where volunteer=? ");
       get_donors.setString(1, "yes");
       ResultSet exec_get_donors = get_donors.executeQuery();
 
@@ -179,7 +178,7 @@ public class DB_Layer {
   public List<Object> check_if_patient(String user_name) {
 
     try {
-      PreparedStatement check_if_patient = connect.prepareStatement("select * from patient_info where emailId=?");
+      PreparedStatement check_if_patient = connect.prepareStatement("select * from CSCI5308_5_PRODUCTION.patient_info where emailId=?");
       check_if_patient.setString(1, user_name);
       ResultSet s1 = check_if_patient.executeQuery();
 
@@ -192,7 +191,7 @@ public class DB_Layer {
   public List<Object> check_if_doctor(String user_name) {
 
     try {
-      PreparedStatement check_if_Doctor = connect.prepareStatement("select * from doctor_info where emailId=?");
+      PreparedStatement check_if_Doctor = connect.prepareStatement("select * from CSCI5308_5_PRODUCTION.doctor_info where emailId=?");
       check_if_Doctor.setString(1, user_name);
       ResultSet s2 = check_if_Doctor.executeQuery();
 
@@ -205,11 +204,11 @@ public class DB_Layer {
   public void updatePatient(String newPassword, String user_name) {
 
     try {
-      PreparedStatement updatePass = connect.prepareStatement("Update patient_info set password=? where emailid=?");
+      PreparedStatement updatePass = connect.prepareStatement("Update CSCI5308_5_PRODUCTION.patient_info set password=? where emailid=?");
       updatePass.setString(1, newPassword);
       updatePass.setString(2, user_name);
       updatePass.execute();
-      updatePass = connect.prepareStatement("Update login_details set pass=? where user_name=?");
+      updatePass = connect.prepareStatement("Update CSCI5308_5_PRODUCTION.login_details set pass=? where user_name=?");
       updatePass.setString(1, newPassword);
       updatePass.setString(2, user_name);
       updatePass.execute();
@@ -224,11 +223,11 @@ public class DB_Layer {
   public void updateDoctor(String newPassword, String user_name) {
 
     try {
-      PreparedStatement updatePass = connect.prepareStatement("Update doctor_info set password=? where emailid=?");
+      PreparedStatement updatePass = connect.prepareStatement("Update CSCI5308_5_PRODUCTION.doctor_info set password=? where emailid=?");
       updatePass.setString(1, newPassword);
       updatePass.setString(2, user_name);
       updatePass.execute();
-      updatePass = connect.prepareStatement("Update login_details set pass=? where user_name=?");
+      updatePass = connect.prepareStatement("Update CSCI5308_5_PRODUCTION.login_details set pass=? where user_name=?");
       updatePass.setString(1, newPassword);
       updatePass.setString(2, user_name);
       updatePass.execute();
@@ -243,7 +242,7 @@ public class DB_Layer {
   public List<Object> displayPatientInfo(String patientEmail) {
 
     try {
-      String sqlStmt = "SELECT * FROM patient_info where emailId =?";
+      String sqlStmt = "SELECT * FROM CSCI5308_5_PRODUCTION.patient_info where emailId =?";
 
       PreparedStatement prepStmt = connect.prepareStatement(sqlStmt);
       prepStmt.setString(1, patientEmail);
@@ -259,7 +258,7 @@ public class DB_Layer {
   public List<Object> displayFamilyinfo(String familyCode, String patientEmail) {
 
     try {
-      String sqlStmt = "SELECT * FROM patient_info where familyMemberCode =\"" + familyCode + "\" and not emailId=\"" + patientEmail + "\"";
+      String sqlStmt = "SELECT * FROM CSCI5308_5_PRODUCTION.patient_info where familyMemberCode =\"" + familyCode + "\" and not emailId=\"" + patientEmail + "\"";
       PreparedStatement prepStmt = connect.prepareStatement(sqlStmt);
 
 
@@ -280,7 +279,7 @@ public class DB_Layer {
       st.setString(2, basicDetails.getPassword());
 
       st.execute();
-      st = connect.prepareStatement("Select * from login_details where user_name=\"" + basicDetails.getEmailId() + "\"");
+      st = connect.prepareStatement("Select * from CSCI5308_5_PRODUCTION.login_details where user_name=\"" + basicDetails.getEmailId() + "\"");
       ResultSet rs2 = st.executeQuery();
       rs2.next();
       int curr_id = rs2.getInt("idlogin_details");

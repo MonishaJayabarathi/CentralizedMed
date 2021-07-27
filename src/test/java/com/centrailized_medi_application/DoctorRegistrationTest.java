@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,10 +23,8 @@ class DoctorRegistrationTest {
     bc.setLongitude(90);
     bc.setEmailId("monishaa@test.com");
     bc.setPassword("password");
-
     dd.setSpeciality("neurologist");
     dd.setRegistrationNumber(1234567);
-
     sq.setAnswer1("school1");
     sq.setAnswer2("hobby1");
     sq.setAnswer3("Scooty");
@@ -37,7 +33,7 @@ class DoctorRegistrationTest {
   @Disabled
   @Test
   @DisplayName("To execute doctor registration")
-  void execute() throws SQLException, IOException, ClassNotFoundException {
+  void execute()  {
     mockData();
     NewDoctor dr = new NewDoctor(bc,dd,sq, new WelcomePage());
     DoctorRegistration docReg = new DoctorRegistration(dr,new WelcomePage());

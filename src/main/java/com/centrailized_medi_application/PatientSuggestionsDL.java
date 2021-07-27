@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class PatientSuggestionsDL implements ISuggestionsPersistence{
 
@@ -17,10 +17,10 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
     String patientUserName = patientSuggestions.getPatientUserName();
 
     try {
-      DbConnection db_connection = new DB_Connection("src/main/resources/config_test.properties");
+      DbConnection db_connection = new DB_Connection();
       Connection connection = db_connection.createConnection();
       Statement statement = connection.createStatement();
-      ResultSet resultSet = statement.executeQuery("SELECT * FROM CSCI5308_5_TEST.patient_info\n" +
+      ResultSet resultSet = statement.executeQuery("SELECT * FROM CSCI5308_5_PRODUCTION.patient_info\n" +
           "WHERE patient_info.emailID = '" + patientUserName + "';");
 
       while (resultSet.next()) {
@@ -31,7 +31,7 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
       resultSet.close();
       statement.close();
       connection.close();
-    } catch (SQLException | IOException | ClassNotFoundException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
 
@@ -48,7 +48,7 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
     try {
       ArrayList<ArrayList<String>> doctorsList = new ArrayList<ArrayList<String>>();
 
-      DbConnection db_connection = new DB_Connection("src/main/resources/config_test.properties");
+      DbConnection db_connection = new DB_Connection();
       Connection connection = db_connection.createConnection();
 
       Statement statement = connection.createStatement();
@@ -80,7 +80,7 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
 
       patientSuggestions.setDoctorsList(doctorsList);
 
-    } catch (SQLException | IOException | ClassNotFoundException throwables) {
+    } catch (Exception throwables) {
       throwables.printStackTrace();
     }
 

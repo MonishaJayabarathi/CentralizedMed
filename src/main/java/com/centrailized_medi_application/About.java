@@ -6,9 +6,9 @@ package com.centrailized_medi_application;
  * Holds methods to be overridden in classes inheriting this.
  */
 public interface About {
-  public void fetchDetails();
+  void fetchDetails();
 
-  public void displayDetails();
+  void displayDetails();
 
-  public void back();
+  void back();
 }

@@ -25,14 +25,57 @@ public class DB_Connection implements DbConnection {
   private String u_pass;
   Properties pr = null;
 
+  public DB_Connection()  {
+
+    configFile = "src/main/resources/config_Production.properties";
+
+    try {
+      Class.forName("com.mysql.cj.jdbc.Driver");
+      String[] fullFileName = configFile.split("/", 0);
+      String fileName = fullFileName[3];
+      InputStream f1 = getClass().getResourceAsStream(fileName);
+      pr = new Properties();
+      pr.load(f1); //load the details from the properties file
+      url = pr.getProperty("database");
+      username = pr.getProperty("user");
+      password = pr.getProperty("password");
+      connection = DriverManager.getConnection(url, username, password);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+
+  }
+
+  public DB_Connection(String u_name, String u_pass) {
+    try {
+      configFile = "src/main/resources/config_Production.properties";
+      Class.forName("com.mysql.cj.jdbc.Driver");
+      String[] fullFileName = configFile.split("/", 0);
+      String fileName = fullFileName[3];
+      InputStream f1 = getClass().getResourceAsStream(fileName);
+      pr = new Properties();
+      pr.load(f1);  //load the details from the properties file
+      url = pr.getProperty("database");
+      username = pr.getProperty("user");
+      password = pr.getProperty("password");
+      this.u_name = u_name;
+      this.u_pass = u_pass;
+      connection = DriverManager.getConnection(url, username, password);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
 
   public DB_Connection(String configFile, String u_name, String u_pass) throws IOException, ClassNotFoundException, SQLException {
     Class.forName("com.mysql.cj.jdbc.Driver");
     String[] fullFileName = configFile.split("/", 0);
     String fileName = fullFileName[3];
-
     InputStream f1 = getClass().getResourceAsStream(fileName);
-
     pr = new Properties();
     pr.load(f1);  //load the details from the properties file
     url = pr.getProperty("database");
@@ -75,7 +118,7 @@ public class DB_Connection implements DbConnection {
   @Override
   public List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException {
     DB_Layer db = DB_Layer.singleConnection();
-    List<Object> listResults = db.getCredStatus(u_name, u_pass);
+    List<Object> listResults = db.getCredStatus(this.u_name, this.u_pass);
     db.close();
 
     return listResults;

@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class DoctorPage extends DoctorDashboard {
 
   protected String doctorUsername; //gives id of logged in doctor
-  private String environment = "src/main/resources/config_test.properties";
+
 
   /**
    * Constructor that maintains the username session of the doctor logged in
@@ -58,7 +58,7 @@ public class DoctorPage extends DoctorDashboard {
   @Override
   public void display_pastConsultations() {
     try {
-      PastConsultations pastPatients = new PastConsultations(new DB_Connection(environment), this.doctorUsername);
+      PastConsultations pastPatients = new PastConsultations(new DB_Connection(), this.doctorUsername);
       System.out.println(pastPatients.getPreviousConsultations());
       this.display();
     } catch (Exception e) {

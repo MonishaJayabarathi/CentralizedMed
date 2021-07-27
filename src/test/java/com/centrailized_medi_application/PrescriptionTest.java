@@ -1,9 +1,7 @@
 package com.centrailized_medi_application;
 
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class PrescriptionTest {
@@ -84,7 +82,6 @@ class PrescriptionTest {
     PrescriptionDL prescriptionDL = new PrescriptionDL();
     prescription.getPrescriptionList(prescriptionDL);
     String actualPrescriptionFormat = PrescriptionPL.displayPrescription(prescription);
-
     assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat,
         "formatPrescription() did not structure the prescription for patient with one medication");
   }
@@ -137,7 +134,6 @@ class PrescriptionTest {
     PrescriptionDL prescriptionDL = new PrescriptionDL();
     prescription.getPrescriptionList(prescriptionDL);
     String actualPrescriptionFormat = PrescriptionPL.displayPrescription(prescription);
-
     assertEquals(expectedPrescriptionFormat, actualPrescriptionFormat,
         "formatPrescription() did not structure the prescription for patient with many medications");
   }

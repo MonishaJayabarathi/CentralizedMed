@@ -1,7 +1,7 @@
 package com.centrailized_medi_application;
 
 /**
- * @author Aditya Jain & Monisha J
+ * @author Aditya Jain
  * @description: Login abstract class has abstract methods such as
  * fetch(), validate() and authenticate(). LoginCommand Object works on Login class. (Command Design Pattern)
  */

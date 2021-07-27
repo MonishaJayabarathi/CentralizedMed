@@ -15,7 +15,7 @@ public class PrescriptionDL implements IPrescriptionPersistence {
     String patientUserName = prescription.getPatientUserName();
 
     try {
-      DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+      DbConnection one = new DB_Connection();
       Connection connection = one.createConnection();
       Statement statement = connection.createStatement();
       ResultSet resultSet = statement.executeQuery(
@@ -42,7 +42,7 @@ public class PrescriptionDL implements IPrescriptionPersistence {
       statement.close();
       connection.close();
 
-    } catch (SQLException | IOException | ClassNotFoundException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
 
