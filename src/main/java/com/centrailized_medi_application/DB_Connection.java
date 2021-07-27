@@ -1,7 +1,6 @@
 package com.centrailized_medi_application;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.List;
 import java.util.Properties;
@@ -15,81 +14,71 @@ import java.util.Properties;
  */
 public class DB_Connection implements DbConnection {
 
-    private String url;
-    private String username;
-    private String password;
-    private static Connection connection=null;
-    private  boolean res_id=false;
-    private  boolean res_pass=false;
-    private String configFile;
-    private String u_name;
-    private String u_pass;
-    //private  FileInputStream f1 = null;
-    Properties pr = null;
-    private String name;
-    private String pass;
-    private boolean[] cred_validity=new boolean[2];
+  private String url;
+  private String username;
+  private String password;
+  private static Connection connection = null;
+  private boolean res_id = false;
+  private boolean res_pass = false;
+  private String configFile;
+  private String u_name;
+  private String u_pass;
+  Properties pr = null;
 
 
+  public DB_Connection(String configFile, String u_name, String u_pass) throws IOException, ClassNotFoundException, SQLException {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    String[] fullFileName = configFile.split("/", 0);
+    String fileName = fullFileName[3];
 
-    public DB_Connection(String configFile,String u_name,String u_pass) throws IOException, ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        //f1 = new FileInputStream(configFile);
-        String[] fullFileName = configFile.split("/", 0);
-        String fileName = fullFileName[3];
+    InputStream f1 = getClass().getResourceAsStream(fileName);
 
-        InputStream f1 = getClass().getResourceAsStream(fileName);
-        //BufferedReader br = new BufferedReader(new InputStreamReader(f1, StandardCharsets.UTF_8));
+    pr = new Properties();
+    pr.load(f1);  //load the details from the properties file
+    url = pr.getProperty("database");
+    username = pr.getProperty("user");
+    password = pr.getProperty("password");
+    this.configFile = configFile;
+    this.u_name = u_name;
+    this.u_pass = u_pass;
+    connection = DriverManager.getConnection(url, username, password);
+  }
 
-        pr = new Properties();
-        pr.load(f1);  //load the details from the properties file
-        url = pr.getProperty("database");
-        username = pr.getProperty("user");
-        password = pr.getProperty("password");
-        this.configFile = configFile;
-        this.u_name = u_name;
-        this.u_pass = u_pass;
-        connection = DriverManager.getConnection(url, username, password);
-    }
-    public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        //f1 = new FileInputStream(configFile);
-        String[] fullFileName = configFile.split("/", 0);
-        String fileName = fullFileName[3];
-        InputStream f1 = getClass().getResourceAsStream(fileName);
-        //BufferedReader br = new BufferedReader(new InputStreamReader(f1, StandardCharsets.UTF_8));
+  public DB_Connection(String configFile) throws ClassNotFoundException, IOException, SQLException {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    String[] fullFileName = configFile.split("/", 0);
+    String fileName = fullFileName[3];
+    InputStream f1 = getClass().getResourceAsStream(fileName);
 
-        pr = new Properties();
-        pr.load(f1); //load the details from the properties file
-        url = pr.getProperty("database");
-        username = pr.getProperty("user");
-        password = pr.getProperty("password");
-        connection = DriverManager.getConnection(url, username, password);
+    pr = new Properties();
+    pr.load(f1); //load the details from the properties file
+    url = pr.getProperty("database");
+    username = pr.getProperty("user");
+    password = pr.getProperty("password");
+    connection = DriverManager.getConnection(url, username, password);
 
-    }
+  }
 
-    //return the connection created in the constructor of this class.
-    @Override
-    public Connection createConnection()
-    {
+  //return the connection created in the constructor of this class.
+  @Override
+  public Connection createConnection() {
 
-        return connection;
-    }
+    return connection;
+  }
 
-    @Override
-    public void close() throws SQLException {
-        connection.close();
-    }
+  @Override
+  public void close() throws SQLException {
+    connection.close();
+  }
 
-    //return credential array containing info if the username and password are valid.
-    @Override
-    public List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException {
-        DB_Layer db=DB_Layer.singleConnection();
-        List<Object> listResults = db.getCredStatus(u_name,u_pass);
-        db.close();
-        return listResults;
+  //return credential array containing info if the username and password are valid.
+  @Override
+  public List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException {
+    DB_Layer db = DB_Layer.singleConnection();
+    List<Object> listResults = db.getCredStatus(u_name, u_pass);
+    db.close();
 
-    }
-
+    return listResults;
+  }
 
 }

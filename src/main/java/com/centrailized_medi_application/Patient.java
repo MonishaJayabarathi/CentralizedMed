@@ -43,14 +43,18 @@ public class Patient extends Login {
    * @Param connection as DbConnection Interface
    * @Param localAuthorisation as ILoginAuthorisation Interface
    */
-  public Patient(MainDashboard dashboard, PatientDashboard patientMenu, DbConnection connection, ILoginAuthorisation localAuthorisation) throws SQLException {
-    this.dashboard = dashboard;
-    this.patientDashboard = patientMenu;
-    this.loginAuthorisation = localAuthorisation;
-    if (Patient.connect != null) {
-      connect.close();
+  public Patient(MainDashboard dashboard, PatientDashboard patientMenu, DbConnection connection, ILoginAuthorisation localAuthorisation) {
+    try {
+      this.dashboard = dashboard;
+      this.patientDashboard = patientMenu;
+      this.loginAuthorisation = localAuthorisation;
+      if (Patient.connect != null) {
+        connect.close();
+      }
+      connect = connection;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
-    connect = connection;
   }
 
   /**

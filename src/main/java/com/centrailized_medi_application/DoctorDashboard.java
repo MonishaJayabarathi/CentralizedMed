@@ -18,7 +18,6 @@ public abstract class DoctorDashboard extends Dashboard {
 
   public abstract void display_add_patients();
 
-
   public abstract void display_donors();
 
   public abstract void display_pastConsultations();

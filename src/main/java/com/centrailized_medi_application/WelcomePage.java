@@ -1,6 +1,5 @@
 package com.centrailized_medi_application;
 
-
 /**
  * @author Aditya Jain & Monisha J
  * @description: WelcomePage is a Concrete class which extends MainDashboard
