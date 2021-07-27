@@ -10,6 +10,47 @@ import java.util.ArrayList;
 public class PrescriptionDL implements IPrescriptionPersistence {
 
   @Override
+  public void savePrescription(IPrescription prescription) {
+    // get general and specific medication details
+    ArrayList<ArrayList<String>> medications = prescription.getMedicationsByDoctor();
+
+
+    DbConnection one = null;
+    try {
+      one = new DB_Connection("src/main/resources/config_test.properties");
+      Connection connection = one.createConnection();
+      Statement statement = connection.createStatement();
+      for (ArrayList<String> medication : medications) {
+        statement.executeUpdate("INSERT INTO MedicationGeneral (BrandName,GenericName,Route)\n" +
+            "VALUES ('" + medication.get(0) + "','" + medication.get(1) + "','" + medication.get(2) + "');");
+
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM MedicationGeneral ORDER BY " +
+            "MedicationGeneralID DESC LIMIT 1;");
+        int generalMedicationID = resultSet.getInt("MedicationGeneralID");
+
+        statement.executeUpdate("INSERT INTO MedicationSpecific (MedicationGeneralID, Strength, Amount, " +
+            "Frequency,TimeOfDay)\nVALUES (" + generalMedicationID + "," + Integer.parseInt(medication.get(3)) +
+            "," + Integer.parseInt(medication.get(4)) + ",'" + medication.get(5) + "','" + medication.get(6) + "');");
+
+        ResultSet resultSet2 = statement.executeQuery("SELECT * FROM MedicationSpecific ORDER BY " +
+            "MedicationSpecificID DESC LIMIT 1;");
+        int specificMedicationID = resultSet.getInt("MedicationSpecificID");
+
+        ResultSet resultSet3 = statement.executeQuery("SELECT id FROM CSCI5308_5_TEST.patient_info\n" +
+            "WHERE emailId='" + prescription.getPatientUserName() + "';");
+        int patientID = resultSet.getInt("id");
+
+        statement.executeUpdate("INSERT INTO PatientMedication\n" +
+            "VALUES (" + specificMedicationID + "," + patientID + ");");
+
+      }
+
+      } catch (ClassNotFoundException | IOException | SQLException e) {
+        e.printStackTrace();
+      }
+  }
+
+  @Override
   public void loadPrescription(IPrescription prescription) {
     ArrayList<ArrayList<String>> medicationList = new ArrayList<>();
     String patientUserName = prescription.getPatientUserName();
@@ -48,4 +89,9 @@ public class PrescriptionDL implements IPrescriptionPersistence {
 
     prescription.setMedicationList(medicationList);
   }
+
+
+
+
+
 }

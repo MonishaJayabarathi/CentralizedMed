@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Prescription implements IPrescription{
   private ArrayList<ArrayList<String>> medicationList;
   private String patientUserName;
+  private ArrayList<ArrayList<String>> medications;
 
   /* given patientID, return prescription details from DB
    * connect to DB
@@ -15,12 +16,20 @@ public class Prescription implements IPrescription{
     this.patientUserName = patientUserName;
   }
 
-  public void setMedicationList(ArrayList<ArrayList<String>> medicationList){
-    this.medicationList = medicationList;
-  }
-
   public String getPatientUserName(){
     return patientUserName;
+  }
+
+  public void setPatientUserName(String patientUserName) {
+    this.patientUserName = patientUserName;
+  }
+
+  public ArrayList<ArrayList<String>> getMedicationList(){
+    return medicationList;
+  }
+
+  public void setMedicationList(ArrayList<ArrayList<String>> medicationList){
+    this.medicationList = medicationList;
   }
 
   /* return patient medication list which is retrieved from database */
@@ -28,8 +37,16 @@ public class Prescription implements IPrescription{
     prescriptionPersistence.loadPrescription(this);
   }
 
-  public ArrayList<ArrayList<String>> getMedicationList(){
-    return medicationList;
+  public ArrayList<ArrayList<String>> getMedicationsByDoctor(){
+    return medications;
+  }
+
+  public void setMedicationsByDoctor(ArrayList<ArrayList<String>> medications) {
+    this.medications = medications;
+  }
+
+  public void saveMedicationList(IPrescriptionPersistence prescriptionPersistence){
+
   }
 
 }

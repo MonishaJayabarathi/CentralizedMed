@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface IPrescriptionPersistence {
 
-  //void savePrescription(Prescription prescription);
+  void savePrescription(IPrescription prescription);
   void loadPrescription(IPrescription prescription);
 
 }

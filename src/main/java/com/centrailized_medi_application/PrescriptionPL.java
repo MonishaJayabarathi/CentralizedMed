@@ -1,6 +1,7 @@
 package com.centrailized_medi_application;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PrescriptionPL {
 
@@ -65,7 +66,49 @@ public class PrescriptionPL {
     formattedPrescription.append(morningMedications).append(eveningMedications).append(nightMedications);
 
     return formattedPrescription.toString();
+  }
 
+  public static void addPrescription(IPrescription prescription){
+    ArrayList<ArrayList<String>> medications = new ArrayList<>();
+
+    // ask doctor to input patient username
+    System.out.println("Please enter the patient username for whom you want to add prescription :");
+    Scanner inputPatientUserName = new Scanner(System.in);
+    prescription.setPatientUserName(inputPatientUserName.nextLine());
+
+    // ask doctor to input medication list
+    System.out.println("Please enter medication details for the patient ");
+    System.out.println("Type exit to stop adding medications.");
+    String doctorInput;
+    while(true){
+      Scanner inputMedicationDetails = new Scanner(System.in);
+      ArrayList<String> individualMedication = new ArrayList<>();
+      System.out.println("Brand Name : ");
+      doctorInput = inputMedicationDetails.nextLine();
+      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      System.out.println("Generic Name : ");
+      doctorInput = inputMedicationDetails.nextLine();
+      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      System.out.println("Route : ");
+      doctorInput = inputMedicationDetails.nextLine();
+      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      System.out.println("Strength : ");
+      doctorInput = inputMedicationDetails.nextLine();
+      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      System.out.println("Amount : ");
+      doctorInput = inputMedicationDetails.nextLine();
+      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      System.out.println("Frequency : ");
+      doctorInput = inputMedicationDetails.nextLine();
+      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      System.out.println("Time of Day : ");
+      doctorInput = inputMedicationDetails.nextLine();
+      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      medications.add(individualMedication);
+    }
+
+    // add general and specific medication list ot prescription
+    prescription.setMedicationsByDoctor(medications);
   }
 
 }

@@ -31,7 +31,6 @@ public class PatientSuggestionsPL {
           "\n";
       suggestedDoctors.append(singleDoctor);
     }
-
     return suggestedDoctors.toString();
   }
 
