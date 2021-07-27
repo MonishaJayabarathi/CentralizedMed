@@ -18,7 +18,7 @@ public class WelcomePage extends MainDashboard {
       System.out.println("Enter your password:");
       String patient_pass = (sc.next());
       Action action = new Action(); // Initialize Action
-      Patient p1 = new Patient(this, new PatientPage(patient_name), new DB_Connection(patient_name,patient_pass), new LoginAuthorisation());  // Initialize patient
+      Patient p1 = new Patient(this, new PatientPage(patient_name), new DB_Connection(patient_name, patient_pass), new LoginAuthorisation());  // Initialize patient
       PatientLogin p_login = new PatientLogin(p1, this);  // Passing the object to the patient login
       p_login.setPatientName(patient_name);
       p_login.setPatientPass(patient_pass);
@@ -44,7 +44,6 @@ public class WelcomePage extends MainDashboard {
       patientReg.start();
       action.setCommand(patientReg);
       action.run();
-
     } catch (Exception e) {
       System.out.println("Input Exception Encountered moving to main menu " + e);
     }
@@ -57,7 +56,6 @@ public class WelcomePage extends MainDashboard {
 
   @Override
   public void displayDoctorRegistration() {
-
     BasicDetails basicDetails = new BasicDetails();
     DoctorDetails doctorDetails = new DoctorDetails();
     SecurityQuestions securityQuestions = new SecurityQuestions();
@@ -81,7 +79,7 @@ public class WelcomePage extends MainDashboard {
       System.out.println("Enter your password:");
       String doctor_password = (sc.next());
       Action action = new Action(); // Initialize Action
-      Doctor dr = new Doctor(this, new DoctorPage(doctor_name), new DB_Connection(doctor_name,doctor_password), new LoginAuthorisation());  // Initialize doctor
+      Doctor dr = new Doctor(this, new DoctorPage(doctor_name), new DB_Connection(doctor_name, doctor_password), new LoginAuthorisation());  // Initialize doctor
       DoctorLogin doctorLogin = new DoctorLogin(dr, this);  // Passing the object to the doctor login
       doctorLogin.setDoctorName(doctor_name);
       doctorLogin.setDoctorPassword(doctor_password);

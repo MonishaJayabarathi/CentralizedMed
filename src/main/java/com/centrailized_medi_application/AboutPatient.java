@@ -18,7 +18,6 @@ import java.util.Scanner;
  */
 public class AboutPatient implements About {
 
-  //Static private String tempemail;
   PatientDashboard init;
   private Connection c;
   //This variable stores Patient username

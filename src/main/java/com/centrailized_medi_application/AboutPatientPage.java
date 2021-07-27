@@ -1,7 +1,7 @@
 package com.centrailized_medi_application;
 
 /**
- * @author Monisha J
+ * @author Neelay Jayantbharti Goswami
  * @description : This program has the concrete class.
  * This initiates execution.
  * @params: AboutPatient abtPatient : gets instance of the class holding actual

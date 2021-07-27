@@ -35,7 +35,6 @@ public abstract class PatientDashboard extends Dashboard {
     System.out.println("5.Logout");
     System.out.println("----------------------------------");
     System.out.println(" Enter from above options to proceed:");
-
     while (flag != true) {
       int option = sc.nextInt();
       if (option == 1) {

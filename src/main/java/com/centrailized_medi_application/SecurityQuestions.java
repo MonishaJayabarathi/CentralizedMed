@@ -62,7 +62,6 @@ public class SecurityQuestions implements Details {
       temp = sc.nextLine();
     }
     setAnswer2(temp);
-
     System.out.println("Your first bike:");
     temp = sc.nextLine();
     while (!validate.validateAlphanumeric(temp)) {

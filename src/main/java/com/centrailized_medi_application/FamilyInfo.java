@@ -37,15 +37,11 @@ public class FamilyInfo {
       } else {
         patientEmail = email[0];
       }
-
       layer = DB_Layer.singleConnection();
       List<Object> resultState = layer.displayPatientInfo(patientEmail);
       this.currentPatientDetails = (ResultSet) resultState.get(0);
       prpStmt = (PreparedStatement) resultState.get(1);
-
       displayCurrentPatient();
-
-
       List<Object> resultState1 = layer.displayFamilyinfo(familyCode, patientEmail);
       this.familyDetails = (ResultSet) resultState1.get(0);
       prepstmt2 = (PreparedStatement) resultState1.get(1);
@@ -80,7 +76,6 @@ public class FamilyInfo {
         System.out.println("Volunteer: " + this.currentPatientDetails.getString("volunteer"));
         System.out.println("*****************************************************************");
       }
-
       currentPatientDetails.close();
       prpStmt.close();
       layer.close();
@@ -123,6 +118,4 @@ public class FamilyInfo {
       System.out.println("Family Info error" + e.getMessage());
     }
   }
-
-
 }

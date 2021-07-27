@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 /**
  * @author Monisha J and Ridampreet Singh
- * @author Monisha J
  * @description : This program receives input for navigation
  * inside a Doctor Dashboard and routes the pages accordingly
  * It holds the abstract methods that are to be defined to show

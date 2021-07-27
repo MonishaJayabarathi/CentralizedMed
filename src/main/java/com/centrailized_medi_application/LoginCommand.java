@@ -8,6 +8,5 @@ package com.centrailized_medi_application;
  */
 public abstract class LoginCommand {
   protected abstract void execute();
-
   protected abstract void confirmation();
 }

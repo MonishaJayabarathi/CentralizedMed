@@ -7,8 +7,6 @@ package com.centrailized_medi_application;
  */
 public abstract class Login {
   protected abstract void fetch(String username, String Psswd);
-
   protected abstract void validate();
-
   protected abstract void authenticate();
 }

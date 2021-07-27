@@ -123,6 +123,4 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     this.retry = localRetry;
     System.out.println("Incorrect tries: " + retry);
   }
-
-
 }
