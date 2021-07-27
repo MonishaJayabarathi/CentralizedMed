@@ -95,6 +95,16 @@ public class DoctorPage extends DoctorDashboard {
 
   }
 
+  @Override
+  public void display_add_prescription(){
+    Prescription prescription = new Prescription();
+    PrescriptionPL.addPrescription(prescription);
+    PrescriptionDL prescriptionDL = new PrescriptionDL();
+    prescription.saveMedicationList(prescriptionDL);
+    this.display();
+
+  }
+
   //Logs out the currently signed in user out of the portal
   @Override
   public void Logout() {

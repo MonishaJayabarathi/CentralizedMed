@@ -58,7 +58,8 @@ public class PatientPage extends PatientDashboard {
   @Override
   public void displayPrescriptions() throws SQLException, IOException, ClassNotFoundException {
 
-    Prescription prescription = new Prescription(userName);
+    Prescription prescription = new Prescription();
+    prescription.setPatientUserName(userName);
     PrescriptionDL prescriptionDL = new PrescriptionDL();
     prescription.getPrescriptionList(prescriptionDL);
     String medicationList = PrescriptionPL.displayPrescription(prescription);

@@ -12,8 +12,8 @@ public class Prescription implements IPrescription{
    * connect to DB
    * execute sql query
    * return DB query output */
-  public Prescription(String patientUserName) {
-    this.patientUserName = patientUserName;
+  public Prescription() {
+
   }
 
   public String getPatientUserName(){
@@ -46,7 +46,7 @@ public class Prescription implements IPrescription{
   }
 
   public void saveMedicationList(IPrescriptionPersistence prescriptionPersistence){
-
+    prescriptionPersistence.savePrescription(this);
   }
 
 }

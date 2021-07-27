@@ -13,7 +13,8 @@ class PrescriptionTest {
   void PatientPrescription_oneMedication() {
     String expectedMedicationList = "Amodis, Metronidazole BP, Oral, 400, 1, Twice a day, Morning, ";
 
-    Prescription prescription = new Prescription("antor@gmail.com");
+    Prescription prescription = new Prescription();
+    prescription.setPatientUserName("antor@gmail.com");
     PrescriptionDL prescriptionDL = new PrescriptionDL();
     prescription.getPrescriptionList(prescriptionDL);
     ArrayList<ArrayList<String>> medicationList = prescription.getMedicationList();
@@ -40,7 +41,8 @@ class PrescriptionTest {
         "Fosamax, Alendronate, Oral, 400, 1, Twice a day, Evening, " +
         "Glucophage, Melformin, Oral, 100, 1, Once a day, Night, ";
 
-    Prescription prescription = new Prescription("Ridam@gmail.com");
+    Prescription prescription = new Prescription();
+    prescription.setPatientUserName("Ridam@gmail.com");
     PrescriptionDL prescriptionDL = new PrescriptionDL();
     prescription.getPrescriptionList(prescriptionDL);
     ArrayList<ArrayList<String>> medicationList = prescription.getMedicationList();
@@ -80,7 +82,8 @@ class PrescriptionTest {
             "Time of day: Night\n" +
             "No Medications\n";
 
-    Prescription prescription = new Prescription("antor@gmail.com");
+    Prescription prescription = new Prescription();
+    prescription.setPatientUserName("antor@gmail.com");
     PrescriptionDL prescriptionDL = new PrescriptionDL();
     prescription.getPrescriptionList(prescriptionDL);
     String actualPrescriptionFormat = PrescriptionPL.displayPrescription(prescription);
@@ -133,7 +136,8 @@ class PrescriptionTest {
             "   Frequency : Once a day\n" +
             "\n";
 
-    Prescription prescription = new Prescription("Ridam@gmail.com");
+    Prescription prescription = new Prescription();
+    prescription.setPatientUserName("Ridam@gmail.com");
     PrescriptionDL prescriptionDL = new PrescriptionDL();
     prescription.getPrescriptionList(prescriptionDL);
     String actualPrescriptionFormat = PrescriptionPL.displayPrescription(prescription);

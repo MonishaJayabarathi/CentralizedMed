@@ -45,9 +45,9 @@ public class PrescriptionDL implements IPrescriptionPersistence {
 
       }
 
-      } catch (ClassNotFoundException | IOException | SQLException e) {
-        e.printStackTrace();
-      }
+    } catch (ClassNotFoundException | IOException | SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -60,7 +60,8 @@ public class PrescriptionDL implements IPrescriptionPersistence {
       Connection connection = one.createConnection();
       Statement statement = connection.createStatement();
       ResultSet resultSet = statement.executeQuery(
-          "SELECT BrandName, GenericName, Route, Strength, Amount, Frequency, TimeOfDay FROM patient_info, MedicationGeneral, MedicationSpecific, PatientMedication\n" +
+          "SELECT BrandName, GenericName, Route, Strength, Amount, Frequency, TimeOfDay FROM patient_info, " +
+              "MedicationGeneral, MedicationSpecific, PatientMedication\n" +
               "WHERE patient_info.emailId = '" + patientUserName + "' AND\n" +
               "\tMedicationSpecific.MedicationGeneralID = MedicationGeneral.MedicationGeneralID AND\n" +
               "    patient_info.id = PatientMedication.id AND\n" +
@@ -89,9 +90,6 @@ public class PrescriptionDL implements IPrescriptionPersistence {
 
     prescription.setMedicationList(medicationList);
   }
-
-
-
 
 
 }

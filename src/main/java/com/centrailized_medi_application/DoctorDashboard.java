@@ -25,6 +25,8 @@ public abstract class DoctorDashboard extends Dashboard {
 
   public abstract void display_patient_family_history();
 
+  public abstract void display_add_prescription();
+
   public abstract void Logout();
 
   protected boolean flag = false;
@@ -43,7 +45,8 @@ public abstract class DoctorDashboard extends Dashboard {
     System.out.println("3.Past Consultations");
     System.out.println("4.Donors");
     System.out.println("5.Patient Family History");
-    System.out.println("6.Logout");
+    System.out.println("6.Add Patient Prescription");
+    System.out.println("7.Logout");
     System.out.println("----------------------------------");
     System.out.println(" Enter from above options to proceed:");
 
@@ -64,7 +67,10 @@ public abstract class DoctorDashboard extends Dashboard {
       } else if (option == 5) {
         this.display_patient_family_history();
         flag = true;
-      } else if (option == 6) {
+      }else if (option == 6) {
+        this.display_add_prescription();
+        flag = true;
+      } else if (option == 7) {
         this.Logout();
         logout = true;
         flag = true;
