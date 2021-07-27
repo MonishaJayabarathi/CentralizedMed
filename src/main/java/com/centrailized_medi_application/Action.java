@@ -1,7 +1,7 @@
 package com.centrailized_medi_application;
 
 /**
- * @author Aditya Jain & Monisha J
+ * @author Aditya Jain
  * @description: Action is an Ivoker class, which sets command and puts the command to work
  * with the help of run().
  */

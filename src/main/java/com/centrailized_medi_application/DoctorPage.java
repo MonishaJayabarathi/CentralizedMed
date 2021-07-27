@@ -47,7 +47,7 @@ public class DoctorPage extends DoctorDashboard {
       newEntry.link_patient(patient_name);
       this.display();
     } catch (Exception e) {
-      System.out.println("ddd" + e);
+      System.out.println(e.getMessage());
     }
   }
 
@@ -62,7 +62,7 @@ public class DoctorPage extends DoctorDashboard {
       System.out.println(pastPatients.getPreviousConsultations());
       this.display();
     } catch (Exception e) {
-      System.out.println("ddd" + e);
+      System.out.println(e.getMessage());
     }
   }
 

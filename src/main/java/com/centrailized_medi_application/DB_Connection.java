@@ -25,9 +25,7 @@ public class DB_Connection implements DbConnection {
   private String u_pass;
   Properties pr = null;
 
-
   public DB_Connection()  {
-
     configFile = "src/main/resources/config_Production.properties";
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
@@ -47,8 +45,6 @@ public class DB_Connection implements DbConnection {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
-
-
   }
 
   public DB_Connection(String u_name, String u_pass) {
@@ -95,7 +91,7 @@ public class DB_Connection implements DbConnection {
   }
 
   /**
-   * Constructor takes parameeter only as a configFile which contains the details of database and then eastablishes a connection with the database
+   * Constructor takes parameter only as a configFile which contains the details of database and then eastablishes a connection with the database
    * @param configFile
    * @throws ClassNotFoundException
    * @throws IOException
@@ -107,14 +103,12 @@ public class DB_Connection implements DbConnection {
     String[] fullFileName = configFile.split("/", 0);
     String fileName = fullFileName[3];
     InputStream f1 = getClass().getResourceAsStream(fileName);
-
     pr = new Properties();
     pr.load(f1); //load the details from the properties file
     url = pr.getProperty("database");
     username = pr.getProperty("user");
     password = pr.getProperty("password");
     connection = DriverManager.getConnection(url, username, password);
-
   }
 
   /**
@@ -125,7 +119,6 @@ public class DB_Connection implements DbConnection {
   //return the connection created in the constructor of this class.
   @Override
   public Connection createConnection() {
-
     return connection;
   }
 
@@ -153,8 +146,6 @@ public class DB_Connection implements DbConnection {
     DB_Layer db = DB_Layer.singleConnection();
     List<Object> listResults = db.getCredStatus(this.u_name, this.u_pass);
     db.close();
-
     return listResults;
   }
-
 }

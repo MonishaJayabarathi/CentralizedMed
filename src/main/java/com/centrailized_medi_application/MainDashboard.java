@@ -5,7 +5,7 @@ package com.centrailized_medi_application;
 import java.util.Scanner;
 
 /**
- * @author Aditya Jain & Monisha J
+ * @author Aditya Jain
  * @description : MainDashboard is an abstract class which extends Dashboard
  * It contains function declaration such as displayPatientLogin(), displayPatientRegistration(),
  * displayDoctorRegistration(), displayDoctorLogin()
