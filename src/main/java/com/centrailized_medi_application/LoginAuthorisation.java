@@ -25,21 +25,15 @@ public class LoginAuthorisation implements ILoginAuthorisation {
 
   @Override
   public String getSecurityQuestion(String user_name) {
-
     String result = null;
     try {
       layer = DB_Layer.singleConnection();
-
       List<Object> resultState = layer.check_if_patient(user_name);
-
       ResultSet s1 = (ResultSet) resultState.get(0);
       PreparedStatement prtstmt1 = (PreparedStatement) resultState.get(1);
-
       List<Object> resultState1 = layer.check_if_doctor(user_name);
-
       ResultSet s2 = (ResultSet) resultState1.get(0);
       PreparedStatement prtstmt2 = (PreparedStatement) resultState1.get(1);
-
       if (s1.next()) {
         System.out.println("Please enter Your first school:");
         Scanner sc = new Scanner(System.in);
@@ -48,7 +42,6 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         if (answerFromDB.equals(inputAnswer)) {
           resetPassword(user_name, true, retry);
         }
-
         s1.close();
         prtstmt1.close();
         layer.close();
@@ -58,14 +51,12 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         Scanner sc2 = new Scanner(System.in);
         String inputAnswer = sc2.nextLine();
         String answerFromDB = s2.getString("security_answer_1");
-
         if (answerFromDB.equals(inputAnswer)) {
           resetPassword(user_name, true, retry);
         }
         s2.close();
         prtstmt2.close();
         layer.close();
-
         result = answerFromDB;
       } else {
         result = "User Does not Exist";
@@ -73,7 +64,6 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
-
     return result;
   }
 
@@ -91,19 +81,13 @@ public class LoginAuthorisation implements ILoginAuthorisation {
       if (securityQuesCleared == false) {
         return "Please answer the security question first !";
       }
-
       layer = DB_Layer.singleConnection();
       List<Object> resultState = layer.check_if_patient(user_name);
-
       ResultSet s2 = (ResultSet) resultState.get(0);
       PreparedStatement prtstmt2 = (PreparedStatement) resultState.get(1);
-
-
       List<Object> resultState1 = layer.check_if_doctor(user_name);
-
       ResultSet s3 = (ResultSet) resultState1.get(0);
       PreparedStatement prtstmt3 = (PreparedStatement) resultState1.get(1);
-
       if (s2.next()) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the new password");
@@ -114,12 +98,10 @@ public class LoginAuthorisation implements ILoginAuthorisation {
         layer.close();
         result = "Password reset was successful !";
       } else if (s3.next()) {
-
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the new password");
         String newPassword = sc.next();
         layer.updateDoctor(newPassword, user_name);
-
         s3.close();
         prtstmt3.close();
         layer.close();
@@ -129,7 +111,6 @@ public class LoginAuthorisation implements ILoginAuthorisation {
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
-
     return result;
   }
 
@@ -139,9 +120,7 @@ public class LoginAuthorisation implements ILoginAuthorisation {
    */
   @Override
   public void set_Retry(Integer localRetry) {
-
     this.retry = localRetry;
-
     System.out.println("Incorrect tries: " + retry);
   }
 

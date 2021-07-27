@@ -51,7 +51,6 @@ public class PatientPage extends PatientDashboard {
    */
   @Override
   public void displayPrescriptions() {
-
     Prescription prescription = new Prescription(userName);
     PrescriptionDL prescriptionDL = new PrescriptionDL();
     prescription.getPrescriptionList(prescriptionDL);

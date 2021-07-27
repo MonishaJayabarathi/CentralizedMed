@@ -172,8 +172,8 @@ public class Doctor extends Login {
           this.init.displayDoctorLogin();
         } else if (localRetry == 3) {
           this.loginAuthorisation.getSecurityQuestion(userName);
+          this.init.display();
         }
-
       } else {
         System.out.println("Please register to the system!");
         System.out.println("Navigating to main menu...");

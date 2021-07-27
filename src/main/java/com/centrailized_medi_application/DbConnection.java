@@ -13,10 +13,10 @@ import java.util.List;
  */
 public interface DbConnection {
 
-  public List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException;
+  List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException;
 
-  public Connection createConnection();
+  Connection createConnection();
 
-  public void close() throws SQLException;
+  void close() throws SQLException;
 
 }
