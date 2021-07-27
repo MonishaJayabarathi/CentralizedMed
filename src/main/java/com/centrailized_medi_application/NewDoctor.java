@@ -24,6 +24,11 @@ public class NewDoctor implements Details, Registration {
     this.init = main;
   }
 
+  /**
+   * get the registration status.
+   * @return
+   */
+
   public boolean getRegistrationStatus() {
     return this.hasRegisteredSuccessfully;
   }
