@@ -1,7 +1,8 @@
 package com.centrailized_medi_application;
 
 /**
- * This is the main method. Entry Point of the Application
+ * Group 5
+ * This is the main method. Entry Point of the Application.
  */
 public class App {
 
