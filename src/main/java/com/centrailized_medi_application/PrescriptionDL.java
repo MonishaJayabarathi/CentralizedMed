@@ -7,8 +7,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * @author Kazi Hasan
+ * @description: shows input output interface to patients and doctors for prescription related functions
+ */
 public class PrescriptionDL implements IPrescriptionPersistence {
 
+  /**
+   * This method is used for saving patient prescription by doctors
+   * @return None
+   * @Param prescription- interface for patient prescription
+   */
   @Override
   public void savePrescription(IPrescription prescription) {
     // get general and specific medication details
@@ -67,6 +76,11 @@ public class PrescriptionDL implements IPrescriptionPersistence {
     }
   }
 
+  /**
+   * This method is used for loading patient prescription
+   * @return None
+   * @Param prescription- interface for representing patient prescription
+   */
   @Override
   public void loadPrescription(IPrescription prescription) {
     ArrayList<ArrayList<String>> medicationList = new ArrayList<>();

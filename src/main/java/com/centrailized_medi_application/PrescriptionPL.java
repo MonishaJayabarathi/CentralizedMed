@@ -3,9 +3,16 @@ package com.centrailized_medi_application;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author Kazi Hasan
+ * @description: displays prescription related views
+ */
 public class PrescriptionPL {
 
-  /* format prescription details for viewing in interface
+  /**
+   * This method is used for displaying the prescription to patient
+   * @return None
+   * @Param prescription- interface for representing patient prescription
    */
   public static String displayPrescription(IPrescription prescription){
     StringBuilder formattedPrescription = new StringBuilder();
@@ -68,6 +75,11 @@ public class PrescriptionPL {
     return formattedPrescription.toString();
   }
 
+  /**
+   * This method is used for viewing that doctor needs to add different medications for patient
+   * @return None
+   * @Param prescription- interface for representing patient prescription
+   */
   public static void addPrescription(IPrescription prescription){
     ArrayList<ArrayList<String>> medications = new ArrayList<>();
 

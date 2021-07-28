@@ -5,64 +5,129 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientSuggestions implements IPatientSuggestions{
+/**
+ * @author Kazi Hasan
+ * @description: concrete class to contain all information needed for suggesting doctors
+ */
+public class PatientSuggestions implements IPatientSuggestions {
   private String patientUserName;
   private double latitude;
   private double longitude;
   private String specialization;
   private ArrayList<ArrayList<String>> doctorsList = new ArrayList<ArrayList<String>>();
 
-  /* initialize the class using patient username */
   public PatientSuggestions(String patientUserName) {
     this.patientUserName = patientUserName;
   }
 
-  /* use patient username to retrieve latitude longitude for the patient
-   * connect to patient's information table
-   * use patient username to retrieve latitude longitude
+  /**
+   * This method is used for getting current patient user name
+   *
+   * @return None
+   * @Param prescriptionPersistence- interface used for loading prescription from database
    */
   public String getPatientUserName() {
     return patientUserName;
   }
 
-  public double getLatitude(){
+  /**
+   * This method is used for getting current patient latitude
+   *
+   * @return latitude- current patient latitude
+   * @Param None
+   */
+  public double getLatitude() {
     return latitude;
   }
 
-  public double getLongitude(){
-    return longitude;
-  }
-
-  public void setLatitude(double latitude){
+  /**
+   * This method is used for setting current patient latitude
+   *
+   * @return None
+   * @Param latitude- current patient latitude
+   */
+  public void setLatitude(double latitude) {
     this.latitude = latitude;
   }
 
-  public void setLongitude(double longitude){
+  /**
+   * This method is used for getting current patient longitude
+   *
+   * @return longitude- current patient longitude
+   * @Param None
+   */
+  public double getLongitude() {
+    return longitude;
+  }
+
+  /**
+   * This method is used for setting current patient longitude
+   *
+   * @return None
+   * @Param latitude- current patient longitude
+   */
+  public void setLongitude(double longitude) {
     this.longitude = longitude;
   }
 
-  public void getPatientLatLon(ISuggestionsPersistence suggestionsPersistence){
+  /**
+   * This method is used for setting current patient lat/lon list
+   *
+   * @return None
+   * @Param suggestionsPersistence- interface which is used for loading current patient
+   * lat/lon from database
+   */
+  public void getPatientLatLon(ISuggestionsPersistence suggestionsPersistence) {
     suggestionsPersistence.loadPatientLatLon(this);
   }
 
-  public String getSpecialization(){
+  /**
+   * This method is used for getting specialization required by current patient
+   *
+   * @return specialization- current specialization required by current paient
+   * @Param None
+   */
+  public String getSpecialization() {
     return specialization;
   }
 
-  /* set specialization explicitly */
-  public void setSpecialization(String specialization){
+  /**
+   * This method is used for setting specialization required by current patient
+   *
+   * @return None
+   * @Param specialization- current specialization required by current paient
+   */
+  public void setSpecialization(String specialization) {
     this.specialization = specialization;
   }
 
-  public ArrayList<ArrayList<String>> getDoctorsList(){
+  /**
+   * This method is used for getting list of doctors set for current patient
+   *
+   * @return doctorsList- current doctor list
+   * @Param None
+   */
+  public ArrayList<ArrayList<String>> getDoctorsList() {
     return doctorsList;
   }
 
-  public void setDoctorsList( ArrayList<ArrayList<String>> doctorsList){
+  /**
+   * This method is used for setting current list of doctors
+   *
+   * @return None
+   * @Param doctorsList- list of doctors for current patient
+   */
+  public void setDoctorsList(ArrayList<ArrayList<String>> doctorsList) {
     this.doctorsList = doctorsList;
   }
 
-  public void getSuggestedDoctors(ISuggestionsPersistence suggestionsPersistence){
+  /**
+   * This method is used for retrieving suggested list of doctors from database
+   *
+   * @return suggestionsPersistence- interface to filter doctors
+   * @Param None
+   */
+  public void getSuggestedDoctors(ISuggestionsPersistence suggestionsPersistence) {
     suggestionsPersistence.loadDoctorSuggestions(this);
   }
 

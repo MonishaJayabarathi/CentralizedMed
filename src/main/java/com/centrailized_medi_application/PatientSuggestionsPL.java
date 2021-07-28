@@ -3,16 +3,28 @@ package com.centrailized_medi_application;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author Kazi Hasan
+ * @description: shows input output by patient for getting suggested doctors list
+ */
 public class PatientSuggestionsPL {
 
-  /* ask patient input for specialization */
+  /**
+   * This method is used for viewing that patient needs to enter specialization
+   * @return None
+   * @Param patientSuggestions- interface representing patient suggestion class
+   */
   public static void setSpecializationByPatient(IPatientSuggestions patientSuggestions){
     System.out.println("Please Enter the Doctor Specialization to search for: ");
     Scanner inputSpecialization = new Scanner(System.in);
     patientSuggestions.setSpecialization(inputSpecialization.nextLine());
   }
 
-  /* getter function for list of suggested doctors */
+  /**
+   * This method is used for viewing the suggested list of doctors
+   * @return None
+   * @Param patientSuggestions- interface representing patient suggestion class
+   */
   public static String viewSuggestedDoctors(IPatientSuggestions patientSuggestions) {
     System.out.println("Doctors, Specialized in " + patientSuggestions.getSpecialization() + " within 10km radius are: ");
 

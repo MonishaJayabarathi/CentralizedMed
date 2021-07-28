@@ -8,10 +8,18 @@ import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * @author Kazi Hasan
+ * @description: loads required information from database for suggesting required list of doctors
+ */
 public class PatientSuggestionsDL implements ISuggestionsPersistence{
 
+  /**
+   * This method is used for loading patient latitude and longitude from database
+   * @return None
+   * @Param patientSuggestions- interface for database layer
+   */
   @Override
   public void loadPatientLatLon(IPatientSuggestions patientSuggestions) {
     String patientUserName = patientSuggestions.getPatientUserName();
@@ -37,11 +45,11 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
 
   }
 
-  /* for current patient retrieve top rated specialized doctors within 10km
-   * connect to doctors table in DB
-   * filter doctors using specialization
-   * filter doctors by considering doctors within 10km radius of patient
-   * order doctors by their ratings
+  /**
+   * This method is used for retrieving a list of doctors ordered by their average rating
+   * who are specialized in a field that is set by current patient and are in a radius of 10km
+   * @return None
+   * @Param patientSuggestions- interface to handle database operattions
    */
   @Override
   public void loadDoctorSuggestions(IPatientSuggestions patientSuggestions) {
