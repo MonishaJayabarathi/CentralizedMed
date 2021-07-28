@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 /**
  * @author Monisha J and Ridampreet Singh
- * @author Monisha J
  * @description : This program receives input for navigation
  * inside a Doctor Dashboard and routes the pages accordingly
  * It holds the abstract methods that are to be defined to show
@@ -17,7 +16,6 @@ public abstract class DoctorDashboard extends Dashboard {
   public abstract void display_about_doctor();
 
   public abstract void display_add_patients();
-
 
   public abstract void display_donors();
 
@@ -72,7 +70,7 @@ public abstract class DoctorDashboard extends Dashboard {
         flag = true;
       } else if (option == 7) {
         this.Logout();
-        logout = true;
+        logout = true; //set the logout status true for this user.
         flag = true;
       } else {
         System.out.println("Enter the correct options to proceed");

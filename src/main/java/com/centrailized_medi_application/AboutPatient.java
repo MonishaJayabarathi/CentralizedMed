@@ -1,12 +1,23 @@
 package com.centrailized_medi_application;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author Neelay Jayantbharti Goswami
+ * @description : This program implements About Interface.
+ * To fetch and display details of a Patient when patient want to know there
+ * details which they have added while they were registrating.
+ * Overrides the methods defining structure of execution.
+ * @params : String patieint_id : gets username of the patient who logged in.
+ * PatientDashbord patient_dashboard : this triggers return to users dashboard.
+ */
 public class AboutPatient implements About {
 
-  //Static private String tempemail;
   PatientDashboard init;
   private Connection c;
   //This variable stores Patient username
@@ -17,10 +28,9 @@ public class AboutPatient implements About {
   private PreparedStatement prepStmt;
   private DB_Layer layer;
 
-  AboutPatient(String patient_id, PatientDashboard pd) {
+  AboutPatient(String patient_id, PatientDashboard patient_dashboard) {
     this.user_name = patient_id;
-    this.init = pd;
-    //layer=DB_Layer.singleConnection();
+    this.init = patient_dashboard;
 
   }
 

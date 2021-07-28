@@ -131,21 +131,24 @@ public class PatientSuggestions implements IPatientSuggestions {
     suggestionsPersistence.loadDoctorSuggestions(this);
   }
 
-  public boolean rateDoctor() throws SQLException, IOException, ClassNotFoundException {
+  public boolean rateDoctor() {
+    try {
+      DB_Layer layer = DB_Layer.singleConnection();
+      List<Object> resultState = layer.feedRatings(patientUserName);
+      ResultSet result1 = (ResultSet) resultState.get(0);
+      ResultSet result2 = (ResultSet) resultState.get(1);
+      PreparedStatement prepStmt = (PreparedStatement) resultState.get(2);
 
-    DB_Layer layer = DB_Layer.singleConnection();
-    List<Object> resultState = layer.feedRatings(patientUserName);
-    ResultSet result1 = (ResultSet) resultState.get(0);
-    ResultSet result2 = (ResultSet) resultState.get(1);
-    PreparedStatement prepStmt = (PreparedStatement) resultState.get(2);
+      PatientPage pd = new PatientPage(this.patientUserName);
+      pd.display();
 
-    PatientPage pd = new PatientPage(this.patientUserName);
-    pd.display();
-
-    result1.close();
-    result2.close();
-    prepStmt.close();
-    layer.close();
+      result1.close();
+      result2.close();
+      prepStmt.close();
+      layer.close();
+    } catch (SQLException | IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
     return true;
   }
 

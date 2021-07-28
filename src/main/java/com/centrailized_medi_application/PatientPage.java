@@ -1,10 +1,5 @@
 package com.centrailized_medi_application;
 
-/*Importing Module*/
-
-import java.io.IOException;
-import java.sql.SQLException;
-
 /**
  * @author Aditya Jain
  * @description: PatientPage is an concrete class and extended Patient Dashboard
@@ -13,7 +8,6 @@ import java.sql.SQLException;
  */
 public class PatientPage extends PatientDashboard {
   private String userName;
-
 
   /**
    * Constructor with Patient's username as input parameter
@@ -31,8 +25,8 @@ public class PatientPage extends PatientDashboard {
    * @Param None
    */
   @Override
-  public void displayAbout() throws SQLException, IOException, ClassNotFoundException {
-    AboutPatient aboutPatient = new AboutPatient(this.userName, this); //testing commit
+  public void displayAbout() {
+    AboutPatient aboutPatient = new AboutPatient(this.userName, this);
     AboutPatientPage aboutPatientpage = new AboutPatientPage(aboutPatient);
     aboutPatientpage.display();
   }
@@ -44,7 +38,7 @@ public class PatientPage extends PatientDashboard {
    * @Param None
    */
   @Override
-  public void displayConsultations() throws SQLException, IOException, ClassNotFoundException {
+  public void displayConsultations() {
     PatientSuggestions patientSuggestions = new PatientSuggestions(userName);
     patientSuggestions.rateDoctor();
   }
@@ -56,8 +50,7 @@ public class PatientPage extends PatientDashboard {
    * @Param None
    */
   @Override
-  public void displayPrescriptions() throws SQLException, IOException, ClassNotFoundException {
-
+  public void displayPrescriptions() {
     Prescription prescription = new Prescription();
     prescription.setPatientUserName(userName);
     PrescriptionDL prescriptionDL = new PrescriptionDL();
@@ -77,7 +70,7 @@ public class PatientPage extends PatientDashboard {
    * @Param None
    */
   @Override
-  public void displaySuggestions() throws SQLException, IOException, ClassNotFoundException {
+  public void displaySuggestions() {
     PatientSuggestions patientSuggestions = new PatientSuggestions(userName);
     PatientSuggestionsDL patientSuggestionsDL = new PatientSuggestionsDL();
     patientSuggestions.getPatientLatLon(patientSuggestionsDL);
@@ -95,7 +88,7 @@ public class PatientPage extends PatientDashboard {
    * @Param None
    */
   @Override
-  public void displayLogout(){
+  public void displayLogout() {
     System.out.println("User has been successfully logged out !");
     WelcomePage back_to_menu = new WelcomePage();
     back_to_menu.display();

@@ -1,6 +1,5 @@
 package com.centrailized_medi_application;
 
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,14 +37,19 @@ public class Doctor extends Login {
    * @param init       - It holds the MainDashboard instance
    * @param doctorPage - It holds the DoctorDashboard instance
    */
-  public Doctor(MainDashboard init, DoctorDashboard doctorPage, DbConnection connection,ILoginAuthorisation localAuthorisation) throws SQLException {
-    this.init = init;
-    this.dd = doctorPage;
-    this.loginAuthorisation = localAuthorisation;
-    if (Doctor.connect != null) {
-      connect.close();
+  public Doctor(MainDashboard init, DoctorDashboard doctorPage, DbConnection connection,
+                ILoginAuthorisation localAuthorisation) {
+    try {
+      this.init = init;
+      this.dd = doctorPage;
+      this.loginAuthorisation = localAuthorisation;
+      if (Doctor.connect != null) {
+        connect.close();
+      }
+      connect = connection;
+    } catch (SQLException e) {
+      System.out.print(e.getMessage());
     }
-    connect=connection;
   }
 
   /**
@@ -107,10 +111,6 @@ public class Doctor extends Login {
 
   /**
    * This method validates the user credentials shared.
-   *
-   * @throws SQLException
-   * @throws IOException
-   * @throws ClassNotFoundException
    */
   @Override
   public void validate() {
@@ -126,7 +126,7 @@ public class Doctor extends Login {
       p2 = (PreparedStatement) resultState.get(5);
       check_for_doc = (PreparedStatement) resultState.get(6);
 
-      if (login_name != null){
+      if (login_name != null) {
         login_name.close();
       }
       if (login_pass != null) {
@@ -135,13 +135,13 @@ public class Doctor extends Login {
       if (res_check_for_doc != null) {
         res_check_for_doc.close();
       }
-      if (p1 != null){
+      if (p1 != null) {
         p1.close();
       }
-      if (p2 != null){
+      if (p2 != null) {
         p2.close();
       }
-      if (check_for_doc != null){
+      if (check_for_doc != null) {
         check_for_doc.close();
       }
       connect.close();
@@ -155,18 +155,13 @@ public class Doctor extends Login {
    * If it is valid, navigates to user dashboard
    * Else if password entered is wrong, it gives maximum 3 trials and asks the user to reset the password
    * Else(username doesn't exits) asks the user to register first
-   *
-   * @throws SQLException
-   * @throws IOException
-   * @throws ClassNotFoundException
    */
   @Override
-  public void authenticate(){
+  public void authenticate() {
 
     isUserValidated = true;
     try {
-      if (this.isValidUsername && this.isValidPassword)
-      {
+      if (this.isValidUsername && this.isValidPassword) {
         System.out.println("Welcome " + this.userName);
         this.dd.display();
       } else if (this.isValidUsername && !this.isValidPassword) {
@@ -177,15 +172,16 @@ public class Doctor extends Login {
           this.init.displayDoctorLogin();
         } else if (localRetry == 3) {
           this.loginAuthorisation.getSecurityQuestion(userName);
+          this.init.display();
         }
-
       } else {
         System.out.println("Please register to the system!");
         System.out.println("Navigating to main menu...");
         this.init.display();
       }
     } catch (Exception e) {
-      System.out.println(e.getMessage());;
+      System.out.println(e.getMessage());
+      ;
     }
   }
 }

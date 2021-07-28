@@ -1,9 +1,7 @@
 package com.centrailized_medi_application;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -15,6 +13,7 @@ public class PrescriptionDL implements IPrescriptionPersistence {
 
   /**
    * This method is used for saving patient prescription by doctors
+   *
    * @return None
    * @Param prescription- interface for patient prescription
    */
@@ -24,7 +23,7 @@ public class PrescriptionDL implements IPrescriptionPersistence {
     ArrayList<ArrayList<String>> medications = prescription.getMedicationsByDoctor();
 
     try {
-      DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+      DbConnection one = new DB_Connection();
       Connection connection = one.createConnection();
       Statement statement = connection.createStatement();
       ResultSet resultSet1 = null;
@@ -50,7 +49,7 @@ public class PrescriptionDL implements IPrescriptionPersistence {
         resultSet2.next();
         int specificMedicationID = resultSet2.getInt("MedicationSpecificID");
 
-        resultSet3 = statement.executeQuery("SELECT id FROM CSCI5308_5_TEST.patient_info\n" +
+        resultSet3 = statement.executeQuery("SELECT id FROM patient_info\n" +
             "WHERE emailId='" + prescription.getPatientUserName() + "';");
         resultSet3.next();
         int patientID = resultSet3.getInt("id");
@@ -59,25 +58,26 @@ public class PrescriptionDL implements IPrescriptionPersistence {
             "VALUES (" + specificMedicationID + "," + patientID + ");");
       }
 
-      if (resultSet1 != null){
+      if (resultSet1 != null) {
         resultSet1.close();
       }
-      if (resultSet2 != null){
+      if (resultSet2 != null) {
         resultSet2.close();
       }
-      if (resultSet3 != null){
+      if (resultSet3 != null) {
         resultSet3.close();
       }
       statement.close();
       connection.close();
 
-    } catch (ClassNotFoundException | IOException | SQLException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   /**
    * This method is used for loading patient prescription
+   *
    * @return None
    * @Param prescription- interface for representing patient prescription
    */
@@ -87,7 +87,7 @@ public class PrescriptionDL implements IPrescriptionPersistence {
     String patientUserName = prescription.getPatientUserName();
 
     try {
-      DbConnection one = new DB_Connection("src/main/resources/config_test.properties");
+      DbConnection one = new DB_Connection();
       Connection connection = one.createConnection();
       Statement statement = connection.createStatement();
       ResultSet resultSet = statement.executeQuery(
@@ -115,7 +115,7 @@ public class PrescriptionDL implements IPrescriptionPersistence {
       statement.close();
       connection.close();
 
-    } catch (SQLException | IOException | ClassNotFoundException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
 

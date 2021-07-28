@@ -1,25 +1,20 @@
 package com.centrailized_medi_application;
 
 import org.junit.jupiter.api.*;
-
-import javax.print.Doc;
-import java.io.IOException;
-import java.sql.SQLException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class DoctorLoginTest {
-  String environment="src/main/resources/config_test.properties";
-  Doctor dr = new Doctor(new WelcomePage(), new DoctorPage("monisha@yahoo.com"), new DB_Connection("src/main/resources/config_test.properties"),new LoginAuthorisation());
+
+  Doctor dr = new Doctor(new WelcomePage(), new DoctorPage("monisha@yahoo.com"), new DB_Connection(),new LoginAuthorisation());
   DoctorLogin docLogin = new DoctorLogin(dr,new WelcomePage());
 
-  DoctorLoginTest() throws SQLException, IOException, ClassNotFoundException {
+  DoctorLoginTest() {
 
   }
 
   @Test
   @DisplayName("To get doctor username")
-  void getDoctorUsername() throws SQLException, IOException, ClassNotFoundException {
+  void getDoctorUsername() {
     docLogin.setDoctorName("docUsername@gmail.com");
     assertEquals("docUsername@gmail.com", docLogin.getDoctorName(), "doctor username getter fails");
   }
@@ -27,7 +22,7 @@ class DoctorLoginTest {
 
   @Test
   @DisplayName("To set doctor username")
-  void setDoctorUsername() throws SQLException, IOException, ClassNotFoundException {
+  void setDoctorUsername()  {
     docLogin.setDoctorName("docUsername@gmail.com");
     assertEquals("docUsername@gmail.com", docLogin.getDoctorName(), "doctor username setter fails");
   }
@@ -48,10 +43,10 @@ class DoctorLoginTest {
 
   @Test
   @DisplayName("To execute doctor login")
-  void execute() throws SQLException, IOException, ClassNotFoundException {
+  void execute() {
     String username="Kazi@gmail.com";
     String pass="k1234";
-    Doctor dr = new Doctor(new WelcomePage(), new DoctorPage(username), new DB_Connection(environment, username, pass), new LoginAuthorisation());
+    Doctor dr = new Doctor(new WelcomePage(), new DoctorPage(username), new DB_Connection(username,pass), new LoginAuthorisation());
     DoctorLogin docLogin = new DoctorLogin(dr,new WelcomePage());
     docLogin.setDoctorName(username);
     docLogin.setDoctorPassword(pass);

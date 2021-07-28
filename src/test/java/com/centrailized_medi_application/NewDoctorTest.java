@@ -1,10 +1,6 @@
 package com.centrailized_medi_application;
 
 import org.junit.jupiter.api.*;
-
-import java.io.IOException;
-import java.sql.SQLException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class NewDoctorTest {
@@ -35,7 +31,7 @@ class NewDoctorTest {
   @Disabled
   @Test
   @DisplayName("Should register doctor successfully")
-  void update() throws SQLException, IOException, ClassNotFoundException {
+  void update() {
     mockData(); //setup doctor details
     NewDoctor dr = new NewDoctor(bc,dd,sq, new WelcomePage());
     assertFalse(dr.getRegistrationStatus(), "unregistered doctor should be false");

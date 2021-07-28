@@ -4,36 +4,32 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class PatientSuggestionsTest {
   public static final String patientUserName = "Ridam@gmail.com";
-  String environment = "src/main/resources/config_test.properties";
+
 
   @Test
   @DisplayName("To get patient's user name")
-  void constructor() throws SQLException, IOException, ClassNotFoundException {
+  void constructor() {
     PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
     assertEquals(patientUserName, patientSuggestions.getPatientUserName());
   }
 
   @Test
   @DisplayName("To get patient's latitude and longitude")
-  void setLatLon() throws SQLException, IOException, ClassNotFoundException {
+  void setLatLon() {
     PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
     PatientSuggestionsDL patientSuggestionsDL = new PatientSuggestionsDL();
     patientSuggestions.getPatientLatLon(patientSuggestionsDL);
-
     assertEquals(50.11, patientSuggestions.getLatitude());
     assertEquals(5.28, patientSuggestions.getLongitude());
   }
 
   @Test
   @DisplayName("Check if suggested doctors list is correct")
-  void getSuggestedDoctors() throws SQLException, IOException, ClassNotFoundException {
+  void getSuggestedDoctors() {
     String expectedDoctorsList =
         "SUGGESTED DOCTORS\n" +
             "*******************************************\n" +
@@ -63,14 +59,12 @@ class PatientSuggestionsTest {
     patientSuggestions.getSuggestedDoctors(patientSuggestionsDL);
     String actualDoctorsList = PatientSuggestionsPL.viewSuggestedDoctors(patientSuggestions);
     assertEquals(expectedDoctorsList, actualDoctorsList);
-
   }
 
   @Disabled("Asks for user input")
   @Test
-  void rateDocter() throws SQLException, IOException, ClassNotFoundException {
+  void rateDocter() {
     PatientSuggestions patientSuggestions = new PatientSuggestions(patientUserName);
     assertTrue(patientSuggestions.rateDoctor(), "Incorrect result");
-
   }
 }

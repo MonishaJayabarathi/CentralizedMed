@@ -56,14 +56,12 @@ public class AddPatient {
       this.layer = DB_Layer.singleConnection();
       List<Object> resultState = layer.getCredStatus(patientUserName, null);
       this.credentials = (boolean[]) resultState.get(0);
-
       login_name = (ResultSet) resultState.get(1);
       login_pass = (ResultSet) resultState.get(2);
       res_check_for_doc = (ResultSet) resultState.get(3);
       p1 = (PreparedStatement) resultState.get(4);
       p2 = (PreparedStatement) resultState.get(5);
       check_for_doc = (PreparedStatement) resultState.get(6);
-
       login_name.close();
       if (login_pass != null) {
         login_pass.close();

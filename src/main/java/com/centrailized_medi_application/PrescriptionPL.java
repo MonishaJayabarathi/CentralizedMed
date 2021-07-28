@@ -11,10 +11,11 @@ public class PrescriptionPL {
 
   /**
    * This method is used for displaying the prescription to patient
+   *
    * @return None
    * @Param prescription- interface for representing patient prescription
    */
-  public static String displayPrescription(IPrescription prescription){
+  public static String displayPrescription(IPrescription prescription) {
     StringBuilder formattedPrescription = new StringBuilder();
     formattedPrescription.append("PRESCRIPTIONS\n");
 
@@ -77,10 +78,11 @@ public class PrescriptionPL {
 
   /**
    * This method is used for viewing that doctor needs to add different medications for patient
+   *
    * @return None
    * @Param prescription- interface for representing patient prescription
    */
-  public static void addPrescription(IPrescription prescription){
+  public static void addPrescription(IPrescription prescription) {
     ArrayList<ArrayList<String>> medications = new ArrayList<>();
 
     // ask doctor to input patient username
@@ -92,30 +94,58 @@ public class PrescriptionPL {
     System.out.println("Please enter medication details for the patient ");
     System.out.println("Type exit to stop adding medications.");
     String doctorInput;
-    while(true){
+    while (true) {
       Scanner inputMedicationDetails = new Scanner(System.in);
       ArrayList<String> individualMedication = new ArrayList<>();
       System.out.println("Brand Name : ");
       doctorInput = inputMedicationDetails.nextLine();
-      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      if (!doctorInput.equals("exit")) {
+        individualMedication.add(doctorInput);
+      } else {
+        break;
+      }
       System.out.println("Generic Name : ");
       doctorInput = inputMedicationDetails.nextLine();
-      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      if (!doctorInput.equals("exit")) {
+        individualMedication.add(doctorInput);
+      } else {
+        break;
+      }
       System.out.println("Route : ");
       doctorInput = inputMedicationDetails.nextLine();
-      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      if (!doctorInput.equals("exit")) {
+        individualMedication.add(doctorInput);
+      } else {
+        break;
+      }
       System.out.println("Strength : ");
       doctorInput = inputMedicationDetails.nextLine();
-      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      if (!doctorInput.equals("exit")) {
+        individualMedication.add(doctorInput);
+      } else {
+        break;
+      }
       System.out.println("Amount : ");
       doctorInput = inputMedicationDetails.nextLine();
-      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      if (!doctorInput.equals("exit")) {
+        individualMedication.add(doctorInput);
+      } else {
+        break;
+      }
       System.out.println("Frequency : ");
       doctorInput = inputMedicationDetails.nextLine();
-      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      if (!doctorInput.equals("exit")) {
+        individualMedication.add(doctorInput);
+      } else {
+        break;
+      }
       System.out.println("Time of Day : ");
       doctorInput = inputMedicationDetails.nextLine();
-      if (!doctorInput.equals("exit")){individualMedication.add(doctorInput);} else {break;}
+      if (!doctorInput.equals("exit")) {
+        individualMedication.add(doctorInput);
+      } else {
+        break;
+      }
       medications.add(individualMedication);
     }
 

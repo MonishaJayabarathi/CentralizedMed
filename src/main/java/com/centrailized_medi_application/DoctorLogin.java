@@ -1,7 +1,5 @@
 package com.centrailized_medi_application;/* com.centrailized_medi_application.Patient com.centrailized_medi_application.Login Implementation which implements from com.centrailized_medi_application.LoginCommand Interface*/
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -76,10 +74,6 @@ public class DoctorLogin extends LoginCommand {
 
   /**
    * This method executes the step by step actions required for logging in as a Doctor
-   *
-   * @throws SQLException
-   * @throws IOException
-   * @throws ClassNotFoundException
    */
   @Override
   public void execute(){
@@ -96,10 +90,6 @@ public class DoctorLogin extends LoginCommand {
    * This method gets user confirmation to submit or revert before we proceed to next step.
    * If user selects to login, it redirects to dashboard after validation
    * Else if user wants to cancel login, moves to the main dashboard
-   *
-   * @throws SQLException
-   * @throws IOException
-   * @throws ClassNotFoundException
    */
   @Override
   public void confirmation() {

@@ -4,8 +4,13 @@ import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
 
-//This class return all the family member details whose patient email id passed
-//Author:Neelay Goswami
+/**
+ * @author Neelay Jayantbharti Goswami
+ * @description :This class return all the family member details whose patient
+ * email id passed by the registered doctor in our system.
+ * This class has methods named getFamilyInfo() displayCurrentPatient()
+ * displayMembers()
+*/
 public class FamilyInfo {
   private ResultSet currentPatientDetails;
   private ResultSet familyDetails;
@@ -15,6 +20,12 @@ public class FamilyInfo {
   private PreparedStatement prepstmt2 = null;
   DB_Layer layer = null;
 
+  /**
+   * This method asks the patient email and on the basis of email
+   * patient family code is being fetched.
+   * @param email
+   * @return family code
+   */
   public String getFamilyInfo(String... email) {
     try {
       String patientEmail = "";
@@ -26,15 +37,11 @@ public class FamilyInfo {
       } else {
         patientEmail = email[0];
       }
-
       layer = DB_Layer.singleConnection();
       List<Object> resultState = layer.displayPatientInfo(patientEmail);
       this.currentPatientDetails = (ResultSet) resultState.get(0);
       prpStmt = (PreparedStatement) resultState.get(1);
-
       displayCurrentPatient();
-
-
       List<Object> resultState1 = layer.displayFamilyinfo(familyCode, patientEmail);
       this.familyDetails = (ResultSet) resultState1.get(0);
       prepstmt2 = (PreparedStatement) resultState1.get(1);
@@ -46,6 +53,10 @@ public class FamilyInfo {
     return familyCode;
   }
 
+  /**
+   * This method displays information related to patient whose email id is
+   * passed
+   */
   public void displayCurrentPatient() {
     try {
       if (this.currentPatientDetails.next()) {
@@ -65,7 +76,6 @@ public class FamilyInfo {
         System.out.println("Volunteer: " + this.currentPatientDetails.getString("volunteer"));
         System.out.println("*****************************************************************");
       }
-
       currentPatientDetails.close();
       prpStmt.close();
       layer.close();
@@ -74,6 +84,10 @@ public class FamilyInfo {
     }
   }
 
+  /**
+   * This method displays the family members of the patient who are registered
+   * in our system
+   */
   public void displayMembers() {
     try {
       int count = 1;
@@ -104,6 +118,4 @@ public class FamilyInfo {
       System.out.println("Family Info error" + e.getMessage());
     }
   }
-
-
 }

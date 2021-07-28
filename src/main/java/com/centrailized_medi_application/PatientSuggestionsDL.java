@@ -13,10 +13,11 @@ import java.util.ArrayList;
  * @author Kazi Hasan
  * @description: loads required information from database for suggesting required list of doctors
  */
-public class PatientSuggestionsDL implements ISuggestionsPersistence{
+public class PatientSuggestionsDL implements ISuggestionsPersistence {
 
   /**
    * This method is used for loading patient latitude and longitude from database
+   *
    * @return None
    * @Param patientSuggestions- interface for database layer
    */
@@ -25,10 +26,10 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
     String patientUserName = patientSuggestions.getPatientUserName();
 
     try {
-      DbConnection db_connection = new DB_Connection("src/main/resources/config_test.properties");
+      DbConnection db_connection = new DB_Connection();
       Connection connection = db_connection.createConnection();
       Statement statement = connection.createStatement();
-      ResultSet resultSet = statement.executeQuery("SELECT * FROM CSCI5308_5_TEST.patient_info\n" +
+      ResultSet resultSet = statement.executeQuery("SELECT * FROM patient_info\n" +
           "WHERE patient_info.emailID = '" + patientUserName + "';");
 
       while (resultSet.next()) {
@@ -39,7 +40,7 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
       resultSet.close();
       statement.close();
       connection.close();
-    } catch (SQLException | IOException | ClassNotFoundException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
 
@@ -48,6 +49,7 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
   /**
    * This method is used for retrieving a list of doctors ordered by their average rating
    * who are specialized in a field that is set by current patient and are in a radius of 10km
+   *
    * @return None
    * @Param patientSuggestions- interface to handle database operattions
    */
@@ -56,7 +58,7 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
     try {
       ArrayList<ArrayList<String>> doctorsList = new ArrayList<ArrayList<String>>();
 
-      DbConnection db_connection = new DB_Connection("src/main/resources/config_test.properties");
+      DbConnection db_connection = new DB_Connection();
       Connection connection = db_connection.createConnection();
 
       Statement statement = connection.createStatement();
@@ -88,13 +90,11 @@ public class PatientSuggestionsDL implements ISuggestionsPersistence{
 
       patientSuggestions.setDoctorsList(doctorsList);
 
-    } catch (SQLException | IOException | ClassNotFoundException throwables) {
-      throwables.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
   }
-
-
 
 
 }

@@ -11,10 +11,11 @@ public class PatientSuggestionsPL {
 
   /**
    * This method is used for viewing that patient needs to enter specialization
+   *
    * @return None
    * @Param patientSuggestions- interface representing patient suggestion class
    */
-  public static void setSpecializationByPatient(IPatientSuggestions patientSuggestions){
+  public static void setSpecializationByPatient(IPatientSuggestions patientSuggestions) {
     System.out.println("Please Enter the Doctor Specialization to search for: ");
     Scanner inputSpecialization = new Scanner(System.in);
     patientSuggestions.setSpecialization(inputSpecialization.nextLine());
@@ -22,6 +23,7 @@ public class PatientSuggestionsPL {
 
   /**
    * This method is used for viewing the suggested list of doctors
+   *
    * @return None
    * @Param patientSuggestions- interface representing patient suggestion class
    */

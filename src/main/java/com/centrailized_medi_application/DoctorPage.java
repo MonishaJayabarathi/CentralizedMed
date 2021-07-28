@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * @author Monisha J, Ridampreet Singh, Neelay Goswami
+ * @author Monisha J, Ridampreet Singh, Neelay Jayantbharti Goswami
  * @description : This program extends DoctorDashboard.
  * Holds abstract methods to define actual routing classes of tabs.
  * @params : int doctor_id : passed after successful login
@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class DoctorPage extends DoctorDashboard {
 
   protected String doctorUsername; //gives id of logged in doctor
-  private String environment = "src/main/resources/config_test.properties";
+
 
   /**
    * Constructor that maintains the username session of the doctor logged in
@@ -47,7 +47,7 @@ public class DoctorPage extends DoctorDashboard {
       newEntry.link_patient(patient_name);
       this.display();
     } catch (Exception e) {
-      System.out.println("ddd" + e);
+      System.out.println(e.getMessage());
     }
   }
 
@@ -58,15 +58,19 @@ public class DoctorPage extends DoctorDashboard {
   @Override
   public void display_pastConsultations() {
     try {
-      PastConsultations pastPatients = new PastConsultations(new DB_Connection(environment), this.doctorUsername);
+      PastConsultations pastPatients = new PastConsultations(new DB_Connection(), this.doctorUsername);
       System.out.println(pastPatients.getPreviousConsultations());
       this.display();
     } catch (Exception e) {
-      System.out.println("ddd" + e);
+      System.out.println(e.getMessage());
     }
   }
 
-  //gets the list of patients registered who have opted "YES" for donations.
+
+
+  /**
+   * Method gets a list of students who have agreed to donate the organs and other types of donation swhile registering.
+   */
   @Override
   public void display_donors() {
     try {
@@ -87,10 +91,14 @@ public class DoctorPage extends DoctorDashboard {
     }
   }
 
+  /**
+   * Method displays the family history of a patient
+   */
+
   @Override
   public void display_patient_family_history() {
-    FamilyInfo fi = new FamilyInfo();
-    fi.getFamilyInfo();
+    FamilyInfo family_info = new FamilyInfo();
+    family_info.getFamilyInfo();
     this.display();
 
   }
@@ -106,6 +114,9 @@ public class DoctorPage extends DoctorDashboard {
   }
 
   //Logs out the currently signed in user out of the portal
+  /**
+   * Logs the currently logged in user and redirects to the main dashboard of the application.
+   */
   @Override
   public void Logout() {
     System.out.println("User has been successfuly logged out !");

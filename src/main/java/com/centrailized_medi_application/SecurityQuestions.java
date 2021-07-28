@@ -3,7 +3,7 @@ package com.centrailized_medi_application;
 import java.util.Scanner;
 
 /**
- * @author Monisha J, Neelay
+ * @author Monisha J, Neelay Jayantbharti Goswami
  * @description : This program gets the answers for security question from the person trying to register or
  * trying to reset password. The class has getter and setter of the required variables holding security answers.
  */
@@ -62,7 +62,6 @@ public class SecurityQuestions implements Details {
       temp = sc.nextLine();
     }
     setAnswer2(temp);
-
     System.out.println("Your first bike:");
     temp = sc.nextLine();
     while (!validate.validateAlphanumeric(temp)) {
