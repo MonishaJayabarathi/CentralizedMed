@@ -3,25 +3,22 @@ package com.centrailized_medi_application;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.sql.SQLException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class PastConsultationsTest {
   public static final String doctorUsername = "key@gmail.com";
-  private String environment = "src/main/resources/config_test.properties";
   PastConsultations pastConsultations;
 
-  void constructor() throws SQLException, IOException, ClassNotFoundException {
-    pastConsultations = new PastConsultations(new DB_Connection(environment), doctorUsername);
+  void constructor() {
+    pastConsultations = new PastConsultations(new DB_Connection(), doctorUsername);
   }
 
   @Disabled("not working ")
   @Test
   @DisplayName("To see the past consultation list")
-  void getPreviousConsultations() throws SQLException, IOException, ClassNotFoundException {
+  void getPreviousConsultations()  {
     this.constructor();
     String result = "PAST CONSULTATIONS\n" +
         "*******************************************\n" +

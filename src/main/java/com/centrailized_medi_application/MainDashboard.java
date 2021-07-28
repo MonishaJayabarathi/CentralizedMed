@@ -1,27 +1,28 @@
 package com.centrailized_medi_application;
+
 /*Importing Modules*/
-import java.io.IOException;
-import java.sql.SQLException;
+
 import java.util.Scanner;
+
 /**
- * @author Aditya Jain & Monisha J
- * @description: MainDashboard is an abstract class which extends Dashboard
+ * @author Aditya Jain
+ * @description : MainDashboard is an abstract class which extends Dashboard
  * It contains function declaration such as displayPatientLogin(), displayPatientRegistration(),
  * displayDoctorRegistration(), displayDoctorLogin()
  */
 public abstract class MainDashboard extends Dashboard {
-  public abstract void displayPatientLogin() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void displayPatientLogin();
 
-  public abstract void displayDoctorLogin() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void displayDoctorLogin();
 
-  public abstract void displayDoctorRegistration() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void displayDoctorRegistration();
 
-  public abstract void displayPatientRegistration() throws SQLException, IOException, ClassNotFoundException;
+  public abstract void displayPatientRegistration();
 
   protected boolean flag = false;
   protected Scanner sc = new Scanner(System.in);
 
-  public void display() throws SQLException, IOException, ClassNotFoundException {
+  public void display() {
 
     System.out.println("\n*****Centralized Medi-Application*****\n");
     System.out.println("-----------Main Menu-------------");

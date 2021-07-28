@@ -2,15 +2,13 @@ package com.centrailized_medi_application;
 
 /*Importing Modules*/
 
-import java.io.IOException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 /**
- * @author Aditya Jain & RidamPreet Jaggi
+ * @author Aditya Jain & Ridampreet Singh
  * @description: This class implements the methods from abstract class Login.
  * fetch() - It sets username and password of a Patient
  * validate() - It checks the stored username and password against the database
@@ -30,13 +28,12 @@ public class Patient extends Login {
   private static DbConnection connect = null;               // Database interface
   private ILoginAuthorisation loginAuthorisation; // Password interface
   private static int localRetry = 0;          // Security Question counter
-
-  ResultSet login_name;
-  ResultSet login_pass;
-  ResultSet res_check_for_doc;
-  PreparedStatement p1;
-  PreparedStatement p2;
-  PreparedStatement check_for_doc;
+  ResultSet loginName;
+  ResultSet loginPass;
+  ResultSet resCheckForDoc;
+  PreparedStatement prepStatement1;
+  PreparedStatement prepStatement2;
+  PreparedStatement checkForDoc;
 
   /**
    * Constructor with PatientDashboard,MainDashboard,DbConnection,ILoginAuthorisation as input parameters
@@ -46,14 +43,18 @@ public class Patient extends Login {
    * @Param connection as DbConnection Interface
    * @Param localAuthorisation as ILoginAuthorisation Interface
    */
-  public Patient(MainDashboard dashboard, PatientDashboard patientMenu, DbConnection connection, ILoginAuthorisation localAuthorisation) throws SQLException {
-    this.dashboard = dashboard;
-    this.patientDashboard = patientMenu;
-    if (Patient.connect != null) {
-      connect.close();
+  public Patient(MainDashboard dashboard, PatientDashboard patientMenu, DbConnection connection, ILoginAuthorisation localAuthorisation) {
+    try {
+      this.dashboard = dashboard;
+      this.patientDashboard = patientMenu;
+      this.loginAuthorisation = localAuthorisation;
+      if (Patient.connect != null) {
+        connect.close();
+      }
+      connect = connection;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
-    connect = connection;
-    this.loginAuthorisation = localAuthorisation;
   }
 
   /**
@@ -127,39 +128,56 @@ public class Patient extends Login {
    * @Param void
    */
   @Override
-  protected void validate() throws SQLException, IOException, ClassNotFoundException {
-    List<Object> resultState = connect.getDetails();
+  protected void validate() {
+    try {
+      List<Object> resultState = connect.getDetails();
+      credentials = (boolean[]) resultState.get(0);
+      this.validId = credentials[0];
+      this.validPsswd = credentials[1];
+      closeResultSets(resultState);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      ;
+    }
+  }
 
-    credentials = (boolean[]) resultState.get(0);
-    this.validId = credentials[0];
-    this.validPsswd = credentials[1];
+  /**
+   * This method closes all the connections to the database.
+   *
+   * @return void
+   * @Param void
+   */
+  private void closeResultSets(List<Object> resultState) {
+    try {
+      loginName = (ResultSet) resultState.get(1);
+      loginPass = (ResultSet) resultState.get(2);
+      resCheckForDoc = (ResultSet) resultState.get(3);
+      prepStatement1 = (PreparedStatement) resultState.get(4);
+      prepStatement2 = (PreparedStatement) resultState.get(5);
+      checkForDoc = (PreparedStatement) resultState.get(6);
 
-    login_name = (ResultSet) resultState.get(1);
-    login_pass = (ResultSet) resultState.get(2);
-    res_check_for_doc = (ResultSet) resultState.get(3);
-    p1 = (PreparedStatement) resultState.get(4);
-    p2 = (PreparedStatement) resultState.get(5);
-    check_for_doc = (PreparedStatement) resultState.get(6);
-
-    if (login_name != null){
-      login_name.close();
+      if (loginName != null) {
+        loginName.close();
+      }
+      if (loginPass != null) {
+        loginPass.close();
+      }
+      if (checkForDoc != null) {
+        checkForDoc.close();
+      }
+      if (prepStatement1 != null) {
+        prepStatement1.close();
+      }
+      if (prepStatement2 != null) {
+        prepStatement2.close();
+      }
+      if (checkForDoc != null) {
+        checkForDoc.close();
+      }
+      connect.close();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
     }
-    if (login_pass != null) {
-      login_pass.close();
-    }
-    if (check_for_doc != null){
-      check_for_doc.close();
-    }
-    if (p1 != null){
-      p1.close();
-    }
-    if (p2 != null){
-      p2.close();
-    }
-    if (check_for_doc != null){
-      check_for_doc.close();
-    }
-    connect.close();
   }
 
   /**
@@ -174,27 +192,29 @@ public class Patient extends Login {
    * @Param void
    */
   @Override
-  protected void authenticate() throws SQLException, IOException, ClassNotFoundException {
-
-    authenticatePhase = true;
-    if (this.validId && this.validPsswd) // Valid Credentials
-    {
-      System.out.println("Welcome " + this.userName);
-      this.patientDashboard.display();
-    } else if (this.validId && !this.validPsswd) {  // Valid Username, Invalid Password
-      System.out.println("Check your credentials!");
-      localRetry++;
-      this.loginAuthorisation.set_Retry(localRetry);
-      if (localRetry != 3) {
-        this.dashboard.displayPatientLogin();
-      } else if (localRetry == 3) {
-        this.loginAuthorisation.getSecurityQuestion(userName);
+  protected void authenticate() {
+    try {
+      authenticatePhase = true;
+      if (this.validId && this.validPsswd) { // Valid Credentials
+        System.out.println("Welcome " + this.userName);
+        this.patientDashboard.display();
+      } else if (this.validId && !this.validPsswd) {  // Valid Username, Invalid Password
+        System.out.println("Check your credentials!");
+        localRetry++;
+        this.loginAuthorisation.set_Retry(localRetry);
+        if (localRetry != 3) {
+          this.dashboard.displayPatientLogin();
+        } else if (localRetry == 3) {
+          this.loginAuthorisation.getSecurityQuestion(userName);
+          dashboard.display();
+        }
+      } else {                                          // Patient is not registered to the system
+        System.out.println("Please register to the system!");
+        System.out.println("Navigating to main menu...");
         dashboard.display();
       }
-    } else {                                          // Patient is not registered to the system
-      System.out.println("Please register to the system!");
-      System.out.println("Navigating to main menu...");
-      dashboard.display();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }
 }

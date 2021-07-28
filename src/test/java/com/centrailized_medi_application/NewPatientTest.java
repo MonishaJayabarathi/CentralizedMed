@@ -3,7 +3,6 @@ package com.centrailized_medi_application;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -32,10 +31,8 @@ public class NewPatientTest {
         tempdetails.setDonorCardNo("NG06071999");
         tempdetails.setFamilyMemberCode("GG002218831");
         tempdetails.setVolunteer("yes");
-
         tempbasic.setLatitude(80);
         tempbasic.setLongitude(90);
-
         tempsecurity.setAnswer1("SG");
         tempsecurity.setAnswer2("SWIM");
         tempsecurity.setAnswer3("Honda");
@@ -43,11 +40,10 @@ public class NewPatientTest {
     @Disabled
     @Test
     @DisplayName("Patient Register successfully")
-    void update() throws SQLException, IOException, ClassNotFoundException {
+    void update() {
         NewPatientTestOne();
         NewPatient newone = new NewPatient(tempbasic,tempdetails,tempsecurity, new WelcomePage());
         assertEquals(true,newone.getRegistrationStatus(), "unregistered Patient would return false");
-
     }
 }
 

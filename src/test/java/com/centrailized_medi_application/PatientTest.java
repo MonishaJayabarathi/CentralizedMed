@@ -3,21 +3,16 @@ package com.centrailized_medi_application;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class PatientTest {
 
   // Fetch test case
-  String environment = "src/main/resources/config_test.properties";
-
   @Test
-  void fetch() throws SQLException, IOException, ClassNotFoundException {
+  void fetch() {
     String userName = "Aditya@hotmail.com";
     String password = "a1234";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(userName,password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(userName);
     p_login.setPatientPass(password);
@@ -29,10 +24,10 @@ class PatientTest {
 
   // Validation test case
   @Test
-  void validate() throws SQLException, IOException, ClassNotFoundException {
+  void validate() {
     String userName = "Aditya@hotmail.com";
     String password = "a1234";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(userName, password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(userName);
     p_login.setPatientPass(password);
@@ -46,10 +41,10 @@ class PatientTest {
   // Correct Id and pass
   @Disabled("authenticate->Calls user input after it succeeds,hence ignored")
   @Test
-  void authenticate() throws SQLException, IOException, ClassNotFoundException {
+  void authenticate()  {
     String userName = "Aditya@hotmail.com";
     String password = "a1234";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(userName,password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(userName);
     p_login.setPatientPass(password);
@@ -63,10 +58,10 @@ class PatientTest {
   // Incorrect Password but correct id
   @Disabled("authenticate_pass_incorrect_pass->Calls user input after it succeeds,hence ignored")
   @Test
-  void authenticate_pass_incorrect_pass() throws SQLException, IOException, ClassNotFoundException {
+  void authenticate_pass_incorrect_pass()  {
     String userName = "Aditya";
     String password = "a12";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(environment, userName, password), new LoginAuthorisation());
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(userName), new DB_Connection(userName,password), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(userName);
     p_login.setPatientPass(password);
@@ -79,10 +74,10 @@ class PatientTest {
   // Incorrect password and id
   @Disabled("authenticate_pass_invalid->Calls user input after it succeeds,hence ignored")
   @Test
-  void authenticate_pass_invalid() throws SQLException, IOException, ClassNotFoundException {
+  void authenticate_pass_invalid() {
     String user_name = "test";
     String password = "a12";
-    Patient patient = new Patient(new WelcomePage(), new PatientPage(user_name), new DB_Connection(environment, user_name, password), new LoginAuthorisation());
+    Patient patient = new Patient(new WelcomePage(), new PatientPage(user_name), new DB_Connection(), new LoginAuthorisation());
     PatientLogin p_login = new PatientLogin(patient, new WelcomePage());
     p_login.setPatientName(user_name);
     p_login.setPatientPass(password);

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author Aditya Jain & Ridampreet Singh
- * @description: This class implements the the feature of linking a patient with doctor's name.
+ * @description : This class implements the the feature of linking a patient with doctor's name.
  * Whenever a Patient visits the doctor, the doctor will add a patient (through his portal), which will record the
  * date and time of the consultation. The will later help the patient to rate the doctor as per their
  * experience.
@@ -39,7 +39,7 @@ public class AddPatient {
    * @Param connection as DbConnection Interface
    * @Param docName as doctor's username
    */
-  public AddPatient(String docName) throws SQLException, IOException, ClassNotFoundException {
+  public AddPatient(String docName) {
     doctorUserName = docName;
   }
 
@@ -50,41 +50,41 @@ public class AddPatient {
    * @return boolean
    * @Param patientName
    */
-  boolean patientPresence(String patientName) throws SQLException, IOException, ClassNotFoundException {
-    patientUserName = patientName;
-    this.layer = DB_Layer.singleConnection();
-    List<Object> resultState  = layer.getCredStatus(patientUserName,null);
-    this.credentials = (boolean[]) resultState.get(0);
+  boolean patientPresence(String patientName) {
+    try {
+      patientUserName = patientName;
+      this.layer = DB_Layer.singleConnection();
+      List<Object> resultState = layer.getCredStatus(patientUserName, null);
+      this.credentials = (boolean[]) resultState.get(0);
+      login_name = (ResultSet) resultState.get(1);
+      login_pass = (ResultSet) resultState.get(2);
+      res_check_for_doc = (ResultSet) resultState.get(3);
+      p1 = (PreparedStatement) resultState.get(4);
+      p2 = (PreparedStatement) resultState.get(5);
+      check_for_doc = (PreparedStatement) resultState.get(6);
+      login_name.close();
+      if (login_pass != null) {
+        login_pass.close();
+      }
+      if (res_check_for_doc != null) {
+        res_check_for_doc.close();
+      }
+      p1.close();
+      if (p2 != null) {
+        p2.close();
+      }
+      if (check_for_doc != null) {
+        check_for_doc.close();
+      }
+      layer.close();
 
-    login_name = (ResultSet) resultState.get(1);
-    login_pass = (ResultSet) resultState.get(2);
-    res_check_for_doc = (ResultSet) resultState.get(3);
-    p1 = (PreparedStatement) resultState.get(4);
-    p2 = (PreparedStatement) resultState.get(5);
-    check_for_doc = (PreparedStatement) resultState.get(6);
-
-    login_name.close();
-    if (login_pass != null){
-      login_pass.close();
+      if (credentials[0] != false) {
+        this.patientExist = true;
+      }
+    } catch (SQLException | IOException | ClassNotFoundException e) {
+      System.out.println("Add Patient error " + e.getMessage());
     }
-    if (res_check_for_doc != null){
-      res_check_for_doc.close();
-    }
-    p1.close();
-    if (p2 != null){
-      p2.close();
-    }
-    if (check_for_doc != null){
-      check_for_doc.close();
-    }
-    layer.close();
-
-    if (credentials[0] != false) {
-      this.patientExist = true;
-      return patientExist;
-    } else {
-      return patientExist;
-    }
+    return patientExist;
   }
 
   /**
@@ -94,21 +94,23 @@ public class AddPatient {
    * @return boolean
    * @Param patientName
    */
-  public boolean link_patient(String patient_name) throws SQLException, IOException, ClassNotFoundException {
-    DateTimeFormatter consultation_date = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    LocalDateTime current_time = LocalDateTime.now();
-    if (this.patientPresence(patient_name)) {
-      this.layer = DB_Layer.singleConnection();
-      layer.insertConsultations(doctorUserName, patientUserName, consultation_date, current_time);
-      System.out.println("Added Successfully!");
-      registered = true;
-      layer.close();
-      return registered;
-    } else {
-      System.out.println("Error Patient is not registered into the system!");
-      layer.close();
-      return registered;
+  public boolean link_patient(String patient_name) {
+    try {
+      DateTimeFormatter consultation_date = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+      LocalDateTime current_time = LocalDateTime.now();
+      if (this.patientPresence(patient_name)) {
+        this.layer = DB_Layer.singleConnection();
+        layer.insertConsultations(doctorUserName, patientUserName, consultation_date, current_time);
+        System.out.println("Added Successfully!");
+        registered = true;
+        layer.close();
+      } else {
+        System.out.println("Error Patient is not registered into the system!");
+        layer.close();
+      }
+    } catch (SQLException | IOException | ClassNotFoundException e) {
+      System.out.println("Add Patient error " + e.getMessage());
     }
-
+    return registered;
   }
 }

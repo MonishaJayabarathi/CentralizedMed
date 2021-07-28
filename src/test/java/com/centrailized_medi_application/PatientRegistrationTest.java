@@ -3,7 +3,6 @@ package com.centrailized_medi_application;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -32,10 +31,8 @@ public class PatientRegistrationTest {
         tempdetails.setDonorCardNo("SDFS00324");
         tempdetails.setFamilyMemberCode("2000");
         tempdetails.setVolunteer("yes");
-
         tempbasic.setLatitude(tempbasic.getRandomNumber(0,200));
         tempbasic.setLongitude(tempbasic.getRandomNumber(0,200));
-
         tempsecurity.setAnswer1("NEWYORK HIGHSCHOOL");
         tempsecurity.setAnswer2("FLYING");
         tempsecurity.setAnswer3("NONEED");
@@ -43,7 +40,7 @@ public class PatientRegistrationTest {
     @Disabled
     @Test
     @DisplayName("To execute doctor registration")
-    void execute() throws SQLException, IOException, ClassNotFoundException {
+    void execute() {
         RegistrationTest();
         NewPatient newone = new NewPatient(tempbasic,tempdetails,tempsecurity, new WelcomePage());
         PatientRegistration patienttest = new PatientRegistration(newone,new WelcomePage());

@@ -2,7 +2,6 @@ package com.centrailized_medi_application;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,8 +13,10 @@ import java.util.List;
  */
 public interface DbConnection {
 
-    public List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException;
-    public Connection createConnection();
-    public void close() throws SQLException;
+  List<Object> getDetails() throws SQLException, IOException, ClassNotFoundException;
+
+  Connection createConnection();
+
+  void close() throws SQLException;
 
 }
